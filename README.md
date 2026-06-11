@@ -1,6 +1,4 @@
-# speech_synthesis
-
-AI办公生态趋势观察
+# AI办公生态趋势观察
 
 ## 目录
 
