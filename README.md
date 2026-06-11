@@ -2,7 +2,7 @@
 
 ## 目录
 
-[AI办公生态趋势观察-Week 01 ](https://github.com/alin995/speech_synthesis/blob/main/TTS%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AF%AD%E9%9F%B3%E5%90%88%E6%88%90%EF%BC%88TTS%EF%BC%89%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89.md)
+[AI办公生态趋势观察-Week 01 ](https://github.com/alin995/Key-Insights/blob/534db6085e2b38f28ee362a81846ddd36a24e9d6/AI%E5%8A%9E%E5%85%AC%E7%94%9F%E6%80%81%E8%B6%8B%E5%8A%BF%E8%A7%82%E5%AF%9F-Week%2001.html)
 
 ***
 
