@@ -296,6 +296,15 @@ body {
     color: var(--sub);
     font-size: 12px;
     letter-spacing: 1px;
+    line-height: 2;
+}
+.author-tag {
+    color: var(--cyan);
+    font-weight: 600;
+    background: rgba(6, 182, 212, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 5px;
 }
 </style>
 </head>
@@ -331,24 +340,25 @@ body {
         <div class="card">
             <div class="card-title">本周核心结论</div>
             <div class="summary">
-                AI 办公行业正在加速从“知识问答阶段”向<span class="highlight">“交付工作结果的数字员工阶段”</span>演进 。企业客户的关注点已全面从“模型参数与打分”转向“复杂业务的实际执行率与 <span class="highlight">ROI</span>”。其核心标志是 <strong>Agent、统一语义层、企业级 MCP 协议和业务流（Workflow）</strong>的深度融合。
+                AI 办公行业正在加速从“知识问答阶段”向<span class="highlight">“交付工作结果的数字员工阶段”</span>演进。企业客户的关注点已全面从“模型参数与打分”转向“复杂业务的实际执行率与 <span class="highlight">ROI</span>”。其核心标志是 <strong>Agent、统一语义层、企业级 MCP 协议和业务流（Workflow）</strong>的深度融合。
                 <br><br>
-                以帆软 Dora 为代表的数据智能体平台，正通过解构传统 BI 的语义红利，推动 AI 从“辅助信息检索”升级为“具备强审计、可执行”的数字员工体系 。然而，<span class="warning-highlight">高质量数据资产的匮乏</span>与<span class="warning-highlight">跨系统操作的权限安全</span>仍是当前行业落地的主要卡点 。
+                以帆软 Dora 为代表的数据智能体平台，正通过解构传统 BI 的语义红利，推动 AI 从“辅助信息检索”升级为“具备强审计、可执行”的数字员工体系。然而，<span class="warning-highlight">高质量数据资产的匮乏</span>与<span class="warning-highlight">跨系统操作的权限安全</span>仍是当前行业落地的主要卡点。
             </div>
             
             <div class="callout">
                 <div class="callout-title">商业闭环观察 (ROI 衡量)</div>
-                <p style="color: #cbd5e1; font-size: 13.5px;">AI 办公的收费模式正迎来分水岭 ：逐步脱离传统的按 <strong>“Token/席位”</strong> 订阅计费，开始向按 <strong>“任务量/外包结果（Outcome-based）”</strong> 的结果型计费模式探路，企业正式将 AI 视为真实劳动力进行成本精算 。</p>
+                <p style="color: #cbd5e1; font-size: 13.5px;">AI 办公的收费模式正迎来分水岭：逐步脱离传统的按 <strong>“Token/席位”</strong> 订阅计费，开始向按 <strong>“任务量/外包结果（Outcome-based）”</strong> 的结果型计费模式探路，企业正式将 AI 视为真实劳动力进行成本精算。</p>
             </div>
         </div>
     </div>
 
     <div class="section">
         <div class="card">
-            <div class="card-title">本周重点观察：帆软 (FanRuan) —— 传统 BI 巨头 </div>
+            <div class="card-title">本周重点观察：帆软 (FanRuan) —— 传统 BI 巨头 / 生态守望者</div>
             
             <div class="tag-container">
                 <span class="tag vendor-tag">传统 BI 巨头</span>
+                <span class="tag vendor-tag">生态守望者</span>
                 <span class="tag">Data Agent</span>
                 <span class="tag">数字员工落地体系</span>
                 <span class="tag">MCP 协议</span>
@@ -377,7 +387,7 @@ body {
                 <div class="insight-box" style="grid-column: span 2; background: rgba(6, 182, 212, 0.02); border-color: rgba(6, 182, 212, 0.1);">
                     <div class="label" style="color: var(--green);">硬核技术路径支撑</div>
                     <div class="content" style="font-size: 13.5px;">
-                        • <strong>MCP协议连接能力：</strong>Dora 本质上是通过行业大热的 <i>Model Context Protocol</i>（模型上下文协议）降低了 Data Agent 读写企业异构数据库和 ERP/CRM 系统的门槛，打通了系统孤岛 。<br>
+                        • <strong>MCP协议连接能力：</strong>Dora 本质上是通过行业大热的 <i>Model Context Protocol</i>（模型上下文协议）降低了 Data Agent 读写企业异构数据库和 ERP/CRM 系统的门槛，打通了系统孤岛。<br>
                         • <strong>人机协同机制 (HITL)：</strong>在“分析 + 执行”闭环中内嵌了 Human-in-the-loop（人类在环确认）机制，在敏感和高危节点由人工审计，严防 AI 误操作导致企业资损。
                     </div>
                 </div>
@@ -401,27 +411,27 @@ body {
                 <tbody>
                     <tr>
                         <td class="stage-name">1. BI 阶段</td>
-                        <td>看报表 </td>
+                        <td>看报表</td>
                         <td>固定的 SQL 管道与静态看板</td>
                         <td>传统数据接入与大屏基础展示合作。</td>
                     </tr>
                     <tr>
-                        <td class="stage-name">2. ChatBI 阶段 </td>
+                        <td class="stage-name">2. ChatBI 阶段</td>
                         <td>问数据</td>
                         <td>Text-to-SQL + 大模型微调</td>
                         <td>提供通用的<strong>语义层（Semantic Layer）</strong>对齐与知识映射。</td>
                     </tr>
                     <tr>
-                        <td class="stage-name">3. Data Agent 阶段 </td>
+                        <td class="stage-name">3. Data Agent 阶段</td>
                         <td>分析数据</td>
-                        <td>思维链（CoT）+ 自动化数据清洗与归因 </td>
+                        <td>思维链（CoT）+ 自动化数据清洗与归因</td>
                         <td>沉淀并复用行业专属的指标体系与高价值 Prompt 资产。</td>
                     </tr>
                     <tr>
-                        <td class="stage-name" style="color: var(--green);">4. Digital Employee </td>
-                        <td style="color: #fff; font-weight: 600;">分析 + 执行 </td>
-                        <td><span style="color: var(--green);">MCP 协议 + 工具调用 + 工作流（Workflow）</span> </td>
-                        <td><strong>构建跨系统的 Agent 编排与安全审计底座 。</strong></td>
+                        <td class="stage-name" style="color: var(--green);">4. Digital Employee</td>
+                        <td style="color: #fff; font-weight: 600;">分析 + 执行</td>
+                        <td><span style="color: var(--green);">MCP 协议 + 工具调用 + 工作流（Workflow）</span></td>
+                        <td><strong>构建跨系统的 Agent 编排与安全审计底座。</strong></td>
                     </tr>
                 </tbody>
             </table>
@@ -434,9 +444,9 @@ body {
             <div class="strategy-box">
                 <ul class="strategy-list">
                     <li class="strategy-item"><strong>Agent能力将快速同质化，企业级连接能力将成为核心竞争壁垒：</strong>单纯的应用层组装不再具备排他性，底层连接权与数据翻译权是关键。</li>
-                    <li class="strategy-item"><strong>企业知识库将从“问答工具”升级为“数字员工的大脑”：</strong>知识库不仅要懂文档，更要实时同步企业动态指标体系 。</li>
+                    <li class="strategy-item"><strong>企业知识库将从“问答工具”升级为“数字员工的大脑”：</strong>知识库不仅要懂文档，更要实时同步企业动态指标体系。</li>
                     <li class="strategy-item" style="border: 1px dashed rgba(6, 182, 212, 0.3); padding: 12px 12px 12px 32px; background: rgba(6, 182, 212, 0.02); border-radius: 8px;">
-                        <strong>抢占“语义层与通用协议”生态标准（战略重中之重）：</strong>建议万象不仅关注上层 Agent 应用伙伴，更应<strong>向下布局统一的业务指标语义层及 MCP 协议底座</strong> 。Agent 能力易同质化，但谁掌握了企业数据的“翻译权”和系统的“连接权”，谁就掌握了生态的绝对壁垒 ]。
+                        <strong>抢占“语义层与通用协议”生态标准（战略重中之重）：</strong>建议万象不仅关注上层 Agent应用伙伴，更应<strong>向下布局统一的业务指标语义层及 MCP 协议底座</strong>。Agent 能力易同质化，但谁掌握了企业数据的“翻译权”和系统的“连接权”，谁就掌握了生态的绝对壁垒。
                     </li>
                     <li class="strategy-item"><strong>生态合作靶向：</strong>建议重点关注具备强审计底座的 Data Agent 平台、数字员工及无代码 Agent 编排平台等生态伙伴。</li>
                 </ul>
@@ -453,15 +463,17 @@ body {
                 <span class="tag">数据智能体</span>
                 <span class="tag">AI标书与合同审核</span>
                 <span class="tag">MCP生态体系</span>
-                <span class="tag new-track">AI 信任与安全审计 (AI Governance / Guardrails) 🌟 </span>
-                <span class="tag new-track">多模态空间办公 (Spatial AI Office) 🌟 </span>
-                <span class="tag new-track">无码化 Agent 编排平台 (No-code Agentic Workflow) 🌟 </span>
+                <span class="tag new-track">AI 信任与安全审计 (AI Governance / Guardrails) 🌟</span>
+                <span class="tag new-track">多模态空间办公 (Spatial AI Office) 🌟</span>
+                <span class="tag new-track">无码化 Agent 编排平台 (No-code Agentic Workflow) 🌟</span>
             </div>
         </div>
     </div>
 
     <div class="footer">
-        AI办公生态趋势库 · Week 01 · Internal System Draft · 2026
+        AI办公生态趋势库 · Week 01 · Internal System Draft · 2026 
+        <br>
+        Report compiled <span class="author-tag">by: wangwenlin</span>
     </div>
 
 </div>
