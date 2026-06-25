@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI办公生态趋势周报 Week 02</title>
+<style>
+:root {
+    --bg: #0a0f18;
+    --panel: rgba(17, 27, 46, 0.82);
+    --panel-strong: rgba(20, 34, 58, 0.94);
+    --line: rgba(255, 255, 255, 0.08);
+    --line-strong: rgba(148, 163, 184, 0.24);
+    --text: #f8fafc;
+    --muted: #94a3b8;
+    --soft: #cbd5e1;
+    --cyan: #22d3ee;
+    --blue: #60a5fa;
+    --green: #34d399;
+    --amber: #fbbf24;
+    --red: #fb7185;
+    --purple: #a78bfa;
+    --shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--text);
+    background:
+        linear-gradient(145deg, rgba(10, 15, 24, 0.98), rgba(8, 18, 32, 0.96) 42%, rgba(10, 17, 29, 1)),
+        var(--bg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.65;
+    padding: 44px 24px 56px;
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.header {
+    display: grid;
+    grid-template-columns: 1.4fr 0.6fr;
+    gap: 28px;
+    align-items: end;
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+}
+
+.eyebrow {
+    display: inline-flex;
+    gap: 10px;
+    align-items: center;
+    color: var(--cyan);
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.eyebrow::before {
+    content: "";
+    width: 34px;
+    height: 2px;
+    border-radius: 999px;
+    background: var(--cyan);
+}
+
+h1 {
+    margin: 0;
+    font-size: 40px;
+    line-height: 1.12;
+    letter-spacing: 0;
+}
+
+.subtitle {
+    margin: 14px 0 0;
+    color: var(--muted);
+    font-size: 15px;
+}
+
+.meta {
+    justify-self: end;
+    width: min(100%, 360px);
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 20px;
+    box-shadow: var(--shadow);
+}
+
+.meta-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 13px;
+    color: var(--soft);
+}
+
+.meta-row:last-child {
+    border-bottom: 0;
+}
+
+.meta-row span:first-child {
+    color: var(--muted);
+}
+
+.metric-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.metric {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 20px;
+}
+
+.metric-value {
+    font-size: 30px;
+    line-height: 1;
+    font-weight: 800;
+    color: var(--cyan);
+    margin-bottom: 8px;
+}
+
+.metric-label {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.section {
+    margin-top: 18px;
+}
+
+.card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 26px;
+    box-shadow: var(--shadow);
+}
+
+.card + .card {
+    margin-top: 18px;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 18px;
+    font-size: 22px;
+    line-height: 1.3;
+}
+
+.section-title::before {
+    content: "";
+    flex: 0 0 4px;
+    width: 4px;
+    height: 20px;
+    border-radius: 999px;
+    background: var(--cyan);
+}
+
+.lead {
+    margin: 0;
+    font-size: 17px;
+    color: #e2e8f0;
+}
+
+.highlight {
+    color: var(--cyan);
+    font-weight: 700;
+}
+
+.warn {
+    color: var(--amber);
+    font-weight: 700;
+}
+
+.tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0 0;
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 5px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(34, 211, 238, 0.25);
+    background: rgba(34, 211, 238, 0.07);
+    color: #e0f2fe;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.tag.amber {
+    border-color: rgba(251, 191, 36, 0.3);
+    background: rgba(251, 191, 36, 0.08);
+    color: #fde68a;
+}
+
+.tag.green {
+    border-color: rgba(52, 211, 153, 0.3);
+    background: rgba(52, 211, 153, 0.08);
+    color: #bbf7d0;
+}
+
+.tag.purple {
+    border-color: rgba(167, 139, 250, 0.3);
+    background: rgba(167, 139, 250, 0.08);
+    color: #ddd6fe;
+}
+
+.two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.three-col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.mini-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 20px;
+}
+
+.mini-title {
+    margin: 0 0 10px;
+    font-size: 16px;
+    color: #ffffff;
+}
+
+.mini-body {
+    margin: 0;
+    color: var(--soft);
+    font-size: 14px;
+}
+
+.signal {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 18px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.signal:last-child {
+    border-bottom: 0;
+}
+
+.signal-label {
+    color: var(--cyan);
+    font-weight: 700;
+}
+
+.signal-text {
+    color: var(--soft);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+th {
+    text-align: left;
+    padding: 13px 14px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    border-bottom: 1px solid var(--line-strong);
+}
+
+td {
+    padding: 14px;
+    color: var(--soft);
+    vertical-align: top;
+    border-bottom: 1px solid var(--line);
+}
+
+tr:last-child td {
+    border-bottom: 0;
+}
+
+.stage {
+    color: var(--cyan);
+    font-weight: 700;
+}
+
+.status {
+    display: inline-flex;
+    padding: 4px 9px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 700;
+    border: 1px solid var(--line-strong);
+}
+
+.status.ok {
+    color: #bbf7d0;
+    background: rgba(52, 211, 153, 0.1);
+    border-color: rgba(52, 211, 153, 0.28);
+}
+
+.status.watch {
+    color: #fde68a;
+    background: rgba(251, 191, 36, 0.1);
+    border-color: rgba(251, 191, 36, 0.28);
+}
+
+.status.pause {
+    color: #fecdd3;
+    background: rgba(251, 113, 133, 0.1);
+    border-color: rgba(251, 113, 133, 0.28);
+}
+
+.roadmap {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.roadmap-step {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.025);
+    border-right: 1px solid var(--line);
+}
+
+.roadmap-step:last-child {
+    border-right: 0;
+}
+
+.roadmap-step h3 {
+    margin: 0 0 8px;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.roadmap-step p {
+    margin: 0;
+    color: var(--soft);
+    font-size: 14px;
+}
+
+.footer {
+    margin-top: 34px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 12px;
+    text-align: center;
+}
+
+@media (max-width: 980px) {
+    .header,
+    .two-col,
+    .three-col,
+    .roadmap {
+        grid-template-columns: 1fr;
+    }
+
+    .meta {
+        justify-self: stretch;
+    }
+
+    .metric-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .signal {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+}
+
+@media (max-width: 640px) {
+    body {
+        padding: 28px 14px 42px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    .metric-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <div>
+            <div class="eyebrow">Wanxiang Ecosystem Radar</div>
+            <h1>AI办公生态趋势周报</h1>
+            <p class="subtitle">Week 02 ｜万象生态观察库-AI+招投标应用场景生态观察｜ 2026 INTERNAL DRAFT</p>
+        </div>
+        <div class="meta">
+            <div class="meta-row"><span>观察主题</span><strong>AI+招投标</strong></div>
+            <div class="meta-row"><span>政策背景</span><strong>195号文件</strong></div>
+            <div class="meta-row"><span>核心视角</span><strong>招标侧 / 投标侧 / 监管侧</strong></div>
+            <div class="meta-row"><span>生成日期</span><strong>2026-06-25</strong></div>
+        </div>
+    </header>
+
+    <section class="metric-grid">
+        <div class="metric">
+            <div class="metric-value">03</div>
+            <div class="metric-label">角色方向拆分</div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">02</div>
+            <div class="metric-label">已接入投标侧应用</div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">04</div>
+            <div class="metric-label">核心趋势判断</div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">01</div>
+            <div class="metric-label">长期战略观察方向</div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="card">
+            <h2 class="section-title">本周核心结论</h2>
+            <p class="lead">
+                195号文件推动招投标场景从传统电子化、流程线上化，进一步进入<span class="highlight">智能合规、风险预警与监管穿透</span>阶段。但从本周生态调研看，AI招投标并不是一个单一应用赛道，而是按用户角色拆成三套逻辑：<span class="highlight">投标侧最容易短期落地，招标侧能力多嵌在大型平台，监管侧政策价值最高但接入难度最大</span>。
+            </p>
+            <div class="tag-row">
+                <span class="tag green">短期入口：投标侧</span>
+                <span class="tag amber">谨慎接入：招标侧</span>
+                <span class="tag purple">长期观察：监管侧</span>
+                <span class="tag">私有化部署</span>
+                <span class="tag">信创适配</span>
+                <span class="tag">GraphRAG</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="three-col">
+            <div class="mini-card">
+                <h3 class="mini-title">招标侧</h3>
+                <p class="mini-body">面向招标人、采购方、招标代理，核心在招标文件编制、合规检测、招标策划与供应商画像。当前优质能力多嵌在大型招采平台中，适合找可拆分的垂直模块。</p>
+            </div>
+            <div class="mini-card">
+                <h3 class="mini-title">投标侧</h3>
+                <p class="mini-body">面向投标人和供应商，核心在标书解析、标书编制、合规自查、废标预警和报价测算。当前喜鹊标书AI、巧文书AI已确认接入，可作为投标侧短期落地入口。</p>
+            </div>
+            <div class="mini-card">
+                <h3 class="mini-title">监管侧</h3>
+                <p class="mini-body">面向公共资源交易中心和监管部门，核心在围串标识别、智能评标、现场AI管控和专家抽取。依赖政务数据、知识图谱、GraphRAG和本地化交付。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="card">
+            <h2 class="section-title">三条核心洞察</h2>
+            <div class="signal">
+                <div class="signal-label">洞察 01</div>
+                <div class="signal-text">
+                    <strong>AI招投标需要按角色拆解，而不是按“招投标”笼统建库。</strong>
+                    招标侧、投标侧、监管侧的用户、场景、预算、部署要求、合作方式差异很大。后续生态库应继续按角色维度维护，避免把轻量投标工具和重型监管平台放在同一个评价口径里。
+                </div>
+            </div>
+            <div class="signal">
+                <div class="signal-label">洞察 02</div>
+                <div class="signal-text">
+                    <strong>投标侧最适合成为万象短期商业化入口。</strong>
+                    投标侧痛点更标准，标书解析、标书生成、合规自查、废标预警等能力可较快产品化，也更适合作为应用中心补充。本周喜鹊标书AI、巧文书AI已确认接入，后续重点应从“能不能接”转向“接入后能否沉淀企业投标知识库、历史素材库和规则库”。
+                </div>
+            </div>
+            <div class="signal">
+                <div class="signal-label">洞察 03</div>
+                <div class="signal-text">
+                    <strong>监管侧代表长期价值，但不是当前轻应用接入逻辑。</strong>
+                    围串标识别、智能评标、交易见证等方向需要政务数据、知识图谱、GraphRAG、算法可解释性和本地化交付能力。短期不建议强行接入，适合建立长期观察清单。
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="two-col">
+            <div class="card">
+                <h2 class="section-title">伙伴分层判断</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>伙伴/产品</th>
+                            <th>当前定位</th>
+                            <th>建议</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>喜鹊标书AI</td>
+                            <td>投标侧工具型应用</td>
+                            <td><span class="status ok">已确认接入</span></td>
+                        </tr>
+                        <tr>
+                            <td>巧文书AI</td>
+                            <td>投标侧工具型应用</td>
+                            <td><span class="status ok">已确认接入</span></td>
+                        </tr>
+                        <tr>
+                            <td>筑龙信息</td>
+                            <td>招标/投标侧候选</td>
+                            <td><span class="status watch">待跟进</span></td>
+                        </tr>
+                        <tr>
+                            <td>知也云</td>
+                            <td>轻量化招标辅助应用候选</td>
+                            <td><span class="status ok">准备接入</span></td>
+                        </tr>
+                        <tr>
+                            <td>大型综合招采平台</td>
+                            <td>完整平台集成AI能力</td>
+                            <td><span class="status pause">过重暂不考虑</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card">
+                <h2 class="section-title">未入选原因</h2>
+                <div class="signal">
+                    <div class="signal-label">平台过重</div>
+                    <div class="signal-text">部分厂商以完整招采、采购或公共资源交易平台为主，AI能力只是平台内功能点，接入和交付边界较重，暂不适合作为万象应用中心的轻量接入对象。</div>
+                </div>
+                <div class="signal">
+                    <div class="signal-label">开放不明</div>
+                    <div class="signal-text">部分能力未明确披露私有化部署、API/SDK、信创适配、独立模块拆分等信息，需要后续沟通确认。</div>
+                </div>
+                <div class="signal">
+                    <div class="signal-label">交付偏重</div>
+                    <div class="signal-text">监管侧产品更像政务交付项目，依赖数据、流程和现场系统，短期不适合作为标准产品集成候选。</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="card">
+            <h2 class="section-title">对万象平台的建议</h2>
+            <p class="lead">
+                短期建议万象以<span class="highlight">投标侧工具型应用</span>作为AI招投标落地入口，基于已接入的喜鹊标书AI、巧文书AI观察真实使用效果与扩展空间；招标侧可优先推进相对轻量的知也云，并继续跟进筑龙信息；大型综合招采平台因平台边界和交付形态较重，现阶段暂不考虑接入；中长期围绕OCR文档理解、合规规则库、企业投标素材库、标书知识库等能力做平台沉淀，并将监管侧作为<span class="warn">政策驱动型战略观察方向</span>持续跟踪。
+            </p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="card">
+            <h2 class="section-title">洞察库沉淀</h2>
+            <p class="lead">
+                AI+招投标的机会不在于简单把大模型套进招采流程，而在于按招标、投标、监管三类角色重构能力分层：投标侧适合短期应用接入，招标侧需要寻找可拆分模块，监管侧则代表长期政策驱动和平台级能力建设方向。
+            </p>
+        </div>
+    </section>
+
+    <div class="footer">
+        AI办公生态趋势库 · Week 02 · Internal System Draft · 2026<br>
+        Report compiled by: wangwenlin
+    </div>
+</div>
+</body>
+</html>
