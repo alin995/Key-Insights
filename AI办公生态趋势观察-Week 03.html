@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI办公生态趋势周报 Week 03</title>
+<style>
+:root {
+    --bg: #07111f;
+    --panel: rgba(15, 25, 43, 0.86);
+    --panel-hover: rgba(24, 40, 68, 0.92);
+    --panel-strong: rgba(19, 33, 56, 0.96);
+    --line: rgba(255, 255, 255, 0.09);
+    --line-strong: rgba(148, 163, 184, 0.25);
+    --text: #f8fafc;
+    --soft: #cbd5e1;
+    --muted: #94a3b8;
+    --cyan: #22d3ee;
+    --blue: #60a5fa;
+    --green: #34d399;
+    --amber: #fbbf24;
+    --red: #fb7185;
+    --violet: #a78bfa;
+    --glow: rgba(34, 211, 238, 0.16);
+    --shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    margin: 0;
+    min-height: 100vh;
+    color: var(--text);
+    background:
+        radial-gradient(circle at 82% 8%, rgba(96, 165, 250, 0.18) 0%, transparent 36%),
+        radial-gradient(circle at 18% 78%, rgba(34, 211, 238, 0.12) 0%, transparent 34%),
+        radial-gradient(circle at 58% 38%, rgba(52, 211, 153, 0.06) 0%, transparent 32%),
+        linear-gradient(145deg, rgba(7, 17, 31, 0.98), rgba(8, 24, 38, 0.96) 48%, rgba(9, 14, 26, 1)),
+        var(--bg);
+    background-attachment: fixed;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.68;
+    padding: 44px 24px 60px;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.28;
+    background-image:
+        radial-gradient(circle, rgba(226, 232, 240, 0.42) 0 1px, transparent 1.4px),
+        radial-gradient(circle, rgba(34, 211, 238, 0.35) 0 1px, transparent 1.5px);
+    background-size: 42px 42px, 78px 78px;
+    background-position: 0 0, 18px 24px;
+    animation: particle-drift 34s linear infinite;
+}
+
+@keyframes particle-drift {
+    from {
+        background-position: 0 0, 18px 24px;
+    }
+    to {
+        background-position: 84px 126px, 96px 180px;
+    }
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.header {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.55fr);
+    gap: 28px;
+    align-items: end;
+    margin-bottom: 26px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+}
+
+.header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 132px;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--cyan), var(--blue));
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--cyan);
+    font-size: 13px;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.eyebrow::before {
+    content: "";
+    width: 34px;
+    height: 2px;
+    border-radius: 999px;
+    background: var(--cyan);
+}
+
+h1 {
+    margin: 0;
+    font-size: 40px;
+    line-height: 1.12;
+    letter-spacing: 0;
+    background: linear-gradient(135deg, #ffffff 0%, #bae6fd 42%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.subtitle {
+    margin: 14px 0 0;
+    color: var(--muted);
+    font-size: 15px;
+}
+
+.meta {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 20px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(16px);
+    transition: border-color 0.28s ease, box-shadow 0.28s ease, transform 0.28s ease, background 0.28s ease;
+}
+
+.meta:hover {
+    background: var(--panel-hover);
+    border-color: rgba(34, 211, 238, 0.28);
+    box-shadow: 0 0 24px var(--glow), var(--shadow);
+    transform: translateY(-2px);
+}
+
+.meta-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 13px;
+    color: var(--soft);
+}
+
+.meta-row:last-child {
+    border-bottom: 0;
+}
+
+.meta-row span:first-child {
+    color: var(--muted);
+}
+
+.metric-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.metric {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 20px;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
+    backdrop-filter: blur(16px);
+    transition: border-color 0.28s ease, box-shadow 0.28s ease, transform 0.28s ease, background 0.28s ease;
+}
+
+.metric:hover {
+    background: var(--panel-hover);
+    border-color: rgba(34, 211, 238, 0.3);
+    box-shadow: 0 0 20px var(--glow), 0 18px 54px rgba(0, 0, 0, 0.22);
+    transform: translateY(-3px);
+}
+
+.metric-value {
+    font-size: 30px;
+    line-height: 1;
+    font-weight: 800;
+    color: var(--cyan);
+    margin-bottom: 8px;
+    font-family: Consolas, "SFMono-Regular", Menlo, Monaco, monospace;
+}
+
+.metric-label {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.section {
+    margin-top: 18px;
+}
+
+.card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 26px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(16px);
+    transition: border-color 0.28s ease, box-shadow 0.28s ease, transform 0.28s ease, background 0.28s ease;
+}
+
+.card:hover {
+    background: var(--panel-hover);
+    border-color: rgba(255, 255, 255, 0.14);
+    box-shadow: 0 0 22px rgba(34, 211, 238, 0.08), var(--shadow);
+    transform: translateY(-2px);
+}
+
+.card + .card {
+    margin-top: 18px;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 18px;
+    font-size: 22px;
+    line-height: 1.3;
+}
+
+.section-title::before {
+    content: "";
+    flex: 0 0 4px;
+    width: 4px;
+    height: 20px;
+    border-radius: 999px;
+    background: var(--cyan);
+}
+
+.lead {
+    margin: 0;
+    font-size: 17px;
+    color: #e2e8f0;
+}
+
+.highlight {
+    color: var(--cyan);
+    font-weight: 700;
+    border-bottom: 1px dashed rgba(34, 211, 238, 0.7);
+    padding-bottom: 2px;
+}
+
+.warn {
+    color: var(--amber);
+    font-weight: 700;
+}
+
+.tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0 0;
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 5px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(34, 211, 238, 0.25);
+    background: rgba(34, 211, 238, 0.07);
+    color: #e0f2fe;
+    font-size: 12px;
+    white-space: nowrap;
+    transition: border-color 0.24s ease, background 0.24s ease, transform 0.24s ease;
+}
+
+.tag:hover {
+    border-color: rgba(34, 211, 238, 0.45);
+    background: rgba(34, 211, 238, 0.12);
+    transform: translateY(-1px);
+}
+
+.tag.green {
+    border-color: rgba(52, 211, 153, 0.28);
+    background: rgba(52, 211, 153, 0.08);
+    color: #bbf7d0;
+}
+
+.tag.amber {
+    border-color: rgba(251, 191, 36, 0.28);
+    background: rgba(251, 191, 36, 0.08);
+    color: #fde68a;
+}
+
+.tag.violet {
+    border-color: rgba(167, 139, 250, 0.28);
+    background: rgba(167, 139, 250, 0.08);
+    color: #ddd6fe;
+}
+
+.two-col {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.three-col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.mini-card {
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px;
+    transition: border-color 0.26s ease, background 0.26s ease, transform 0.26s ease;
+}
+
+.mini-card:hover {
+    background: rgba(255, 255, 255, 0.055);
+    border-color: rgba(34, 211, 238, 0.22);
+    transform: translateY(-2px);
+}
+
+.mini-card h3 {
+    margin: 0 0 10px;
+    color: #f8fafc;
+    font-size: 17px;
+}
+
+.mini-card p {
+    margin: 0;
+    color: var(--soft);
+    font-size: 14px;
+}
+
+.list {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.list li {
+    position: relative;
+    padding-left: 18px;
+    color: var(--soft);
+    font-size: 15px;
+}
+
+.list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--cyan);
+}
+
+.scene-table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+}
+
+.scene-table th,
+.scene-table td {
+    border-bottom: 1px solid var(--line);
+    padding: 14px 16px;
+    vertical-align: top;
+    text-align: left;
+    font-size: 14px;
+}
+
+.scene-table th {
+    color: #e0f2fe;
+    background: rgba(34, 211, 238, 0.08);
+    font-weight: 700;
+}
+
+.scene-table tr:last-child td {
+    border-bottom: 0;
+}
+
+.scene-table td {
+    color: var(--soft);
+}
+
+.scene-table tbody tr {
+    transition: background 0.22s ease;
+}
+
+.scene-table tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.quote {
+    border-left: 4px solid var(--cyan);
+    background: linear-gradient(135deg, rgba(34, 211, 238, 0.08), rgba(96, 165, 250, 0.045));
+    border-radius: 0 12px 12px 0;
+    padding: 18px 20px;
+    color: #e2e8f0;
+    font-size: 17px;
+}
+
+.footer {
+    margin-top: 24px;
+    color: var(--muted);
+    font-size: 12px;
+    text-align: center;
+}
+
+.footer div + div {
+    margin-top: 4px;
+}
+
+a {
+    color: #7dd3fc;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 920px) {
+    body {
+        padding: 28px 16px 42px;
+    }
+
+    .header,
+    .two-col,
+    .three-col,
+    .metric-grid {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    .card {
+        padding: 20px;
+    }
+}
+</style>
+</head>
+<body>
+<main class="container">
+    <header class="header">
+        <div>
+            <div class="eyebrow">Wanxiang Ecosystem Radar</div>
+            <h1>AI办公生态趋势观察</h1>
+            <p class="subtitle">Week 03 ｜万象生态观察库-企业AI数字员工与办公智能化生态观察｜ 2026 INTERNAL DRAFT</p>
+        </div>
+        <aside class="meta">
+            <div class="meta-row"><span>观察周期</span><strong>2026.06.26 - 2026.07.02</strong></div>
+            <div class="meta-row"><span>报告主题</span><strong>数字员工平台化</strong></div>
+            <div class="meta-row"><span>覆盖场景</span><strong>合同 / 招投标 / 数字人 / 数据分析</strong></div>
+            <div class="meta-row"><span>报告状态</span><strong>本周洞察稿</strong></div>
+        </aside>
+    </header>
+
+    <section class="metric-grid">
+        <div class="metric">
+            <div class="metric-value">1</div>
+            <div class="metric-label">条主线：从工具到数字员工</div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">5</div>
+            <div class="metric-label">个重点场景进入流程化阶段</div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">4</div>
+            <div class="metric-label">项平台能力成为企业落地关键</div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">Next</div>
+            <div class="metric-label">竞争焦点转向治理与编排</div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="card">
+            <h2 class="section-title">本周核心判断</h2>
+            <p class="lead">
+                企业 AI 应用的关注点正在从“能不能生成内容”，转向<span class="highlight">能不能进入流程、承担任务、被组织安全管理</span>。合同审核、招投标、数字人、数据分析、文档审核、AI PPT 和文本生成等方向，表面上是不同应用，底层正在收敛为同一种企业能力：让 AI 进入真实业务流程，读取企业材料，完成专业判断，生成可交付结果，并在关键节点接受人的确认与平台治理。
+            </p>
+            <div class="tag-row">
+                <span class="tag">数字员工</span>
+                <span class="tag green">流程闭环</span>
+                <span class="tag amber">风险可控</span>
+                <span class="tag violet">组织治理</span>
+                <span class="tag">技能编排</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section two-col">
+        <div class="card">
+            <h2 class="section-title">行业正在发生什么</h2>
+            <ul class="list">
+                <li>通用文本生成、摘要、改写、PPT 生成等能力正在基础设施化，单点工具差异化变弱。</li>
+                <li>企业更关注 AI 是否能接入合同、投标、分析、报告等真实工作流，并交付可复核结果。</li>
+                <li>高频文档型场景率先成熟，因为输入材料明确、流程成熟、结果可检查、人工重复度高。</li>
+                <li>数字人从展示型形象向企业服务入口演进，背后需要知识、权限、内容边界和人工接管。</li>
+                <li>企业级 AI 的核心问题从“有没有模型”变成“谁能授权、如何调用、怎样审计”。</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h2 class="section-title">为什么会这样发展</h2>
+            <ul class="list">
+                <li>模型能力提升后，生成能力本身不再稀缺，应用价值必须向业务流程和组织知识迁移。</li>
+                <li>合同、招投标、经营数据、对外内容等场景风险更高，企业需要权限、审批和留痕。</li>
+                <li>AI 从问答助手变成任务执行者后，需要技能管理、任务拆解、卡片确认和状态治理。</li>
+                <li>合规要求持续加强，推动企业从分散试用转向统一平台接入和统一治理。</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="card">
+            <h2 class="section-title">重点场景观察</h2>
+            <table class="scene-table">
+                <thead>
+                    <tr>
+                        <th>场景</th>
+                        <th>正在从哪里来</th>
+                        <th>正在往哪里去</th>
+                        <th>关键价值</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>合同审核</strong></td>
+                        <td>条款抽取、文本总结、模板比对</td>
+                        <td>风险识别、修改建议、人工确认、审核留痕</td>
+                        <td>降低漏审、误审和条款风险，提高法务与业务协同效率</td>
+                    </tr>
+                    <tr>
+                        <td><strong>招投标</strong></td>
+                        <td>辅助写标书、生成章节内容</td>
+                        <td>拆标、响应矩阵、偏离表、材料清单、完整性检查</td>
+                        <td>减少响应遗漏，提高投标材料一致性和交付速度</td>
+                    </tr>
+                    <tr>
+                        <td><strong>数字人</strong></td>
+                        <td>形象展示、直播讲解、基础客服</td>
+                        <td>合规交互入口、企业知识接入、身份标识、人工接管</td>
+                        <td>让企业服务更具表达力，同时保证边界清晰和内容可控</td>
+                    </tr>
+                    <tr>
+                        <td><strong>数据分析</strong></td>
+                        <td>问数、画图、生成报表</td>
+                        <td>解释变化、发现异常、生成经营周报、提出动作建议</td>
+                        <td>把数据从“看见”推进到“理解”和“行动”</td>
+                    </tr>
+                    <tr>
+                        <td><strong>文档审核 / AI PPT / 文本生成</strong></td>
+                        <td>独立办公工具</td>
+                        <td>数字员工可调用的基础技能</td>
+                        <td>成为合同、投标、分析、汇报等复杂任务的通用能力组件</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="card">
+            <h2 class="section-title">从应用到平台：数字员工成为新的组织接口</h2>
+            <div class="three-col">
+                <div class="mini-card">
+                    <h3>个人助理</h3>
+                    <p>面向个人效率，承担通用问答、文件处理、跨技能编排和日常办公任务。</p>
+                </div>
+                <div class="mini-card">
+                    <h3>数字员工</h3>
+                    <p>面向垂直业务场景，承担合同、投标、数据分析、知识问答等持续性专业任务。</p>
+                </div>
+                <div class="mini-card">
+                    <h3>技能治理</h3>
+                    <p>面向组织管理，负责技能注册、授权、风险声明、上下线、调用和审计追溯。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section two-col">
+        <div class="card">
+            <h2 class="section-title">平台启示</h2>
+            <ul class="list">
+                <li><span class="highlight">能力编排</span>：让不同技能服务于一个完整任务，而不是停留在孤立工具。</li>
+                <li><span class="highlight">组织治理</span>：通过部门、角色、用户激活和能力上下线管理 AI 使用范围。</li>
+                <li><span class="highlight">风险控制</span>：对敏感操作、文件读写、外部系统调用和对外内容生成进行确认。</li>
+                <li><span class="highlight">审计追溯</span>：记录关键行为、调用过程和结果确认，让企业敢于把 AI 放进真实业务。</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h2 class="section-title">可对外表达的观点</h2>
+            <div class="quote">
+                企业正在从采购 AI 工具，转向建设 AI 劳动力管理体系。每个员工需要一个个人助理，每个业务场景需要一个数字员工，每项能力需要被注册、授权、调用和审计。
+            </div>
+            <p class="lead" style="margin-top: 16px; font-size: 15px;">
+                因此，平台的价值不只是“提供更多 AI 应用”，而是帮助企业把 AI 安全、可控、规模化地放进真实业务流程。
+            </p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="card">
+            <h2 class="section-title">后续关注点</h2>
+            <div class="three-col">
+                <div class="mini-card">
+                    <h3>流程闭环</h3>
+                    <p>合同审核和招投标是否继续从内容生成升级为拆解、检查、确认和交付。</p>
+                </div>
+                <div class="mini-card">
+                    <h3>技能下沉</h3>
+                    <p>AI PPT、文本生成和文档审核是否被更多平台作为通用技能接入。</p>
+                </div>
+                <div class="mini-card">
+                    <h3>治理加强</h3>
+                    <p>权限、审计、模型网关、内容边界和数字人合规是否成为企业采购重点。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="card">
+            <h2 class="section-title">参考信号</h2>
+            <ul class="list">
+                <li>企业 AI 投入和生产化部署仍在上升，企业更关注可落地的工作流价值：<a href="https://www.businessinsider.com/enterprise-ai-spending-grows-openai-leads-rbc-reveals-2026-6">Business Insider</a></li>
+                <li>企业文档和内容场景正在从个人效率转向受控流程与组织一致性：<a href="https://www.businessinsider.com/sc/templafy-data-reveals-shifts-in-enterprise-ai-workflows">Business Insider</a></li>
+                <li>AI 智能体技能的治理、安全和审计正在成为企业级部署重点：<a href="https://www.techradar.com/pro/ai-agent-skills-are-becoming-the-next-enterprise-supply-chain-risk-heres-how-to-govern-them">TechRadar</a></li>
+                <li>生成式 AI 与拟人化互动相关监管持续强调内容安全、数据安全、身份边界和平台责任。</li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="footer">
+        <div>AI办公生态趋势库 · Week 03 · Internal System Draft · 2026</div>
+        <div>Report compiled by: wangwenlin</div>
+    </div>
+</main>
+</body>
+</html>
