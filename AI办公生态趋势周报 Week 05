@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI办公生态趋势周报 Week 04</title>
+<style>
+:root {
+    --bg: #07111f;
+    --panel: rgba(15, 25, 43, 0.86);
+    --panel-hover: rgba(24, 40, 68, 0.92);
+    --panel-strong: rgba(19, 33, 56, 0.96);
+    --line: rgba(255, 255, 255, 0.09);
+    --line-strong: rgba(148, 163, 184, 0.25);
+    --text: #f8fafc;
+    --soft: #cbd5e1;
+    --muted: #94a3b8;
+    --cyan: #22d3ee;
+    --blue: #60a5fa;
+    --green: #34d399;
+    --amber: #fbbf24;
+    --red: #fb7185;
+    --violet: #a78bfa;
+    --glow: rgba(34, 211, 238, 0.16);
+    --shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    margin: 0;
+    min-height: 100vh;
+    color: var(--text);
+    background:
+        radial-gradient(circle at 82% 8%, rgba(96, 165, 250, 0.18) 0%, transparent 36%),
+        radial-gradient(circle at 18% 78%, rgba(34, 211, 238, 0.12) 0%, transparent 34%),
+        radial-gradient(circle at 58% 38%, rgba(52, 211, 153, 0.06) 0%, transparent 32%),
+        linear-gradient(145deg, rgba(7, 17, 31, 0.98), rgba(8, 24, 38, 0.96) 48%, rgba(9, 14, 26, 1)),
+        var(--bg);
+    background-attachment: fixed;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.68;
+    padding: 44px 24px 60px;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.28;
+    background-image:
+        radial-gradient(circle, rgba(226, 232, 240, 0.42) 0 1px, transparent 1.4px),
+        radial-gradient(circle, rgba(34, 211, 238, 0.35) 0 1px, transparent 1.5px);
+    background-size: 42px 42px, 78px 78px;
+    background-position: 0 0, 18px 24px;
+    animation: particle-drift 34s linear infinite;
+}
+
+@keyframes particle-drift {
+    from {
+        background-position: 0 0, 18px 24px;
+    }
+    to {
+        background-position: 84px 126px, 96px 180px;
+    }
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.header {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.55fr);
+    gap: 28px;
+    align-items: end;
+    margin-bottom: 26px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+}
+
+.header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 132px;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--cyan), var(--blue));
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--cyan);
+    font-size: 13px;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.eyebrow::before {
+    content: "";
+    width: 34px;
+    height: 2px;
+    border-radius: 999px;
+    background: var(--cyan);
+}
+
+h1 {
+    margin: 0;
+    font-size: 40px;
+    line-height: 1.12;
+    letter-spacing: 0;
+    background: linear-gradient(135deg, #ffffff 0%, #bae6fd 42%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.subtitle {
+    margin: 14px 0 0;
+    color: var(--muted);
+    font-size: 15px;
+}
+
+.meta {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 20px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(16px);
+    transition: border-color 0.28s ease, box-shadow 0.28s ease, transform 0.28s ease, background 0.28s ease;
+}
+
+.meta:hover {
+    background: var(--panel-hover);
+    border-color: rgba(34, 211, 238, 0.28);
+    box-shadow: 0 0 24px var(--glow), var(--shadow);
+    transform: translateY(-2px);
+}
+
+.meta-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 13px;
+    color: var(--soft);
+}
+
+.meta-row:last-child {
+    border-bottom: 0;
+}
+
+.meta-row span:first-child {
+    color: var(--muted);
+}
+
+.metric-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.metric {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 20px;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
+    backdrop-filter: blur(16px);
+    transition: border-color 0.28s ease, box-shadow 0.28s ease, transform 0.28s ease, background 0.28s ease;
+}
+
+.metric:hover {
+    background: var(--panel-hover);
+    border-color: rgba(34, 211, 238, 0.3);
+    box-shadow: 0 0 20px var(--glow), 0 18px 54px rgba(0, 0, 0, 0.22);
+    transform: translateY(-3px);
+}
+
+.metric-value {
+    font-size: 30px;
+    line-height: 1;
+    font-weight: 800;
+    color: var(--cyan);
+    margin-bottom: 8px;
+    font-family: Consolas, "SFMono-Regular", Menlo, Monaco, monospace;
+}
+
+.metric-label {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.section {
+    margin-top: 18px;
+}
+
+.card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 26px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(16px);
+    transition: border-color 0.28s ease, box-shadow 0.28s ease, transform 0.28s ease, background 0.28s ease;
+}
+
+.card:hover {
+    background: var(--panel-hover);
+    border-color: rgba(255, 255, 255, 0.14);
+    box-shadow: 0 0 22px rgba(34, 211, 238, 0.08), var(--shadow);
+    transform: translateY(-2px);
+}
+
+.card + .card {
+    margin-top: 18px;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 18px;
+    font-size: 22px;
+    line-height: 1.3;
+}
+
+.section-title::before {
+    content: "";
+    flex: 0 0 4px;
+    width: 4px;
+    height: 20px;
+    border-radius: 999px;
+    background: var(--cyan);
+}
+
+.lead {
+    margin: 0;
+    font-size: 17px;
+    color: #e2e8f0;
+}
+
+.highlight {
+    color: var(--cyan);
+    font-weight: 700;
+    border-bottom: 1px dashed rgba(34, 211, 238, 0.7);
+    padding-bottom: 2px;
+}
+
+.warn {
+    color: var(--amber);
+    font-weight: 700;
+}
+
+.tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0 0;
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 5px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(34, 211, 238, 0.25);
+    background: rgba(34, 211, 238, 0.07);
+    color: #e0f2fe;
+    font-size: 12px;
+    white-space: nowrap;
+    transition: border-color 0.24s ease, background 0.24s ease, transform 0.24s ease;
+}
+
+.tag:hover {
+    border-color: rgba(34, 211, 238, 0.45);
+    background: rgba(34, 211, 238, 0.12);
+    transform: translateY(-1px);
+}
+
+.tag.green {
+    border-color: rgba(52, 211, 153, 0.28);
+    background: rgba(52, 211, 153, 0.08);
+    color: #bbf7d0;
+}
+
+.tag.amber {
+    border-color: rgba(251, 191, 36, 0.28);
+    background: rgba(251, 191, 36, 0.08);
+    color: #fde68a;
+}
+
+.tag.violet {
+    border-color: rgba(167, 139, 250, 0.28);
+    background: rgba(167, 139, 250, 0.08);
+    color: #ddd6fe;
+}
+
+.two-col {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.three-col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.mini-card {
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px;
+    transition: border-color 0.26s ease, background 0.26s ease, transform 0.26s ease;
+}
+
+.mini-card:hover {
+    background: rgba(255, 255, 255, 0.055);
+    border-color: rgba(34, 211, 238, 0.22);
+    transform: translateY(-2px);
+}
+
+.mini-card h3 {
+    margin: 0 0 10px;
+    color: #f8fafc;
+    font-size: 17px;
+}
+
+.mini-card p {
+    margin: 0;
+    color: var(--soft);
+    font-size: 14px;
+}
+
+.list {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.list li {
+    position: relative;
+    padding-left: 18px;
+    color: var(--soft);
+    font-size: 15px;
+}
+
+.list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--cyan);
+}
+
+.scene-table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+}
+
+.scene-table th,
+.scene-table td {
+    border-bottom: 1px solid var(--line);
+    padding: 14px 16px;
+    vertical-align: top;
+    text-align: left;
+    font-size: 14px;
+}
+
+.scene-table th {
+    color: #e0f2fe;
+    background: rgba(34, 211, 238, 0.08);
+    font-weight: 700;
+}
+
+.scene-table tr:last-child td {
+    border-bottom: 0;
+}
+
+.scene-table td {
+    color: var(--soft);
+}
+
+.scene-table tbody tr {
+    transition: background 0.22s ease;
+}
+
+.scene-table tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.quote {
+    border-left: 4px solid var(--cyan);
+    background: linear-gradient(135deg, rgba(34, 211, 238, 0.08), rgba(96, 165, 250, 0.045));
+    border-radius: 0 12px 12px 0;
+    padding: 18px 20px;
+    color: #e2e8f0;
+    font-size: 17px;
+}
+
+.footer {
+    margin-top: 24px;
+    color: var(--muted);
+    font-size: 12px;
+    text-align: center;
+}
+
+.footer div + div {
+    margin-top: 4px;
+}
+
+@media (max-width: 920px) {
+    body {
+        padding: 28px 16px 42px;
+    }
+
+    .header,
+    .two-col,
+    .three-col,
+    .metric-grid {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    .card {
+        padding: 20px;
+    }
+}
+</style>
+</head>
+<body>
+<main class="container">
+    <header class="header">
+        <div>
+            <div class="eyebrow">Wanxiang Ecosystem Radar</div>
+            <h1>AI办公生态趋势观察</h1>
+            <p class="subtitle">Week 04 ｜万象生态观察库-岗位型AI Agent生态观察｜ 2026 INTERNAL DRAFT</p>
+        </div>
+        <aside class="meta">
+            <div class="meta-row"><span>观察周期</span><strong>2026.07.03 - 2026.07.09</strong></div>
+            <div class="meta-row"><span>报告主题</span><strong>岗位型 AI Agent</strong></div>
+            <div class="meta-row"><span>覆盖入口</span><strong>研发 / 办公 / 数据分析</strong></div>
+            <div class="meta-row"><span>报告状态</span><strong>本周洞察稿</strong></div>
+        </aside>
+    </header>
+
+    <section class="metric-grid">
+        <div class="metric">
+            <div class="metric-value">3</div>
+            <div class="metric-label">类岗位入口率先清晰</div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">4</div>
+            <div class="metric-label">项生态壁垒开始显性化</div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">1</div>
+            <div class="metric-label">条主线：从助手到数字员工</div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">Next</div>
+            <div class="metric-label">竞争转向流程与治理</div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="card">
+            <h2 class="section-title">本周核心判断</h2>
+            <p class="lead">
+                本周 AI Agent 的生态信号更加明确：行业正在从<span class="highlight">通用型对话助手</span>，转向面向具体岗位、具体系统和具体流程的<span class="highlight">岗位型数字员工</span>。研发、办公和数据分析三个入口率先成形，分别对应应用生产、任务执行和经营分析三类高频工作流。
+            </p>
+            <div class="tag-row">
+                <span class="tag">岗位型 Agent</span>
+                <span class="tag green">数字员工</span>
+                <span class="tag amber">流程闭环</span>
+                <span class="tag violet">系统连接</span>
+                <span class="tag">组织治理</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section two-col">
+        <div class="card">
+            <h2 class="section-title">行业正在发生什么</h2>
+            <ul class="list">
+                <li>AI 产品不再只强调“能聊天、能生成”，而是开始强调能否完成一个真实工作结果。</li>
+                <li>研发类 Agent 正在从代码补全升级为需求、设计、编码、测试和部署的全链路工作台。</li>
+                <li>办公类 Agent 正在从文案助手升级为跨文档、表格、日程、消息和流程系统的任务执行入口。</li>
+                <li>数据类 Agent 正在从问数和看报表升级为异常解释、归因分析、经营周报和管理建议。</li>
+                <li>企业采购关注点开始从模型效果转向权限、审计、私有数据、流程模板和结果可靠性。</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h2 class="section-title">为什么会这样发展</h2>
+            <ul class="list">
+                <li>通用生成能力正在快速普及，单纯内容生成难以形成长期壁垒。</li>
+                <li>企业更愿意为能直接进入工作流、节省人工时间、降低遗漏风险的场景付费。</li>
+                <li>Agent 一旦开始调用工具和系统，就必须具备权限控制、任务边界和人工确认。</li>
+                <li>业务系统、数据资产和流程规则比模型本身更贴近企业真实生产关系。</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="card">
+            <h2 class="section-title">三类入口观察</h2>
+            <table class="scene-table">
+                <thead>
+                    <tr>
+                        <th>入口类型</th>
+                        <th>正在解决的问题</th>
+                        <th>能力演进方向</th>
+                        <th>生态价值</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>研发入口</strong></td>
+                        <td>需求到代码、代码理解、测试生成、部署上线等开发链路效率问题。</td>
+                        <td>从辅助编码走向软件生产智能体，覆盖需求拆解、设计生成、代码实现和上线交付。</td>
+                        <td>降低应用生产门槛，让业务需求更快转化为工具、页面、脚本和自动化能力。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>办公入口</strong></td>
+                        <td>文档处理、资料整理、数据汇总、会议跟进、跨工具重复操作等办公任务。</td>
+                        <td>从内容生成走向任务执行，能够理解目标、拆解步骤、调用办公工具并交付结果。</td>
+                        <td>成为员工日常工作的自然语言入口，沉淀岗位流程和组织协同数据。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>数据入口</strong></td>
+                        <td>经营数据难理解、指标口径不统一、报表只展示不解释、分析依赖专业人员。</td>
+                        <td>从问数看图走向异常发现、原因归因、经营周报和决策建议。</td>
+                        <td>把数据资产转化为经营判断，让管理层和业务团队更快理解变化并采取行动。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="card">
+            <h2 class="section-title">生态壁垒变化</h2>
+            <div class="three-col">
+                <div class="mini-card">
+                    <h3>连接权</h3>
+                    <p>谁能连接更多代码仓库、文档、表格、报表、日程和业务系统，谁就更接近真实工作入口。</p>
+                </div>
+                <div class="mini-card">
+                    <h3>流程权</h3>
+                    <p>谁能把模糊需求沉淀为可复用流程模板，谁就能形成持续复用的岗位能力。</p>
+                </div>
+                <div class="mini-card">
+                    <h3>数据权</h3>
+                    <p>谁能理解企业指标、文档、知识和代码上下文，谁就能输出更可靠的业务结果。</p>
+                </div>
+            </div>
+            <div class="three-col" style="margin-top: 16px;">
+                <div class="mini-card">
+                    <h3>治理权</h3>
+                    <p>权限、审批、审计和人工确认会成为 Agent 从个人试用进入组织部署的前提。</p>
+                </div>
+                <div class="mini-card">
+                    <h3>交付权</h3>
+                    <p>行业关注点会从“回答是否漂亮”转向“结果是否可用、可复核、可追责”。</p>
+                </div>
+                <div class="mini-card">
+                    <h3>分发权</h3>
+                    <p>岗位能力最终需要被统一分发给员工，形成可搜索、可授权、可调用的能力市场。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section two-col">
+        <div class="card">
+            <h2 class="section-title">对万象生态的启示</h2>
+            <ul class="list">
+                <li>后续生态观察应优先看“占据哪个业务入口”，而不是只看是否具备聊天能力。</li>
+                <li>研发、办公和数据分析三类入口可以统一抽象为数字员工能力层。</li>
+                <li>生态伙伴筛选可重点关注系统连接、场景模板、权限审计和结果交付四类能力。</li>
+                <li>数字员工平台需要从“能力陈列”升级为“能力授权、调用、编排和治理”。</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h2 class="section-title">可对外表达的观点</h2>
+            <div class="quote">
+                AI Agent 的下一阶段不是一个万能助手解决所有问题，而是围绕研发、办公、数据分析等关键岗位，形成可调用工具、可进入流程、可被组织治理的专业数字员工。
+            </div>
+            <p class="lead" style="margin-top: 16px; font-size: 15px;">
+                对企业而言，真正的价值不在于多一个聊天入口，而在于让 AI 能稳定完成任务，并把过程纳入权限、审计和人工确认体系。
+            </p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="card">
+            <h2 class="section-title">后续关注点</h2>
+            <div class="three-col">
+                <div class="mini-card">
+                    <h3>研发 Agent</h3>
+                    <p>是否继续从代码补全向完整应用生产、自动部署和工程治理延展。</p>
+                </div>
+                <div class="mini-card">
+                    <h3>办公 Agent</h3>
+                    <p>是否从内容生成升级为跨工具任务执行，并形成岗位流程模板。</p>
+                </div>
+                <div class="mini-card">
+                    <h3>数据 Agent</h3>
+                    <p>是否从问数和看图升级为经营归因、异常预警和管理周报。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="card">
+            <h2 class="section-title">本周洞察来源说明</h2>
+            <ul class="list">
+                <li>本周观察基于研发智能体、办公智能体、数据分析智能体三类公开产品能力与生态信号。</li>
+                <li>报告刻意隐去具体企业和产品名称，仅保留行业方向、能力结构和生态判断。</li>
+                <li>正式对外版本可继续压缩为“岗位型数字员工正在成形”这一主线。</li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="footer">
+        <div>AI办公生态趋势库 · Week 04 · Internal System Draft · 2026</div>
+        <div>Report compiled by: wangwenlin</div>
+    </div>
+</main>
+</body>
+</html>
