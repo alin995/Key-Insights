@@ -1,0 +1,1745 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>本周洞察｜从文档到设备</title>
+  <style>
+/* html-ppt :: shared webfonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@200;300;400;500;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+
+/* html-ppt :: base.css — reset + shared tokens + layout primitives */
+/* Default tokens. Themes in assets/themes/*.css override the :root block. */
+:root {
+  --bg: #ffffff;
+  --bg-soft: #f7f7f8;
+  --surface: #ffffff;
+  --surface-2: #f2f2f4;
+  --border: rgba(0,0,0,.08);
+  --border-strong: rgba(0,0,0,.16);
+  --text-1: #111216;
+  --text-2: #55596a;
+  --text-3: #8a8f9e;
+  --accent: #3b6cff;
+  --accent-2: #7a5cff;
+  --accent-3: #ff5c8a;
+  --good: #1aaf6c;
+  --warn: #f5a524;
+  --bad:  #e0445a;
+  --grad: linear-gradient(135deg,#3b6cff,#7a5cff 55%,#ff5c8a);
+  --grad-soft: linear-gradient(135deg,#eef2ff,#f5ecff 55%,#ffeef5);
+  --radius: 18px;
+  --radius-sm: 12px;
+  --radius-lg: 26px;
+  --shadow: 0 10px 30px rgba(18,24,40,.08), 0 2px 6px rgba(18,24,40,.04);
+  --shadow-lg: 0 24px 60px rgba(18,24,40,.14), 0 6px 16px rgba(18,24,40,.06);
+  --font-sans: 'Inter','Noto Sans SC',-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;
+  --font-serif: 'Playfair Display','Noto Serif SC',Georgia,serif;
+  --font-mono: 'JetBrains Mono','IBM Plex Mono',SFMono-Regular,Menlo,monospace;
+  --font-display: var(--font-sans);
+  --letter-tight: -.03em;
+  --letter-normal: -.01em;
+  --ease: cubic-bezier(.4,0,.2,1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text-1);
+  font-family:var(--font-sans);font-weight:400;line-height:1.6;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  letter-spacing:var(--letter-normal)}
+img,svg,video{max-width:100%;display:block}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+code,kbd,pre,samp{font-family:var(--font-mono)}
+
+/* ================= SLIDE SYSTEM ================= */
+.deck{position:relative;width:100vw;height:100vh;overflow:hidden;background:var(--bg)}
+.slide{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:72px 96px;
+  box-sizing:border-box;
+  opacity:0;pointer-events:none;
+  transition:opacity .5s var(--ease), transform .5s var(--ease);
+  transform:translateX(30px);
+  overflow:hidden;
+}
+.slide.is-active{opacity:1;pointer-events:auto;transform:translateX(0);z-index:2}
+.slide.is-prev{transform:translateX(-30px)}
+
+/* single-page standalone (used when a layout file is opened directly) */
+body.single .slide{position:relative;width:100vw;height:100vh;opacity:1;transform:none;pointer-events:auto}
+
+/* ================= TYPOGRAPHY ================= */
+.eyebrow{font-size:13px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3)}
+.kicker{font-size:14px;font-weight:600;color:var(--accent);letter-spacing:.08em;text-transform:uppercase}
+h1.title,.h1{font-family:var(--font-display);font-size:72px;line-height:1.05;font-weight:800;letter-spacing:var(--letter-tight);margin:0 0 18px;color:var(--text-1)}
+h2.title,.h2{font-family:var(--font-display);font-size:54px;line-height:1.1;font-weight:700;letter-spacing:var(--letter-tight);margin:0 0 14px}
+h3,.h3{font-size:32px;line-height:1.2;font-weight:600;letter-spacing:var(--letter-normal);margin:0 0 10px}
+h4,.h4{font-size:22px;line-height:1.3;font-weight:600;margin:0 0 8px}
+.lede{font-size:22px;line-height:1.55;color:var(--text-2);font-weight:300;max-width:62ch}
+.dim{color:var(--text-2)}
+.dim2{color:var(--text-3)}
+.mono{font-family:var(--font-mono)}
+.serif{font-family:var(--font-serif)}
+.gradient-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+
+/* ================= LAYOUT PRIMITIVES ================= */
+.stack>*+*{margin-top:14px}
+.row{display:flex;gap:24px;align-items:center}
+.row.wrap{flex-wrap:wrap}
+.grid{display:grid;gap:24px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.center{display:flex;align-items:center;justify-content:center;text-align:center}
+.fill{flex:1}
+.sp-t{padding-top:24px}.sp-b{padding-bottom:24px}
+.mt-s{margin-top:8px}.mt-m{margin-top:18px}.mt-l{margin-top:32px}
+.mb-s{margin-bottom:8px}.mb-m{margin-bottom:18px}.mb-l{margin-bottom:32px}
+
+/* ================= CARDS ================= */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:26px 28px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.card-soft{background:var(--surface-2);border:1px solid var(--border)}
+.card-outline{background:transparent;border:1.5px solid var(--border-strong);box-shadow:none}
+.card-accent{background:var(--surface);border-top:3px solid var(--accent)}
+.card-hover{transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.card-hover:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+
+.pill{display:inline-block;padding:4px 12px;border-radius:999px;font-size:12px;font-weight:500;
+  background:var(--surface-2);color:var(--text-2);border:1px solid var(--border)}
+.pill-accent{background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--accent);border-color:color-mix(in srgb,var(--accent) 28%,transparent)}
+
+/* ================= BARS / DIVIDERS ================= */
+.divider{height:1px;background:var(--border);width:100%}
+.divider-accent{height:3px;width:72px;background:var(--accent);border-radius:2px}
+
+/* ================= CHROME (header/footer/progress) ================= */
+.deck-header{position:absolute;top:24px;left:40px;right:40px;display:flex;align-items:center;justify-content:space-between;
+  font-size:12px;color:var(--text-3);letter-spacing:.12em;text-transform:uppercase;z-index:10;pointer-events:none}
+.deck-footer{position:absolute;bottom:24px;left:40px;right:40px;display:flex;align-items:center;justify-content:space-between;
+  font-size:12px;color:var(--text-3);z-index:10;pointer-events:none}
+.slide-number::before{content:attr(data-current)}
+.slide-number::after{content:" / " attr(data-total)}
+.progress-bar{position:fixed;left:0;right:0;bottom:0;height:3px;background:transparent;z-index:20}
+.progress-bar > span{display:block;height:100%;width:0;background:var(--accent);transition:width .3s var(--ease)}
+
+/* ================= PRESENTER / OVERVIEW ================= */
+.notes{display:none!important}
+.notes-overlay{position:fixed;inset:auto 0 0 0;max-height:42vh;background:rgba(20,22,30,.95);color:#e8ebf4;
+  padding:20px 32px;font-size:16px;line-height:1.6;border-top:1px solid rgba(255,255,255,.1);transform:translateY(100%);
+  transition:transform .3s var(--ease);z-index:40;overflow:auto;font-family:var(--font-sans)}
+.notes-overlay.open{transform:translateY(0)}
+.overview{position:fixed;inset:0;background:rgba(10,12,18,.92);backdrop-filter:blur(12px);z-index:50;
+  display:none;padding:40px;overflow:auto}
+.overview.open{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;align-content:start}
+.overview .thumb{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  aspect-ratio:16/9;overflow:hidden;cursor:pointer;position:relative;color:var(--text-1);padding:16px;
+  font-size:11px;transition:transform .2s var(--ease)}
+.overview .thumb:hover{transform:scale(1.04)}
+.overview .thumb .n{position:absolute;top:8px;left:10px;font-weight:700;font-size:14px;color:var(--text-3)}
+.overview .thumb .t{position:absolute;bottom:10px;left:14px;right:14px;font-weight:600;color:var(--text-1)}
+
+/* ================= PRESENTER VIEW ================= */
+/* Presenter view opens in a separate popup window (S key).
+ * All presenter styles are self-contained in the popup HTML generated by runtime.js.
+ * The audience window (this file) is NOT affected — it stays as normal deck view.
+ * Only the .notes class below is needed to hide speaker notes from audience. */
+
+/* ================= UTILITY ================= */
+.hidden{display:none!important}
+.nowrap{white-space:nowrap}
+.tr{text-align:right}.tc{text-align:center}.tl{text-align:left}
+.uppercase{text-transform:uppercase;letter-spacing:.12em}
+
+/* ================= PRINT ================= */
+@media print{
+  .slide{position:relative;opacity:1!important;transform:none!important;page-break-after:always;height:100vh}
+  .deck-header,.deck-footer,.progress-bar,.notes-overlay,.overview{display:none!important}
+}
+
+/* graphify-dark-graph — 暗底玻璃 + 力导向知识图谱 */
+.tpl-graphify-dark-graph{
+  --gd-bg:#06060c;
+  --gd-bg2:#0e1020;
+  --gd-text:#f0ece4;
+  --gd-text2:#b0a99e;
+  --gd-text3:#7a746c;
+  --gd-warm:#e8a87c;
+  --gd-blue:#7eb8da;
+  --gd-green:#7ed3a4;
+  --gd-rose:#d4a0b9;
+  --gd-purple:#b8a4d6;
+  --gd-danger:#e07070;
+  background:var(--gd-bg);
+  color:var(--gd-text);
+  font-family:'Inter','Noto Sans SC',-apple-system,sans-serif;
+  letter-spacing:-.01em;
+}
+.tpl-graphify-dark-graph .slide{background:linear-gradient(160deg,#08080f,#0e1020 50%,#08080f);color:var(--gd-text);padding:64px 88px;overflow:hidden}
+.tpl-graphify-dark-graph .gd-ambient{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.tpl-graphify-dark-graph .gd-orb{position:absolute;border-radius:50%;filter:blur(110px);opacity:.35;animation:gdDrift 22s ease-in-out infinite alternate}
+.tpl-graphify-dark-graph .gd-orb-1{width:520px;height:520px;background:radial-gradient(circle,rgba(126,184,218,.55),transparent 70%);top:-12%;left:-6%}
+.tpl-graphify-dark-graph .gd-orb-2{width:460px;height:460px;background:radial-gradient(circle,rgba(232,168,124,.45),transparent 70%);top:55%;right:-8%;animation-delay:-6s}
+.tpl-graphify-dark-graph .gd-orb-3{width:420px;height:420px;background:radial-gradient(circle,rgba(184,164,214,.4),transparent 70%);bottom:-8%;left:30%;animation-delay:-11s}
+@keyframes gdDrift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(25px,-20px) scale(1.08)}}
+.tpl-graphify-dark-graph .slide > *{position:relative;z-index:2}
+.tpl-graphify-dark-graph .gd-snum{position:absolute;top:28px;right:40px;font-size:12px;letter-spacing:.25em;color:var(--gd-text3);z-index:3}
+.tpl-graphify-dark-graph .gd-eyebrow{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--gd-text3);font-weight:500}
+.tpl-graphify-dark-graph .gd-h1{font-size:74px;font-weight:800;line-height:1.08;letter-spacing:-.02em;margin:16px 0 10px;color:var(--gd-text)}
+.tpl-graphify-dark-graph .gd-h2{font-size:52px;font-weight:700;line-height:1.12;margin:0 0 14px}
+.tpl-graphify-dark-graph .gd-lede{font-size:22px;line-height:1.65;font-weight:300;color:var(--gd-text2);max-width:850px}
+.tpl-graphify-dark-graph .gd-rainbow{background:linear-gradient(90deg,#ff0080,#ff4d00,#ff9900,#ffe600,#00c853,#0091ea,#6200ea,#ff0080);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gdRainbow 4s linear infinite}
+@keyframes gdRainbow{0%{background-position:0% center}100%{background-position:200% center}}
+.tpl-graphify-dark-graph .gd-grad{background:linear-gradient(135deg,var(--gd-warm),var(--gd-rose),var(--gd-purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.tpl-graphify-dark-graph .gd-accent{color:var(--gd-warm);font-weight:500}
+.tpl-graphify-dark-graph .gd-green{color:var(--gd-green)}
+.tpl-graphify-dark-graph .gd-blue{color:var(--gd-blue)}
+.tpl-graphify-dark-graph .gd-dim{color:var(--gd-text2)}
+.tpl-graphify-dark-graph .gd-mono{font-family:'JetBrains Mono',monospace}
+.tpl-graphify-dark-graph .gd-glass{position:relative;overflow:hidden;border-radius:20px;padding:22px 26px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(20px) saturate(160%);box-shadow:0 8px 32px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.08)}
+.tpl-graphify-dark-graph .gd-glass::before{content:'';position:absolute;top:0;left:0;right:0;height:50%;background:linear-gradient(180deg,rgba(255,255,255,.05),transparent);pointer-events:none}
+.tpl-graphify-dark-graph .gd-glass-warm{background:rgba(232,168,124,.06);border-color:rgba(232,168,124,.2)}
+.tpl-graphify-dark-graph .gd-glass-green{background:rgba(126,211,164,.06);border-color:rgba(126,211,164,.2)}
+.tpl-graphify-dark-graph .gd-glass-blue{background:rgba(126,184,218,.06);border-color:rgba(126,184,218,.2)}
+.tpl-graphify-dark-graph .gd-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+.tpl-graphify-dark-graph .gd-grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px}
+.tpl-graphify-dark-graph .gd-tag{display:inline-block;border-radius:999px;padding:5px 14px;font-size:12px;font-weight:500;margin:2px 4px 2px 0;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:var(--gd-text2)}
+.tpl-graphify-dark-graph .gd-cmd{font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:700;color:var(--gd-green);text-shadow:0 0 30px rgba(126,211,164,.45),0 0 60px rgba(126,211,164,.15);letter-spacing:-.01em}
+.tpl-graphify-dark-graph .gd-big{font-size:120px;font-weight:900;letter-spacing:-.04em;line-height:1}
+.tpl-graphify-dark-graph .gd-codebox{background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:22px 26px;font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.8;color:#d8d4c8}
+.tpl-graphify-dark-graph .gd-codebox .cm{color:#6b6a62}
+.tpl-graphify-dark-graph .gd-codebox .kw{color:var(--gd-warm)}
+.tpl-graphify-dark-graph .gd-codebox .st{color:var(--gd-green)}
+.tpl-graphify-dark-graph .gd-codebox .fn{color:var(--gd-blue)}
+
+.tpl-graphify-dark-graph{
+  --doc:#53c7ff;
+  --doc-soft:rgba(83,199,255,.10);
+  --industrial:#f2b35f;
+  --industrial-soft:rgba(242,179,95,.10);
+  --value:#a997ff;
+  --value-soft:rgba(169,151,255,.11);
+}
+.tpl-graphify-dark-graph .slide{
+  padding:56px 72px 54px;
+}
+.deck-brand{
+  position:absolute;left:72px;bottom:20px;z-index:4;
+  font:500 11px/1.4 'JetBrains Mono',monospace;
+  letter-spacing:.12em;color:var(--gd-text3);
+}
+.source{
+  position:absolute;right:72px;bottom:18px;z-index:4;
+  max-width:720px;text-align:right;
+  font-size:10px;line-height:1.4;color:var(--gd-text3);
+}
+.source a{color:var(--gd-text3);text-decoration:none;border-bottom:1px dotted rgba(255,255,255,.22)}
+.kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gd-text3);margin:0 0 10px}
+.title-xl{font-size:74px;line-height:1.04;letter-spacing:-.04em;margin:0;font-weight:850}
+.title-lg{font-size:48px;line-height:1.1;letter-spacing:-.025em;margin:0 0 12px;font-weight:780}
+.title-md{font-size:34px;line-height:1.18;margin:0 0 10px}
+.subtitle{font-size:20px;line-height:1.55;color:var(--gd-text2);max-width:980px}
+.muted{color:var(--gd-text2)}
+.tiny{font-size:11px;color:var(--gd-text3)}
+.doc{color:var(--doc)}
+.industrial{color:var(--industrial)}
+.value{color:var(--value)}
+.accent-line{width:76px;height:4px;border-radius:999px;background:linear-gradient(90deg,var(--doc),var(--value),var(--industrial));margin:16px 0 22px}
+.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.grid-4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.grid-5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.card{
+  background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.10);
+  border-radius:18px;padding:20px 22px;box-shadow:0 16px 44px rgba(0,0,0,.18);
+}
+.card.doc-card{background:var(--doc-soft);border-color:rgba(83,199,255,.28)}
+.card.ind-card{background:var(--industrial-soft);border-color:rgba(242,179,95,.28)}
+.card.value-card{background:var(--value-soft);border-color:rgba(169,151,255,.28)}
+.card h3{font-size:20px;margin:0 0 8px}
+.card h4{font-size:16px;margin:0 0 7px}
+.card p{font-size:14px;line-height:1.55;margin:0;color:var(--gd-text2)}
+.card ul{margin:8px 0 0;padding-left:18px}
+.card li{font-size:14px;line-height:1.52;margin:5px 0;color:var(--gd-text2)}
+.metric{padding:18px 20px}
+.metric .num{font-size:48px;font-weight:850;line-height:1}
+.metric .label{font-size:13px;color:var(--gd-text2);margin-top:8px}
+.metric .state{font-size:11px;color:var(--gd-text3);margin-top:4px}
+.quote{
+  font-size:31px;line-height:1.42;font-weight:650;padding:24px 28px;
+  border-left:4px solid var(--value);background:rgba(169,151,255,.07);
+  border-radius:0 18px 18px 0;max-width:1160px;
+}
+.pill{display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border:1px solid rgba(255,255,255,.12);border-radius:999px;font-size:12px;color:var(--gd-text2);background:rgba(255,255,255,.035)}
+.dot{width:7px;height:7px;border-radius:50%;background:currentColor}
+.flow{
+  display:flex;align-items:stretch;gap:8px;margin-top:24px;
+}
+.flow-node{
+  min-width:0;flex:1;padding:16px 12px;border-radius:15px;text-align:center;
+  background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.10);
+}
+.flow-node strong{display:block;font-size:15px;margin-bottom:5px}
+.flow-node span{display:block;font-size:11px;color:var(--gd-text3);line-height:1.35}
+.flow-arrow{display:flex;align-items:center;color:var(--gd-text3);font-size:20px}
+.flow.doc-flow .flow-node{border-color:rgba(83,199,255,.24);background:rgba(83,199,255,.055)}
+.flow.ind-flow .flow-node{border-color:rgba(242,179,95,.24);background:rgba(242,179,95,.055)}
+.section-mark{
+  font:700 116px/1 'JetBrains Mono',monospace;letter-spacing:-.07em;
+  color:rgba(255,255,255,.045);position:absolute;right:74px;bottom:40px;
+}
+.two-streams{display:grid;grid-template-columns:1fr 1fr 240px;gap:16px;align-items:stretch;margin-top:24px}
+.stream{position:relative;padding:22px;border-radius:20px;border:1px solid}
+.stream.doc-stream{background:var(--doc-soft);border-color:rgba(83,199,255,.3)}
+.stream.ind-stream{background:var(--industrial-soft);border-color:rgba(242,179,95,.3)}
+.stream h3{font-size:23px;margin:0 0 12px}
+.stream ul{padding-left:18px;margin:0}
+.stream li{font-size:14px;line-height:1.55;margin:6px 0;color:var(--gd-text2)}
+.value-node{
+  border-radius:50%;aspect-ratio:1;align-self:center;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+  background:radial-gradient(circle at 35% 30%,rgba(169,151,255,.24),rgba(169,151,255,.05) 60%,rgba(0,0,0,.2));
+  border:1px solid rgba(169,151,255,.45);box-shadow:0 0 54px rgba(169,151,255,.15),inset 0 0 30px rgba(169,151,255,.08);
+}
+.value-node strong{font-size:23px}.value-node span{font-size:12px;color:var(--gd-text2);margin-top:6px}
+.table-wrap{border:1px solid rgba(255,255,255,.1);border-radius:16px;overflow:hidden;margin-top:18px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:rgba(255,255,255,.06);color:var(--gd-text2);font-weight:600;text-align:left;padding:11px 13px;border-bottom:1px solid rgba(255,255,255,.1)}
+td{padding:10px 13px;border-bottom:1px solid rgba(255,255,255,.07);color:var(--gd-text2);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td strong{color:var(--gd-text)}
+.case-strip{display:grid;grid-template-columns:190px 1fr 1fr;gap:14px;margin-top:18px}
+.case-name{display:flex;align-items:center;justify-content:center;text-align:center;font-size:24px;font-weight:750;border-radius:18px;padding:20px}
+.case-fact,.case-meaning{border-radius:18px;padding:20px 22px}
+.case-fact h4,.case-meaning h4{margin:0 0 8px;font-size:14px;letter-spacing:.08em;text-transform:uppercase}
+.case-fact p,.case-meaning p{margin:0;font-size:15px;line-height:1.58;color:var(--gd-text2)}
+.empty-gauge{position:relative;height:10px;border-radius:999px;background:rgba(255,255,255,.06);overflow:hidden;margin:12px 0 7px}
+.empty-gauge::after{content:'未披露';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--gd-text3);letter-spacing:.1em}
+.empty-gauge.undisclosed::after{content:'未披露'}
+.honesty{border:1px dashed rgba(242,179,95,.38);background:rgba(242,179,95,.055);border-radius:14px;padding:14px 16px;color:var(--gd-text2);font-size:13px;line-height:1.5}
+.donut{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--doc) 0 83.18%,rgba(255,255,255,.08) 83.18% 100%);position:relative}
+.donut::after{content:'';width:104px;height:104px;border-radius:50%;background:#0b0d17;position:absolute}
+.donut-inner{position:relative;z-index:2;text-align:center}.donut-inner strong{font-size:34px;display:block}.donut-inner span{font-size:10px;color:var(--gd-text3)}
+.matrix{display:grid;grid-template-columns:170px 1fr 1fr;gap:1px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;margin-top:18px}
+.matrix > div{background:#0c0e18;padding:11px 14px;font-size:13px;color:var(--gd-text2)}
+.matrix .head{font-weight:700;color:var(--gd-text);font-size:15px;background:rgba(255,255,255,.06)}
+.matrix .rowlabel{color:var(--gd-text3);font-weight:600}
+.decision{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}
+.decision .path{border-radius:20px;padding:22px 24px;border:1px solid}
+.decision .path h3{font-size:25px;margin:0 0 8px}
+.decision .path p{font-size:14px;line-height:1.55;color:var(--gd-text2);margin:0}
+.path.doc-path{border-color:rgba(83,199,255,.32);background:var(--doc-soft)}
+.path.ind-path{border-color:rgba(242,179,95,.32);background:var(--industrial-soft)}
+.references{columns:2;column-gap:34px;margin-top:14px}
+.ref{break-inside:avoid;margin:0 0 12px;padding:12px 14px;border:1px solid rgba(255,255,255,.08);border-radius:12px;background:rgba(255,255,255,.025)}
+.ref strong{display:block;font-size:12px;margin-bottom:4px}.ref span{font-size:10px;line-height:1.45;color:var(--gd-text3);word-break:break-all}
+.notes{display:none}
+@media (max-width:900px){
+  .grid-4,.grid-5{grid-template-columns:repeat(2,1fr)}
+  .two-streams{grid-template-columns:1fr}
+}
+
+</style>
+</head>
+<body class="tpl-graphify-dark-graph">
+<div class="deck">
+
+  <!-- 01 COVER -->
+  <section class="slide is-active" data-title="封面">
+    <div class="gd-ambient"><div class="gd-orb gd-orb-1"></div><div class="gd-orb gd-orb-2"></div><div class="gd-orb gd-orb-3"></div></div>
+    <svg viewBox="0 0 1600 900" style="position:absolute;inset:0;width:100%;height:100%;opacity:.72;z-index:1" aria-hidden="true">
+      <defs>
+        <filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <linearGradient id="docLine" x1="0" x2="1"><stop stop-color="#53c7ff"/><stop offset="1" stop-color="#a997ff"/></linearGradient>
+        <linearGradient id="indLine" x1="0" x2="1"><stop stop-color="#f2b35f"/><stop offset="1" stop-color="#a997ff"/></linearGradient>
+      </defs>
+      <g fill="none" stroke-width="2">
+        <path d="M760 220 C960 220 1040 330 1220 420" stroke="url(#docLine)" filter="url(#glow)"/>
+        <path d="M760 610 C960 610 1040 510 1220 440" stroke="url(#indLine)" filter="url(#glow)"/>
+        <path d="M1220 430 C1320 350 1420 320 1510 380" stroke="#a997ff" opacity=".45"/>
+        <path d="M1220 430 C1335 465 1410 560 1520 535" stroke="#a997ff" opacity=".35"/>
+      </g>
+      <g filter="url(#glow)">
+        <circle cx="760" cy="220" r="9" fill="#53c7ff"/><circle cx="880" cy="248" r="5" fill="#53c7ff"/>
+        <circle cx="760" cy="610" r="9" fill="#f2b35f"/><circle cx="885" cy="585" r="5" fill="#f2b35f"/>
+        <circle cx="1220" cy="430" r="24" fill="#a997ff"/>
+      </g>
+      <g fill="#0e1020" stroke-width="2">
+        <rect x="650" y="155" width="155" height="130" rx="22" stroke="#53c7ff"/>
+        <rect x="650" y="545" width="155" height="130" rx="22" stroke="#f2b35f"/>
+      </g>
+      <g fill="#f0ece4" font-family="Inter,Noto Sans SC,sans-serif" text-anchor="middle">
+        <text x="728" y="205" font-size="20">文档数据</text><text x="728" y="235" font-size="13" fill="#7eb8da">PDF · 表格 · 扫描件</text>
+        <text x="728" y="595" font-size="20">工业数据</text><text x="728" y="625" font-size="13" fill="#f2b35f">设备 · 传感器 · 报警</text>
+        <text x="1220" y="490" font-size="15">业务价值</text>
+      </g>
+    </svg>
+    <div class="gd-snum">01 / 17</div>
+    <div style="margin-top:auto;max-width:690px">
+      <p class="kicker">WEEKLY INSIGHT · DATA PARTNER ECOSYSTEM</p>
+      <h1 class="title-xl"><span class="doc">从文档</span>到<span class="industrial">设备</span></h1>
+      <p class="subtitle" style="margin-top:18px">数据伙伴如何进入业务场景<br>并形成价值闭环</p>
+      <div class="accent-line"></div>
+      <div style="display:flex;gap:9px;flex-wrap:wrap">
+        <span class="pill doc"><span class="dot"></span>合合信息 TextIn</span>
+        <span class="pill industrial"><span class="dot"></span>树根互联 ROOTCLOUD</span>
+        <span class="pill value"><span class="dot"></span>生态伙伴本周洞察</span>
+      </div>
+    </div>
+    <div class="notes">开场只讲一句：这不是两个产品介绍，而是用两个典型入口说明数据伙伴怎样把客户已有的数据带进业务流程。一个入口是财报等文档，一个入口是工业设备。</div>
+  </section>
+
+  <!-- 03 CORE CONCLUSION -->
+  <section class="slide" data-title="核心结论">
+    <div class="gd-ambient"><div class="gd-orb gd-orb-1"></div><div class="gd-orb gd-orb-2"></div></div>
+    <div class="gd-snum">02 / 17</div>
+    <p class="kicker">RESEARCH FINDING</p>
+    <h2 class="title-lg">数据伙伴通过<span class="gd-grad">组合能力</span>进入业务场景</h2>
+    <div class="quote" style="margin-top:22px">
+      数据伙伴生态覆盖数据供给、技术实现、交付运营与可信保障，并围绕具体业务场景形成组合。
+    </div>
+    <div class="grid-4" style="margin-top:28px">
+      <div class="card"><h3>业务场景</h3><p>增长、降本、风控、生产与服务</p></div>
+      <div class="card doc-card"><h3>数据入口</h3><p>文档、设备、业务系统与外部数据</p></div>
+      <div class="card value-card"><h3>能力组合</h3><p>采集、治理、分析、智能与交付</p></div>
+      <div class="card ind-card"><h3>业务结果</h3><p>效率、质量、风险与经营表现</p></div>
+    </div>
+    <div class="deck-brand">核心结论</div>
+    <div class="notes">这一页呈现数据伙伴从业务场景、数据入口、能力组合到业务结果的关系。</div>
+  </section>
+
+  <!-- 05 ARCHITECTURE -->
+  <section class="slide" data-title="产业链整体架构">
+    <div class="gd-ambient"><div class="gd-orb gd-orb-3"></div></div>
+    <div class="gd-snum">03 / 17</div>
+    <p class="kicker">DATA VALUE CHAIN</p>
+    <h2 class="title-lg">一条价值主链，<span class="gd-grad">两项能力贯穿</span></h2>
+    <div class="flow" style="margin-top:28px">
+      <div class="flow-node"><strong>业务问题</strong><span>增长 · 降本 · 风控 · 生产</span></div><div class="flow-arrow">→</div>
+      <div class="flow-node"><strong>供给与采集</strong><span>文档 · 设备 · 系统 · 外部数据</span></div><div class="flow-arrow">→</div>
+      <div class="flow-node"><strong>连接与计算</strong><span>接口 · 工业协议 · 存储</span></div><div class="flow-arrow">→</div>
+      <div class="flow-node"><strong>治理与质量</strong><span>标准 · 校验 · 目录 · 权限</span></div><div class="flow-arrow">→</div>
+      <div class="flow-node"><strong>分析与智能</strong><span>BI · 知识 · 模型 · Agent</span></div><div class="flow-arrow">→</div>
+      <div class="flow-node"><strong>业务应用</strong><span>决策 · 工单 · 审批 · 运营</span></div>
+    </div>
+    <div class="grid-2" style="margin-top:28px">
+      <div class="card doc-card"><h3>安全、隐私与合规</h3><p>覆盖采集、存储、使用、流通和销毁各环节。</p></div>
+      <div class="card ind-card"><h3>咨询、集成与持续运营</h3><p>涵盖场景设计、产品组合、系统集成、上线与持续运营。</p></div>
+    </div>
+    <div class="deck-brand">数据产业链整体架构</div>
+    <div class="source">来源：国家发改委《关于促进数据产业高质量发展的指导意见》及附件；国家数据局《全国数据资源调查报告（2025年）》；本次调研分析框架。</div>
+    <div class="notes">这是一张分析框架图，不是官方分类的逐字复述。关键是把场景放在最前面，把安全和交付放在横向贯穿位置。</div>
+  </section>
+
+  <!-- 06 WHY TWO CASES -->
+  <section class="slide" data-title="两类数据入口">
+    <div class="gd-ambient"><div class="gd-orb gd-orb-1"></div><div class="gd-orb gd-orb-2"></div></div>
+    <div class="gd-snum">04 / 17</div>
+    <p class="kicker">TWO ENTRANCES · ONE LOGIC</p>
+    <h2 class="title-lg">两种数据入口，<span class="gd-grad">同一条价值逻辑</span></h2>
+    <div class="two-streams">
+      <div class="stream doc-stream">
+        <h3 class="doc">TextIn｜文档数据入口</h3>
+        <ul><li>财报、合同、票据、扫描件</li><li>解析、抽取、科目匹配与校验</li><li>进入信贷、投资、财务和风控流程</li></ul>
+      </div>
+      <div class="stream ind-stream">
+        <h3 class="industrial">ROOTCLOUD｜工业设备入口</h3>
+        <ul><li>设备、传感器、报警和工单</li><li>工业协议接入、健康分析与诊断</li><li>进入维护、巡检和生产管理流程</li></ul>
+      </div>
+      <div class="value-node"><strong>业务价值</strong><span>提效 · 提质<br>控险 · 稳定运行</span></div>
+    </div>
+    <div class="quote" style="font-size:24px;margin-top:24px">数据载体不同，但都要完成：采集 → 治理 → 应用 → 反馈。</div>
+    <div class="deck-brand">案例定位</div>
+    <div class="notes">两个案例分别呈现伙伴生态中的两种典型入口：非结构化文档和工业实时数据。</div>
+  </section>
+
+  <!-- 07 TEXTIN INDUSTRY -->
+  <section class="slide" data-title="TextIn行业洞察">
+    <div class="gd-ambient"><div class="gd-orb gd-orb-1"></div></div>
+    <div class="gd-snum">05 / 17</div>
+    <p class="kicker doc">CASE 01 · DOCUMENT DATA</p>
+    <h2 class="title-lg">重要数据已经存在，<span class="doc">但被锁在文档里</span></h2>
+    <div class="grid-2" style="margin-top:22px">
+      <div class="card doc-card">
+        <h3>典型行业与流程</h3>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+          <span class="pill">银行信贷</span><span class="pill">融资租赁</span><span class="pill">证券与信托</span>
+          <span class="pill">供应链金融</span><span class="pill">投资分析</span><span class="pill">投后管理</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>核心断点</h3>
+        <ul><li>PDF、图片、Excel版式不统一</li><li>人工录入、分类和复核成本高</li><li>财务科目需要映射统一标准</li><li>三大报表逻辑需要校验</li><li>数据难以直接进入风控与分析系统</li></ul>
+      </div>
+    </div>
+    <div class="flow doc-flow">
+      <div class="flow-node"><strong>文档存在</strong><span>财报已收集</span></div><div class="flow-arrow">≠</div>
+      <div class="flow-node"><strong>数据可用</strong><span>尚未结构化</span></div><div class="flow-arrow">≠</div>
+      <div class="flow-node"><strong>业务价值</strong><span>尚未进入流程</span></div>
+    </div>
+    <div class="section-mark">01</div>
+    <div class="deck-brand">合合信息 TextIn · 行业洞察</div>
+    <div class="source">来源：TextIn财报机器人产品页；合合信息官方案例资料。</div>
+    <div class="notes">这里要把问题说清：客户不是没有财报，而是财报作为文档无法直接进入计算和风控流程。</div>
+  </section>
+
+  <!-- 08 TEXTIN FLOW -->
+  <section class="slide" data-title="TextIn场景链路">
+    <div class="gd-ambient"><div class="gd-orb gd-orb-1"></div></div>
+    <div class="gd-snum">06 / 17</div>
+    <p class="kicker doc">SCENARIO · FINANCIAL REPORT INGESTION</p>
+    <h2 class="title-lg">把财报变成<span class="doc">可校验、可入库、可使用的数据</span></h2>
+    <div class="flow doc-flow" style="margin-top:30px">
+      <div class="flow-node"><strong>PDF / 图片 / Excel</strong><span>多格式输入</span></div><div class="flow-arrow">→</div>
+      <div class="flow-node"><strong>报表识别</strong><span>三表分类</span></div><div class="flow-arrow">→</div>
+      <div class="flow-node"><strong>字段抽取</strong><span>科目与数值</span></div><div class="flow-arrow">→</div>
+      <div class="flow-node"><strong>标准映射</strong><span>统一科目</span></div><div class="flow-arrow">→</div>
+      <div class="flow-node"><strong>逻辑校验</strong><span>勾稽与人工复核</span></div><div class="flow-arrow">→</div>
+      <div class="flow-node"><strong>业务系统</strong><span>信贷 · 投资 · 风控</span></div>
+    </div>
+    <div class="grid-3" style="margin-top:30px">
+      <div class="card"><h3>业务人员</h3><p>信贷、投资、风控和投后管理人员</p></div>
+      <div class="card doc-card"><h3>关键动作</h3><p>录入、分析、复核、识别异常与形成审批依据</p></div>
+      <div class="card value-card"><h3>业务输出</h3><p>可追溯的标准财务数据，而非一份孤立文档</p></div>
+    </div>
+    <div class="deck-brand">TextIn · 场景链路</div>
+    <div class="source">来源：TextIn财报机器人官方产品页。</div>
+    <div class="notes">强调财报机器人的价值链，不把它说成简单OCR。最关键的中间环节是科目映射、勾稽校验和人工复核。</div>
+  </section>
+
+  <!-- 09 TEXTIN PRODUCTS -->
+  <section class="slide" data-title="TextIn产品洞察">
+    <div class="gd-ambient"><div class="gd-orb gd-orb-3"></div></div>
+    <div class="gd-snum">07 / 17</div>
+    <p class="kicker doc">PRODUCT STACK</p>
+    <h2 class="title-lg">从识别文字，走向<span class="doc">企业文档数据底座</span></h2>
+    <div class="grid-3" style="margin-top:24px">
+      <div class="card doc-card"><h3>财报机器人</h3><p>三表识别、科目匹配、勾稽校验和标准数据输出。</p><div class="tiny" style="margin-top:12px">具体场景产品</div></div>
+      <div class="card"><h3>xParse Enterprise</h3><p>解析复杂PDF、PPT、表格与扫描件，输出Markdown、JSON及表格数据。</p><div class="tiny" style="margin-top:12px">企业文档解析基础设施</div></div>
+      <div class="card value-card"><h3>DocFlow</h3><p>文档分类、信息抽取、智能审核、人工复核及业务流转。</p><div class="tiny" style="margin-top:12px">文档自动化流程</div></div>
+    </div>
+    <div class="flow doc-flow" style="margin-top:28px">
+      <div class="flow-node"><strong>看见文字</strong><span>OCR</span></div><div class="flow-arrow">→</div>
+      <div class="flow-node"><strong>理解结构</strong><span>文档与表格解析</span></div><div class="flow-arrow">→</div>
+      <div class="flow-node"><strong>提取业务字段</strong><span>信息抽取</span></div><div class="flow-arrow">→</div>
+      <div class="flow-node"><strong>进入流程</strong><span>审核与系统集成</span></div>
+    </div>
+    <div class="deck-brand">TextIn · 产品洞察</div>
+    <div class="source">来源：TextIn财报机器人、xParse Enterprise、DocFlow官方产品页及文档。</div>
+    <div class="notes">这页是产品定位升级：从OCR厂商重新定义为文档数据入口与非结构化数据治理伙伴。</div>
+  </section>
+
+  <!-- 10 TEXTIN CASES -->
+  <section class="slide" data-title="TextIn案例洞察">
+    <div class="gd-ambient"><div class="gd-orb gd-orb-1"></div></div>
+    <div class="gd-snum">08 / 17</div>
+    <p class="kicker doc">OFFICIAL CASES</p>
+    <h2 class="title-lg">官方案例呈现应用场景，<span class="doc">量化成效未披露</span></h2>
+    <div class="case-strip">
+      <div class="case-name doc-card card">长江金租</div>
+      <div class="case-fact card"><h4 class="doc">官方披露</h4><p>处理不同企业、不同版式的季报和年报；完成三大报表分类、识别与提取，并支持断表自动接续。</p></div>
+      <div class="case-meaning card value-card"><h4 class="value">案例意义</h4><p>将财报从人工阅读材料转换为可进一步使用的数据，为数字化风控提供标准化入口。</p></div>
+    </div>
+    <div class="grid-3" style="margin-top:18px">
+      <div class="card"><h4>南海农商行</h4><p>授信业务中的财报数据录入。</p></div>
+      <div class="card"><h4>复星集团</h4><p>投资分析与投后管理中的财报处理。</p></div>
+      <div class="card"><h4>中国进出口银行</h4><p>辅助财报录入，支持信贷审批流程。</p></div>
+    </div>
+    <div class="honesty" style="margin-top:18px">未公开：准确率、工时下降、审批周期及ROI。本报告不补写这些数字。</div>
+    <div class="deck-brand">TextIn · 案例洞察</div>
+    <div class="source">来源：合合信息官方案例《长江金租：财报高精度智能识别》；TextIn财报机器人官方产品页。</div>
+    <div class="notes">案例只用于证明产品进入了哪些业务，不把厂商的定性描述转写成量化收益。</div>
+  </section>
+
+  <!-- 11 TEXTIN VALUE -->
+  <section class="slide" data-title="TextIn价值信息">
+    <div class="gd-ambient"><div class="gd-orb gd-orb-1"></div><div class="gd-orb gd-orb-3"></div></div>
+    <div class="gd-snum">09 / 17</div>
+    <p class="kicker doc">VALUE EVIDENCE · PUBLIC DISCLOSURE</p>
+    <h2 class="title-lg">公开资料呈现价值方向，<span class="doc">量化结果尚未披露</span></h2>
+    <div class="grid-5" style="margin-top:22px">
+      <div class="card"><h4>处理时长</h4><div class="empty-gauge undisclosed"></div><p>单份财报平均处理时长</p></div>
+      <div class="card"><h4>字段准确率</h4><div class="empty-gauge undisclosed"></div><p>字段级识别表现</p></div>
+      <div class="card"><h4>科目映射</h4><div class="empty-gauge undisclosed"></div><p>标准科目匹配表现</p></div>
+      <div class="card"><h4>人工复核率</h4><div class="empty-gauge undisclosed"></div><p>需人工调整的记录比例</p></div>
+      <div class="card"><h4>接口成功率</h4><div class="empty-gauge undisclosed"></div><p>写入业务系统的成功率</p></div>
+    </div>
+    <div class="grid-3" style="margin-top:24px">
+      <div class="card doc-card"><h3>提效</h3><p>减少录入、分类和校验工作。</p></div>
+      <div class="card value-card"><h3>提质与控险</h3><p>形成标准化、可校验、可追溯的数据输入。</p></div>
+      <div class="card"><h3>集成与合规</h3><p>官方资料披露API、私有化部署及系统集成方式。</p></div>
+    </div>
+    <div class="deck-brand">TextIn · 业务价值</div>
+    <div class="source">来源：TextIn官方产品页及案例；公开资料未披露上述量化数值。</div>
+    <div class="notes">这页区分公开资料已经说明的价值方向与尚未披露的量化结果。</div>
+  </section>
+
+  <!-- 12 ROOT INDUSTRY -->
+  <section class="slide" data-title="根云行业洞察">
+    <div class="gd-ambient"><div class="gd-orb gd-orb-2"></div></div>
+    <div class="gd-snum">10 / 17</div>
+    <p class="kicker industrial">CASE 02 · INDUSTRIAL DATA</p>
+    <h2 class="title-lg">设备一直产生数据，<span class="industrial">却未必产生行动</span></h2>
+    <div class="grid-2" style="margin-top:22px">
+      <div class="card ind-card">
+        <h3>典型行业</h3>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+          <span class="pill">装备制造</span><span class="pill">汽车及零部件</span><span class="pill">钢铁冶金</span>
+          <span class="pill">工程机械</span><span class="pill">环保设施</span><span class="pill">公用事业</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>核心断点</h3>
+        <ul><li>设备品牌与工业协议不统一</li><li>关键参数依赖人工周期性巡检</li><li>报警、维修、保养和巡检彼此割裂</li><li>维修以故障后处理为主</li><li>经验停留在个人，难以形成知识</li></ul>
+      </div>
+    </div>
+    <div class="flow ind-flow">
+      <div class="flow-node"><strong>设备在线</strong><span>持续产生数据</span></div><div class="flow-arrow">≠</div>
+      <div class="flow-node"><strong>数据贯通</strong><span>协议与系统割裂</span></div><div class="flow-arrow">≠</div>
+      <div class="flow-node"><strong>维护优化</strong><span>尚未形成闭环</span></div>
+    </div>
+    <div class="section-mark">02</div>
+    <div class="deck-brand">树根互联根云 · 行业洞察</div>
+    <div class="source">来源：树根互联“关于树根”、根云工业连接及EDM官方产品页。</div>
+    <div class="notes">工业场景的难点不只是采集数据，还包括协议、实时性、工业机理、故障标签和现场交付。</div>
+  </section>
+
+  <!-- 13 ROOT FLOW -->
+  <section class="slide" data-title="根云场景链路">
+    <div class="gd-ambient"><div class="gd-orb gd-orb-2"></div></div>
+    <div class="gd-snum">11 / 17</div>
+    <p class="kicker industrial">SCENARIO · EQUIPMENT MAINTENANCE</p>
+    <h2 class="title-lg">让设备数据进入<span class="industrial">维修与生产行动</span></h2>
+    <div class="flow ind-flow" style="margin-top:28px">
+      <div class="flow-node"><strong>设备与传感器</strong><span>状态与参数</span></div><div class="flow-arrow">→</div>
+      <div class="flow-node"><strong>工业协议接入</strong><span>网关与边缘</span></div><div class="flow-arrow">→</div>
+      <div class="flow-node"><strong>实时采集</strong><span>计算与异常监控</span></div><div class="flow-arrow">→</div>
+      <div class="flow-node"><strong>健康分析</strong><span>指标与诊断</span></div><div class="flow-arrow">→</div>
+      <div class="flow-node"><strong>工单触发</strong><span>维修 · 保养 · 巡检</span></div><div class="flow-arrow">→</div>
+      <div class="flow-node"><strong>反馈沉淀</strong><span>报告 · 模型 · 知识</span></div>
+    </div>
+    <div class="grid-3" style="margin-top:30px">
+      <div class="card"><h3>业务人员</h3><p>设备、维修、生产和工厂管理人员</p></div>
+      <div class="card ind-card"><h3>关键动作</h3><p>处理预警、安排维护、执行工单与复盘故障</p></div>
+      <div class="card value-card"><h3>业务输出</h3><p>从周期巡检和故障后维修，走向基于工况的维护</p></div>
+    </div>
+    <div class="deck-brand">根云 · 场景链路</div>
+    <div class="source">来源：根云工业连接与设备数字运维系统EDM官方产品页。</div>
+    <div class="notes">说明完整闭环：采集只是第一步，真正的价值落在报警如何变成工单、维修结果如何反哺模型和知识。</div>
+  </section>
+
+  <!-- 14 ROOT PRODUCTS -->
+  <section class="slide" data-title="根云产品洞察">
+    <div class="gd-ambient"><div class="gd-orb gd-orb-3"></div></div>
+    <div class="gd-snum">12 / 17</div>
+    <p class="kicker industrial">PRODUCT STACK</p>
+    <h2 class="title-lg">不只是设备联网，而是<span class="industrial">工业数据到运维闭环</span></h2>
+    <div class="grid-3" style="margin-top:24px">
+      <div class="card ind-card"><h3>根云工业连接</h3><p>数据采集、数据计算、存储、转发和异常监控。</p><div class="tiny" style="margin-top:12px">工业数据入口</div></div>
+      <div class="card"><h3>根云工业互联网平台</h3><p>设备连接、数据建模、分析能力与工业应用开发底座。</p><div class="tiny" style="margin-top:12px">平台枢纽</div></div>
+      <div class="card value-card"><h3>设备数字运维EDM</h3><p>维修、保养和巡检工单；健康评估；模型、指标与知识沉淀。</p><div class="tiny" style="margin-top:12px">场景应用</div></div>
+    </div>
+    <div class="flow ind-flow" style="margin-top:28px">
+      <div class="flow-node"><strong>设备连接</strong><span>协议与数据</span></div><div class="flow-arrow">→</div>
+      <div class="flow-node"><strong>状态分析</strong><span>监控与诊断</span></div><div class="flow-arrow">→</div>
+      <div class="flow-node"><strong>工单执行</strong><span>维修与保养</span></div><div class="flow-arrow">→</div>
+      <div class="flow-node"><strong>持续优化</strong><span>模型与知识</span></div>
+    </div>
+    <div class="deck-brand">根云 · 产品洞察</div>
+    <div class="source">来源：树根互联根云工业连接、根云平台、设备数字运维系统EDM官方产品页。</div>
+    <div class="notes">这页给根云一个更完整定位：工业设备连接伙伴、工业数据平台伙伴和运维场景伙伴。</div>
+  </section>
+
+  <!-- 15 ROOT CASES -->
+  <section class="slide" data-title="根云案例洞察">
+    <div class="gd-ambient"><div class="gd-orb gd-orb-2"></div></div>
+    <div class="gd-snum">13 / 17</div>
+    <p class="kicker industrial">OFFICIAL CASES</p>
+    <h2 class="title-lg">官方案例覆盖<span class="industrial">智慧工厂与资产运维</span></h2>
+    <div class="case-strip">
+      <div class="case-name ind-card card">新天钢<br>冷轧薄板</div>
+      <div class="case-fact card"><h4 class="industrial">官方披露</h4><p>以“5G＋工业互联网”为基础建设智慧工厂，应用方向涉及工厂管理、生产运行和节能减排。</p></div>
+      <div class="case-meaning card value-card"><h4 class="value">案例意义</h4><p>根云能力不只用于设备数据展示，而是进入工厂管理和运行场景。</p></div>
+    </div>
+    <div class="case-strip" style="margin-top:14px">
+      <div class="case-name ind-card card">川仪环境<br>智慧水务</div>
+      <div class="case-fact card"><h4 class="industrial">官方披露</h4><p>建设覆盖污水处理产业链的智慧水务运营平台，用于环保设施智能监控和资产全生命周期管理。</p></div>
+      <div class="case-meaning card value-card"><h4 class="value">案例意义</h4><p>“设备连接＋资产运维”能力可以延伸至环保设施和公用事业。</p></div>
+    </div>
+    <div class="honesty" style="margin-top:15px">未公开：停机时间、维修成本、OEE和能耗改善具体数值。本报告不补写。</div>
+    <div class="deck-brand">根云 · 案例洞察</div>
+    <div class="source">来源：树根互联EDM官方产品页；根云平台川仪环境案例。</div>
+    <div class="notes">案例页呈现产品进入的业务流程；公开资料未给出量化结果。</div>
+  </section>
+
+  <!-- 16 ROOT VALUE -->
+  <section class="slide" data-title="根云价值信息">
+    <div class="gd-ambient"><div class="gd-orb gd-orb-2"></div><div class="gd-orb gd-orb-3"></div></div>
+    <div class="gd-snum">14 / 17</div>
+    <p class="kicker industrial">VALUE EVIDENCE · PUBLIC DISCLOSURE</p>
+    <h2 class="title-lg">公开资料呈现应用价值，<span class="industrial">核心指标尚未披露</span></h2>
+    <div class="grid-5" style="margin-top:22px">
+      <div class="card"><h4>协议适配率</h4><div class="empty-gauge undisclosed"></div><p>目标设备接入覆盖</p></div>
+      <div class="card"><h4>巡检工时</h4><div class="empty-gauge undisclosed"></div><p>人工巡检变化</p></div>
+      <div class="card"><h4>非计划停机</h4><div class="empty-gauge undisclosed"></div><p>停机时间变化</p></div>
+      <div class="card"><h4>工单闭环率</h4><div class="empty-gauge undisclosed"></div><p>报警到维修反馈</p></div>
+      <div class="card"><h4>预警表现</h4><div class="empty-gauge undisclosed"></div><p>准确率与误报率</p></div>
+    </div>
+    <div class="grid-3" style="margin-top:24px">
+      <div class="card ind-card"><h3>数据获取</h3><p>设备参数、报警和工单进入统一链路。</p></div>
+      <div class="card value-card"><h3>可靠性与维护</h3><p>官方产品说明覆盖预警、工单闭环和设备健康管理。</p></div>
+      <div class="card"><h3>经营影响</h3><p>公开资料未披露OEE、维修成本和停机改善的具体数值。</p></div>
+    </div>
+    <div class="deck-brand">根云 · 业务价值</div>
+    <div class="source">来源：根云工业连接、EDM及官方案例；公开资料未披露上述量化数值。</div>
+    <div class="notes">这页陈述官方资料已经披露的功能与应用价值，同时明确缺少的量化指标。</div>
+  </section>
+
+  <!-- 17 COMPARISON -->
+  <section class="slide" data-title="双案例横向比较">
+    <div class="gd-ambient"><div class="gd-orb gd-orb-1"></div><div class="gd-orb gd-orb-2"></div></div>
+    <div class="gd-snum">15 / 17</div>
+    <p class="kicker">SIDE-BY-SIDE</p>
+    <h2 class="title-lg">同一条价值链，<span class="gd-grad">两种实施复杂度</span></h2>
+    <div class="matrix">
+      <div class="head">比较维度</div><div class="head doc">TextIn｜财报智能采集</div><div class="head industrial">根云｜设备预测性维护</div>
+      <div class="rowlabel">原始载体</div><div>PDF、图片、Excel、表格</div><div>设备、传感器、报警和工单</div>
+      <div class="rowlabel">数据形态</div><div>非结构化与半结构化文档</div><div>实时流数据、状态与事件</div>
+      <div class="rowlabel">治理重点</div><div>字段、科目、表格与逻辑关系</div><div>设备编码、协议、指标与状态</div>
+      <div class="rowlabel">业务应用</div><div>信贷、投资、财务与风控</div><div>设备维护、生产与资产管理</div>
+      <div class="rowlabel">主要用户</div><div>财务、信贷、投资、风控人员</div><div>设备、维修、生产、工厂管理人员</div>
+      <div class="rowlabel">实施难点</div><div>文档差异、准确率、复核机制</div><div>协议接入、故障样本、工业机理</div>
+      <div class="rowlabel">实施特征</div><div>文档样本相对容易获得，主要依赖解析、复核和业务系统接口</div><div>依赖现场设备、工业协议、故障样本和较长观察周期</div>
+    </div>
+    <div class="deck-brand">横向比较</div>
+    <div class="source">本页为基于官方产品能力和场景要求形成的分析比较，不含主观评分。</div>
+    <div class="notes">不做雷达图，因为没有可靠评分依据。用事实维度对比两个场景的输入、应用和实施难点。</div>
+  </section>
+
+  <!-- 18 IMPLEMENTATION CONDITIONS -->
+  <section class="slide" data-title="场景实施条件">
+    <div class="gd-ambient"><div class="gd-orb gd-orb-1"></div><div class="gd-orb gd-orb-2"></div><div class="gd-orb gd-orb-3"></div></div>
+    <div class="gd-snum">16 / 17</div>
+    <p class="kicker">IMPLEMENTATION CONDITIONS</p>
+    <h2 class="title-lg">两类场景对应<span class="gd-grad">不同的数据与系统条件</span></h2>
+    <div class="decision">
+      <div class="path doc-path">
+        <p class="kicker doc">DOCUMENT DATA SCENARIO</p>
+        <h3>财报智能采集与审核</h3>
+        <p>输入以财报文档为主，涉及解析、科目映射、人工复核以及信贷、投资或风控系统接口。</p>
+      </div>
+      <div class="path ind-path">
+        <p class="kicker industrial">INDUSTRIAL DATA SCENARIO</p>
+        <h3>关键设备预测性维护</h3>
+        <p>输入来自真实设备、传感器、报警和工单，涉及工业协议、边缘采集、健康分析及维修系统。</p>
+      </div>
+    </div>
+    <div class="grid-3" style="margin-top:24px">
+      <div class="card"><h3>数据条件</h3><p>文档样本与设备数据的获取方式不同。</p></div>
+      <div class="card"><h3>系统条件</h3><p>分别连接业务系统或工业现场系统。</p></div>
+      <div class="card value-card"><h3>观察周期</h3><p>文档处理按批次观察；设备运维依赖持续运行数据。</p></div>
+    </div>
+    <div class="deck-brand">场景实施条件</div>
+    <div class="notes">这一页陈述两个场景在数据来源、系统连接和观察周期上的客观差异。</div>
+  </section>
+
+  <!-- 19 SOURCES -->
+  <section class="slide" data-title="来源与数据边界">
+    <div class="gd-ambient"><div class="gd-orb gd-orb-3"></div></div>
+    <div class="gd-snum">17 / 17</div>
+    <p class="kicker">SOURCES & BOUNDARIES</p>
+    <h2 class="title-lg">数据有出处，<span class="gd-grad">缺失留占位</span></h2>
+    <div class="references">
+      <div class="ref"><strong>产业链政策框架</strong><span>国家发展改革委等：《关于促进数据产业高质量发展的指导意见》及《数据技术和产业重点发展方向》</span></div>
+      <div class="ref"><strong>数据企业分类</strong><span>国家数据局：《全国数据资源调查报告（2025年）》</span></div>
+      <div class="ref"><strong>伙伴库数据</strong><span>内部《数据生态伙伴产品分类完整版.xlsx》；快照日期：2026-07-28</span></div>
+      <div class="ref"><strong>TextIn财报机器人</strong><span>https://www.intsig.com/public/textin/product/textin-financia.shtml</span></div>
+      <div class="ref"><strong>长江金租案例</strong><span>https://b.intsig.com/news/76</span></div>
+      <div class="ref"><strong>xParse Enterprise</strong><span>https://www.textin.com/product/textin_xparse_enterprise</span></div>
+      <div class="ref"><strong>DocFlow官方文档</strong><span>https://docs-docflow.textin.com/docflow/cn/00-overview/intro</span></div>
+      <div class="ref"><strong>根云工业连接</strong><span>https://www.irootech.com/product/shucai.html</span></div>
+      <div class="ref"><strong>设备数字运维EDM</strong><span>https://www.irootech.com/product/EDM.html</span></div>
+      <div class="ref"><strong>根云平台与川仪环境案例</strong><span>https://www.irootech.com/sem/index.html</span></div>
+    </div>
+    <div class="honesty" style="margin-top:14px">
+      公开资料边界：厂商案例用于说明应用方向；准确率、停机改善、工时、OEE、成本和ROI等未公开数据均标记为“未披露”。
+    </div>
+    <div class="deck-brand">END · 数据伙伴本周洞察</div>
+    <div class="notes">最后说明来源和公开资料边界：功能与场景有官方出处，未公开的量化成效不作推断。</div>
+  </section>
+
+</div>
+<script>
+/* html-ppt :: runtime.js
+ * Keyboard-driven deck runtime. Zero dependencies.
+ *
+ * Features:
+ *   ← → / space / PgUp PgDn / Home End  navigation
+ *   F  fullscreen
+ *   S  presenter mode (opens a NEW WINDOW with current/next slide preview + notes + timer)
+ *       The original window stays as audience view, synced via BroadcastChannel.
+ *       Slide previews use CSS transform:scale() at design resolution for pixel-perfect layout.
+ *   N  quick notes overlay (bottom drawer)
+ *   O  slide overview grid
+ *   T  cycle themes (reads data-themes on <html> or <body>)
+ *   A  cycle demo animation on current slide
+ *   URL hash #/N  deep-link to slide N (1-based)
+ *   Progress bar auto-managed
+ */
+(function () {
+  'use strict';
+
+  const ANIMS = ['fade-up','fade-down','fade-left','fade-right','rise-in','drop-in',
+    'zoom-pop','blur-in','glitch-in','typewriter','neon-glow','shimmer-sweep',
+    'gradient-flow','stagger-list','counter-up','path-draw','parallax-tilt',
+    'card-flip-3d','cube-rotate-3d','page-turn-3d','perspective-zoom',
+    'marquee-scroll','kenburns','confetti-burst','spotlight','morph-shape','ripple-reveal'];
+
+  function ready(fn){ if(document.readyState!='loading')fn(); else document.addEventListener('DOMContentLoaded',fn);}
+
+  /* ========== Parse URL for preview-only mode ==========
+   * When loaded as iframe.src = "index.html?preview=3", runtime enters a
+   * locked single-slide mode: only slide N is visible, no chrome, no keys,
+   * no hash updates. This is how the presenter window shows pixel-perfect
+   * previews — by loading the actual deck file in an iframe and telling it
+   * to display only a specific slide.
+   */
+  function getPreviewIdx() {
+    const m = /[?&]preview=(\d+)/.exec(location.search || '');
+    return m ? parseInt(m[1], 10) - 1 : -1;
+  }
+
+  ready(function () {
+    const deck = document.querySelector('.deck');
+    if (!deck) return;
+    const slides = Array.from(deck.querySelectorAll('.slide'));
+    if (!slides.length) return;
+
+    const previewOnlyIdx = getPreviewIdx();
+    const isPreviewMode = previewOnlyIdx >= 0 && previewOnlyIdx < slides.length;
+
+    /* ===== Preview-only mode: show one slide, hide everything else ===== */
+    if (isPreviewMode) {
+      function showSlide(i) {
+        slides.forEach((s, j) => {
+          const active = (j === i);
+          s.classList.toggle('is-active', active);
+          s.style.display = active ? '' : 'none';
+          if (active) {
+            s.style.opacity = '1';
+            s.style.transform = 'none';
+            s.style.pointerEvents = 'auto';
+          }
+        });
+      }
+      showSlide(previewOnlyIdx);
+      /* Hide chrome that the presenter shouldn't see in preview */
+      const hideSel = '.progress-bar, .notes-overlay, .overview, .notes, aside.notes, .speaker-notes';
+      document.querySelectorAll(hideSel).forEach(el => { el.style.display = 'none'; });
+      document.documentElement.setAttribute('data-preview', '1');
+      document.body.setAttribute('data-preview', '1');
+      /* Auto-detect theme base path for theme switching in preview mode */
+      function getPreviewThemeBase() {
+        const base = document.documentElement.getAttribute('data-theme-base');
+        if (base) return base;
+        const tl = document.getElementById('theme-link');
+        if (tl) {
+          const raw = tl.getAttribute('href') || '';
+          const ls = raw.lastIndexOf('/');
+          if (ls >= 0) return raw.substring(0, ls + 1);
+        }
+        return 'assets/themes/';
+      }
+      const previewThemeBase = getPreviewThemeBase();
+
+      /* Listen for postMessage from parent presenter window:
+       *  - preview-goto: switch visible slide WITHOUT reloading
+       *  - preview-theme: switch theme CSS link to match audience window */
+      window.addEventListener('message', function(e) {
+        if (!e.data) return;
+        if (e.data.type === 'preview-goto') {
+          const n = parseInt(e.data.idx, 10);
+          if (n >= 0 && n < slides.length) showSlide(n);
+        } else if (e.data.type === 'preview-theme' && e.data.name) {
+          let link = document.getElementById('theme-link');
+          if (!link) {
+            link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.id = 'theme-link';
+            document.head.appendChild(link);
+          }
+          link.href = previewThemeBase + e.data.name + '.css';
+          document.documentElement.setAttribute('data-theme', e.data.name);
+        }
+      });
+      /* Signal to parent that preview iframe is ready */
+      try { window.parent && window.parent.postMessage({ type: 'preview-ready' }, '*'); } catch(e) {}
+      return;
+    }
+
+    let idx = 0;
+    const total = slides.length;
+
+    /* ===== BroadcastChannel for presenter sync ===== */
+    const CHANNEL_NAME = 'html-ppt-presenter-' + location.pathname;
+    let bc;
+    try { bc = new BroadcastChannel(CHANNEL_NAME); } catch(e) { bc = null; }
+
+    // Are we running inside the presenter popup? (legacy flag, now unused)
+    const isPresenterWindow = false;
+
+    /* ===== progress bar ===== */
+    let bar = document.querySelector('.progress-bar');
+    if (!bar) {
+      bar = document.createElement('div');
+      bar.className = 'progress-bar';
+      bar.innerHTML = '<span></span>';
+      document.body.appendChild(bar);
+    }
+    const barFill = bar.querySelector('span');
+
+    /* ===== notes overlay (N key) ===== */
+    let notes = document.querySelector('.notes-overlay');
+    if (!notes) {
+      notes = document.createElement('div');
+      notes.className = 'notes-overlay';
+      document.body.appendChild(notes);
+    }
+
+    /* ===== overview grid (O key) ===== */
+    let overview = document.querySelector('.overview');
+    if (!overview) {
+      overview = document.createElement('div');
+      overview.className = 'overview';
+      slides.forEach((s, i) => {
+        const t = document.createElement('div');
+        t.className = 'thumb';
+        // Force 16:9 aspect ratio robustly
+        t.style.padding = '0 0 56.25% 0';
+        t.style.height = '0';
+        t.style.position = 'relative';
+        t.style.overflow = 'hidden';
+
+        const title = s.getAttribute('data-title') ||
+          (s.querySelector('h1,h2,h3')||{}).textContent || ('Slide '+(i+1));
+        
+        // Create a container for the mini-slide
+        const mini = document.createElement('div');
+        mini.className = 'mini-slide';
+        mini.style.position = 'absolute';
+        mini.style.top = '0';
+        mini.style.left = '0';
+        mini.style.width = '1920px';
+        mini.style.height = '1080px';
+        mini.style.transformOrigin = 'top left';
+        mini.style.pointerEvents = 'none';
+        mini.style.background = 'var(--bg)';
+        
+        // Clone the slide content
+        const clone = s.cloneNode(true);
+        clone.className = 'slide is-active'; // force active styles
+        clone.style.position = 'absolute';
+        clone.style.inset = '0';
+        clone.style.transform = 'none';
+        clone.style.opacity = '1';
+        clone.style.padding = '72px 96px'; // ensure padding is kept
+        
+        mini.appendChild(clone);
+        t.appendChild(mini);
+
+        // Add the number and title overlay
+        const overlay = document.createElement('div');
+        overlay.style.position = 'absolute';
+        overlay.style.inset = '0';
+        overlay.style.background = 'linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.8) 100%)';
+        overlay.style.color = '#fff';
+        overlay.style.zIndex = '10';
+        overlay.style.pointerEvents = 'none';
+        
+        const n = document.createElement('div');
+        n.className = 'n';
+        n.textContent = i + 1;
+        n.style.position = 'absolute';
+        n.style.top = '12px';
+        n.style.left = '16px';
+        n.style.fontWeight = '700';
+        n.style.fontSize = '16px';
+        n.style.color = '#fff';
+        n.style.textShadow = '0 1px 4px rgba(0,0,0,0.8)';
+        
+        const text = document.createElement('div');
+        text.className = 't';
+        text.textContent = title.trim().slice(0,80);
+        text.style.position = 'absolute';
+        text.style.bottom = '12px';
+        text.style.left = '16px';
+        text.style.right = '16px';
+        text.style.fontWeight = '600';
+        text.style.fontSize = '14px';
+        text.style.color = '#fff';
+        text.style.textShadow = '0 1px 4px rgba(0,0,0,0.8)';
+        
+        overlay.appendChild(n);
+        overlay.appendChild(text);
+        t.appendChild(overlay);
+
+        t.addEventListener('click', () => { go(i); toggleOverview(false); });
+        overview.appendChild(t);
+      });
+      document.body.appendChild(overview);
+    }
+
+    /* ===== navigation ===== */
+    function go(n, fromRemote){
+      n = Math.max(0, Math.min(total-1, n));
+      slides.forEach((s,i) => {
+        s.classList.toggle('is-active', i===n);
+        s.classList.toggle('is-prev', i<n);
+      });
+      idx = n;
+      barFill.style.width = ((n+1)/total*100)+'%';
+      const numEl = document.querySelector('.slide-number');
+      if (numEl) { numEl.setAttribute('data-current', n+1); numEl.setAttribute('data-total', total); }
+
+      // notes (bottom overlay)
+      const note = slides[n].querySelector('.notes, aside.notes, .speaker-notes');
+      notes.innerHTML = note ? note.innerHTML : '';
+
+      // hash
+      const hashTarget = '#/'+(n+1);
+      if (location.hash !== hashTarget && !isPresenterWindow) {
+        history.replaceState(null,'', hashTarget);
+      }
+
+      // re-trigger entry animations
+      slides[n].querySelectorAll('[data-anim]').forEach(el => {
+        const a = el.getAttribute('data-anim');
+        el.classList.remove('anim-'+a);
+        void el.offsetWidth;
+        el.classList.add('anim-'+a);
+      });
+
+      // counter-up
+      slides[n].querySelectorAll('.counter').forEach(el => {
+        const target = parseFloat(el.getAttribute('data-to')||el.textContent);
+        const dur = parseInt(el.getAttribute('data-dur')||'1200',10);
+        const start = performance.now();
+        const from = 0;
+        function tick(now){
+          const t = Math.min(1,(now-start)/dur);
+          const v = from + (target-from)*(1-Math.pow(1-t,3));
+          el.textContent = (target % 1 === 0) ? Math.round(v) : v.toFixed(1);
+          if (t<1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+
+      // Broadcast to other window (audience ↔ presenter)
+      if (!fromRemote && bc) {
+        bc.postMessage({ type: 'go', idx: n });
+      }
+    }
+
+    /* ===== listen for remote navigation / theme changes ===== */
+    if (bc) {
+      bc.onmessage = function(e) {
+        if (!e.data) return;
+        if (e.data.type === 'go' && typeof e.data.idx === 'number') {
+          go(e.data.idx, true);
+        } else if (e.data.type === 'theme' && e.data.name) {
+          /* Sync theme across windows */
+          const i = themes.indexOf(e.data.name);
+          if (i >= 0) themeIdx = i;
+          applyTheme(e.data.name);
+        }
+      };
+    }
+
+    function toggleNotes(force){ notes.classList.toggle('open', force!==undefined?force:!notes.classList.contains('open')); }
+    function toggleOverview(force){
+      const isOpen = force!==undefined ? force : !overview.classList.contains('open');
+      overview.classList.toggle('open', isOpen);
+      if (isOpen) {
+        requestAnimationFrame(() => {
+          const thumbs = overview.querySelectorAll('.thumb');
+          if (thumbs.length) {
+            const scale = thumbs[0].clientWidth / 1920;
+            overview.querySelectorAll('.mini-slide').forEach(m => {
+              m.style.transform = 'scale(' + scale + ')';
+            });
+          }
+        });
+      }
+    }
+
+    /* ========== PRESENTER MODE — Magnetic-card popup window ========== */
+    /* Opens a new window with 4 draggable, resizable cards:
+     *   CURRENT  — iframe(?preview=N)   pixel-perfect preview of current slide
+     *   NEXT     — iframe(?preview=N+1) pixel-perfect preview of next slide
+     *   SCRIPT   — large speaker notes (逐字稿)
+     *   TIMER    — elapsed timer + page counter + controls
+     * Cards remember position/size in localStorage.
+     * Two windows sync via BroadcastChannel.
+     */
+    let presenterWin = null;
+
+    function openPresenterWindow() {
+      if (presenterWin && !presenterWin.closed) {
+        presenterWin.focus();
+        return;
+      }
+
+      // Build absolute URL of THIS deck file (without hash/query)
+      const deckUrl = location.protocol + '//' + location.host + location.pathname;
+
+      // Collect slide titles + notes (HTML strings)
+      const slideMeta = slides.map((s, i) => {
+        const note = s.querySelector('.notes, aside.notes, .speaker-notes');
+        return {
+          title: s.getAttribute('data-title') ||
+            (s.querySelector('h1,h2,h3')||{}).textContent || ('Slide '+(i+1)),
+          notes: note ? note.innerHTML : ''
+        };
+      });
+
+      /* Capture current theme so presenter previews match the audience */
+      const currentTheme = root.getAttribute('data-theme') || (themes[themeIdx] || '');
+      const presenterHTML = buildPresenterHTML(deckUrl, slideMeta, total, idx, CHANNEL_NAME, currentTheme);
+
+      presenterWin = window.open('', 'html-ppt-presenter', 'width=1280,height=820,menubar=no,toolbar=no');
+      if (!presenterWin) {
+        alert('请允许弹出窗口以使用演讲者视图');
+        return;
+      }
+      presenterWin.document.open();
+      presenterWin.document.write(presenterHTML);
+      presenterWin.document.close();
+    }
+
+    function buildPresenterHTML(deckUrl, slideMeta, total, startIdx, channelName, currentTheme) {
+      const metaJSON = JSON.stringify(slideMeta);
+      const deckUrlJSON = JSON.stringify(deckUrl);
+      const channelJSON = JSON.stringify(channelName);
+      const themeJSON = JSON.stringify(currentTheme || '');
+      const storageKey = 'html-ppt-presenter:' + location.pathname;
+
+      // Build the document as a single template string for clarity
+      return `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>Presenter View</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 100%; height: 100%; overflow: hidden;
+    background: #1a1d24;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(88,166,255,.04), transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(188,140,255,.04), transparent 50%);
+    color: #e6edf3;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+  }
+  /* Stage: positioned area where cards live */
+  #stage { position: absolute; inset: 0; overflow: hidden; }
+
+  /* Magnetic card */
+  .pcard {
+    position: absolute;
+    background: #0d1117;
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.02);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    min-width: 180px; min-height: 100px;
+    transition: box-shadow .2s, border-color .2s;
+  }
+  .pcard.dragging { box-shadow: 0 16px 48px rgba(0,0,0,.6), 0 0 0 2px rgba(88,166,255,.5); border-color: #58a6ff; transition: none; z-index: 9999; }
+  .pcard.resizing { box-shadow: 0 16px 48px rgba(0,0,0,.6), 0 0 0 2px rgba(63,185,80,.5); border-color: #3fb950; transition: none; z-index: 9999; }
+  .pcard:hover { border-color: rgba(88,166,255,.3); }
+
+  /* Card header (drag handle) */
+  .pcard-head {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 12px;
+    background: rgba(255,255,255,.04);
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    cursor: move;
+    user-select: none;
+    flex-shrink: 0;
+  }
+  .pcard-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--dot-color, #58a6ff); flex-shrink: 0; }
+  .pcard-title {
+    font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
+    font-weight: 700; color: #8b949e; flex: 1;
+  }
+  .pcard-meta { font-size: 11px; color: #6e7681; }
+
+  /* Card body */
+  .pcard-body { flex: 1; position: relative; overflow: hidden; min-height: 0; }
+
+  /* Preview cards (CURRENT/NEXT) — iframe-based pixel-perfect render */
+  .pcard-preview .pcard-body { background: #000; }
+  .pcard-preview iframe {
+    position: absolute; top: 0; left: 0;
+    width: 1920px; height: 1080px;
+    border: none;
+    transform-origin: top left;
+    pointer-events: none;
+    background: transparent;
+  }
+  .pcard-preview .preview-end {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: #484f58; font-size: 14px; letter-spacing: .12em;
+  }
+
+  /* Notes card */
+  .pcard-notes .pcard-body {
+    padding: 14px 18px;
+    overflow-y: auto;
+    font-size: 18px; line-height: 1.75;
+    color: #d0d7de;
+    font-family: "Noto Sans SC", -apple-system, sans-serif;
+  }
+  .pcard-notes .pcard-body p { margin: 0 0 .7em 0; }
+  .pcard-notes .pcard-body strong { color: #f0883e; }
+  .pcard-notes .pcard-body em { color: #58a6ff; font-style: normal; }
+  .pcard-notes .pcard-body code {
+    font-family: "SF Mono", monospace; font-size: .9em;
+    background: rgba(255,255,255,.08); padding: 1px 6px; border-radius: 4px;
+  }
+  .pcard-notes .empty { color: #484f58; font-style: italic; }
+
+  /* Timer card */
+  .pcard-timer .pcard-body {
+    display: flex; flex-direction: column; gap: 14px;
+    padding: 18px 20px; justify-content: center;
+  }
+  .timer-display {
+    font-family: "SF Mono", "JetBrains Mono", monospace;
+    font-size: 42px; font-weight: 700;
+    color: #3fb950;
+    letter-spacing: .04em;
+    line-height: 1;
+  }
+  .timer-row {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 14px; color: #8b949e;
+  }
+  .timer-row .label { font-size: 10px; letter-spacing: .15em; text-transform: uppercase; color: #6e7681; }
+  .timer-row .val { color: #e6edf3; font-weight: 600; font-family: "SF Mono", monospace; }
+  .timer-controls { display: flex; gap: 8px; flex-wrap: wrap; }
+  .timer-btn {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.1);
+    color: #e6edf3;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .timer-btn:hover { background: rgba(88,166,255,.15); border-color: #58a6ff; }
+  .timer-btn:active { transform: translateY(1px); }
+
+  /* Resize handle */
+  .pcard-resize {
+    position: absolute; right: 0; bottom: 0;
+    width: 18px; height: 18px;
+    cursor: nwse-resize;
+    background: linear-gradient(135deg, transparent 50%, rgba(255,255,255,.25) 50%, rgba(255,255,255,.25) 60%, transparent 60%, transparent 70%, rgba(255,255,255,.25) 70%, rgba(255,255,255,.25) 80%, transparent 80%);
+    z-index: 5;
+  }
+  .pcard-resize:hover { background: linear-gradient(135deg, transparent 50%, #58a6ff 50%, #58a6ff 60%, transparent 60%, transparent 70%, #58a6ff 70%, #58a6ff 80%, transparent 80%); }
+
+  /* Bottom hint bar */
+  .hint-bar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: rgba(0,0,0,.6);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255,255,255,.08);
+    padding: 6px 16px;
+    font-size: 11px; color: #8b949e;
+    display: flex; gap: 18px; align-items: center;
+    z-index: 1000;
+  }
+  .hint-bar kbd {
+    background: rgba(255,255,255,.08);
+    padding: 1px 6px; border-radius: 3px;
+    font-family: "SF Mono", monospace;
+    font-size: 10px;
+    border: 1px solid rgba(255,255,255,.1);
+    color: #e6edf3;
+  }
+  .hint-bar .reset-layout {
+    margin-left: auto;
+    background: transparent; border: 1px solid rgba(255,255,255,.15);
+    color: #8b949e; padding: 3px 10px; border-radius: 4px;
+    font-size: 11px; cursor: pointer; font-family: inherit;
+  }
+  .hint-bar .reset-layout:hover { background: rgba(248,81,73,.15); border-color: #f85149; color: #f85149; }
+
+  body.is-dragging-card * { user-select: none !important; }
+  body.is-dragging-card iframe { pointer-events: none !important; }
+</style>
+</head>
+<body>
+
+<div id="stage">
+  <div class="pcard pcard-preview" id="card-cur" style="--dot-color:#58a6ff">
+    <div class="pcard-head" data-drag>
+      <span class="pcard-dot"></span>
+      <span class="pcard-title">CURRENT</span>
+      <span class="pcard-meta" id="cur-meta">—</span>
+    </div>
+    <div class="pcard-body"><iframe id="iframe-cur"></iframe></div>
+    <div class="pcard-resize" data-resize></div>
+  </div>
+
+  <div class="pcard pcard-preview" id="card-nxt" style="--dot-color:#bc8cff">
+    <div class="pcard-head" data-drag>
+      <span class="pcard-dot"></span>
+      <span class="pcard-title">NEXT</span>
+      <span class="pcard-meta" id="nxt-meta">—</span>
+    </div>
+    <div class="pcard-body"><iframe id="iframe-nxt"></iframe></div>
+    <div class="pcard-resize" data-resize></div>
+  </div>
+
+  <div class="pcard pcard-notes" id="card-notes" style="--dot-color:#f0883e">
+    <div class="pcard-head" data-drag>
+      <span class="pcard-dot"></span>
+      <span class="pcard-title">SPEAKER SCRIPT · 逐字稿</span>
+    </div>
+    <div class="pcard-body" id="notes-body"></div>
+    <div class="pcard-resize" data-resize></div>
+  </div>
+
+  <div class="pcard pcard-timer" id="card-timer" style="--dot-color:#3fb950">
+    <div class="pcard-head" data-drag>
+      <span class="pcard-dot"></span>
+      <span class="pcard-title">TIMER</span>
+    </div>
+    <div class="pcard-body">
+      <div class="timer-display" id="timer-display">00:00</div>
+      <div class="timer-row">
+        <span class="label">Slide</span>
+        <span class="val" id="timer-count">1 / ${total}</span>
+      </div>
+      <div class="timer-controls">
+        <button class="timer-btn" id="btn-prev">← Prev</button>
+        <button class="timer-btn" id="btn-next">Next →</button>
+        <button class="timer-btn" id="btn-reset">⏱ Reset</button>
+      </div>
+    </div>
+    <div class="pcard-resize" data-resize></div>
+  </div>
+</div>
+
+<div class="hint-bar">
+  <span><kbd>← →</kbd> 翻页</span>
+  <span><kbd>R</kbd> 重置计时</span>
+  <span><kbd>Esc</kbd> 关闭</span>
+  <span style="color:#6e7681">拖动卡片头部移动 · 拖动右下角调整大小</span>
+  <button class="reset-layout" id="reset-layout">重置布局</button>
+</div>
+
+<script>
+(function(){
+  var slideMeta = ${metaJSON};
+  var total = ${total};
+  var idx = ${startIdx};
+  var deckUrl = ${deckUrlJSON};
+  var STORAGE_KEY = ${JSON.stringify(storageKey)};
+  var bc;
+  try { bc = new BroadcastChannel(${channelJSON}); } catch(e) {}
+
+  var iframeCur = document.getElementById('iframe-cur');
+  var iframeNxt = document.getElementById('iframe-nxt');
+  var notesBody = document.getElementById('notes-body');
+  var curMeta = document.getElementById('cur-meta');
+  var nxtMeta = document.getElementById('nxt-meta');
+  var timerDisplay = document.getElementById('timer-display');
+  var timerCount = document.getElementById('timer-count');
+
+  /* ===== Default card layout ===== */
+  function defaultLayout() {
+    var w = window.innerWidth;
+    var h = window.innerHeight - 36; /* leave room for hint bar */
+    return {
+      'card-cur':   { x: 16,        y: 16,            w: Math.round(w*0.55) - 24, h: Math.round(h*0.62) - 16 },
+      'card-nxt':   { x: Math.round(w*0.55) + 8, y: 16, w: w - Math.round(w*0.55) - 24, h: Math.round(h*0.42) - 16 },
+      'card-notes': { x: Math.round(w*0.55) + 8, y: Math.round(h*0.42) + 8, w: w - Math.round(w*0.55) - 24, h: h - Math.round(h*0.42) - 16 },
+      'card-timer': { x: 16,        y: Math.round(h*0.62) + 8, w: Math.round(w*0.55) - 24, h: h - Math.round(h*0.62) - 16 }
+    };
+  }
+
+  /* ===== Apply / save / restore layout ===== */
+  function applyLayout(layout) {
+    Object.keys(layout).forEach(function(id){
+      var el = document.getElementById(id);
+      var l = layout[id];
+      if (el && l) {
+        el.style.left = l.x + 'px';
+        el.style.top = l.y + 'px';
+        el.style.width = l.w + 'px';
+        el.style.height = l.h + 'px';
+      }
+    });
+    rescaleAll();
+  }
+  function readLayout() {
+    try {
+      var saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) return JSON.parse(saved);
+    } catch(e) {}
+    return defaultLayout();
+  }
+  function saveLayout() {
+    var layout = {};
+    ['card-cur','card-nxt','card-notes','card-timer'].forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) {
+        layout[id] = {
+          x: parseInt(el.style.left,10) || 0,
+          y: parseInt(el.style.top,10) || 0,
+          w: parseInt(el.style.width,10) || 300,
+          h: parseInt(el.style.height,10) || 200
+        };
+      }
+    });
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(layout)); } catch(e) {}
+  }
+
+  /* ===== iframe rescale to fit card body ===== */
+  function rescaleIframe(iframe) {
+    if (!iframe || iframe.style.display === 'none') return;
+    var body = iframe.parentElement;
+    var cw = body.clientWidth, ch = body.clientHeight;
+    if (!cw || !ch) return;
+    var s = Math.min(cw / 1920, ch / 1080);
+    iframe.style.transform = 'scale(' + s + ')';
+    /* Center the scaled iframe in the body */
+    var sw = 1920 * s, sh = 1080 * s;
+    iframe.style.left = Math.max(0, (cw - sw) / 2) + 'px';
+    iframe.style.top = Math.max(0, (ch - sh) / 2) + 'px';
+  }
+  function rescaleAll() {
+    rescaleIframe(iframeCur);
+    rescaleIframe(iframeNxt);
+  }
+  window.addEventListener('resize', rescaleAll);
+
+  /* ===== Drag (move card by header) ===== */
+  document.querySelectorAll('[data-drag]').forEach(function(handle){
+    handle.addEventListener('mousedown', function(e){
+      if (e.button !== 0) return;
+      var card = handle.closest('.pcard');
+      if (!card) return;
+      e.preventDefault();
+      card.classList.add('dragging');
+      document.body.classList.add('is-dragging-card');
+      var startX = e.clientX, startY = e.clientY;
+      var startL = parseInt(card.style.left,10) || 0;
+      var startT = parseInt(card.style.top,10)  || 0;
+      function onMove(ev){
+        var nx = Math.max(0, Math.min(window.innerWidth - 100, startL + ev.clientX - startX));
+        var ny = Math.max(0, Math.min(window.innerHeight - 50, startT + ev.clientY - startY));
+        card.style.left = nx + 'px';
+        card.style.top = ny + 'px';
+      }
+      function onUp(){
+        card.classList.remove('dragging');
+        document.body.classList.remove('is-dragging-card');
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', onUp);
+        saveLayout();
+      }
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+    });
+  });
+
+  /* ===== Resize (drag bottom-right corner) ===== */
+  document.querySelectorAll('[data-resize]').forEach(function(handle){
+    handle.addEventListener('mousedown', function(e){
+      if (e.button !== 0) return;
+      var card = handle.closest('.pcard');
+      if (!card) return;
+      e.preventDefault(); e.stopPropagation();
+      card.classList.add('resizing');
+      document.body.classList.add('is-dragging-card');
+      var startX = e.clientX, startY = e.clientY;
+      var startW = parseInt(card.style.width,10)  || card.offsetWidth;
+      var startH = parseInt(card.style.height,10) || card.offsetHeight;
+      function onMove(ev){
+        var nw = Math.max(180, startW + ev.clientX - startX);
+        var nh = Math.max(100, startH + ev.clientY - startY);
+        card.style.width = nw + 'px';
+        card.style.height = nh + 'px';
+        if (card.querySelector('iframe')) rescaleIframe(card.querySelector('iframe'));
+      }
+      function onUp(){
+        card.classList.remove('resizing');
+        document.body.classList.remove('is-dragging-card');
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', onUp);
+        rescaleAll();
+        saveLayout();
+      }
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+    });
+  });
+
+  /* ===== Preview iframe ready tracking =====
+   * Each iframe loads the deck ONCE with ?preview=1 on init. Subsequent
+   * slide changes are sent via postMessage('preview-goto') so the iframe
+   * just toggles visibility of a different .slide — no reload, no flicker.
+   */
+  var iframeReady = { cur: false, nxt: false };
+  var currentTheme = ${themeJSON};
+  window.addEventListener('message', function(e) {
+    if (!e.data || e.data.type !== 'preview-ready') return;
+    var iframe = null;
+    if (e.source === iframeCur.contentWindow) {
+      iframeReady.cur = true;
+      iframe = iframeCur;
+      postPreviewGoto(iframeCur, idx);
+    } else if (e.source === iframeNxt.contentWindow) {
+      iframeReady.nxt = true;
+      iframe = iframeNxt;
+      postPreviewGoto(iframeNxt, idx + 1 < total ? idx + 1 : idx);
+    }
+    /* Sync current theme to the iframe */
+    if (iframe && currentTheme) {
+      try { iframe.contentWindow.postMessage({ type: 'preview-theme', name: currentTheme }, '*'); } catch(err) {}
+    }
+    if (iframe) rescaleIframe(iframe);
+  });
+
+  function postPreviewGoto(iframe, n) {
+    try {
+      iframe.contentWindow.postMessage({ type: 'preview-goto', idx: n }, '*');
+    } catch(e) {}
+  }
+
+  /* ===== Update content =====
+   * Smooth (no-reload) navigation: send postMessage to iframes instead of
+   * resetting src. Iframes stay loaded, just switch visible .slide.
+   */
+  function update(n) {
+    n = Math.max(0, Math.min(total - 1, n));
+    idx = n;
+
+    /* Current preview — postMessage (smooth) */
+    if (iframeReady.cur) postPreviewGoto(iframeCur, n);
+    curMeta.textContent = (n + 1) + '/' + total;
+
+    /* Next preview */
+    if (n + 1 < total) {
+      iframeNxt.style.display = '';
+      var endEl = document.querySelector('#card-nxt .preview-end');
+      if (endEl) endEl.remove();
+      if (iframeReady.nxt) postPreviewGoto(iframeNxt, n + 1);
+      nxtMeta.textContent = (n + 2) + '/' + total;
+    } else {
+      iframeNxt.style.display = 'none';
+      var body = document.querySelector('#card-nxt .pcard-body');
+      if (body && !body.querySelector('.preview-end')) {
+        var end = document.createElement('div');
+        end.className = 'preview-end';
+        end.textContent = '— END OF DECK —';
+        body.appendChild(end);
+      }
+      nxtMeta.textContent = 'END';
+    }
+
+    /* Notes */
+    var note = slideMeta[n].notes;
+    notesBody.innerHTML = note || '<span class="empty">（这一页还没有逐字稿）</span>';
+
+    /* Timer count */
+    timerCount.textContent = (n + 1) + ' / ' + total;
+  }
+
+  /* ===== Timer ===== */
+  var tStart = Date.now();
+  setInterval(function(){
+    var s = Math.floor((Date.now() - tStart) / 1000);
+    var mm = String(Math.floor(s/60)).padStart(2,'0');
+    var ss = String(s%60).padStart(2,'0');
+    timerDisplay.textContent = mm + ':' + ss;
+  }, 1000);
+  function resetTimer(){ tStart = Date.now(); timerDisplay.textContent = '00:00'; }
+
+  /* ===== BroadcastChannel sync ===== */
+  if (bc) {
+    bc.onmessage = function(e){
+      if (!e.data) return;
+      if (e.data.type === 'go') update(e.data.idx);
+      else if (e.data.type === 'theme' && e.data.name) {
+        currentTheme = e.data.name;
+        /* Forward theme change to preview iframes */
+        [iframeCur, iframeNxt].forEach(function(iframe){
+          try {
+            iframe.contentWindow.postMessage({ type: 'preview-theme', name: e.data.name }, '*');
+          } catch(err) {}
+        });
+      }
+    };
+  }
+  function go(n) {
+    update(n);
+    if (bc) bc.postMessage({ type: 'go', idx: idx });
+  }
+
+  /* ===== Buttons ===== */
+  document.getElementById('btn-prev').addEventListener('click', function(){ go(idx - 1); });
+  document.getElementById('btn-next').addEventListener('click', function(){ go(idx + 1); });
+  document.getElementById('btn-reset').addEventListener('click', resetTimer);
+  document.getElementById('reset-layout').addEventListener('click', function(){
+    if (confirm('恢复默认卡片布局？')) {
+      try { localStorage.removeItem(STORAGE_KEY); } catch(e){}
+      applyLayout(defaultLayout());
+    }
+  });
+
+  /* ===== Keyboard ===== */
+  document.addEventListener('keydown', function(e){
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    switch(e.key) {
+      case 'ArrowRight': case ' ': case 'PageDown': go(idx + 1); e.preventDefault(); break;
+      case 'ArrowLeft':  case 'PageUp':   go(idx - 1); e.preventDefault(); break;
+      case 'Home': go(0); break;
+      case 'End':  go(total - 1); break;
+      case 'r': case 'R': resetTimer(); break;
+      case 'Escape': window.close(); break;
+    }
+  });
+
+  /* ===== Iframe load → rescale (catches initial size) ===== */
+  iframeCur.addEventListener('load', function(){ rescaleIframe(iframeCur); });
+  iframeNxt.addEventListener('load', function(){ rescaleIframe(iframeNxt); });
+
+  /* ===== Init =====
+   * Load each iframe ONCE with the deck file. After they post
+   * 'preview-ready', all subsequent navigation is via postMessage
+   * (smooth, no reload, no flicker).
+   */
+  applyLayout(readLayout());
+  iframeCur.src = deckUrl + '?preview=' + (idx + 1);
+  if (idx + 1 < total) iframeNxt.src = deckUrl + '?preview=' + (idx + 2);
+  /* Initialize notes/timer/count without touching iframes */
+  notesBody.innerHTML = slideMeta[idx].notes || '<span class="empty">（这一页还没有逐字稿）</span>';
+  curMeta.textContent = (idx + 1) + '/' + total;
+  nxtMeta.textContent = (idx + 2) + '/' + total;
+  timerCount.textContent = (idx + 1) + ' / ' + total;
+})();
+</` + `script>
+</body></html>`;
+    }
+
+    function fullscreen(){ const el=document.documentElement;
+      if (!document.fullscreenElement) el.requestFullscreen&&el.requestFullscreen();
+      else document.exitFullscreen&&document.exitFullscreen();
+    }
+
+    // theme cycling
+    const root = document.documentElement;
+    const themesAttr = root.getAttribute('data-themes') || document.body.getAttribute('data-themes');
+    const themes = themesAttr ? themesAttr.split(',').map(s=>s.trim()).filter(Boolean) : [];
+    let themeIdx = 0;
+
+    // Auto-detect theme base path from existing <link id="theme-link">
+    let themeBase = root.getAttribute('data-theme-base');
+    if (!themeBase) {
+      const existingLink = document.getElementById('theme-link');
+      if (existingLink) {
+        // el.getAttribute('href') gives the raw relative path written in HTML
+        const rawHref = existingLink.getAttribute('href') || '';
+        const lastSlash = rawHref.lastIndexOf('/');
+        themeBase = lastSlash >= 0 ? rawHref.substring(0, lastSlash + 1) : 'assets/themes/';
+      } else {
+        themeBase = 'assets/themes/';
+      }
+    }
+
+    function applyTheme(name) {
+      let link = document.getElementById('theme-link');
+      if (!link) {
+        link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.id = 'theme-link';
+        document.head.appendChild(link);
+      }
+      link.href = themeBase + name + '.css';
+      root.setAttribute('data-theme', name);
+      const ind = document.querySelector('.theme-indicator');
+      if (ind) ind.textContent = name;
+    }
+    function cycleTheme(fromRemote){
+      if (!themes.length) return;
+      themeIdx = (themeIdx+1) % themes.length;
+      const name = themes[themeIdx];
+      applyTheme(name);
+      /* Broadcast to other window (audience ↔ presenter) */
+      if (!fromRemote && bc) bc.postMessage({ type: 'theme', name: name });
+    }
+
+    // animation cycling on current slide
+    let animIdx = 0;
+    function cycleAnim(){
+      animIdx = (animIdx+1) % ANIMS.length;
+      const a = ANIMS[animIdx];
+      const target = slides[idx].querySelector('[data-anim-target]') || slides[idx];
+      ANIMS.forEach(x => target.classList.remove('anim-'+x));
+      void target.offsetWidth;
+      target.classList.add('anim-'+a);
+      target.setAttribute('data-anim', a);
+      const ind = document.querySelector('.anim-indicator');
+      if (ind) ind.textContent = a;
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (e.metaKey||e.ctrlKey||e.altKey) return;
+      switch (e.key) {
+        case 'ArrowRight': case ' ': case 'PageDown': case 'Enter': go(idx+1); e.preventDefault(); break;
+        case 'ArrowLeft': case 'PageUp': case 'Backspace': go(idx-1); e.preventDefault(); break;
+        case 'Home': go(0); break;
+        case 'End': go(total-1); break;
+        case 'f': case 'F': fullscreen(); break;
+        case 's': case 'S': openPresenterWindow(); break;
+        case 'n': case 'N': toggleNotes(); break;
+        case 'o': case 'O': toggleOverview(); break;
+        case 't': case 'T': cycleTheme(); break;
+        case 'a': case 'A': cycleAnim(); break;
+        case 'Escape': toggleOverview(false); toggleNotes(false); break;
+      }
+    });
+
+    // hash deep-link
+    function fromHash(){
+      const m = /^#\/(\d+)/.exec(location.hash||'');
+      if (m) go(Math.max(0, parseInt(m[1],10)-1));
+    }
+    window.addEventListener('hashchange', fromHash);
+    fromHash();
+    go(idx);
+  });
+})();
+
+</script>
+</body>
+</html>
