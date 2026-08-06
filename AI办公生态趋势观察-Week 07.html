@@ -2,12 +2,346 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="refresh" content="0; url=week-07.html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI办公生态趋势观察 Week 07</title>
-<script>window.location.replace("week-07.html");</script>
+<style>
+:root {
+    --bg: #07111f;
+    --panel: rgba(15, 25, 43, 0.86);
+    --panel-hover: rgba(24, 40, 68, 0.92);
+    --line: rgba(255, 255, 255, 0.09);
+    --text: #f8fafc;
+    --soft: #cbd5e1;
+    --muted: #94a3b8;
+    --cyan: #22d3ee;
+    --blue: #60a5fa;
+    --green: #34d399;
+    --amber: #fbbf24;
+    --violet: #a78bfa;
+    --glow: rgba(34, 211, 238, 0.16);
+    --shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+}
+
+* { box-sizing: border-box; }
+
+body {
+    position: relative;
+    margin: 0;
+    min-height: 100vh;
+    color: var(--text);
+    background:
+        radial-gradient(circle at 82% 8%, rgba(96, 165, 250, 0.18) 0%, transparent 36%),
+        radial-gradient(circle at 18% 78%, rgba(34, 211, 238, 0.12) 0%, transparent 34%),
+        radial-gradient(circle at 58% 38%, rgba(52, 211, 153, 0.06) 0%, transparent 32%),
+        linear-gradient(145deg, rgba(7, 17, 31, 0.98), rgba(8, 24, 38, 0.96) 48%, rgba(9, 14, 26, 1)),
+        var(--bg);
+    background-attachment: fixed;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.68;
+    padding: 44px 24px 60px;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.28;
+    background-image:
+        radial-gradient(circle, rgba(226, 232, 240, 0.42) 0 1px, transparent 1.4px),
+        radial-gradient(circle, rgba(34, 211, 238, 0.35) 0 1px, transparent 1.5px);
+    background-size: 42px 42px, 78px 78px;
+    background-position: 0 0, 18px 24px;
+    animation: particle-drift 34s linear infinite;
+}
+
+@keyframes particle-drift {
+    from { background-position: 0 0, 18px 24px; }
+    to { background-position: 84px 126px, 96px 180px; }
+}
+
+.container { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; }
+
+.header {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.55fr);
+    gap: 28px;
+    align-items: end;
+    margin-bottom: 26px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+}
+
+.header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 132px;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--cyan), var(--blue));
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    color: var(--cyan);
+    font-size: 13px;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+}
+
+.eyebrow::before { content: ""; width: 34px; height: 2px; border-radius: 999px; background: var(--cyan); }
+
+h1 {
+    margin: 0;
+    font-size: 40px;
+    line-height: 1.12;
+    letter-spacing: 0;
+    background: linear-gradient(135deg, #fff 0%, #bae6fd 42%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.subtitle { margin: 14px 0 0; color: var(--muted); font-size: 15px; }
+
+.meta, .card, .metric {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(16px);
+    transition: border-color 0.28s ease, box-shadow 0.28s ease, transform 0.28s ease, background 0.28s ease;
+}
+
+.meta { border-radius: 14px; padding: 18px 20px; }
+.meta:hover, .card:hover, .metric:hover {
+    background: var(--panel-hover);
+    border-color: rgba(34, 211, 238, 0.28);
+    box-shadow: 0 0 24px var(--glow), var(--shadow);
+    transform: translateY(-2px);
+}
+
+.meta-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--soft);
+    font-size: 13px;
+}
+.meta-row:last-child { border-bottom: 0; }
+.meta-row span:first-child { color: var(--muted); }
+
+.metric-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 22px; }
+.metric { border-radius: 14px; padding: 18px 20px; }
+.metric-value { margin-bottom: 8px; color: var(--cyan); font-family: Consolas, "SFMono-Regular", Menlo, Monaco, monospace; font-size: 30px; font-weight: 800; line-height: 1; }
+.metric-label { color: var(--muted); font-size: 13px; }
+
+.section { margin-top: 18px; }
+.card { border-radius: 16px; padding: 26px; }
+.section-title { display: flex; align-items: center; gap: 10px; margin: 0 0 18px; font-size: 22px; line-height: 1.3; }
+.section-title::before { content: ""; flex: 0 0 4px; width: 4px; height: 20px; border-radius: 999px; background: var(--cyan); }
+.lead { margin: 0; color: #e2e8f0; font-size: 17px; }
+.highlight { padding-bottom: 2px; border-bottom: 1px dashed rgba(34, 211, 238, 0.7); color: var(--cyan); font-weight: 700; }
+.warn { color: var(--amber); font-weight: 700; }
+
+.tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 0; }
+.tag { display: inline-flex; align-items: center; min-height: 28px; padding: 5px 12px; border: 1px solid rgba(34, 211, 238, 0.25); border-radius: 8px; background: rgba(34, 211, 238, 0.07); color: #e0f2fe; font-size: 12px; white-space: nowrap; }
+.tag.green { border-color: rgba(52, 211, 153, 0.28); background: rgba(52, 211, 153, 0.08); color: #bbf7d0; }
+.tag.amber { border-color: rgba(251, 191, 36, 0.28); background: rgba(251, 191, 36, 0.08); color: #fde68a; }
+.tag.violet { border-color: rgba(167, 139, 250, 0.28); background: rgba(167, 139, 250, 0.08); color: #ddd6fe; }
+
+.two-col, .three-col { display: grid; gap: 18px; }
+.two-col { grid-template-columns: repeat(2, 1fr); }
+.three-col { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+.mini-card { padding: 18px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255, 255, 255, 0.035); transition: border-color 0.26s ease, background 0.26s ease, transform 0.26s ease; }
+.mini-card:hover { border-color: rgba(34, 211, 238, 0.22); background: rgba(255, 255, 255, 0.055); transform: translateY(-2px); }
+.mini-card h3 { margin: 0 0 10px; color: #f8fafc; font-size: 17px; }
+.mini-card p { margin: 0; color: var(--soft); font-size: 14px; }
+
+.list { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.list li { position: relative; padding-left: 18px; color: var(--soft); font-size: 15px; }
+.list li::before { content: ""; position: absolute; left: 0; top: 0.72em; width: 6px; height: 6px; border-radius: 999px; background: var(--cyan); }
+
+.scene-table { width: 100%; overflow: hidden; border: 1px solid var(--line); border-collapse: collapse; border-radius: 12px; }
+.scene-table th, .scene-table td { padding: 14px 16px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; font-size: 14px; }
+.scene-table th { background: rgba(34, 211, 238, 0.08); color: #e0f2fe; font-weight: 700; }
+.scene-table td { color: var(--soft); }
+.scene-table tr:last-child td { border-bottom: 0; }
+.scene-table tbody tr { transition: background 0.22s ease; }
+.scene-table tbody tr:hover td { background: rgba(255, 255, 255, 0.025); }
+
+.quote { padding: 18px 20px; border-left: 4px solid var(--cyan); border-radius: 0 12px 12px 0; background: linear-gradient(135deg, rgba(34, 211, 238, 0.08), rgba(96, 165, 250, 0.045)); color: #e2e8f0; font-size: 17px; }
+.footer { margin-top: 24px; color: var(--muted); font-size: 12px; text-align: center; }
+.footer div + div { margin-top: 4px; }
+
+@media (max-width: 920px) {
+    body { padding: 28px 16px 42px; }
+    .header, .two-col, .three-col, .metric-grid { grid-template-columns: 1fr; }
+    h1 { font-size: 30px; }
+    .card { padding: 20px; }
+    .scene-table { display: block; overflow-x: auto; }
+}
+</style>
 </head>
 <body>
-<p><a href="week-07.html">打开 AI办公生态趋势观察 Week 07</a></p>
+<main class="container">
+    <header class="header">
+        <div>
+            <div class="eyebrow">Wanxiang Ecosystem Radar</div>
+            <h1>AI办公生态趋势观察</h1>
+            <p class="subtitle">Week 07 ｜万象生态观察库-AI Agent竞争格局观察｜ 2026 INTERNAL DRAFT</p>
+        </div>
+        <aside class="meta">
+            <div class="meta-row"><span>观察周期</span><strong>2026.08.04 - 2026.08.10</strong></div>
+            <div class="meta-row"><span>报告主题</span><strong>AI Agent 综合竞争</strong></div>
+            <div class="meta-row"><span>覆盖维度</span><strong>办公 / 编程 / 交互 / 基础设施</strong></div>
+            <div class="meta-row"><span>报告状态</span><strong>本周洞察稿</strong></div>
+        </aside>
+    </header>
+
+    <section class="metric-grid">
+        <div class="metric"><div class="metric-value">4</div><div class="metric-label">条本周关键生态信号</div></div>
+        <div class="metric"><div class="metric-value">3x</div><div class="metric-label">桌面办公 Agent 访问规模增长</div></div>
+        <div class="metric"><div class="metric-value">17</div><div class="metric-label">被追踪的主流桌面端产品</div></div>
+        <div class="metric"><div class="metric-value">Next</div><div class="metric-label">从能力展示走向稳定交付</div></div>
+    </section>
+
+    <section class="section">
+        <div class="card">
+            <h2 class="section-title">本周核心判断</h2>
+            <p class="lead">
+                AI 行业的竞争重心正在从<span class="highlight">“谁拥有更强模型”</span>转向<span class="highlight">“谁能以更低成本、更可靠地交付工作结果”</span>。本周，千问办公、WorkBuddy、豆包等产品加速汇聚办公入口；Muse Code 将模型与工具链同步优化；SeedRealtime 推动实时多模态交互；Gemini 团队调整与前沿基础设施加码则提示，人才和算力已成为长期供给能力的底层变量。
+            </p>
+            <div class="tag-row">
+                <span class="tag">办公 Agent</span>
+                <span class="tag green">任务交付</span>
+                <span class="tag amber">成本与价格</span>
+                <span class="tag violet">原生多模态</span>
+                <span class="tag">人才与算力</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section two-col">
+        <div class="card">
+            <h2 class="section-title">行业正在发生什么</h2>
+            <ul class="list">
+                <li>千问办公、WorkBuddy、豆包等办公产品线向统一入口收束，竞争开始围绕企业工作流和组织部署展开。</li>
+                <li>Muse Code 等编程 Agent 不再只是调用模型的外层工具，而是转向模型、终端、工具调用与验证机制的一体化设计。</li>
+                <li>SeedRealtime 代表的音视频能力，正从串联式拼接升级为同步感知、理解和表达的实时交互。</li>
+                <li>Gemini 团队调整与前沿厂商的基础设施投入表明，核心人才稳定性、算力供给和自主能力正在影响产品节奏。</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h2 class="section-title">为什么会这样发展</h2>
+            <ul class="list">
+                <li>通用对话和内容生成趋于普及，难以单独构成持续差异化。</li>
+                <li>企业客户开始以真实任务完成率、交付时长、成本和可审计性判断 AI 的价值。</li>
+                <li>长时程任务需要模型、工具、反馈与验证联动，产品体验不能只靠单次回答质量。</li>
+                <li>模型训练与推理规模持续扩大，人才和算力直接影响产品迭代速度与服务稳定性。</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="card">
+            <h2 class="section-title">四个生态信号</h2>
+            <div class="two-col">
+                <div class="mini-card">
+                    <h3>01 千问办公、WorkBuddy、豆包：办公入口集中化</h3>
+                    <p>多个产品在两周内完成组织或产品线整合：千问办公将 QoderWork、MuleRun 与悟空整合为企业级产品；QClaw 并入 WorkBuddy 所在部门；飞书团队并入豆包。海外的 ChatGPT Work、Claude Cowork 也在同步推进企业办公 Agent。</p>
+                    <p style="margin-top: 12px;"><strong>解决的问题：</strong>员工需要在多个工具间反复切换，任务上下文分散，难以让 AI 获取完整工作信息。</p>
+                    <p style="margin-top: 8px;"><strong>AI 技术与产品形态：</strong>桌面端、云端与企业协同端融合，Agent 可拆解任务、调用工具、并行执行并交付可编辑文件、数据报告或网页。</p>
+                    <p style="margin-top: 8px;"><strong>产生的价值：</strong>统一入口降低使用门槛，让岗位任务能够被连续理解、执行和沉淀为可复用流程。17 款桌面端产品的月访问量在四个月内由 2,000 万增至 6,000 万，验证了办公 Agent 的规模化需求。</p>
+                </div>
+                <div class="mini-card">
+                    <h3>02 Muse Code：编程 Agent 进入系统战</h3>
+                    <p>Muse Code 以完整产品形态进入编程 Agent 赛道，直接对标 Claude Code 与 Codex。产品竞争不再只看模型跑分，而是看模型、终端、工具调用、验证机制与价格策略的整体配合。</p>
+                    <p style="margin-top: 12px;"><strong>解决的问题：</strong>复杂开发工作难以仅靠单次代码生成完成，过程中的上下文理解、执行和验证仍高度依赖人工。</p>
+                    <p style="margin-top: 8px;"><strong>AI 技术与产品形态：</strong>模型与 harness 协同训练；持久化异步后台 Agent；多 Agent 在独立 worktree 并行执行；本地日志支持调用重放、崩溃恢复与全程审计。</p>
+                    <p style="margin-top: 8px;"><strong>产生的价值：</strong>将需求拆解、编码、测试与修复串成可验证的交付链路，缩短业务需求转化为应用能力的周期。低价策略也在推动编程 Agent 从高价工具走向规模化使用。</p>
+                </div>
+                <div class="mini-card">
+                    <h3>03 SeedRealtime：多模态交互迈向实时原生</h3>
+                    <p>SeedRealtime 已在豆包 App 中展示实时音视频通话体验。与传统的“语音识别→视觉理解→文本推理→语音合成”级联方案相比，它以统一模型完成连续多模态感知、理解、决策和表达。</p>
+                    <p style="margin-top: 12px;"><strong>解决的问题：</strong>级联式交互容易产生延迟、信息损失和打断感，难以承接需要看、听、说同步进行的复杂协作。</p>
+                    <p style="margin-top: 8px;"><strong>AI 技术与产品形态：</strong>音视频联合理解、主动环境感知与自然节奏把握，支持基于手势、视线和语气的实时交互。</p>
+                    <p style="margin-top: 8px;"><strong>产生的价值：</strong>降低复杂任务的表达成本，使指导、审核、培训和现场辅助等场景获得更自然、更及时的人机协作体验。实时全双工能力会逐步成为 AI 助手体验的基础门槛。</p>
+                </div>
+                <div class="mini-card">
+                    <h3>04 Gemini 与前沿基础设施：人才与算力成为长期变量</h3>
+                    <p>Gemini 团队的组织调整、核心研究人员流动，以及前沿厂商在云计算、芯片和数据中心上的重投入共同表明，模型竞争已延展到人才密度与基础设施自主能力。</p>
+                    <p style="margin-top: 12px;"><strong>解决的问题：</strong>企业部署 AI 时会面临模型迭代不确定、服务成本波动和长期供给能力不足的风险。</p>
+                    <p style="margin-top: 8px;"><strong>AI 技术与产品形态：</strong>竞争从通用模型能力，延展到芯片、数据中心、云计算协议和模型安全治理等全栈能力。</p>
+                    <p style="margin-top: 8px;"><strong>产生的价值：</strong>将生态伙伴的稳定供给能力纳入评估，帮助平台选择具备长期迭代、成本控制与服务保障能力的合作对象，也提示组织要将安全治理纳入采购与部署的前置条件。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="card">
+            <h2 class="section-title">场景、技术、问题与价值对照</h2>
+            <table class="scene-table">
+                <thead>
+                    <tr><th>场景（代表产品）</th><th>AI 技术与产品形态</th><th>解决的问题与产生的价值</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>办公协同</strong><br>千问办公、WorkBuddy、豆包</td><td>统一入口、跨系统上下文、任务拆解与多端交付</td><td>解决工具切换和信息分散，让岗位流程被沉淀、复用并纳入组织治理。</td></tr>
+                    <tr><td><strong>软件生产</strong><br>Muse Code</td><td>模型与工具链协同训练、多 Agent 并行、长时程执行、本地审计</td><td>解决“生成代码但难以交付”的断层，推动需求到可验证应用的完整转化。</td></tr>
+                    <tr><td><strong>实时协作</strong><br>SeedRealtime</td><td>端到端音视频全双工、联合理解、主动交互、自然节奏</td><td>解决复杂沟通的高表达成本，提升指导、审核、培训和现场辅助的交互效率。</td></tr>
+                    <tr><td><strong>长期供给</strong><br>Gemini 等前沿生态</td><td>核心人才、算力资源、芯片与数据中心、模型安全治理</td><td>解决企业部署的供给不确定性，伙伴选择需兼顾能力、成本、稳定性和安全性。</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="card">
+            <h2 class="section-title">平台建设行动启示</h2>
+            <div class="three-col">
+                <div class="mini-card"><h3>从功能看交付</h3><p>生态伙伴评估不能只看模型能力或功能清单，应增加任务完成率、人工介入次数和结果可复核性等指标。</p></div>
+                <div class="mini-card"><h3>从入口看连接</h3><p>优先关注能进入文档、项目、数据、消息和流程系统的能力，连接深度决定后续的岗位价值。</p></div>
+                <div class="mini-card"><h3>从试用看治理</h3><p>当 Agent 开始执行操作，权限、审批、日志和人工确认应成为产品的默认能力，而不是后置补丁。</p></div>
+            </div>
+            <div class="three-col" style="margin-top: 16px;">
+                <div class="mini-card"><h3>从通用看场景</h3><p>围绕合同、招投标、文档审核、数据分析和内容制作等高价值流程沉淀可复用模板。</p></div>
+                <div class="mini-card"><h3>从交互看效率</h3><p>多模态实时交互有望降低复杂任务的表达成本，但应优先选择可量化收益的应用场景。</p></div>
+                <div class="mini-card"><h3>从产品看供给</h3><p>持续观察生态伙伴的核心团队、算力策略、价格稳定性和开放连接能力，判断合作的长期确定性。</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section two-col">
+        <div class="card">
+            <h2 class="section-title">核心观点提炼</h2>
+            <div class="quote">AI Agent 的下一阶段，不是增加更多孤立功能，而是将模型、工具、流程与组织治理连接起来，稳定交付一项真实工作结果。</div>
+            <p class="lead" style="margin-top: 16px; font-size: 15px;">AI 办公产品的竞争将不再局限于“回答得像不像人”，而在于“任务能否完成、过程能否控制、结果能否复用”。</p>
+        </div>
+        <div class="card">
+            <h2 class="section-title">后续关注点</h2>
+            <ul class="list">
+                <li>统一办公入口能否带来持续活跃、任务完成率提升和企业级付费转化。</li>
+                <li>编程 Agent 的价格竞争、可审计能力与多 Agent 协作是否改变企业采购与开发工具格局。</li>
+                <li>原生实时多模态能力是否开放给第三方，从体验差异变为可集成的生态能力。</li>
+                <li>前沿团队的人才流动、基础设施投入与开源模型安全治理，是否继续影响伙伴稳定性。</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div>AI办公生态趋势库 · Week 07 · Internal System Draft · 2026</div>
+        <div>Report compiled by: wangwenlin</div>
+    </footer>
+</main>
 </body>
 </html>
