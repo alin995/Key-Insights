@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI办公生态趋势观察｜Week 09</title>
+<style>
+:root {
+  --bg:#06101d; --panel:rgba(13,25,42,.88); --panel2:rgba(255,255,255,.035);
+  --line:rgba(255,255,255,.10); --text:#f8fafc; --soft:#cbd5e1; --muted:#8fa2b8;
+  --cyan:#22d3ee; --blue:#60a5fa; --green:#34d399; --amber:#fbbf24; --violet:#a78bfa;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  min-height:100vh; margin:0; padding:44px 24px 60px; color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  line-height:1.7;
+  background:
+    radial-gradient(circle at 86% 7%,rgba(96,165,250,.18),transparent 34%),
+    radial-gradient(circle at 10% 76%,rgba(34,211,238,.12),transparent 32%),
+    linear-gradient(145deg,#06101d,#071a29 52%,#080d18);
+}
+body::before {
+  content:""; position:fixed; inset:0; pointer-events:none; opacity:.22;
+  background-image:radial-gradient(circle,rgba(226,232,240,.46) 0 1px,transparent 1.5px),radial-gradient(circle,rgba(34,211,238,.32) 0 1px,transparent 1.5px);
+  background-size:42px 42px,78px 78px; background-position:0 0,18px 24px;
+  animation:drift 34s linear infinite;
+}
+@keyframes drift { to { background-position:84px 126px,96px 180px; } }
+.container { position:relative; z-index:1; max-width:1280px; margin:0 auto; }
+.header { display:grid; grid-template-columns:1.42fr .58fr; gap:28px; align-items:end; padding-bottom:28px; border-bottom:1px solid var(--line); }
+.eyebrow { color:var(--cyan); font-size:13px; letter-spacing:1.45px; text-transform:uppercase; }
+.eyebrow::before { content:""; display:inline-block; width:34px; height:2px; margin:0 10px 4px 0; background:var(--cyan); }
+h1 { margin:12px 0 0; font-size:42px; line-height:1.12; background:linear-gradient(135deg,#fff,#bae6fd 45%,#94a3b8); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.subtitle { margin:14px 0 0; color:var(--muted); font-size:15px; }
+.meta,.card,.metric { background:var(--panel); border:1px solid var(--line); border-radius:14px; backdrop-filter:blur(16px); }
+.meta { padding:16px 20px; }
+.meta-row { display:flex; justify-content:space-between; gap:16px; padding:8px 0; border-bottom:1px solid var(--line); color:var(--soft); font-size:13px; }
+.meta-row:last-child { border:0; } .meta-row span { color:var(--muted); }
+.metrics { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:22px 0; }
+.metric { padding:18px 20px; transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease; }
+.metric:hover,.card:hover { transform:translateY(-2px); border-color:rgba(34,211,238,.27); box-shadow:0 18px 48px rgba(0,0,0,.18); }
+.metric strong { display:block; color:var(--cyan); font:700 28px/1.2 Consolas,monospace; }
+.metric span { color:var(--muted); font-size:13px; }
+.section { margin-top:18px; }
+.card { padding:26px; transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease; }
+.grid2,.grid3 { display:grid; gap:16px; } .grid2 { grid-template-columns:repeat(2,1fr); } .grid3 { grid-template-columns:repeat(3,1fr); }
+h2 { display:flex; align-items:center; gap:10px; margin:0 0 18px; font-size:22px; }
+h2::before { content:""; width:4px; height:20px; border-radius:10px; background:var(--cyan); }
+h3 { margin:0 0 10px; font-size:17px; }
+p { color:var(--soft); }
+.lead { margin:0; color:#e2e8f0; font-size:17px; }
+.highlight { color:var(--cyan); font-weight:700; border-bottom:1px dashed rgba(34,211,238,.7); }
+.mini { padding:18px; border:1px solid var(--line); border-radius:12px; background:var(--panel2); }
+.mini p { margin:0; font-size:14px; }
+.num { display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; margin-bottom:12px; border-radius:9px; background:rgba(34,211,238,.10); color:var(--cyan); font:700 13px Consolas,monospace; }
+.tags { margin-top:14px; }
+.tag { display:inline-block; margin:6px 7px 0 0; padding:4px 10px; border:1px solid rgba(34,211,238,.25); border-radius:8px; background:rgba(34,211,238,.08); color:#dff7fc; font-size:12px; }
+.tag.green { color:#bbf7d0; border-color:rgba(52,211,153,.3); background:rgba(52,211,153,.08); }
+.tag.amber { color:#fde68a; border-color:rgba(251,191,36,.3); background:rgba(251,191,36,.08); }
+.tag.violet { color:#ddd6fe; border-color:rgba(167,139,250,.3); background:rgba(167,139,250,.08); }
+.list { margin:0; padding:0; list-style:none; }
+.list li { position:relative; padding-left:18px; margin:10px 0; color:var(--soft); font-size:15px; }
+.list li::before { content:""; position:absolute; top:.72em; left:0; width:6px; height:6px; border-radius:50%; background:var(--cyan); }
+.table-wrap { overflow-x:auto; border:1px solid var(--line); border-radius:12px; }
+table { width:100%; border-collapse:collapse; min-width:760px; }
+th,td { padding:14px 16px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; color:var(--soft); font-size:14px; }
+th { background:rgba(34,211,238,.08); color:#e0f2fe; } tr:last-child td { border:0; }
+tbody tr { transition:background .2s ease; } tbody tr:hover td { background:rgba(255,255,255,.025); }
+.flow { display:grid; grid-template-columns:repeat(11,auto); gap:8px; align-items:center; justify-content:center; padding:20px; border:1px solid var(--line); border-radius:12px; background:rgba(255,255,255,.025); }
+.flow-step { padding:10px 13px; border-radius:10px; background:rgba(34,211,238,.08); border:1px solid rgba(34,211,238,.18); color:#dff7fc; font-size:13px; text-align:center; }
+.arrow { color:var(--muted); }
+.quote { padding:18px 20px; border-left:4px solid var(--cyan); border-radius:0 12px 12px 0; background:linear-gradient(135deg,rgba(34,211,238,.08),rgba(96,165,250,.045)); color:#e2e8f0; font-size:17px; }
+.priority { border-top:3px solid var(--cyan); } .priority.mid { border-color:var(--amber); } .priority.long { border-color:var(--violet); }
+.source-note { margin:0; color:var(--muted); font-size:13px; }
+.footer { margin-top:24px; color:var(--muted); text-align:center; font-size:12px; }
+@media(max-width:980px) { .header,.metrics,.grid2,.grid3 { grid-template-columns:1fr; } .flow { grid-template-columns:1fr; } .arrow { transform:rotate(90deg); text-align:center; } }
+@media(max-width:620px) { body { padding:28px 16px 42px; } h1 { font-size:31px; } .card { padding:20px; } }
+@media(prefers-reduced-motion:reduce) { * { animation:none!important; transition:none!important; } }
+</style>
+</head>
+<body>
+<main class="container">
+  <header class="header">
+    <div>
+          <div class="eyebrow">AI Ecosystem Radar</div>
+      <h1>AI办公生态趋势观察</h1>
+          <p class="subtitle">Week 09 ｜AI 办公生态观察-自进化型数字员工与组织经验治理｜ 2026 INTERNAL DRAFT</p>
+    </div>
+    <aside class="meta">
+      <div class="meta-row"><span>观察周期</span><strong>2026.08.17 - 2026.08.23</strong></div>
+      <div class="meta-row"><span>报告主题</span><strong>数字员工经验闭环</strong></div>
+      <div class="meta-row"><span>观察维度</span><strong>记忆 / 技能 / 复盘 / 治理</strong></div>
+      <div class="meta-row"><span>报告状态</span><strong>本周洞察稿</strong></div>
+    </aside>
+  </header>
+
+  <section class="metrics">
+    <div class="metric"><strong>1</strong><span>条主线：从任务执行走向经验积累</span></div>
+    <div class="metric"><strong>4</strong><span>层知识：用户、环境、方法、证据</span></div>
+    <div class="metric"><strong>6</strong><span>个生态信号：记忆、复盘、技能、治理、建模、评测</span></div>
+    <div class="metric"><strong>Next</strong><span>竞争重点：经验是否可治理、可评测、可复用</span></div>
+  </section>
+
+  <section class="section"><div class="card">
+    <h2>本周核心判断</h2>
+    <p class="lead">企业级 AI Agent 正在从“完成一次任务”走向“持续积累经验”。未来数字员工平台的核心竞争，不只是模型和工具数量，而是<span class="highlight">能否把用户偏好、业务事实、任务方法和历史过程分层沉淀，并通过复盘、评测、权限、审计与回滚，把个体经验转化为可治理的组织能力。</span></p>
+    <div class="tags"><span class="tag">跨会话连续性</span><span class="tag green">程序性技能</span><span class="tag amber">任务后复盘</span><span class="tag violet">组织经验治理</span><span class="tag">任务级评测</span></div>
+  </div></section>
+
+  <section class="section grid2">
+    <div class="card"><h2>行业正在发生什么</h2><ul class="list">
+      <li>从单次执行走向跨会话连续性，用户偏好与业务环境开始成为长期状态。</li>
+      <li>从统一记忆走向分层记忆，画像、事实、方法和原始历史采用不同管理策略。</li>
+      <li>从静态提示词走向可维护技能，方法开始带有步骤、模板、脚本与验证规则。</li>
+      <li>从人工总结走向任务后复盘，Agent 在交付后异步提炼候选经验。</li>
+      <li>从自动学习走向受治理学习，所有权、审批、审计、归档和回滚成为必要条件。</li>
+    </ul></div>
+    <div class="card"><h2>为什么会这样发展</h2><ul class="list">
+      <li>基础模型和单轮工具调用快速普及，持续差异化转向上下文与经验资产。</li>
+      <li>上下文窗口无法解决知识过期、冲突、权限、来源和审计问题。</li>
+      <li>企业不愿反复支付相同的纠错成本，希望 Agent 在后续任务中复用反馈。</li>
+      <li>复杂任务的价值沉淀在调试路径、检查清单、脚本和验证步骤中。</li>
+      <li>自动写入长期知识会放大错误归纳、提示注入、陈旧经验和用户间污染风险。</li>
+    </ul></div>
+  </section>
+
+  <section class="section"><div class="card">
+    <h2>数字员工经验闭环</h2>
+    <div class="flow"><div class="flow-step">完成任务</div><div class="arrow">→</div><div class="flow-step">任务后复盘</div><div class="arrow">→</div><div class="flow-step">识别候选经验</div><div class="arrow">→</div><div class="flow-step">分层沉淀</div><div class="arrow">→</div><div class="flow-step">后续复用</div><div class="arrow">→</div><div class="flow-step">评测与治理</div></div>
+  </div></section>
+
+  <section class="section"><div class="card">
+    <h2>典型应用场景、解决的问题及价值</h2>
+    <div class="table-wrap"><table><thead><tr><th>应用场景</th><th>典型任务</th><th>解决的问题</th><th>核心价值</th></tr></thead><tbody>
+      <tr><td>个性化办公助理</td><td>日程协调、邮件草拟、会议准备、待办跟进</td><td>偏好和工作习惯无法跨会话延续，每次都要重复说明。</td><td>降低沟通与配置成本，形成稳定的个人工作界面。</td></tr>
+      <tr><td>企业知识问答</td><td>制度查询、产品知识检索、历史案例定位</td><td>知识分散、答案缺少来源，过期内容仍被反复使用。</td><td>缩短查找时间，以来源、时效和权限提高可信度。</td></tr>
+      <tr><td>文档与报告生产</td><td>周报、方案、汇报材料、合同初审、内容校对</td><td>格式要求和审核意见难复用，重复返工较多。</td><td>沉淀模板与检查清单，提高一致性并降低返工率。</td></tr>
+      <tr><td>数据分析与经营洞察</td><td>指标查询、异常分析、图表生成、经营归因</td><td>口径易混淆，分析依赖个人经验，结论难以复现。</td><td>固化指标口径、分析路径和验证方法，加快洞察交付。</td></tr>
+      <tr><td>跨系统流程执行</td><td>报销、采购、审批、工单、客户跟进、信息录入</td><td>系统割裂、步骤繁琐，异常处理依赖熟练员工。</td><td>连接工具与流程经验，提高完成率和流程稳定性。</td></tr>
+      <tr><td>项目与团队协作</td><td>会议纪要、任务拆解、风险跟踪、复盘与共享</td><td>上下文随人员流动而丢失，经验停留在个人手中。</td><td>保留决策依据与任务轨迹，将个人经验转为团队能力。</td></tr>
+    </tbody></table></div>
+    <p class="source-note" style="margin-top:16px">共同价值不在于增加聊天入口，而在于持续沉淀任务上下文、纠错反馈和有效方法。建议以任务完成率、处理时长、返工率、人工介入次数及复用后的质量变化衡量成效。</p>
+  </div></section>
+
+  <section class="section"><div class="card">
+    <h2>六个生态信号</h2>
+    <div class="grid3">
+      <div class="mini"><div class="num">01</div><h3>分层长期记忆</h3><p>用户画像、环境事实、程序方法和情节历史分开保存，Memory 从功能点变成平台数据架构。</p></div>
+      <div class="mini"><div class="num">02</div><h3>任务后复盘</h3><p>回答交付后异步提炼经验，降低主任务时延，但增加额外成本和写入风险。</p></div>
+      <div class="mini"><div class="num">03</div><h3>程序性技能</h3><p>方法被组织为步骤、模板、脚本和验证规则，成为轻量业务能力封装。</p></div>
+      <div class="mini"><div class="num">04</div><h3>生命周期管理</h3><p>创建、使用、修补、过期、归档和恢复构成知识卫生机制。</p></div>
+      <div class="mini"><div class="num">05</div><h3>双向关系建模</h3><p>系统同时理解用户偏好和数字员工自身角色，个性化升级为工作关系建模。</p></div>
+      <div class="mini"><div class="num">06</div><h3>任务级评测缺口</h3><p>复用次数不能证明方法正确，更新前后的完成率和返工率将成为新标准。</p></div>
+    </div>
+  </div></section>
+
+  <section class="section"><div class="card">
+    <h2>竞争标准如何变化</h2>
+    <div class="table-wrap"><table><thead><tr><th>过去主要关注</th><th>正在形成的新标准</th><th>对数字员工平台的含义</th></tr></thead><tbody>
+      <tr><td>单轮回答质量</td><td>跨会话连续性和任务完成稳定性</td><td>需要长期状态，而不是只依赖 Prompt。</td></tr>
+      <tr><td>工具数量</td><td>工具、记忆、技能与验证协同</td><td>能力连接深度比功能清单更重要。</td></tr>
+      <tr><td>是否支持 Memory</td><td>记忆是否分层、可更新、可清理</td><td>“有记忆”正在变成“会治理记忆”。</td></tr>
+      <tr><td>自动生成 Skill</td><td>来源、所有权和评测证据</td><td>自动沉淀不能脱离人工控制面。</td></tr>
+      <tr><td>使用次数</td><td>完成率、返工率和人工介入次数</td><td>需要面向真实任务的回归评测。</td></tr>
+      <tr><td>个体助手体验</td><td>经验能否成为组织资产</td><td>平台需要注册、授权、分发和审计。</td></tr>
+    </tbody></table></div>
+  </div></section>
+
+      <section class="section"><div class="card"><h2>行业生态启示</h2><div class="grid3">
+    <div class="mini"><h3>从应用接入到经验运营</h3><p>不仅管理数字员工和技能清单，还要管理经验如何产生、由谁拥有、何时过期和能否回滚。</p></div>
+    <div class="mini"><h3>建立四层知识模型</h3><p>用户、环境、方法、证据采用不同的权限、容量、更新频率和生命周期。</p></div>
+    <div class="mini"><h3>复盘输出候选经验</h3><p>任务后复盘不应直接等同于事实，高风险经验必须审批并保留来源。</p></div>
+    <div class="mini"><h3>Skill 全生命周期</h3><p>记录来源、版本、使用、修订、评测、固定、归档和回滚点。</p></div>
+    <div class="mini"><h3>学习与评测同步建设</h3><p>不只展示创建了多少技能，还要验证是否降低返工和人工介入。</p></div>
+    <div class="mini"><h3>保留原始任务证据</h3><p>摘要、记忆或技能出错时，仍可回查真实会话与工具执行过程。</p></div>
+  </div></div></section>
+
+  <section class="section grid3">
+    <div class="card priority"><h2>短期</h2><h3>可控经验沉淀原型</h3><p>划清四类知识边界，在可复核任务中试点任务后复盘，所有自动经验先进入候选区。</p></div>
+    <div class="card priority mid"><h2>中期</h2><h3>技能治理与质量评测</h3><p>建设所有权、版本、审批、审计、归档和回滚，并建立更新前后对比任务。</p></div>
+    <div class="card priority long"><h2>长期</h2><h3>组织学习网络</h3><p>让经过验证的经验在不同数字员工间安全流动，连接生产、评测、分发与使用反馈。</p></div>
+  </section>
+
+  <section class="section grid2">
+    <div class="card"><h2>关键风险</h2><ul class="list">
+      <li>错误归纳进入长期知识后会跨会话放大。</li>
+      <li>过度主动沉淀会造成技能碎片与检索噪声。</li>
+      <li>身份映射错误可能造成不同用户之间的记忆污染。</li>
+      <li>外部记忆服务带来数据边界、供应依赖和成本问题。</li>
+      <li>没有任务级评测时，“自我改进”更接近自动沉淀与维护。</li>
+    </ul></div>
+    <div class="card"><h2>可对外表达的观点</h2>
+      <div class="quote">数字员工的下一阶段，不是让 AI 记住更多内容，而是让它知道什么值得记、如何转化为方法、何时应该失效，以及组织如何验证和治理这些经验。</div>
+      <p class="lead" style="margin-top:16px;font-size:15px">当模型能力趋于普及，真正形成壁垒的将是企业自己的经验资产：可追溯、可复用、可评测，并能在不同数字员工之间安全流动。</p>
+    </div>
+  </section>
+
+  <section class="section"><div class="card"><h2>后续持续关注</h2><div class="grid2">
+    <ul class="list"><li>任务后复盘是否演进为 Agent 平台标准能力。</li><li>Skill 是否形成来源、版本、评测和生命周期规范。</li><li>企业是否以返工率、人工介入和完成率评估学习效果。</li></ul>
+    <ul class="list"><li>外部记忆服务如何处理身份隔离和多 Agent 共享。</li><li>自动学习与模型训练是否形成可审计的数据反馈路径。</li><li>经验资产能否跨岗位复用，同时保留权限和适用范围。</li></ul>
+  </div></div></section>
+
+  <section class="section"><div class="card"><h2>本周洞察来源说明</h2><p class="source-note">本报告以近期代表性开源 Agent 架构及其源码实现为样本，结合企业数字员工、长期记忆、技能管理和组织治理需求进行抽象，不评价或展示具体企业与产品名称。趋势判断属于对公开技术实现的行业化归纳，不代表所有 Agent 产品均已具备上述能力。</p></div></section>
+
+  <footer class="footer">AI办公生态趋势库 · Week 09 · Internal System Draft · 2026<br>Report compiled by: wangwenlin</footer>
+</main>
+</body>
+</html>
