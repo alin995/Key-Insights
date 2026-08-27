@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>AI 办公与智能体生态｜季度洞察回顾</title>
+  <style>
+    :root{
+      --paper:#f3f0e8;
+      --paper-2:#faf8f2;
+      --ink:#2d2b27;
+      --ink-2:#68635b;
+      --ink-3:#9a9489;
+      --line:#d5cfc3;
+      --line-strong:#aaa294;
+      --red:#7b2927;
+      --red-soft:#eee1dc;
+      --wood:#9b7654;
+      --sage:#6f7667;
+      --font-sans:"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei",sans-serif;
+      --font-serif:"Songti SC","STSong","Noto Serif CJK SC",serif;
+      --font-mono:"SFMono-Regular","IBM Plex Mono","Menlo",monospace;
+      --ease:cubic-bezier(.25,.8,.25,1);
+    }
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#d9d4ca;color:var(--ink);font-family:var(--font-sans);-webkit-font-smoothing:antialiased}
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;background-image:radial-gradient(rgba(45,43,39,.18) .45px,transparent .6px);background-size:5px 5px}
+    .deck{position:relative;width:100vw;height:100vh;background:var(--paper);overflow:hidden}
+    .slide{position:absolute;inset:0;padding:72px 82px 68px;display:flex;flex-direction:column;justify-content:center;opacity:0;pointer-events:none;transform:translateX(24px);transition:opacity .42s var(--ease),transform .42s var(--ease);overflow:hidden;background:var(--paper)}
+    .slide::before{content:"";position:absolute;inset:0;opacity:.22;pointer-events:none;background-image:linear-gradient(rgba(45,43,39,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(45,43,39,.018) 1px,transparent 1px);background-size:32px 32px}
+    .slide>*{position:relative;z-index:1}
+    .slide.is-active{opacity:1;pointer-events:auto;transform:translateX(0);z-index:2}
+    .slide.is-prev{transform:translateX(-24px)}
+    .deck-header,.deck-footer{position:fixed;left:38px;right:38px;z-index:20;display:flex;justify-content:space-between;align-items:center;color:var(--ink-3);font:11px/1.2 var(--font-mono);letter-spacing:.14em;text-transform:uppercase;pointer-events:none}
+    .deck-header{top:24px}.deck-footer{bottom:20px}
+    .brand-dot{display:inline-flex;align-items:center;gap:9px}.brand-dot::before{content:"";width:8px;height:8px;background:var(--red);display:inline-block}
+    .progress{position:fixed;left:0;right:0;bottom:0;height:3px;background:#cbc5ba;z-index:30}.progress span{display:block;height:100%;width:10%;background:var(--red);transition:width .35s var(--ease)}
+    .notes{display:none!important}
+    .notes-overlay{position:fixed;left:24px;right:24px;bottom:44px;max-height:34vh;padding:20px 24px;background:rgba(45,43,39,.96);color:#f7f3ea;font-size:16px;line-height:1.7;z-index:60;transform:translateY(calc(100% + 80px));transition:transform .28s var(--ease);overflow:auto;border-top:3px solid var(--red)}
+    .notes-overlay.open{transform:translateY(0)}
+    .overview{position:fixed;inset:0;z-index:70;background:rgba(239,235,226,.97);padding:54px;display:none;grid-template-columns:repeat(3,1fr);gap:18px;overflow:auto}.overview.open{display:grid}.thumb{aspect-ratio:16/9;border:1px solid var(--line);background:var(--paper-2);padding:20px;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;transition:.2s}.thumb:hover{border-color:var(--red);transform:translateY(-2px)}.thumb b{font:12px var(--font-mono);color:var(--red)}.thumb span{font-size:18px;font-weight:600}
+    .kicker{font:600 12px/1.2 var(--font-mono);letter-spacing:.22em;text-transform:uppercase;color:var(--red);margin-bottom:14px}
+    h1,h2,h3,p{margin:0}
+    h1{font:500 70px/1.14 var(--font-serif);letter-spacing:-.035em}
+    h2{font:500 48px/1.18 var(--font-serif);letter-spacing:-.025em}
+    h3{font:600 21px/1.35 var(--font-sans)}
+    .lede{font-size:21px;line-height:1.65;color:var(--ink-2);max-width:900px;font-weight:350}
+    .big-quote{font:500 40px/1.48 var(--font-serif);max-width:1040px}.big-quote em{font-style:normal;color:var(--red)}
+    .rule{height:1px;background:var(--line);width:100%;margin:24px 0}.short-rule{width:54px;height:4px;background:var(--red);margin:20px 0 28px}
+    .tag{display:inline-block;border:1px solid var(--line-strong);padding:4px 9px;font:11px var(--font-mono);letter-spacing:.08em;color:var(--ink-2);background:rgba(255,255,255,.22)}
+    .grid{display:grid;gap:18px}.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+    .card{border-top:1px solid var(--ink);padding:18px 4px 10px;min-width:0}.card p{font-size:15px;line-height:1.6;color:var(--ink-2);margin-top:9px}.card .num{font:400 38px/1 var(--font-serif);color:var(--red);margin-bottom:14px}.card.soft{border:1px solid var(--line);padding:22px;background:rgba(250,248,242,.55)}.card.accent{border-color:var(--red);background:var(--red-soft)}
+    .example{margin-top:12px;padding-top:10px;border-top:1px solid var(--line);font:11px/1.5 var(--font-mono);color:var(--wood);letter-spacing:.02em}
+    .insight-strip{margin-top:22px;border-left:3px solid var(--red);background:rgba(250,248,242,.58);padding:13px 18px;display:flex;align-items:center;gap:24px}.insight-strip b{font:11px var(--font-mono);color:var(--red);white-space:nowrap}.insight-strip span{font-size:15px;line-height:1.55;color:var(--ink-2)}
+    .token-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.token{border:1px solid var(--line);padding:6px 10px;background:rgba(250,248,242,.54);font:11px var(--font-mono);color:var(--ink-2)}
+    .mini-facts{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:30px}.fact{border-top:1px solid var(--line-strong);padding:13px 4px}.fact b{font:12px var(--font-mono);color:var(--red)}.fact span{display:block;font-size:14px;line-height:1.55;color:var(--ink-2);margin-top:6px}
+    .priority-box{margin-top:20px;border:1px solid var(--red);padding:14px 18px;display:grid;grid-template-columns:130px 1fr;gap:18px;align-items:center;background:var(--red-soft)}.priority-box b{font:12px var(--font-mono);color:var(--red)}.priority-box span{font-size:15px;line-height:1.5}
+    .metric{padding:16px 0;border-top:1px solid var(--line)}.metric strong{display:block;font:500 64px/1 var(--font-serif);color:var(--red)}.metric span{display:block;margin-top:10px;font-size:14px;color:var(--ink-2)}
+    .timeline{display:grid;grid-template-columns:repeat(9,1fr);gap:0;margin-top:34px;position:relative}.timeline::before{content:"";position:absolute;left:2%;right:2%;top:15px;height:1px;background:var(--line-strong)}.time-item{position:relative;padding:38px 10px 0 0}.time-item::before{content:"";position:absolute;top:9px;left:0;width:13px;height:13px;background:var(--paper);border:2px solid var(--red)}.time-item b{font:12px var(--font-mono);color:var(--red)}.time-item span{display:block;margin-top:7px;font-size:13px;line-height:1.45;color:var(--ink-2)}
+    .flow{display:grid;grid-template-columns:repeat(6,1fr);align-items:stretch;margin-top:28px}.step{position:relative;border:1px solid var(--line);background:rgba(250,248,242,.6);padding:18px 16px;min-height:138px}.step+.step{border-left:0}.step:not(:last-child)::after{content:"→";position:absolute;right:-11px;top:50%;z-index:2;color:var(--red);background:var(--paper);padding:0 3px;transform:translateY(-50%)}.step b{font:11px var(--font-mono);color:var(--red)}.step h3{font-size:17px;margin-top:12px}.step p{font-size:12px;line-height:1.5;color:var(--ink-2);margin-top:7px}
+    .ladder{display:grid;grid-template-columns:repeat(5,1fr);margin-top:24px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.ladder div{padding:15px 12px;border-right:1px solid var(--line);font-size:14px;color:var(--ink-2)}.ladder div:last-child{border-right:0}.ladder b{font:11px var(--font-mono);color:var(--red);display:block;margin-bottom:6px}
+    .audit-chain{display:flex;align-items:center;gap:0;margin-top:28px}.audit-node{flex:1;border-top:1px solid var(--ink);padding:16px 10px 0;min-height:100px;position:relative}.audit-node:not(:last-child)::after{content:"→";position:absolute;right:-5px;top:15px;color:var(--red)}.audit-node b{font:11px var(--font-mono);color:var(--red)}.audit-node span{display:block;font-size:14px;line-height:1.45;margin-top:9px}.audit-node.future{border-color:var(--line-strong);color:var(--ink-3)}
+    .split{display:grid;grid-template-columns:1.05fr .95fr;gap:42px;align-items:start}.side-title{font:12px var(--font-mono);letter-spacing:.12em;color:var(--red);margin-bottom:12px}.list{list-style:none;margin:0;padding:0}.list li{padding:12px 0 12px 24px;border-top:1px solid var(--line);font-size:16px;line-height:1.5;position:relative}.list li::before{content:"—";position:absolute;left:0;color:var(--red)}
+    .stamp{width:126px;height:126px;border:1px solid var(--red);display:flex;align-items:center;justify-content:center;text-align:center;color:var(--red);font:500 24px/1.25 var(--font-serif);letter-spacing:.12em;transform:rotate(-1.8deg)}
+    .cover-meta{display:flex;align-items:flex-end;justify-content:space-between;margin-top:52px}.cover-line{width:62%;border-top:1px solid var(--line);padding-top:16px;font:12px var(--font-mono);color:var(--ink-3);letter-spacing:.12em}
+    .evidence-bar{height:7px;background:var(--line);margin-top:9px;position:relative}.evidence-bar span{display:block;height:100%;background:var(--red)}
+    .anim{opacity:0;transform:translateY(12px)}.is-active .anim{animation:rise .55s var(--ease) forwards}.is-active .d1{animation-delay:.08s}.is-active .d2{animation-delay:.16s}.is-active .d3{animation-delay:.24s}.is-active .d4{animation-delay:.32s}
+    @keyframes rise{to{opacity:1;transform:none}}
+    @media(max-width:900px){.slide{padding:58px 46px}.deck-header,.deck-footer{left:22px;right:22px}h1{font-size:54px}h2{font-size:40px}.g4{grid-template-columns:repeat(2,1fr)}.flow{grid-template-columns:repeat(3,1fr)}.step+.step{border-left:1px solid var(--line)}.timeline{grid-template-columns:repeat(3,1fr);gap:18px}.timeline::before{display:none}.time-item{padding-top:24px}.split{grid-template-columns:1fr;gap:22px}}
+    @media print{html,body{overflow:visible;background:white}.deck{height:auto}.slide{position:relative;opacity:1!important;transform:none!important;page-break-after:always;width:100vw;height:56.25vw;min-height:720px}.deck-header,.deck-footer,.progress,.notes-overlay,.overview{display:none!important}}
+  </style>
+</head>
+<body>
+<div class="deck" id="deck">
+  <div class="deck-header"><span class="brand-dot">AI ECOSYSTEM REVIEW</span><span>2026 · AUG</span></div>
+  <div class="deck-footer"><span>← → 翻页 · O 总览 · N 备注 · F 全屏</span><span><b id="current">01</b> / 10</span></div>
+  <div class="progress"><span id="progress"></span></div>
+
+  <section class="slide is-active" data-title="封面">
+    <div class="kicker anim">Quarterly review · Week 01—09</div>
+    <h1 class="anim d1">AI 办公与智能体生态<br>季度洞察回顾</h1>
+    <div class="short-rule anim d2"></div>
+    <p class="lede anim d2">从“应用货架”走向“可治理的数字劳动力运行体系”</p>
+    <div class="cover-meta anim d3">
+      <div class="cover-line">2026.06.11 — 2026.08.23 · 9 期材料 · 内部产品映射补充</div>
+      <div class="stamp">洞察<br>回顾</div>
+    </div>
+    <div class="notes">开场只讲一句：这不是九个热点的汇总，而是同一条产业主线在九个不同场景里的反复出现。今天重点看哪些判断已经稳定，哪些证据还不够，以及它们怎样落到数字员工与 SafeCore 的产品交叉。</div>
+  </section>
+
+  <section class="slide" data-title="一句话结论">
+    <div class="kicker anim">01 · Conclusion first</div>
+    <div class="big-quote anim d1">AI 的竞争单位正从模型和单点功能，迁移到<br><em>“可验证的任务闭环”</em>。</div>
+    <div class="rule anim d2"></div>
+    <div class="grid g3 anim d3">
+      <div class="card"><div class="num">01</div><h3>交付结果</h3><p>从生成内容，走向完成任务并交付可用产物。</p></div>
+      <div class="card"><div class="num">02</div><h3>接受治理</h3><p>从应用与 Key，继续下钻到身份、动作和业务任务。</p></div>
+      <div class="card"><div class="num">03</div><h3>积累经验</h3><p>把方法沉淀为有来源、版本、评测与回滚的组织资产。</p></div>
+    </div>
+    <div class="insight-strip anim d4"><b>五个判断</b><span>交付结果 · 企业控制面 · 落地“四个可” · 经验治理 · 统一业务任务 ID</span></div>
+    <div class="notes">这页给出总判断。企业真正需要的不是更多聊天入口，而是能连接数据与工具、执行流程、接受治理、沉淀经验的数字劳动力。后面的全部内容都围绕这三个关键词展开：结果、治理、经验。</div>
+  </section>
+
+  <section class="slide" data-title="九期演进">
+    <div class="kicker anim">02 · Evolution</div>
+    <h2 class="anim d1">九期内容，在逼近同一个问题</h2>
+    <p class="lede anim d1">AI 怎样从“会生成”，变成“可进入流程、稳定交付、被组织治理并持续学习”？</p>
+    <div class="timeline anim d2">
+      <div class="time-item"><b>W01</b><span>Data Agent<br>分析与执行</span></div>
+      <div class="time-item"><b>W02</b><span>招投标<br>角色分层</span></div>
+      <div class="time-item"><b>W03</b><span>数字员工<br>平台化</span></div>
+      <div class="time-item"><b>W04</b><span>岗位 Agent<br>六类壁垒</span></div>
+      <div class="time-item"><b>W05</b><span>创意 Agent<br>资产交付</span></div>
+      <div class="time-item"><b>W06</b><span>数据伙伴<br>进入行动</span></div>
+      <div class="time-item"><b>W07</b><span>系统竞争<br>稳定交付</span></div>
+      <div class="time-item"><b>W08</b><span>工业智能<br>现场闭环</span></div>
+      <div class="time-item"><b>W09</b><span>经验治理<br>持续复用</span></div>
+    </div>
+    <div class="card soft anim d3" style="margin-top:36px;display:flex;justify-content:space-between;gap:30px;align-items:center">
+      <div><h3>研究对象的变化</h3><p style="margin-top:7px">从“有哪些产品”转向“AI 如何进入业务并留下可验证结果”。</p></div>
+      <div class="token-row" style="justify-content:flex-end;margin-top:0"><span class="token">产品目录</span><span class="token">任务能力</span><span class="token">运行控制</span><span class="token">组织经验</span></div>
+    </div>
+    <div class="notes">这里不逐期念内容，只讲研究对象的变化：一开始在看应用和伙伴，之后开始看任务是否能完成，再往后看权限、审计与运行控制，最后落到经验怎样沉淀、评测和复用。</div>
+  </section>
+
+  <section class="slide" data-title="四条趋势">
+    <div class="kicker anim">03 · Four signals</div>
+    <h2 class="anim d1">四条跨期趋势</h2>
+    <div class="grid g2 anim d2" style="margin-top:28px">
+      <div class="card soft"><span class="tag">VALUE</span><h3 style="margin-top:18px">内容 → 任务闭环</h3><p>读取材料、拆解目标、调用工具、检查结果与交付，生成只是中间步骤。</p><div class="example">代表：招投标响应矩阵 · Miora 资产包 · Muse Code 测试验证</div></div>
+      <div class="card soft"><span class="tag">MOAT</span><h3 style="margin-top:18px">模型 → 企业控制面</h3><p>连接、流程、数据、治理、交付和分发，比单纯模型能力更接近长期壁垒。</p><div class="example">代表：语义层 · MCP / API · 权限审批 · 审计追踪</div></div>
+      <div class="card soft"><span class="tag">LANDING</span><h3 style="margin-top:18px">先数字流程，后高风险执行</h3><p>文档、代码、创意更易形成闭环；工业现场价值更高，验证周期也更长。</p><div class="example">成熟度：数字流程较高 · 工业决策中等 · 机器人执行前瞻</div></div>
+      <div class="card soft"><span class="tag">LEARNING</span><h3 style="margin-top:18px">Memory → 组织经验</h3><p>记忆与 Skill 必须有来源、所有者、适用范围、版本、评测、失效和回滚。</p><div class="example">验证：复用后完成率 ↑ · 返工率 ↓ · 错误经验可回滚</div></div>
+    </div>
+    <div class="notes">这四条趋势的共同点，是竞争不再停在模型层。第一条看价值，第二条看壁垒，第三条看落地顺序，第四条看长期复利。它们在不同周次、不同场景里重复出现，所以可信度比某一条产品新闻高。</div>
+  </section>
+
+  <section class="slide" data-title="落地的四个可">
+    <div class="kicker anim">04 · Landing test</div>
+    <h2 class="anim d1">最先规模化的场景，都有“四个可”</h2>
+    <div class="grid g4 anim d2" style="margin-top:30px">
+      <div class="card"><div class="num">可获得</div><h3>输入稳定</h3><p>数据、文档与系统能够持续接入和授权。</p><div class="example">合同 · 标书 · 财报 · 代码库</div></div>
+      <div class="card"><div class="num">可拆解</div><h3>步骤明确</h3><p>任务有规则、检查点与异常处理路径。</p><div class="example">拆标 · 审核 · 测试 · 维修工单</div></div>
+      <div class="card"><div class="num">可复核</div><h3>结果可查</h3><p>有来源、规则、测试或人工确认。</p><div class="example">勾稽校验 · 测试结果 · 审批留痕</div></div>
+      <div class="card"><div class="num">可量化</div><h3>价值可证</h3><p>能比较时长、返工、完成率、成本或经营结果。</p><div class="example">耗时 · 返工 · 人工介入 · 单任务成本</div></div>
+    </div>
+    <div class="ladder anim d3">
+      <div><b>01</b>功能可演示</div><div><b>02</b>任务可完成</div><div><b>03</b>流程已进入</div><div><b>04</b>结果可量化</div><div><b>05</b>能低成本复制</div>
+    </div>
+    <p class="lede anim d4" style="margin-top:22px;font-size:17px">只有达到最后两级，才可称为商业价值已经得到验证。</p>
+    <div class="notes">后续筛选伙伴或场景时，第一问不该是用了什么模型，而是四个可是否成立。再用五级验证阶梯区分 Demo、试点、进入流程、量化价值和可复制产品，避免把“功能上线”当成“价值实现”。</div>
+  </section>
+
+  <section class="slide" data-title="证据审计">
+    <div class="kicker anim">05 · Evidence audit</div>
+    <h2 class="anim d1">观点在收敛，证据还需要变硬</h2>
+    <div class="grid g3 anim d2" style="margin-top:28px">
+      <div class="metric"><strong>8/8</strong><span>主窗口材料都讨论了“进入流程并产生结果”</span></div>
+      <div class="metric"><strong>3/8</strong><span>正文给出醒目的量化结果或规模信号</span></div>
+      <div class="metric"><strong>4/8</strong><span>提供可直接访问的外部来源链接</span></div>
+    </div>
+    <div class="mini-facts anim d3">
+      <div class="fact"><b>W05 · MIORA</b><span>“数周到数小时”有腾讯官方出处，但仍属于厂商效率口径。</span></div>
+      <div class="fact"><b>W06 · TEXTIN</b><span>披露平均每页约 2—3 秒；准确率、端到端工时和 ROI 未披露。</span></div>
+      <div class="fact"><b>W07 · OFFICE AGENT</b><span>6000 万是 17 款产品合计访问量，不等于用户规模与企业付费。</span></div>
+      <div class="fact"><b>W08 · INDUSTRIAL AI</b><span>152 个场景有一手支持；多组效率数字仍待原始演讲或 PPT。</span></div>
+    </div>
+    <div class="notes">复盘不仅要提炼趋势，也要审计证据。后半段材料的边界意识明显更强，但采用和价值数据仍少。以后需要把供给信号、采用信号和价值信号分开记录，数字后面直接跟来源。</div>
+  </section>
+
+  <section class="slide" data-title="任务数据流">
+    <div class="kicker anim">06 · Internal product mapping</div>
+    <h2 class="anim d1">一个真实任务，背后不是一次模型调用</h2>
+    <div class="flow anim d2">
+      <div class="step"><b>01</b><h3>销售需求</h3><p>客户背景与目标</p></div>
+      <div class="step"><b>02</b><h3>个人助理</h3><p>整理纪要与任务</p></div>
+      <div class="step"><b>03</b><h3>垂直员工</h3><p>匹配案例与伙伴</p></div>
+      <div class="step"><b>04</b><h3>SafeCore</h3><p>风险、配额与审计</p></div>
+      <div class="step"><b>05</b><h3>模型服务</h3><p>总结、检索与生成</p></div>
+      <div class="step"><b>06</b><h3>结果留痕</h3><p>草稿、日志与反馈</p></div>
+    </div>
+    <div class="token-row anim d2"><span class="token">身份流：谁代表谁</span><span class="token">数据流：读取了什么</span><span class="token">调用流：模型 / 成本 / 风险</span><span class="token">结果流：交付 / 采纳 / 反馈</span></div>
+    <div class="grid g2 anim d3" style="margin-top:34px">
+      <div class="card accent"><h3>数字员工</h3><p>知道员工身份、AI 资源可见性和数字员工入口；Agent Identity 属于后续方向。</p></div>
+      <div class="card accent"><h3>SafeCore</h3><p>知道应用 / Key 的模型调用、成本和风险；未确认已经治理 MCP 与工具动作。</p></div>
+    </div>
+    <p class="lede anim d4" style="margin-top:20px;font-size:17px">观察口径：2026-08-12 内部材料；规划项不等同于已发布能力。</p>
+    <div class="notes">这页把外部趋势落到内部产品。数字员工让 AI 进入真实工作，SafeCore 让应用到模型的调用可见、可控、可审计。但必须明确当前边界：Agent Identity 仍是演化方向，SafeCore 也不能被描述成已经治理所有工具动作。</div>
+  </section>
+
+  <section class="slide" data-title="任务级治理">
+    <div class="kicker anim">07 · The missing link</div>
+    <h2 class="anim d1">真正的交叉：共享同一个业务任务 ID</h2>
+    <div class="audit-chain anim d2">
+      <div class="audit-node"><b>WHO</b><span>员工身份</span></div>
+      <div class="audit-node"><b>DELEGATE</b><span>Agent 身份</span></div>
+      <div class="audit-node"><b>WHY</b><span>业务任务 ID</span></div>
+      <div class="audit-node"><b>ACCESS</b><span>应用 / Key</span></div>
+      <div class="audit-node"><b>CALL</b><span>模型调用</span></div>
+      <div class="audit-node future"><b>NEXT</b><span>工具动作</span></div>
+      <div class="audit-node"><b>RESULT</b><span>结果与反馈</span></div>
+    </div>
+    <div class="grid g2 anim d3" style="margin-top:42px">
+      <div class="card soft"><span class="tag">DATA</span><h3 style="margin-top:16px">数据访问权限</h3><p>能读取哪些文档、字段、客户数据和历史项目材料？</p></div>
+      <div class="card soft"><span class="tag">ACTION</span><h3 style="margin-top:16px">行为执行权限</h3><p>能否写系统、发给客户、提交报价或触发审批？</p></div>
+    </div>
+    <div class="insight-strip anim d4"><b>当前断点</b><span>数字员工看见“员工与 AI 资源”，SafeCore 看见“应用与模型调用”；仍缺“为何调用、结果如何”的任务级关联。</span></div>
+    <div class="notes">当前两边分别看见不同片段：数字员工平台知道员工与 AI 资源，SafeCore 知道应用与模型调用。真正的产品交叉点不是再加一个权限按钮，而是把员工、Agent、应用、模型和结果串成同一条任务级证据链。</div>
+  </section>
+
+  <section class="slide" data-title="经验与数据边界">
+    <div class="kicker anim">08 · Governed experience</div>
+    <h2 class="anim d1">组织经验要复用，也要有边界</h2>
+    <div class="split anim d2" style="margin-top:30px">
+      <div>
+        <div class="side-title">FOUR DATA LAYERS</div>
+        <div class="grid g2">
+          <div class="card soft"><h3>公司公共知识</h3><p>标准模板、公开产品资料，按角色授权复用。</p></div>
+          <div class="card soft"><h3>项目知识</h3><p>项目过程与复盘，仅限成员或审批复用。</p></div>
+          <div class="card soft"><h3>客户专属数据</h3><p>合同、报价、架构，强隔离并控制跨客户使用。</p></div>
+          <div class="card soft"><h3>候选经验</h3><p>Agent 自动提炼内容先核验、评测，再正式发布。</p></div>
+        </div>
+      </div>
+      <div>
+        <div class="side-title">SKILL / MEMORY LIFECYCLE</div>
+        <ul class="list"><li>来源与所有者</li><li>适用范围与权限</li><li>版本与有效期</li><li>任务级回归评测</li><li>归档、回滚与原始证据</li></ul>
+      </div>
+    </div>
+    <div class="insight-strip anim d3"><b>经验闭环</b><span>候选经验 → 来源核验 → 人工审批 → 任务评测 → 正式发布 → 持续修订 / 归档 / 回滚</span></div>
+    <div class="notes">Memory 不是记得越多越好，Skill 也不是生成出来就能共享。公司公共知识、项目知识和客户专属数据必须分层。自动提炼的经验只能先进入候选区，通过来源核验和任务评测后再分发。</div>
+  </section>
+
+  <section class="slide" data-title="下一步">
+    <div class="kicker anim">09 · Next four weeks</div>
+    <h2 class="anim d1">从追逐热点，转向验证判断</h2>
+    <div class="grid g4 anim d2" style="margin-top:30px">
+      <div class="card"><div class="num">01</div><h3>运行指标</h3><p>完成率、人工介入、成本、风险与结果采纳。</p></div>
+      <div class="card"><div class="num">02</div><h3>经验治理</h3><p>命中、错误复用、过期、评测与回滚。</p></div>
+      <div class="card"><div class="num">03</div><h3>统一横评</h3><p>投标、文档、代码、创意使用同一口径。</p></div>
+      <div class="card"><div class="num">04</div><h3>最小闭环</h3><p>员工—Agent—应用 / Key—模型—结果映射。</p></div>
+    </div>
+    <div class="priority-box anim d3"><b>优先试点</b><span>客户需求理解 → 历史方案检索 → 伙伴推荐 → 方案草稿；首期不直接对外发送。</span></div>
+    <div class="rule anim d3"></div>
+    <div class="big-quote anim d4" style="font-size:28px">场景决定是否有用，数据决定是否准确，<em>身份与任务链决定能否追责。</em></div>
+    <div class="notes">下一阶段建议减少横向铺品类，改成四次纵深验证。最优先的是做一个最小任务闭环：先完成员工、Agent、应用与模型结果的关联，不直接自动对外发送，也不把尚未上线的工具治理说成现状。</div>
+  </section>
+</div>
+
+<div class="notes-overlay" id="notesOverlay"></div>
+<div class="overview" id="overview"></div>
+
+<script>
+(() => {
+  const slides = [...document.querySelectorAll('.slide')];
+  const current = document.getElementById('current');
+  const progress = document.getElementById('progress');
+  const notesOverlay = document.getElementById('notesOverlay');
+  const overview = document.getElementById('overview');
+  let idx = 0;
+  let touchX = null;
+
+  const clamp = n => Math.max(0, Math.min(slides.length - 1, n));
+  const hashIndex = () => {
+    const m = location.hash.match(/^#\/(\d+)/);
+    return m ? clamp(Number(m[1]) - 1) : 0;
+  };
+  function go(n, setHash=true){
+    idx = clamp(n);
+    slides.forEach((s,i) => {
+      s.classList.toggle('is-active', i === idx);
+      s.classList.toggle('is-prev', i < idx);
+      s.querySelectorAll('.anim').forEach(el => { el.style.animation = 'none'; void el.offsetWidth; el.style.animation = ''; });
+    });
+    current.textContent = String(idx + 1).padStart(2,'0');
+    progress.style.width = `${((idx + 1) / slides.length) * 100}%`;
+    const note = slides[idx].querySelector('.notes');
+    notesOverlay.textContent = note ? note.textContent.trim() : '';
+    notesOverlay.classList.remove('open');
+    if(setHash) history.replaceState(null,'',`#/${idx + 1}`);
+  }
+  function buildOverview(){
+    overview.innerHTML = slides.map((s,i) => `<div class="thumb" data-i="${i}"><b>${String(i+1).padStart(2,'0')}</b><span>${s.dataset.title || 'Slide'}</span></div>`).join('');
+    overview.querySelectorAll('.thumb').forEach(el => el.addEventListener('click', () => { overview.classList.remove('open'); go(Number(el.dataset.i)); }));
+  }
+  document.addEventListener('keydown', e => {
+    if(['ArrowRight','PageDown',' ','Enter'].includes(e.key)){ e.preventDefault(); go(idx+1); }
+    if(['ArrowLeft','PageUp'].includes(e.key)){ e.preventDefault(); go(idx-1); }
+    if(e.key === 'Home') go(0);
+    if(e.key === 'End') go(slides.length-1);
+    if(e.key.toLowerCase() === 'f') document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+    if(e.key.toLowerCase() === 'n') notesOverlay.classList.toggle('open');
+    if(e.key.toLowerCase() === 'o') overview.classList.toggle('open');
+    if(e.key === 'Escape'){ notesOverlay.classList.remove('open'); overview.classList.remove('open'); }
+  });
+  addEventListener('hashchange', () => go(hashIndex(), false));
+  addEventListener('touchstart', e => touchX = e.changedTouches[0].clientX, {passive:true});
+  addEventListener('touchend', e => { if(touchX == null) return; const d=e.changedTouches[0].clientX-touchX; if(Math.abs(d)>50) go(idx+(d<0?1:-1)); touchX=null; }, {passive:true});
+  buildOverview();
+  go(hashIndex(), false);
+})();
+</script>
+</body>
+</html>
