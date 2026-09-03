@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI办公生态趋势观察｜Week 10</title>
+<style>
+:root {
+  --bg:#06101d; --panel:rgba(13,25,42,.88); --panel2:rgba(255,255,255,.035);
+  --line:rgba(255,255,255,.10); --text:#f8fafc; --soft:#cbd5e1; --muted:#8fa2b8;
+  --cyan:#22d3ee; --blue:#60a5fa; --green:#34d399; --amber:#fbbf24; --violet:#a78bfa;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  min-height:100vh; margin:0; padding:44px 24px 60px; color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  line-height:1.7;
+  background:
+    radial-gradient(circle at 86% 7%,rgba(96,165,250,.18),transparent 34%),
+    radial-gradient(circle at 10% 76%,rgba(34,211,238,.12),transparent 32%),
+    linear-gradient(145deg,#06101d,#071a29 52%,#080d18);
+}
+body::before {
+  content:""; position:fixed; inset:0; pointer-events:none; opacity:.22;
+  background-image:radial-gradient(circle,rgba(226,232,240,.46) 0 1px,transparent 1.5px),radial-gradient(circle,rgba(34,211,238,.32) 0 1px,transparent 1.5px);
+  background-size:42px 42px,78px 78px; background-position:0 0,18px 24px;
+  animation:drift 34s linear infinite;
+}
+@keyframes drift { to { background-position:84px 126px,96px 180px; } }
+.container { position:relative; z-index:1; max-width:1280px; margin:0 auto; }
+.header { display:grid; grid-template-columns:1.42fr .58fr; gap:28px; align-items:end; padding-bottom:28px; border-bottom:1px solid var(--line); }
+.eyebrow { color:var(--cyan); font-size:13px; letter-spacing:1.45px; text-transform:uppercase; }
+.eyebrow::before { content:""; display:inline-block; width:34px; height:2px; margin:0 10px 4px 0; background:var(--cyan); }
+h1 { margin:12px 0 0; font-size:42px; line-height:1.12; background:linear-gradient(135deg,#fff,#bae6fd 45%,#94a3b8); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.subtitle { margin:14px 0 0; color:var(--muted); font-size:15px; }
+.meta,.card,.metric { background:var(--panel); border:1px solid var(--line); border-radius:14px; backdrop-filter:blur(16px); }
+.meta { padding:16px 20px; }
+.meta-row { display:flex; justify-content:space-between; gap:16px; padding:8px 0; border-bottom:1px solid var(--line); color:var(--soft); font-size:13px; }
+.meta-row:last-child { border:0; } .meta-row span { color:var(--muted); }
+.metrics { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:22px 0; }
+.metric { padding:18px 20px; transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease; }
+.metric:hover,.card:hover { transform:translateY(-2px); border-color:rgba(34,211,238,.27); box-shadow:0 18px 48px rgba(0,0,0,.18); }
+.metric strong { display:block; color:var(--cyan); font:700 28px/1.2 Consolas,monospace; }
+.metric span { color:var(--muted); font-size:13px; }
+.section { margin-top:18px; }
+.card { padding:26px; transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease; }
+.grid2,.grid3,.grid4 { display:grid; gap:16px; } .grid2 { grid-template-columns:repeat(2,1fr); } .grid3 { grid-template-columns:repeat(3,1fr); } .grid4 { grid-template-columns:repeat(4,1fr); }
+h2 { display:flex; align-items:center; gap:10px; margin:0 0 18px; font-size:22px; }
+h2::before { content:""; width:4px; height:20px; border-radius:10px; background:var(--cyan); }
+h3 { margin:0 0 10px; font-size:17px; }
+p { color:var(--soft); }
+a { color:#bae6fd; text-decoration:none; border-bottom:1px dashed rgba(34,211,238,.55); }
+.lead { margin:0; color:#e2e8f0; font-size:17px; }
+.highlight { color:var(--cyan); font-weight:700; border-bottom:1px dashed rgba(34,211,238,.7); }
+.mini { padding:18px; border:1px solid var(--line); border-radius:12px; background:var(--panel2); }
+.mini p { margin:0; font-size:14px; }
+.num { display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; margin-bottom:12px; border-radius:9px; background:rgba(34,211,238,.10); color:var(--cyan); font:700 13px Consolas,monospace; }
+.tags { margin-top:14px; }
+.tag { display:inline-block; margin:6px 7px 0 0; padding:4px 10px; border:1px solid rgba(34,211,238,.25); border-radius:8px; background:rgba(34,211,238,.08); color:#dff7fc; font-size:12px; }
+.tag.green { color:#bbf7d0; border-color:rgba(52,211,153,.3); background:rgba(52,211,153,.08); }
+.tag.amber { color:#fde68a; border-color:rgba(251,191,36,.3); background:rgba(251,191,36,.08); }
+.tag.violet { color:#ddd6fe; border-color:rgba(167,139,250,.3); background:rgba(167,139,250,.08); }
+.list { margin:0; padding:0; list-style:none; }
+.list li { position:relative; padding-left:18px; margin:10px 0; color:var(--soft); font-size:15px; }
+.list li::before { content:""; position:absolute; top:.72em; left:0; width:6px; height:6px; border-radius:50%; background:var(--cyan); }
+.table-wrap { overflow-x:auto; border:1px solid var(--line); border-radius:12px; }
+table { width:100%; border-collapse:collapse; min-width:760px; }
+th,td { padding:14px 16px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; color:var(--soft); font-size:14px; }
+th { background:rgba(34,211,238,.08); color:#e0f2fe; } tr:last-child td { border:0; }
+tbody tr { transition:background .2s ease; } tbody tr:hover td { background:rgba(255,255,255,.025); }
+.flow { display:grid; grid-template-columns:repeat(11,auto); gap:8px; align-items:center; justify-content:center; padding:20px; border:1px solid var(--line); border-radius:12px; background:rgba(255,255,255,.025); }
+.flow-step { padding:10px 13px; border-radius:10px; background:rgba(34,211,238,.08); border:1px solid rgba(34,211,238,.18); color:#dff7fc; font-size:13px; text-align:center; }
+.flow-step.green { background:rgba(52,211,153,.08); border-color:rgba(52,211,153,.22); color:#bbf7d0; }
+.flow-step.amber { background:rgba(251,191,36,.08); border-color:rgba(251,191,36,.22); color:#fde68a; }
+.arrow { color:var(--muted); }
+.quote { padding:18px 20px; border-left:4px solid var(--cyan); border-radius:0 12px 12px 0; background:linear-gradient(135deg,rgba(34,211,238,.08),rgba(96,165,250,.045)); color:#e2e8f0; font-size:17px; }
+.priority { border-top:3px solid var(--cyan); } .priority.mid { border-color:var(--amber); } .priority.long { border-color:var(--violet); }
+.source-note { margin:0; color:var(--muted); font-size:13px; }
+.footer { margin-top:24px; color:var(--muted); text-align:center; font-size:12px; }
+@media(max-width:980px) { .header,.metrics,.grid2,.grid3,.grid4 { grid-template-columns:1fr; } .flow { grid-template-columns:1fr; } .arrow { transform:rotate(90deg); text-align:center; } }
+@media(max-width:620px) { body { padding:28px 16px 42px; } h1 { font-size:31px; } .card { padding:20px; } }
+@media(prefers-reduced-motion:reduce) { * { animation:none!important; transition:none!important; } }
+@media print { body { background:#06101d; -webkit-print-color-adjust:exact; print-color-adjust:exact; } body::before { display:none; } .card,.metric { break-inside:avoid; } }
+</style>
+</head>
+<body>
+<main class="container">
+  <header class="header">
+    <div>
+      <div class="eyebrow">AI Ecosystem Radar</div>
+      <h1>AI办公生态趋势观察</h1>
+      <p class="subtitle">Week 10 ｜Google Workspace Studio Skills：组织技能进入办公套件｜2026 INTERNAL DRAFT</p>
+    </div>
+    <aside class="meta">
+      <div class="meta-row"><span>观察周期</span><strong>2026.08.24 - 2026.09.03</strong></div>
+      <div class="meta-row"><span>重点产品</span><strong>Google Workspace Studio</strong></div>
+      <div class="meta-row"><span>观察维度</span><strong>Skills / Flows / 治理 / 分发</strong></div>
+      <div class="meta-row"><span>报告状态</span><strong>本周洞察稿</strong></div>
+    </aside>
+  </header>
+
+  <section class="metrics">
+    <div class="metric"><strong>1</strong><span>个核心产品：Workspace Studio</span></div>
+    <div class="metric"><strong>2</strong><span>类能力资产：Skills 与 Flows</span></div>
+    <div class="metric"><strong>5</strong><span>个办公入口：Gmail、Docs、Slides、Drive、Chat</span></div>
+    <div class="metric"><strong>Next</strong><span>竞争重点：组织技能能否治理、分发与复用</span></div>
+  </section>
+
+  <section class="section"><div class="card">
+    <h2>本周核心判断</h2>
+    <p class="lead">Google Workspace Studio 正把提示词、业务规则、模板和参考文件封装为可调用的 Skill，再由 Flow 将这些方法连接到事件、数据和业务动作。它释放的行业信号是：<span class="highlight">企业 AI 的竞争单位正在从单个功能与个人 Prompt，升级为可复用、可分发、可治理的组织技能。</span></p>
+    <div class="tags"><span class="tag">技能资产化</span><span class="tag green">流程执行</span><span class="tag amber">人工审批</span><span class="tag violet">权限与 DLP</span><span class="tag">跨应用分发</span></div>
+  </div></section>
+
+  <section class="section grid2">
+    <div class="card"><h2>近期产品动作</h2><ul class="list">
+      <li>2026 年 8 月 26 日，Google 在 Workspace 月度更新中正式介绍 Workspace Studio Skills。</li>
+      <li>团队可把自定义指令、规则、模板和参考文件封装为可重复调用的 Skill。</li>
+      <li>用户可在 Gmail、Docs、Slides、Drive 和 Chat 中通过 @ 提及调用 Skill。</li>
+      <li>Studio Flows 同步扩展 Agent 权限管理、Gemini DLP、Flow DLP 和人工复核控制。</li>
+    </ul></div>
+    <div class="card"><h2>它解决的核心矛盾</h2><ul class="list">
+      <li>个人 Prompt 难以共享，优秀方法仍停留在少数熟练用户手中。</li>
+      <li>同类任务反复上传材料、解释规则，组织持续支付重复配置成本。</li>
+      <li>生成结果能否符合品牌、模板和流程规范，过度依赖人工复核。</li>
+      <li>当 AI 开始读取数据并执行动作，权限、数据泄露和责任边界成为规模化前提。</li>
+    </ul></div>
+  </section>
+
+  <section class="section"><div class="card">
+    <h2>产品结构：Skill 负责“怎么做”，Flow 负责“何时做完”</h2>
+    <div class="flow">
+      <div class="flow-step">业务规则<br>模板与资料</div><div class="arrow">→</div>
+      <div class="flow-step">Workspace<br>Skill</div><div class="arrow">→</div>
+      <div class="flow-step green">Gmail / Docs<br>Slides / Drive / Chat</div><div class="arrow">→</div>
+      <div class="flow-step amber">Studio Flow<br>触发与多步执行</div><div class="arrow">→</div>
+      <div class="flow-step">审批、交付<br>记录与治理</div>
+    </div>
+    <p class="source-note" style="margin-top:16px">Skill 将方法封装成随处调用的标准能力；Flow 将方法放入事件驱动的工作过程。二者组合后，AI 才从生成内容走向交付结果。</p>
+  </div></section>
+
+  <section class="section"><div class="card">
+    <h2>Skills：把隐性的个人方法变成显性的团队标准</h2>
+    <div class="grid4">
+      <div class="mini"><div class="num">01</div><h3>指令</h3><p>定义目标、步骤、语气、判断原则和输出要求。</p></div>
+      <div class="mini"><div class="num">02</div><h3>规则</h3><p>固化品牌、合规、业务口径和质量检查边界。</p></div>
+      <div class="mini"><div class="num">03</div><h3>模板</h3><p>让提案、合同、周报和项目材料保持稳定结构。</p></div>
+      <div class="mini"><div class="num">04</div><h3>参考文件</h3><p>把团队已有资料作为任务上下文，减少重复上传。</p></div>
+    </div>
+    <div class="quote" style="margin-top:18px">Skill 的价值不只是“保存一段 Prompt”，而是把组织认可的方法封装成可调用的轻量能力单元。</div>
+  </div></section>
+
+  <section class="section"><div class="card">
+    <h2>Flows：让技能进入真实工作节奏</h2>
+    <div class="grid3">
+      <div class="mini"><div class="num">01</div><h3>Starter</h3><p>由事件、时间或人工动作启动，例如收到邮件、表单提交或每周固定时间。</p></div>
+      <div class="mini"><div class="num">02</div><h3>Steps</h3><p>串联总结、判断、创建文档、生成演示、保存文件和发送通知等动作。</p></div>
+      <div class="mini"><div class="num">03</div><h3>Variables</h3><p>把上一环节产生的信息传递给后续步骤，形成连续的任务上下文。</p></div>
+    </div>
+    <p class="source-note" style="margin-top:16px">官方文档显示，部分动作会依据管理员策略要求用户审批；测试运行也可能真实发送消息、更新文件或创建会议。</p>
+  </div></section>
+
+  <section class="section"><div class="card">
+    <h2>典型场景：项目周报从“人工拼材料”变成“受控生产链”</h2>
+    <div class="flow">
+      <div class="flow-step">会议纪要<br>邮件与项目文件</div><div class="arrow">→</div>
+      <div class="flow-step">Skill 按企业口径<br>提炼进展与风险</div><div class="arrow">→</div>
+      <div class="flow-step green">Flow 生成周报<br>并同步任务</div><div class="arrow">→</div>
+      <div class="flow-step amber">负责人审核<br>敏感内容与结论</div><div class="arrow">→</div>
+      <div class="flow-step">形成文档、Slides<br>与团队通知</div>
+    </div>
+    <div class="grid3" style="margin-top:16px">
+      <div class="mini"><h3>过去的成本</h3><p>找材料、复制内容、统一格式、反复确认口径。</p></div>
+      <div class="mini"><h3>AI 承担的工作</h3><p>汇集上下文、按规则提炼、生成标准稿并完成跨应用交付。</p></div>
+      <div class="mini"><h3>人保留的责任</h3><p>判断重要性、确认风险、批准发布并对最终结论负责。</p></div>
+    </div>
+  </div></section>
+
+  <section class="section"><div class="card">
+    <h2>治理能力决定组织技能能否规模化</h2>
+    <div class="table-wrap"><table><thead><tr><th>治理对象</th><th>产品机制</th><th>企业意义</th><th>仍需补强</th></tr></thead><tbody>
+      <tr><td>Agent 与 Flow</td><td>管理员查看、暂停 Agent，并可针对 Flow 撤销特定 OAuth 范围。</td><td>异常能力可被快速止损，权限不再只有“全部开启或关闭”。</td><td>需要进一步形成负责人、版本和变更审批制度。</td></tr>
+      <tr><td>数据访问</td><td>Gemini DLP 可依据 Drive 内容条件与标签限制数据访问。</td><td>让敏感数据边界进入 AI 读取过程。</td><td>跨第三方系统的数据标签和权限映射更复杂。</td></tr>
+      <tr><td>流程执行</td><td>Studio DLP 可阻止 Flow，或依据输入、使用数据和输出可见性要求人工复核。</td><td>把控制点放入执行链，而不是只依赖事后审计。</td><td>审批过多可能降低自动化收益，需要按风险分级。</td></tr>
+      <tr><td>运行状态</td><td>用户可查看活动记录、运行结果与错误状态。</td><td>为排错和运营提供基础证据。</td><td>仍需任务级质量指标和跨版本回归评测。</td></tr>
+    </tbody></table></div>
+  </div></section>
+
+  <section class="section"><div class="card">
+    <h2>典型应用场景、解决的问题及价值</h2>
+    <div class="table-wrap"><table><thead><tr><th>应用场景</th><th>Skill 封装内容</th><th>Flow 执行动作</th><th>主要价值</th></tr></thead><tbody>
+      <tr><td>品牌内容生产</td><td>品牌语气、视觉规范、禁用表达和模板。</td><td>生成邮件、文档或演示材料并进入审核。</td><td>提高一致性，减少品牌团队的重复校对。</td></tr>
+      <tr><td>项目状态更新</td><td>周报结构、风险口径、负责人和状态定义。</td><td>汇集会议、Chat 与文件，生成更新并通知团队。</td><td>降低信息收集成本，让项目状态持续可见。</td></tr>
+      <tr><td>销售提案</td><td>行业话术、方案模板、案例选择和审批要求。</td><td>根据客户邮件与资料生成提案初稿和 Slides。</td><td>缩短准备周期，同时保留标准化表达。</td></tr>
+      <tr><td>合同与制度处理</td><td>条款检查表、制度口径、风险分级和输出格式。</td><td>提取重点、形成审阅稿，并对高风险内容触发复核。</td><td>将专家检查方法复制到更多日常任务。</td></tr>
+      <tr><td>培训与入职</td><td>知识材料、题型、难度和通过标准。</td><td>从 Drive 文件生成测验并分发给员工。</td><td>加快内容生产，让培训材料随知识更新。</td></tr>
+    </tbody></table></div>
+  </div></section>
+
+  <section class="section grid3">
+    <div class="card priority"><h2>个人价值</h2><h3>减少重复配置</h3><p>常用规则、格式和资料不必在每次任务中重新解释。</p></div>
+    <div class="card priority mid"><h2>团队价值</h2><h3>统一交付标准</h3><p>把优秀员工的方法转为可共享能力，降低成员间质量波动。</p></div>
+    <div class="card priority long"><h2>组织价值</h2><h3>形成技能资产</h3><p>以权限、分发、运营和评测管理方法，让经验沉淀不再只依赖个人。</p></div>
+  </section>
+
+  <section class="section"><div class="card">
+    <h2>竞争标准正在变化</h2>
+    <div class="table-wrap"><table><thead><tr><th>过去主要关注</th><th>正在形成的新标准</th><th>对办公 AI 平台的含义</th></tr></thead><tbody>
+      <tr><td>功能数量</td><td>技能能否跨应用调用并持续复用</td><td>入口覆盖只是基础，能力分发效率更关键。</td></tr>
+      <tr><td>Prompt 效果</td><td>规则、模板、参考资料是否形成稳定资产</td><td>需要结构化描述技能，而不是保存零散提示词。</td></tr>
+      <tr><td>单次生成质量</td><td>任务是否按流程完成并经过必要复核</td><td>生成、执行、审批和交付必须成为同一条链。</td></tr>
+      <tr><td>个人助手体验</td><td>团队是否能共享并运营统一方法</td><td>平台需要所有权、版本、权限和使用反馈。</td></tr>
+      <tr><td>安全开关</td><td>能否对数据、动作和输出实施细粒度控制</td><td>治理必须嵌入运行过程，而非只写在制度里。</td></tr>
+    </tbody></table></div>
+  </div></section>
+
+  <section class="section"><div class="card"><h2>对企业 AI 平台的六项启示</h2><div class="grid3">
+    <div class="mini"><h3>建设技能注册中心</h3><p>统一记录名称、用途、所有者、适用范围、依赖资料和风险等级。</p></div>
+    <div class="mini"><h3>区分 Skill 与 Flow</h3><p>Skill 管理方法，Flow 管理触发和执行，避免能力与流程相互锁死。</p></div>
+    <div class="mini"><h3>把分发放进工作入口</h3><p>让员工在邮件、文档、会议和协作场景中直接调用，无需切换平台。</p></div>
+    <div class="mini"><h3>建立版本与回归评测</h3><p>每次修改都验证准确率、返工率、人工介入和任务完成质量。</p></div>
+    <div class="mini"><h3>权限随任务动态收敛</h3><p>按人员、数据、系统和动作授予最小权限，并为高风险步骤设置审批。</p></div>
+    <div class="mini"><h3>运营比创建更重要</h3><p>持续发现重复技能、失效规则和低质量输出，推动合并、修订或下线。</p></div>
+  </div></div></section>
+
+  <section class="section grid3">
+    <div class="card priority"><h2>短期</h2><h3>验证一个高频场景</h3><p>选择项目周报或品牌内容生产，建立单一 Skill 与受控 Flow，保留人工审核。</p></div>
+    <div class="card priority mid"><h2>中期</h2><h3>形成技能运营机制</h3><p>补齐所有者、版本、权限、评测、发布、使用反馈与下线规则。</p></div>
+    <div class="card priority long"><h2>长期</h2><h3>建立组织能力网络</h3><p>让经过验证的 Skill 跨岗位复用，并与数据、应用和数字员工体系联动。</p></div>
+  </section>
+
+  <section class="section grid2">
+    <div class="card"><h2>关键风险</h2><ul class="list">
+      <li>低质量 Skill 被广泛复制后，会把错误标准规模化。</li>
+      <li>模板和参考资料过期，但使用者未必能识别。</li>
+      <li>第三方集成扩大数据外流、凭据和供应依赖风险。</li>
+      <li>人工审批设置不当，可能造成失控或流程阻塞。</li>
+      <li>使用次数不能证明业务价值，仍需任务级评测。</li>
+    </ul></div>
+    <div class="card"><h2>可对外表达的观点</h2>
+      <div class="quote">办公 AI 的下一阶段，不只是让每个人拥有一个助手，而是让组织拥有一套可调用、可分发、可治理的方法体系。</div>
+      <p class="lead" style="margin-top:16px;font-size:15px">当模型和基础功能趋于普及，真正拉开差距的将是企业自己的技能资产：谁定义、谁维护、谁能调用、何时审批，以及是否持续带来更稳定的任务结果。</p>
+    </div>
+  </section>
+
+  <section class="section"><div class="card"><h2>后续持续关注</h2><div class="grid2">
+    <ul class="list"><li>Skills 是否提供更完整的版本、所有权和组织级发布机制。</li><li>Flow 分享是否从“复制一份”演进为集中维护与同步更新。</li><li>任务完成率、返工率和人工介入是否进入产品评测体系。</li></ul>
+    <ul class="list"><li>DLP 和 Agent 权限控制能否覆盖更多第三方应用。</li><li>Skills 是否形成跨办公套件或跨 Agent 的开放标准。</li><li>企业是否出现专门的技能运营、审核与资产管理角色。</li></ul>
+  </div></div></section>
+
+  <section class="section"><div class="card"><h2>本周洞察来源说明</h2>
+    <p class="source-note">本报告主要依据 Google 2026 年 8 月 26 日发布的 <a href="https://workspace.google.com/blog/product-announcements/august-2026-workspace-feature-drop" target="_blank" rel="noopener">August Workspace Drops</a>、<a href="https://support.google.com/workspace-studio/answer/16444479?hl=en" target="_blank" rel="noopener">Workspace Studio 入门文档</a>、<a href="https://support.google.com/workspace-studio/table/17176961?hl=en" target="_blank" rel="noopener">Starters 与 Steps 指南</a>及<a href="https://support.google.com/workspace-studio/answer/16766368?hl=en" target="_blank" rel="noopener">Flow 管理与分享说明</a>。产品事实与行业判断已分开表达；价值分析属于基于公开产品机制的趋势推演，不代表 Google 已披露相应量化成效。</p>
+  </div></section>
+
+  <footer class="footer">AI办公生态趋势库 · Week 10 · Internal System Draft · 2026<br>Report compiled by: wangwenlin</footer>
+</main>
+</body>
+</html>
