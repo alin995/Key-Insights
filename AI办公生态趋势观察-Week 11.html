@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>AI办公生态趋势观察｜Week 11</title>
+<style>
+:root{
+  --bg:#06101d;--bg2:#0a1828;--paper:#f5f0e8;--soft:#b7c5d5;--muted:#71869d;
+  --cyan:#22d3ee;--purple:#c7a6ff;--coral:#ff6b57;--amber:#fbbf24;
+  --line:rgba(255,255,255,.13);--glass:rgba(11,26,43,.78);--shadow:0 28px 80px rgba(0,0,0,.42);
+  --serif:"Songti SC","STSong","Noto Serif SC",Georgia,serif;
+  --sans:Inter,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#020711;color:var(--paper);font-family:var(--sans)}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.22;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.16) 1px,transparent 0);background-size:38px 38px}
+.deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+.slide{position:absolute;left:50%;top:50%;width:1600px;height:900px;padding:58px 72px 66px;transform:translate(-50%,-50%) scale(var(--scale,1));transform-origin:center;overflow:hidden;opacity:0;pointer-events:none;background:radial-gradient(circle at 85% 12%,rgba(34,211,238,.11),transparent 28%),radial-gradient(circle at 18% 85%,rgba(199,166,255,.10),transparent 29%),linear-gradient(145deg,var(--bg),var(--bg2) 58%,#050b14);transition:opacity .35s ease}
+.slide.is-active{opacity:1;pointer-events:auto}.slide:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 49.8%,rgba(255,255,255,.035) 50%,transparent 50.2%),linear-gradient(0deg,transparent 49.8%,rgba(255,255,255,.025) 50%,transparent 50.2%);background-size:160px 160px;mask-image:linear-gradient(to bottom,black,transparent 90%);pointer-events:none}
+.slide>*{position:relative;z-index:2}.grain{position:absolute!important;inset:0;z-index:1!important;opacity:.09;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E")}
+.kicker{display:flex;align-items:center;gap:16px;color:var(--cyan);font-size:14px;font-weight:700;letter-spacing:.24em;text-transform:uppercase}.kicker:before{content:"";width:44px;height:2px;background:currentColor}.title{margin:12px 0 8px;font-family:var(--serif);font-size:62px;line-height:1.08;letter-spacing:-.04em}.title.xl{font-size:92px}.lede{margin:0;color:var(--soft);font-size:21px;line-height:1.55;max-width:1080px}.accent{color:var(--cyan)}.purple{color:var(--purple)}.coral{color:var(--coral)}.amber{color:var(--amber)}
+.footerbar{position:absolute!important;left:72px;right:72px;bottom:22px;z-index:8!important;display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px;letter-spacing:.04em;border-top:1px solid var(--line);padding-top:10px}.pageno{font:700 13px ui-monospace,monospace;color:var(--soft)}
+.glass{background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.025));border:1px solid var(--line);box-shadow:var(--shadow);backdrop-filter:blur(18px);border-radius:20px}.card{padding:22px 24px}.card h3{margin:0 0 9px;font-size:20px}.card p{margin:0;color:var(--soft);font-size:15px;line-height:1.55}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.pill{display:inline-flex;align-items:center;padding:6px 12px;border:1px solid currentColor;border-radius:999px;color:var(--cyan);font-size:12px;letter-spacing:.06em}.big-num{font:800 58px/1 var(--serif)}
+.ribbon{padding:15px 22px;border:1px solid rgba(34,211,238,.3);border-radius:14px;background:linear-gradient(90deg,rgba(34,211,238,.12),rgba(199,166,255,.07),rgba(255,107,87,.08));font-family:var(--serif);font-size:24px;text-align:center}
+.chip{display:inline-block;margin:4px 5px 0 0;padding:5px 9px;border-radius:7px;background:rgba(255,255,255,.06);color:var(--soft);font-size:12px}.line-list{list-style:none;margin:0;padding:0}.line-list li{display:flex;gap:10px;margin:10px 0;color:var(--soft);font-size:15px}.line-list li:before{content:"◆";color:var(--cyan);font-size:9px;margin-top:5px}
+.split{display:grid;grid-template-columns:1.02fr .98fr;gap:32px;height:650px;align-items:center}.editorial-rule{height:1px;background:linear-gradient(90deg,var(--cyan),transparent);margin:16px 0 22px}
+.orbit{position:relative;width:620px;height:620px;margin:auto}.orbit-ring{position:absolute;inset:90px;border:1px solid rgba(34,211,238,.34);border-radius:50%;box-shadow:0 0 50px rgba(34,211,238,.08)}.orbit-ring.r2{inset:35px;border-color:rgba(199,166,255,.24);transform:rotate(23deg)}.orbit-core{position:absolute;left:50%;top:50%;width:230px;height:230px;transform:translate(-50%,-50%);border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle,rgba(34,211,238,.3),rgba(11,26,43,.9) 66%);border:1px solid rgba(34,211,238,.55);box-shadow:0 0 80px rgba(34,211,238,.26);font-family:var(--serif);font-size:31px}.sat{position:absolute;width:165px;padding:13px;border-radius:16px;text-align:center;background:rgba(8,21,35,.88);border:1px solid var(--line);font-size:14px}.sat b{display:block;color:var(--paper);margin-bottom:4px}.sat span{color:var(--muted);font-size:12px}.s1{left:10px;top:80px}.s2{right:10px;top:65px}.s3{right:-5px;bottom:110px}.s4{left:15px;bottom:90px}.s5{left:228px;top:5px}.s6{left:230px;bottom:3px}
+.flow{display:flex;align-items:stretch;gap:10px}.step{flex:1;position:relative;padding:18px 14px;border-radius:16px;background:rgba(255,255,255,.045);border:1px solid var(--line);text-align:center}.step:not(:last-child):after{content:"→";position:absolute;right:-14px;top:43%;z-index:5;color:var(--cyan);font-size:20px}.step b{display:block;font-family:var(--serif);font-size:23px;margin:7px 0}.step small{color:var(--muted);font-size:12px;line-height:1.4}.step .n{font:800 13px ui-monospace;color:var(--cyan)}
+.matrix{width:100%;border-collapse:separate;border-spacing:0 8px}.matrix th{padding:9px 13px;text-align:left;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.12em}.matrix td{padding:10px 13px;background:rgba(255,255,255,.04);border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--soft);font-size:14px}.matrix td:first-child{border-left:1px solid var(--line);border-radius:10px 0 0 10px;color:var(--paper);font-weight:700}.matrix td:last-child{border-right:1px solid var(--line);border-radius:0 10px 10px 0}
+.bento{display:grid;grid-template-columns:1.15fr .85fr .85fr;grid-template-rows:230px 230px;gap:16px;margin-top:24px}.bento .card:first-child{grid-row:span 2}.preview{height:255px;margin-top:18px;border-radius:16px;border:1px solid rgba(34,211,238,.3);background:linear-gradient(145deg,rgba(34,211,238,.12),rgba(199,166,255,.06));display:grid;place-items:center}.preview:before{content:"可运行成果";font:700 34px var(--serif);color:var(--cyan)}
+.loop{position:relative;height:490px;margin-top:15px}.loop svg{position:absolute;inset:0;width:100%;height:100%}.loop-card{position:absolute;width:220px;padding:16px 18px;text-align:center}.lc1{left:4%;top:42%}.lc2{left:25%;top:7%}.lc3{right:25%;top:7%}.lc4{right:4%;top:42%}.lc5{right:25%;bottom:0}.lc6{left:25%;bottom:0}.loop-card b{display:block;font-size:20px;margin-bottom:4px}.loop-card span{color:var(--muted);font-size:13px}.loop-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;font:700 32px var(--serif);color:var(--paper)}
+.helix{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-top:26px}.chain{position:relative;padding:22px}.chain:before{content:"";position:absolute;left:42px;top:72px;bottom:30px;width:2px;background:linear-gradient(var(--cyan),var(--purple))}.node{position:relative;margin:16px 0 16px 42px;padding:13px 15px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.04)}.node:before{content:"";position:absolute;left:-24px;top:20px;width:12px;height:12px;border-radius:50%;background:var(--cyan);box-shadow:0 0 22px var(--cyan)}
+.stack{display:grid;grid-template-columns:1fr 290px;gap:28px;margin-top:24px}.layers{display:flex;flex-direction:column-reverse;gap:8px}.layer{display:grid;grid-template-columns:150px 1fr;align-items:center;padding:14px 20px;border:1px solid var(--line);border-radius:12px;background:linear-gradient(90deg,rgba(34,211,238,.11),rgba(255,255,255,.025));box-shadow:0 10px 30px rgba(0,0,0,.2)}.layer b{font-family:var(--serif);font-size:22px}.layer span{color:var(--soft);font-size:14px}.artifact{padding:22px}.artifact .node{margin-left:28px}
+.tri-map{position:relative;width:840px;height:500px;margin:12px auto}.tri-map svg{position:absolute;inset:0;width:100%;height:100%}.tri-point{position:absolute;width:290px;padding:18px}.tri-point h3{margin:0 0 8px;font:700 24px var(--serif)}.tp1{left:275px;top:0;text-align:center}.tp2{left:0;bottom:0}.tp3{right:0;bottom:0;text-align:right}.standards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.standard{padding:10px;border-top:2px solid var(--cyan);color:var(--soft);font-size:13px;text-align:center}
+.shield-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:22px}.shield{padding:22px;border-radius:28px 28px 42px 42px;clip-path:polygon(0 0,100% 0,94% 78%,50% 100%,6% 78%);min-height:520px}.shield h3{font:700 28px var(--serif);margin:0 0 14px}.shield-row{padding:9px 0;border-bottom:1px solid var(--line)}.shield-row b{display:block;color:var(--paper);font-size:13px}.shield-row span{color:var(--muted);font-size:12px}
+.house{position:relative;margin:18px auto;width:1040px}.roof{clip-path:polygon(8% 100%,22% 0,78% 0,92% 100%);padding:30px 80px 18px;text-align:center;background:linear-gradient(90deg,rgba(34,211,238,.28),rgba(199,166,255,.25));border:1px solid var(--line);font:700 25px var(--serif)}.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:14px 60px}.pillar{min-height:230px;padding:20px;border:1px solid var(--line);background:rgba(255,255,255,.045);text-align:center}.pillar h3{font:700 22px var(--serif)}.pillar p{color:var(--soft);font-size:14px;line-height:1.75}.base{padding:15px;text-align:center;border:1px solid rgba(251,191,36,.35);background:rgba(251,191,36,.08);font-weight:700}.roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}.roadmap div{padding:10px 14px;border-left:3px solid var(--cyan);background:rgba(255,255,255,.03);font-size:13px;color:var(--soft)}.roadmap b{color:var(--paper);margin-right:10px}
+.fish{position:relative;height:430px;margin-top:22px}.spine{position:absolute;left:12%;right:12%;top:49%;height:4px;background:linear-gradient(90deg,var(--cyan),var(--coral));box-shadow:0 0 20px rgba(34,211,238,.35)}.fish-head{position:absolute;right:2%;top:39%;width:150px;height:100px;border:2px solid var(--coral);border-radius:50% 70% 70% 50%;display:grid;place-items:center;font:700 18px var(--serif)}.risk{position:absolute;width:230px;padding:14px;border-left:3px solid var(--coral);background:rgba(255,107,87,.07)}.risk b{display:block;color:var(--paper)}.risk span{font-size:12px;color:var(--muted)}.r1{left:13%;top:10%}.r2{left:37%;top:2%}.r3{left:61%;top:10%}.r4{left:20%;bottom:6%}.r5{left:44%;bottom:0}.r6{left:68%;bottom:6%}.risk:after{content:"";position:absolute;width:80px;height:1px;background:rgba(255,107,87,.55);top:100%;left:50%;transform:rotate(54deg);transform-origin:left}.r4:after,.r5:after,.r6:after{top:auto;bottom:100%;transform:rotate(-54deg)}
+.watch{position:relative;height:570px;margin-top:10px}.watch svg{position:absolute;inset:0;width:100%;height:100%}.watch-node{position:absolute;width:240px;padding:14px 16px;border-radius:16px}.watch-node b{display:block;font:700 18px var(--serif);margin-bottom:4px}.watch-node span{font-size:12px;color:var(--soft)}.w1{left:2%;top:4%}.w2{left:38%;top:0}.w3{right:2%;top:8%}.w4{right:0;top:46%}.w5{right:19%;bottom:0}.w6{left:23%;bottom:0}.w7{left:0;top:50%}.watch-center{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);width:230px;height:230px;border-radius:50%;display:grid;place-items:center;text-align:center;border:1px solid rgba(34,211,238,.5);background:radial-gradient(circle,rgba(34,211,238,.26),rgba(8,20,34,.9) 68%);font:700 26px var(--serif);box-shadow:0 0 70px rgba(34,211,238,.16)}
+.source-list{display:grid;grid-template-columns:1fr 1fr;gap:11px 18px;margin-top:20px}.source{padding:12px 15px;border-left:2px solid var(--cyan);background:rgba(255,255,255,.035)}.source b{display:block;font-size:14px}.source span{display:block;color:var(--muted);font-size:11px;margin-top:3px}.legend{display:flex;gap:10px;margin-top:14px}.legend span{padding:6px 10px;border:1px solid var(--line);border-radius:8px;font-size:11px;color:var(--soft)}
+.nav{position:fixed;right:18px;bottom:18px;z-index:99;display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:12px;background:rgba(5,12,22,.82);backdrop-filter:blur(16px);color:var(--soft);font-size:12px}.nav button{border:0;background:rgba(255,255,255,.08);color:var(--paper);width:30px;height:28px;border-radius:7px;cursor:pointer}.progress{position:fixed;left:0;bottom:0;z-index:100;height:3px;width:0;background:linear-gradient(90deg,var(--cyan),var(--purple),var(--coral));transition:width .3s}
+body.overview{overflow:auto}.overview .deck{height:auto;padding:30px;display:grid;grid-template-columns:repeat(3,minmax(320px,1fr));gap:24px}.overview .slide{position:relative;left:auto;top:auto;transform:none!important;width:100%;height:auto;aspect-ratio:16/9;opacity:1;pointer-events:auto;padding:30px;cursor:pointer}.overview .slide>*{transform:scale(.46);transform-origin:top left}.overview .slide .footerbar{display:none}.overview .nav{display:none}
+@media(max-width:900px){.overview .deck{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="deck">
+
+<!-- 01 COVER -->
+<section class="slide is-active cover">
+  <div class="grain"></div>
+  <div class="split">
+    <div>
+      <div class="kicker">AI ECOSYSTEM RADAR / WEEK 11</div>
+      <h1 class="title xl">AI办公<span class="accent">生态</span><br>趋势观察</h1>
+      <div class="editorial-rule"></div>
+      <p class="lede" style="font-size:30px;font-family:var(--serif);color:var(--paper)">从聊天窗口到持续执行环境</p>
+      <p class="lede" style="margin-top:18px">三种 Agent，正在重写个人生活、通用办公与专业工作的入口。</p>
+      <div style="margin-top:30px"><span class="chip coral">个人 Agent</span><span class="chip accent">通用桌面 Agent</span><span class="chip purple">垂直专业 Agent</span></div>
+      <p style="margin-top:24px;color:var(--muted);font-size:14px">Meta Muse · Xiaomi MiMo Desktop · 幂律智能 MeWork</p>
+    </div>
+    <div class="orbit">
+      <div class="orbit-ring"></div><div class="orbit-ring r2"></div>
+      <div class="orbit-core">持续执行<br>环境</div>
+      <div class="sat s1"><b class="coral">个人关系</b><span>理解你是谁</span></div>
+      <div class="sat s2"><b class="accent">执行环境</b><span>真正完成任务</span></div>
+      <div class="sat s3"><b class="purple">长期资产</b><span>记忆 · Skill · 成果</span></div>
+      <div class="sat s4"><b class="amber">信任机制</b><span>权限 · 审批 · 回滚</span></div>
+      <div class="sat s5"><b>MUSE</b><span>Personal</span></div>
+      <div class="sat s6"><b>MIMO × MEWORK</b><span>General × Vertical</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 SIGNALS -->
+<section class="slide">
+  <div class="grain"></div><div class="kicker">02 / SIGNALS</div>
+  <h2 class="title">本周信号：Agent开始进入完整工作阶段</h2>
+  <div class="grid3" style="margin-top:26px">
+    <div class="glass card" style="border-color:rgba(199,166,255,.42)"><span class="pill purple">个人 Agent</span><h3 style="margin-top:16px;font-size:28px">META MUSE</h3><p class="purple">2026.09.08 正式发布</p><p style="margin-top:16px">长期目标 · 主动执行 · 现实交易</p></div>
+    <div class="glass card" style="border-color:rgba(34,211,238,.42)"><span class="pill">通用桌面 Agent</span><h3 style="margin-top:16px;font-size:28px">MIMO DESKTOP</h3><p class="accent">邀请制 Beta</p><p style="margin-top:16px">多材料 · 可运行成果 · 局部修改</p></div>
+    <div class="glass card" style="border-color:rgba(255,107,87,.42)"><span class="pill coral">法律专业 Agent</span><h3 style="margin-top:16px;font-size:28px">MEWORK</h3><p class="coral">2026.08.20 开启内测</p><p style="margin-top:16px">证据穿透 · 专业文书 · Skill沉淀</p></div>
+  </div>
+  <div class="grid4" style="margin-top:22px">
+    <div class="glass card"><div class="big-num accent">3</div><p>种路径｜个人、通用、专业</p></div>
+    <div class="glass card"><div class="big-num purple">1</div><p>个方向｜从回答走向完成</p></div>
+    <div class="glass card"><div class="big-num amber">4</div><p>类资产｜记忆、文件、Skill、成果</p></div>
+    <div class="glass card"><div class="big-num coral">NEXT</div><p>运行环境与信任机制</p></div>
+  </div>
+  <div class="ribbon" style="margin-top:20px">三款产品服务不同人群，却共同证明：聊天框已经不足以承载下一阶段 Agent。</div>
+</section>
+
+<!-- 03 SHIFT -->
+<section class="slide">
+  <div class="grain"></div><div class="kicker">03 / SHIFT</div><h2 class="title">本周核心判断</h2>
+  <p class="lede" style="font-size:30px;color:var(--cyan);font-family:var(--serif)">“对话正在退居任务入口，持续执行环境成为产品主体。”</p>
+  <div style="display:grid;grid-template-columns:260px 1fr 260px;gap:22px;align-items:center;margin-top:34px">
+    <div class="glass card" style="background:rgba(245,240,232,.92);color:#111"><div class="big-num">过去</div><p style="color:#333;margin-top:16px">提问 → 回答 → 会话结束</p><span class="pill" style="color:#111;margin-top:18px">单轮交互</span></div>
+    <div class="glass card"><div class="flow"><div class="step"><span class="n">01</span><b>模型</b></div><div class="step"><span class="n">02</span><b>规划</b></div><div class="step"><span class="n">03</span><b>工具</b></div><div class="step"><span class="n">04</span><b>运行</b></div><div class="step"><span class="n">05</span><b>资产</b></div><div class="step"><span class="n">06</span><b>治理</b></div></div><p style="text-align:center;color:var(--amber);font-weight:700;margin:22px 0 0">竞争焦点：上下文、权限、方法与成果能否沉淀</p></div>
+    <div class="glass card"><div class="big-num accent">现在</div><p style="margin-top:16px">目标 → 执行 → 交付 → 持续更新</p><span class="pill amber" style="margin-top:18px">长期任务</span></div>
+  </div>
+  <div class="ribbon" style="margin-top:32px">新一代 Agent 的产品单位，是一项可以持续推进、交付、修改和追踪的真实任务。</div>
+</section>
+
+<!-- 04 OVERVIEW -->
+<section class="slide">
+  <div class="grain"></div><div class="kicker">04 / LANDSCAPE</div><h2 class="title">三款产品全景对照</h2><p class="lede">相同的Agent方向，不同的用户关系、任务边界与信任基础。</p>
+  <table class="matrix" style="margin-top:22px"><thead><tr><th>维度</th><th class="purple">META MUSE</th><th class="accent">MIMO DESKTOP</th><th class="coral">MEWORK</th></tr></thead><tbody>
+    <tr><td>定位 / 用户</td><td>个人 AI Agent｜普通消费者</td><td>通用桌面智能体｜知识工作者与创作者</td><td>法律专业智能体｜律师与法务</td></tr>
+    <tr><td>输入</td><td>目标、邮件、日历、社交信息</td><td>Office、图片、音视频、压缩包</td><td>案卷、合同、流水、聊天记录、录音</td></tr>
+    <tr><td>输出</td><td>计划、预订、购买、个人事务结果</td><td>PPT、网页、Dashboard、游戏</td><td>案件报告、证据目录、法律文书</td></tr>
+    <tr><td>长期资产</td><td>个人记忆与目标</td><td>文件、版本与 Artifact</td><td>专业 Skill 与证据链</td></tr>
+    <tr><td>信任机制</td><td>Secure VM · Sentinel · 审批</td><td>局部修改 · 回滚 · 操作记录</td><td>来源页码 · 人工复核 · 本地读取</td></tr>
+  </tbody></table>
+  <div class="ribbon" style="margin-top:20px">共同终点：从回答问题转向完成任务，并让工作过程可以接续、核验和修改。</div>
+</section>
+
+<!-- 05 MUSE -->
+<section class="slide">
+  <div class="grain"></div><div class="kicker purple">05 / PERSONAL</div><div class="split">
+    <div><h2 class="title">Meta Muse：<br>个人关系成为产品底座</h2><p class="lede">它试图长期理解“你是谁”，再替你完成生活中的真实事务。</p><div class="editorial-rule"></div><ul class="line-list"><li>持续记住个人偏好与长期目标</li><li>把邮件、日历和社交上下文连成行动依据</li><li>主动规划，并在外部世界执行预订、购买和沟通</li><li>从“每次重新解释”转向“长期共同推进”</li></ul><div class="ribbon" style="margin-top:28px;text-align:left">产品护城河：个人上下文深度 × 消费级分发能力</div></div>
+    <div class="orbit"><div class="orbit-ring"></div><div class="orbit-ring r2"></div><div class="orbit-core purple">长期目标<br>与个人记忆</div><div class="sat s1"><b>邮件</b><span>关系与承诺</span></div><div class="sat s2"><b>日历</b><span>时间与节奏</span></div><div class="sat s3"><b>交易</b><span>预订与购买</span></div><div class="sat s4"><b>社交</b><span>人物与偏好</span></div><div class="sat s5"><b>主动计划</b><span>下一步行动</span></div><div class="sat s6"><b>现实交付</b><span>任务结果</span></div></div>
+  </div>
+</section>
+
+<!-- 06 MUSE SECURITY -->
+<section class="slide">
+  <div class="grain"></div><div class="kicker purple">06 / TRUST ARCHITECTURE</div><h2 class="title">Muse：把执行与监督拆成两个安全域</h2><p class="lede">独立运行环境负责行动，Sentinel负责监控，敏感动作再交给用户审批。</p>
+  <div style="display:grid;grid-template-columns:1fr 150px 1fr;gap:22px;align-items:center;margin-top:30px">
+    <div class="glass card" style="min-height:400px;border-color:rgba(34,211,238,.38)"><span class="pill">SECURE VM</span><h3 style="font:700 32px var(--serif);margin-top:22px">执行域</h3><div class="flow" style="margin-top:25px"><div class="step"><b>浏览</b><small>读取页面</small></div><div class="step"><b>操作</b><small>填写与点击</small></div><div class="step"><b>交易</b><small>预订与购买</small></div></div><p style="margin-top:30px">凭据与网页上下文在隔离环境中使用，任务运行与本地设备分离。</p></div>
+    <div style="text-align:center"><div style="font-size:64px;color:var(--amber)">⇄</div><span class="pill amber">审批关口</span><p style="font-size:12px;color:var(--muted)">人工接管<br>Activity Log</p></div>
+    <div class="glass card" style="min-height:400px;border-color:rgba(199,166,255,.38)"><span class="pill purple">SENTINEL</span><h3 style="font:700 32px var(--serif);margin-top:22px">监督域</h3><ul class="line-list" style="margin-top:22px"><li>识别敏感操作与异常路径</li><li>请求确认或触发人工接管</li><li>记录任务步骤和外部动作</li><li>为审计、纠错和责任判断提供依据</li></ul><p class="coral" style="margin-top:22px">仍需验证：授权疲劳与隔离机制的公开审计。</p></div>
+  </div>
+  <div class="ribbon" style="margin-top:25px">安全不是执行后的附加项，而是Agent产品架构的一部分。</div>
+</section>
+
+<!-- 07 MIMO -->
+<section class="slide">
+  <div class="grain"></div><div class="kicker">07 / GENERAL WORKBENCH</div><h2 class="title">MiMo Desktop：通用任务工作台</h2><p class="lede">把原始材料、模型、工具与可继续编辑的成果放进同一个执行闭环。</p>
+  <div class="bento">
+    <div class="glass card"><span class="pill">主工作区</span><h3 style="font:700 31px var(--serif);margin-top:16px">从目标直接到成品</h3><p>理解材料 → 规划任务 → 调用模型与工具 → 交付可编辑成果</p><div class="preview"></div></div>
+    <div class="glass card"><h3>多材料输入</h3><p>Office文件、图片、视频、音频，甚至压缩包。</p><div style="margin-top:16px"><span class="chip">DOCX</span><span class="chip">PPTX</span><span class="chip">IMG</span><span class="chip">A/V</span><span class="chip">ZIP</span></div></div>
+    <div class="glass card"><h3>智能分派</h3><p>按复杂度路由模型、Agent和执行框架；质量与速度动态权衡。</p><div class="big-num purple" style="margin-top:20px">AUTO</div></div>
+    <div class="glass card"><h3>跨应用执行</h3><p>浏览器检索、表单填写、资源提取，以及屏幕、键盘和鼠标操作。</p></div>
+    <div class="glass card"><h3>长任务成本</h3><p>局部再生成与会话内缓存，减少重复计算。</p><div class="big-num amber" style="margin-top:14px">99%</div><small style="color:var(--muted)">官方宣称的最高缓存命中率</small></div>
+  </div>
+</section>
+
+<!-- 08 MIMO LOOP -->
+<section class="slide">
+  <div class="grain"></div><div class="kicker">08 / ARTIFACT LOOP</div><h2 class="title">MiMo的关键设计：成果物进入对话闭环</h2><p class="lede">成果可以加载、点击、破坏、局部修改和回滚；对话成为持续迭代的控制面。</p>
+  <div class="loop"><svg viewBox="0 0 1400 500"><path d="M210,250 C280,40 620,20 700,250 C780,480 1120,460 1190,250 C1120,40 780,20 700,250 C620,480 280,460 210,250" fill="none" stroke="url(#lg)" stroke-width="7" opacity=".65"/><defs><linearGradient id="lg"><stop stop-color="#22d3ee"/><stop offset=".5" stop-color="#c7a6ff"/><stop offset="1" stop-color="#ff6b57"/></linearGradient></defs></svg>
+    <div class="loop-card glass lc1"><b>生成</b><span>PPT · 网页 · Dashboard · 游戏</span></div><div class="loop-card glass lc2"><b>会话内运行</b><span>直接加载并测试交互</span></div><div class="loop-card glass lc3"><b>点击与破坏</b><span>暴露真实问题</span></div><div class="loop-card glass lc4"><b>选择式编辑</b><span>点击或框选区域</span></div><div class="loop-card glass lc5"><b>局部更新</b><span>只重做不满意部分</span></div><div class="loop-card glass lc6"><b>版本回滚</b><span>每次修改可追踪</span></div><div class="loop-center">Artifact<br><span class="accent">持续迭代</span></div>
+  </div><div class="ribbon">交付物不再是会话末尾的附件，而是任务继续发生的界面。</div>
+</section>
+
+<!-- 09 MEWORK -->
+<section class="slide">
+  <div class="grain"></div><div class="kicker coral">09 / PROFESSIONAL</div><h2 class="title">MeWork：法律任务生产系统</h2><p class="lede">从一堆案件材料，到一套可以提交和继续核验的法律成果。</p>
+  <div class="glass card" style="margin-top:25px"><p style="color:var(--amber);font-size:13px">输入材料｜银行流水 · 聊天记录 · 合同 · 单据 · 通话录音</p><div class="flow" style="margin-top:18px"><div class="step"><span class="n">01</span><b>查明</b><small>读取材料<br>梳理案件事实</small></div><div class="step"><span class="n">02</span><b>核对</b><small>资金流向<br>时间线 · 证据关系</small></div><div class="step"><span class="n">03</span><b>判断</b><small>法条与类案<br>争议焦点 · 策略</small></div><div class="step"><span class="n">04</span><b>起草</b><small>起诉状 · 证据目录<br>保全申请</small></div><div class="step"><span class="n">05</span><b>交付</b><small>专业格式 · 可编辑<br>可定位原文</small></div></div></div>
+  <div class="grid3" style="margin-top:22px"><div class="glass card"><h3>微信录屏</h3><p>逐帧拆解对话与关键事实</p></div><div class="glass card"><h3>流水穿透</h3><p>形成可查验的资金流向表</p></div><div class="glass card"><h3>证据定位</h3><p>结论对应原文件与页码</p></div></div>
+  <div class="ribbon" style="margin-top:22px">MeWork把诉讼律师完成案件的方法，尝试放进同一个可核验的工作页面。</div>
+</section>
+
+<!-- 10 ASSET -->
+<section class="slide">
+  <div class="grain"></div><div class="kicker coral">10 / PROFESSIONAL ASSET</div><h2 class="title">MeWork的关键设计：专业方法可复用</h2><p class="lede">证据链与Skill链共同沉淀，专业能力才可能从个人经验变成团队资产。</p>
+  <div class="helix"><div class="glass chain"><h3 class="accent">证据链</h3><div class="node">原始材料</div><div class="node">事实</div><div class="node">证据定位</div><div class="node">专业结论</div></div><div class="glass chain"><h3 class="purple">Skill链</h3><div class="node">核证方法</div><div class="node">合同审查方法</div><div class="node">法律检索方法</div><div class="node">重复调用</div></div></div>
+  <div class="grid4" style="margin-top:18px"><div class="card glass"><h3>证据资产</h3><p>结论定位到文件与页码</p></div><div class="card glass"><h3>方法资产</h3><p>核证、审查与检索流程沉淀为Skill</p></div><div class="card glass"><h3>成果资产</h3><p>文书、表格与图谱符合专业格式</p></div><div class="card glass"><h3>组织资产</h3><p>个人经验可被团队复用和完善</p></div></div>
+  <div style="margin-top:12px;text-align:center"><span class="chip">反向证据</span><span class="chip">OCR与主体匹配</span><span class="chip">类案可比性</span><span class="chip">本地读取与云端推理边界</span></div>
+  <div class="ribbon" style="margin-top:12px;font-size:19px">专业壁垒来自可追溯证据、可复用方法与可承担责任的交付过程。</div>
+</section>
+
+<!-- 11 STACK -->
+<section class="slide">
+  <div class="grain"></div><div class="kicker">11 / STACK</div><h2 class="title">共同能力栈：模型只是其中一层</h2><p class="lede">三款产品共同指向一套六层Agent系统。</p>
+  <div class="stack"><div class="layers"><div class="layer"><b>治理层</b><span>权限、审批、来源、审计、回滚</span></div><div class="layer"><b>资产层</b><span>记忆、Skill、文件、版本、Artifact</span></div><div class="layer"><b>运行层</b><span>桌面或云端长期执行环境</span></div><div class="layer"><b>工具层</b><span>浏览器、应用、代码、连接器</span></div><div class="layer"><b>规划层</b><span>拆解目标、选择路径</span></div><div class="layer"><b>模型层</b><span>理解、推理、多模态</span></div></div><div class="artifact glass"><h3>Artifact链</h3><div class="node">文档</div><div class="node">网页</div><div class="node">Dashboard</div><div class="node">法律文书</div><div class="node">事务结果</div></div></div>
+  <div class="ribbon" style="margin-top:18px">能否完成真实工作，取决于六层是否形成闭环，而非单独一项模型指标。</div>
+</section>
+
+<!-- 12 PATHS -->
+<section class="slide">
+  <div class="grain"></div><div class="kicker">12 / PATHS</div><h2 class="title">三条差异化路径</h2><p class="lede">Agent市场短期不会收敛成一个全能产品。</p>
+  <div class="tri-map"><svg viewBox="0 0 840 500"><polygon points="420,70 90,430 750,430" fill="rgba(255,255,255,.018)" stroke="#40556d" stroke-width="2"/><line x1="420" y1="70" x2="420" y2="310" stroke="#22d3ee" opacity=".35"/><circle cx="420" cy="300" r="74" fill="rgba(34,211,238,.09)" stroke="#22d3ee"/><text x="420" y="292" text-anchor="middle" fill="#f5f0e8" font-size="22">持续执行</text><text x="420" y="322" text-anchor="middle" fill="#22d3ee" font-size="18">环境</text></svg>
+    <div class="tri-point glass tp1"><h3 class="purple">Muse｜关系深度</h3><p>理解你是谁 · 记住长期目标 · 处理生活任务</p><span class="pill purple">个人上下文 + 分发</span></div>
+    <div class="tri-point glass tp2"><h3 class="accent">MiMo｜任务广度</h3><p>多种材料 · 多类成果 · 跨桌面应用</p><span class="pill">Artifact + 通用执行</span></div>
+    <div class="tri-point glass tp3"><h3 class="coral">MeWork｜行业深度</h3><p>法律责任链 · 证据核验 · 专业格式</p><span class="pill coral">法律Know-how + Skill</span></div>
+  </div>
+  <div class="standards"><div class="standard">回答质量 → <b>任务完成率</b></div><div class="standard">工具数量 → <b>执行正确率</b></div><div class="standard">单次生成 → <b>连续修改稳定性</b></div><div class="standard">长上下文 → <b>可管理的长期资产</b></div></div>
+  <div class="ribbon" style="margin-top:16px">未来更可能形成个人Agent、通用工作台与专业Agent的分层协作。</div>
+</section>
+
+<!-- 13 TRUST -->
+<section class="slide">
+  <div class="grain"></div><div class="kicker">13 / TRUST</div><h2 class="title">信任机制决定Agent能走多远</h2><p class="lede">行动、纠错、数据与结果证明，需要被做成系统能力。</p>
+  <div class="shield-grid"><div class="shield glass" style="border-color:rgba(199,166,255,.38)"><h3 class="purple">Muse</h3><div class="shield-row"><b>外部行动</b><span>Sentinel与敏感操作审批</span></div><div class="shield-row"><b>纠错</b><span>Activity Log与人工接管</span></div><div class="shield-row"><b>数据</b><span>独立VM与凭据隔离</span></div><div class="shield-row"><b>证明</b><span>完整操作审计</span></div><div class="shield-row"><b class="coral">最大挑战</b><span>授权疲劳</span></div></div>
+  <div class="shield glass" style="border-color:rgba(34,211,238,.38)"><h3 class="accent">MiMo Desktop</h3><div class="shield-row"><b>外部行动</b><span>浏览器与电脑操作</span></div><div class="shield-row"><b>纠错</b><span>局部修改与版本回滚</span></div><div class="shield-row"><b>数据</b><span>桌面与会话边界待验证</span></div><div class="shield-row"><b>证明</b><span>可运行Artifact</span></div><div class="shield-row"><b class="coral">最大挑战</b><span>长任务稳定性</span></div></div>
+  <div class="shield glass" style="border-color:rgba(251,191,36,.38)"><h3 class="amber">MeWork</h3><div class="shield-row"><b>外部行动</b><span>专业人员确认策略</span></div><div class="shield-row"><b>纠错</b><span>来源核验与人工复核</span></div><div class="shield-row"><b>数据</b><span>本地读取与法律数据边界</span></div><div class="shield-row"><b>证明</b><span>页码、证据与文书对应</span></div><div class="shield-row"><b class="coral">最大挑战</b><span>专业责任与遗漏风险</span></div></div></div>
+  <div class="ribbon" style="margin-top:12px">信任必须变成权限、证据、版本、审批和回滚。</div>
+</section>
+
+<!-- 14 IMPLICATIONS -->
+<section class="slide">
+  <div class="grain"></div><div class="kicker">14 / IMPLICATIONS</div><h2 class="title">对企业AI办公平台的启示</h2><p class="lede">下一阶段需要同时建设任务、成果物与信任三类基础设施。</p>
+  <div class="house"><div class="roof">持续执行的企业任务环境</div><div class="pillars"><div class="pillar"><h3 class="accent">任务基础设施</h3><p>持续执行<br>中断恢复<br>状态跟踪<br>多Agent路由</p></div><div class="pillar"><h3 class="purple">成果物基础设施</h3><p>Artifact · 实时预览<br>局部编辑<br>版本与来源</p></div><div class="pillar"><h3 class="amber">信任基础设施</h3><p>最小权限 · 审批<br>审计 · 回滚<br>专业核验</p></div></div><div class="base">组织数据 · 应用连接 · Skill注册中心</div><div class="roadmap"><div><b>短期</b>选择一个高频、可验收任务</div><div><b>中期</b>建立Skill、Artifact与版本管理</div><div><b>长期</b>形成三类Agent协同网络</div></div></div>
+  <div class="ribbon" style="font-size:19px">差距将更多体现在任务基础设施与组织能力沉淀，而非模型入口数量。</div>
+</section>
+
+<!-- 15 RISKS -->
+<section class="slide">
+  <div class="grain"></div><div class="kicker coral">15 / RISKS</div><h2 class="title">关键风险与本周观点</h2><p class="lede">Agent越接近真实行动，错误的影响范围越大。</p>
+  <div class="fish"><div class="spine"></div><div class="fish-head">持续执行<br>环境</div><div class="risk r1"><b>累积错误</b><span>长任务步骤叠加，整体成功率下降</span></div><div class="risk r2"><b>提示词注入</b><span>网页与文件可能诱导Agent</span></div><div class="risk r3"><b>错误记忆</b><span>短期行为被误认为长期偏好</span></div><div class="risk r4"><b>数据边界</b><span>跨应用读取扩大暴露面</span></div><div class="risk r5"><b>专业责任</b><span>完整性无法只凭生成结果证明</span></div><div class="risk r6"><b>审批摩擦</b><span>频繁确认抵消自动化收益</span></div></div>
+  <div class="ribbon" style="font-size:21px">下一代AI办公入口可能仍像聊天窗口，但实质是一套拥有上下文、权限、工具、方法和成果物的持续任务环境。</div>
+</section>
+
+<!-- 16 WATCHLIST -->
+<section class="slide">
+  <div class="grain"></div><div class="kicker">16 / WATCHLIST</div><h2 class="title">后续持续关注</h2><p class="lede">七个信号将决定三类Agent能否从演示走向规模化。</p>
+  <div class="watch"><svg viewBox="0 0 1450 570"><g stroke="#38506a" fill="none"><path d="M150 85 L680 70 L1260 110 L1320 330 L1030 510 L480 520 L130 350 Z"/><path d="M150 85 L725 285 L1260 110 M1320 330 L725 285 L480 520"/></g></svg><div class="watch-center">从演示<br><span class="accent">走向规模化</span><small style="display:block;margin-top:10px;color:var(--muted);font:12px var(--sans)">责任边界：用户 × 模型 × 平台</small></div>
+    <div class="watch-node glass w1"><b>01 隐私计算</b><span>Muse Confidential VM是否按计划推出并接受公开审计</span></div><div class="watch-node glass w2"><b>02 商业模式</b><span>Muse免费版与订阅版的能力边界</span></div><div class="watch-node glass w3"><b>03 真实交付</b><span>MiMo的成品格式、导出与长任务完成率</span></div><div class="watch-node glass w4"><b>04 模型表现</b><span>MiMo预览模型在真实Agent任务中的表现</span></div><div class="watch-node glass w5"><b>05 专业质量</b><span>MeWork证据遗漏率、类案准确率与返工比例</span></div><div class="watch-node glass w6"><b>06 生态开放</b><span>是否开放Skill、连接器或Agent生态</span></div><div class="watch-node glass w7"><b>07 资产迁移</b><span>用户能否迁移记忆、Skill与成果</span></div>
+  </div><div class="ribbon" style="font-size:18px">重点是任务完成率、信任成本与可迁移资产能否形成正循环。</div>
+</section>
+
+<!-- 17 SOURCES -->
+<section class="slide">
+  <div class="grain"></div><div class="kicker">17 / SOURCES</div><h2 class="title">本周洞察来源说明</h2><p class="lede">产品事实、官方宣称与趋势判断已分开表达。</p>
+  <div class="legend"><span><b class="accent">FACT</b>｜官方明确披露</span><span><b class="purple">CLAIM</b>｜产品方功能宣称</span><span><b class="amber">INFERENCE</b>｜基于公开机制的趋势推演</span></div>
+  <div class="source-list"><div class="source"><b>01 Meta官方发布</b><span>Introducing Muse: The World’s First Personal AI Agent Built for Everyone｜about.fb.com｜2026.09.08</span></div><div class="source"><b>02 Meta安全架构</b><span>How We Built Safety Into Muse｜research.meta.ai｜2026.09.08</span></div><div class="source"><b>03 Muse产品设计</b><span>How We Designed Muse｜introducing.muse.ai｜2026.09</span></div><div class="source"><b>04 Muse模型资料</b><span>Introducing Muse Spark｜ai.meta.com｜2026.04.08</span></div><div class="source"><b>05 MiMo Desktop</b><span>小米MiMo官方公告与用户提供截图｜Xiaomi MiMo Developers</span></div><div class="source"><b>06 MiMo媒体整理</b><span>小米MiMo杀入桌面Agent，下一代模型同步开启内测｜mp.weixin.qq.com</span></div><div class="source"><b>07 MeWork内测介绍</b><span>MeWork内测邀请：让承担责任的法律人，更有底气｜幂律智能｜2026.08.20</span></div><div class="source"><b>08 幂律产品背景</b><span>MeCheck / MeFlow产品介绍｜meflow.com.cn</span></div></div>
+</section>
+
+</main>
+<div class="nav"><button id="prev" aria-label="上一页">←</button><span id="counter">01 / 17</span><button id="next" aria-label="下一页">→</button><button id="overview" title="总览 O">▦</button><button id="full" title="全屏 F">⛶</button></div><div class="progress" id="progress"></div>
+<script>
+const slides=[...document.querySelectorAll('.slide')];let index=0;
+slides.forEach((s,i)=>{const f=document.createElement('div');f.className='footerbar';f.innerHTML='<span>AI办公生态趋势库 · Week 11 · Internal System Draft · 2026</span><span>Report compiled by: wangwenlin　<span class="pageno">'+String(i+1).padStart(2,'0')+' / 17</span></span>';s.appendChild(f)});
+function scale(){if(document.body.classList.contains('overview'))return;document.documentElement.style.setProperty('--scale',Math.min(innerWidth/1600,innerHeight/900))}
+function show(n){index=(n+slides.length)%slides.length;slides.forEach((s,i)=>s.classList.toggle('is-active',i===index));counter.textContent=String(index+1).padStart(2,'0')+' / '+slides.length;progress.style.width=((index+1)/slides.length*100)+'%';location.hash='#/'+(index+1)}
+function toggleOverview(){document.body.classList.toggle('overview');if(!document.body.classList.contains('overview')){scale();show(index)}}
+prev.onclick=()=>show(index-1);next.onclick=()=>show(index+1);overview.onclick=toggleOverview;full.onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+document.addEventListener('keydown',e=>{if(['ArrowRight',' ','PageDown'].includes(e.key)){e.preventDefault();show(index+1)}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(index-1)}if(e.key==='Home')show(0);if(e.key==='End')show(slides.length-1);if(e.key.toLowerCase()==='f')full.onclick();if(e.key.toLowerCase()==='o')toggleOverview();if(e.key==='Escape'&&document.body.classList.contains('overview'))toggleOverview()});
+slides.forEach((s,i)=>s.addEventListener('click',()=>{if(document.body.classList.contains('overview')){document.body.classList.remove('overview');index=i;scale();show(i)}}));
+let sx=0;addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});addEventListener('touchend',e=>{let d=e.changedTouches[0].clientX-sx;if(Math.abs(d)>60)show(index+(d<0?1:-1))},{passive:true});
+addEventListener('resize',scale);const m=location.hash.match(/#\/(\d+)/);if(m)index=Math.min(slides.length-1,Math.max(0,+m[1]-1));scale();show(index);
+</script>
+</body>
+</html>
