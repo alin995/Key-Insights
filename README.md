@@ -28,8 +28,8 @@
 
 [AI办公生态趋势观察-Week 10 ](https://github.com/alin995/Key-Insights/blob/main/AI%E5%8A%9E%E5%85%AC%E7%94%9F%E6%80%81%E8%B6%8B%E5%8A%BF%E8%A7%82%E5%AF%9F-Week%2010.html)
 
-
-
+[AI办公生态趋势观察-Week 11 ](https://github.com/alin995/Key-Insights/blob/main/AI%E5%8A%9E%E5%85%AC%E7%94%9F%E6%80%81%E8%B6%8B%E5%8A%BF%E8%A7%82%E5%AF%9F-Week%2011.html
+)
 
 ***
 
