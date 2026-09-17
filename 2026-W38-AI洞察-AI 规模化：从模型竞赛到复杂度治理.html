@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>2026 W38 AI洞察｜AI规模化：从模型竞赛到复杂度治理</title>
+<style>
+:root{
+  --bg:#0D100E;--panel:#121713;--panel2:#171D18;--text:#E8EADF;--muted:#A8B0A0;
+  --green:#B9FF59;--purple:#8261FF;--line:rgba(232,234,223,.14);--line2:rgba(185,255,89,.28);
+  --serif:"Songti SC","STSong","Noto Serif SC",Georgia,serif;
+  --sans:Inter,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#070908;color:var(--text);font-family:var(--sans)}
+button,a{font:inherit}.deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+.slide{position:absolute;left:50%;top:50%;width:1600px;height:900px;padding:58px 72px 68px;transform:translate(-50%,-50%) scale(var(--scale,1));transform-origin:center;overflow:hidden;opacity:0;pointer-events:none;background:var(--bg);transition:opacity .28s ease}
+.slide::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(rgba(232,234,223,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(232,234,223,.025) 1px,transparent 1px);background-size:56px 56px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.8),transparent 92%)}
+.slide::after{content:"";position:absolute;width:760px;height:760px;right:-340px;top:-360px;border-radius:50%;background:radial-gradient(circle,rgba(130,97,255,.18),rgba(130,97,255,.04) 38%,transparent 68%);pointer-events:none}
+.slide.is-active{opacity:1;pointer-events:auto}.slide>*{position:relative;z-index:2}
+.cover::after,.section-purple::after{width:1100px;height:1100px;right:-180px;top:-490px;background:radial-gradient(circle,rgba(130,97,255,.30),rgba(130,97,255,.08) 34%,transparent 67%)}
+.eyebrow{display:flex;align-items:center;gap:14px;color:var(--green);font:700 14px/1 var(--mono);letter-spacing:.19em;text-transform:uppercase}.eyebrow::before{content:"";width:38px;height:2px;background:currentColor}.eyebrow.purple{color:#AA94FF}
+h1,h2,h3,p{margin-top:0}.display{font-family:var(--serif);font-size:88px;line-height:1.05;letter-spacing:-.05em;margin:22px 0}.title{font-family:var(--serif);font-size:58px;line-height:1.1;letter-spacing:-.035em;margin:14px 0 10px}.subtitle{font-size:22px;line-height:1.55;color:var(--muted);max-width:1180px}.green{color:var(--green)}.purple{color:#AA94FF}.muted{color:var(--muted)}
+.rule{height:1px;background:linear-gradient(90deg,var(--green),transparent);margin:22px 0}.quote{font-family:var(--serif);font-size:32px;line-height:1.5;max-width:1180px;padding-left:28px;border-left:4px solid var(--green)}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.mt{margin-top:24px}.mt2{margin-top:36px}
+.card{background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.018));border:1px solid var(--line);padding:22px 24px;border-radius:12px;min-height:138px}.card.fact{border-top:3px solid var(--green)}.card.infer{border-top:3px solid var(--purple)}.card h3{font-size:20px;margin-bottom:10px}.card p,.card li{color:var(--muted);font-size:15px;line-height:1.55}.card ul{margin:0;padding-left:18px}.num{font-family:var(--serif);font-size:60px;line-height:1;color:var(--green);margin-bottom:10px}.label{display:inline-flex;padding:5px 9px;border:1px solid currentColor;border-radius:999px;color:var(--green);font:700 11px/1 var(--mono);letter-spacing:.08em}.label.infer,.label.hyp{color:#AA94FF}.label.rec{color:var(--text)}
+.matrix{width:100%;border-collapse:separate;border-spacing:0 8px;margin-top:18px}.matrix th{padding:8px 12px;color:var(--muted);font:700 12px var(--mono);letter-spacing:.08em;text-align:left}.matrix td{padding:11px 12px;background:rgba(255,255,255,.035);border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:14px;color:var(--muted)}.matrix td:first-child{color:var(--text);font-weight:700;border-left:1px solid var(--line);border-radius:8px 0 0 8px}.matrix td:last-child{border-right:1px solid var(--line);border-radius:0 8px 8px 0}
+.flow{display:flex;align-items:stretch;gap:10px;margin-top:28px}.step{flex:1;position:relative;padding:18px 12px;border:1px solid var(--line);background:var(--panel);text-align:center;border-radius:10px}.step:not(:last-child)::after{content:"→";position:absolute;right:-15px;top:42%;color:var(--green);z-index:3;font-size:20px}.step b{display:block;font-family:var(--serif);font-size:22px;margin:8px 0}.step small{color:var(--muted);font-size:12px}.step .n{font:700 12px var(--mono);color:var(--green)}
+.gate{min-height:390px;padding:28px}.gate .gno{font:700 13px var(--mono);color:var(--green)}.gate h3{font:700 30px var(--serif);margin:18px 0}.gate .question{font-size:18px;color:var(--text);line-height:1.45}.gate .complex{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);line-height:1.55}.gate .pass{margin-top:24px;color:var(--green);font-size:14px}
+.stack{display:grid;grid-template-columns:1fr 340px;gap:26px;margin-top:22px}.layers{display:flex;flex-direction:column-reverse;gap:9px}.layer{display:grid;grid-template-columns:160px 1fr 210px;align-items:center;padding:14px 18px;border:1px solid var(--line);background:linear-gradient(90deg,rgba(185,255,89,.08),rgba(255,255,255,.015));border-radius:9px}.layer b{font:700 21px var(--serif)}.layer span,.layer small{color:var(--muted);font-size:13px}.aside{padding:24px;background:rgba(130,97,255,.08);border:1px solid rgba(130,97,255,.30);border-radius:12px}.aside h3{font:700 27px var(--serif)}
+.mechanisms{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}.mechanism{padding:20px;border:1px solid var(--line);background:var(--panel);border-radius:10px;min-height:178px}.mechanism .id{color:var(--green);font:700 12px var(--mono)}.mechanism h3{font-size:19px;margin:11px 0 8px}.mechanism p{font-size:13px;line-height:1.52;color:var(--muted)}
+.formula{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:16px;margin-top:26px}.formula .box{padding:24px;text-align:center;border:1px solid var(--line);background:var(--panel);border-radius:10px}.formula .op{font-size:30px;color:var(--green)}.formula b{display:block;font-family:var(--serif);font-size:26px}.formula small{color:var(--muted)}
+.timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:20px}.phase{padding:20px;border-left:3px solid var(--green);background:var(--panel);min-height:270px}.phase:nth-child(2){border-left-color:#AA94FF}.phase h3{font-size:21px}.phase p{font-size:14px;color:var(--muted);line-height:1.5}.phase .observe{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--green)}
+.riskgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;margin-top:18px}.risk{padding:16px 18px;border-left:3px solid var(--purple);background:var(--panel)}.risk b{display:block;margin-bottom:5px}.risk span{color:var(--muted);font-size:13px;line-height:1.45}
+.sourcegrid{display:grid;grid-template-columns:1fr 1fr;gap:9px 16px;margin-top:16px}.source{padding:9px 12px;border-left:2px solid var(--green);background:rgba(255,255,255,.025);font-size:12px}.source a{color:var(--text);text-decoration:none}.source span{color:var(--muted);margin-left:8px}.watchlist{display:grid;grid-template-columns:1fr 1fr;gap:10px 20px;margin:18px 0}.watch{display:flex;gap:12px;align-items:flex-start;color:var(--muted);font-size:14px}.watch b{color:var(--green);font:700 13px var(--mono)}
+.footer{position:absolute!important;left:72px;right:72px;bottom:20px;display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid var(--line);color:#798076;font:11px var(--mono)}
+.progress{position:fixed;left:0;bottom:0;height:3px;background:var(--green);z-index:100;transition:width .25s ease}.controls{position:fixed;right:16px;bottom:16px;z-index:101;display:flex;gap:7px;align-items:center;padding:7px 9px;background:rgba(13,16,14,.92);border:1px solid var(--line);border-radius:9px;color:var(--muted);font:11px var(--mono)}.controls button{width:30px;height:28px;border:1px solid var(--line);border-radius:6px;background:var(--panel2);color:var(--text);cursor:pointer}.controls button:hover{border-color:var(--green)}
+.notes{display:none}.hint{font:12px var(--mono);color:var(--muted)}
+body.overview{overflow:auto}.overview .deck{height:auto;padding:28px;display:grid;grid-template-columns:repeat(3,minmax(320px,1fr));gap:22px}.overview .slide{position:relative;left:auto;top:auto;width:100%;height:auto;aspect-ratio:16/9;transform:none!important;opacity:1;pointer-events:auto;padding:28px;cursor:pointer}.overview .slide>*{transform:scale(.47);transform-origin:top left}.overview .slide .footer{display:none}.overview .controls{display:none}
+@media(prefers-reduced-motion:reduce){.slide,.progress{transition:none}}@media(max-width:900px){.overview .deck{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="deck">
+
+<section class="slide is-active cover" data-title="封面">
+  <div class="eyebrow">WEEKLY AI INSIGHT / 2026 W38</div>
+  <div style="max-width:1050px;margin-top:92px">
+    <h1 class="display">AI 规模化<br><span class="green">从模型竞赛到复杂度治理</span></h1>
+    <div class="rule"></div>
+    <p class="subtitle" style="font-size:28px;color:var(--text)">组织准备度、Skill 分层加载与企业工作流重构</p>
+    <p class="subtitle" style="margin-top:26px">组织准备度 × Skill 分层加载 × 企业工作流重构</p>
+  </div>
+  <div style="position:absolute;right:110px;bottom:135px;text-align:right"><div class="num" style="font-size:120px">03</div><div class="hint">ORGANIZATION · RUNTIME · WORKFLOW</div></div>
+  <div class="footer"><span>AI INSIGHT · 2026.09.17</span><span>01 / 14</span></div>
+  <div class="notes">本周核心不是又出现了一个办公 Agent，而是企业 AI 的主要矛盾开始发生变化：模型能力仍重要，但真正阻碍规模化的，越来越多是组织、工程和工作流复杂度。</div>
+</section>
+
+<section class="slide" data-title="核心摘要">
+  <div class="eyebrow">01 / EXECUTIVE SUMMARY</div><h2 class="title">一句话结论</h2>
+  <div class="quote mt">AI 规模化的主要矛盾，正在从“模型够不够强”转向“复杂度能不能被治理”。</div>
+  <div class="grid3 mt2">
+    <div class="card fact"><span class="label">FACT</span><div class="num" style="margin-top:18px">≈80%</div><p>企业已采用新一代 AI，但约 80% 尚未看到显著收入增长或成本下降。</p></div>
+    <div class="card fact"><span class="label">FACT</span><div class="num" style="margin-top:18px">37.9×</div><p>本地 12 个 Skill 中，全量 SKILL.md 与轻量元数据的静态体量差。</p></div>
+    <div class="card infer"><span class="label infer">INFERENCE</span><h3 style="font:700 31px var(--serif);margin-top:22px">进入组织</h3><p>办公 Agent 的竞争焦点正转向企业上下文、权限、连接器与成果回流。</p></div>
+  </div>
+  <p class="muted" style="margin-top:22px">判断置信度：中高｜适用于中大型企业、复杂知识工作与多 Skill 长链路 Agent｜内部静态审计不代表行业平均。</p>
+  <div class="footer"><span>FACT → INFERENCE → ACTION</span><span>02 / 14</span></div>
+  <div class="notes">这一页给管理层看三件事：高采用不等于高价值；多 Skill 带来新的工程复杂度；平台竞争正在进入企业工作流。37.9 倍是静态体量差，不是账单节省率。</div>
+</section>
+
+<section class="slide section-purple" data-title="本周信号">
+  <div class="eyebrow purple">02 / SIGNAL CHAIN</div><h2 class="title">本周信号：事件、解释与长期趋势</h2>
+  <div class="grid3 mt2">
+    <div class="card fact"><span class="label">组织</span><h3 style="margin-top:18px">部署扩张，没有自动带来价值兑现</h3><p>麦肯锡、德勤×港大和 Kearney 的研究共同显示：采用已经普及，但财务影响、成熟度和持续价值仍有限。</p><p class="green">解释变量：能力建设、数据基础、流程责任。</p></div>
+    <div class="card fact"><span class="label">工程</span><h3 style="margin-top:18px">Agent 工程从 Prompt 转向上下文与验证</h3><p>Anthropic 的三级渐进式披露、本地 Skill 审计和 Tessl 成本实验，都指向同一问题。</p><p class="green">关键变量：加载什么、何时加载、如何验证。</p></div>
+    <div class="card infer"><span class="label infer">平台</span><h3 style="margin-top:18px">办公 Agent 开始争夺企业上下文</h3><p>WorkBuddy、千问办公与豆包工作同时强化 Skill、连接器、组织权限与成果交付。</p><p class="purple">长期趋势：从回答问题转向进入组织并完成工作。</p></div>
+  </div>
+  <div class="quote" style="margin-top:34px;font-size:27px">本周触发点：9 月 15 日豆包工作企业级升级，把“更懂组织、更懂业务”推到台前。</div>
+  <div class="footer"><span>W38 TRIGGER · ENTERPRISE CONTEXT</span><span>03 / 14</span></div>
+  <div class="notes">三个信号不是平行新闻。组织研究解释为什么价值难兑现；Skill 架构解释工程瓶颈；办公平台动作说明市场正在把这些问题产品化。</div>
+</section>
+
+<section class="slide" data-title="范式变化">
+  <div class="eyebrow">03 / PARADIGM SHIFT</div><h2 class="title">从模型竞赛，到复杂度治理</h2>
+  <table class="matrix"><thead><tr><th>过去主要关注</th><th>正在形成的新标准</th><th>为什么变化</th></tr></thead><tbody>
+    <tr><td>模型参数与榜单</td><td class="green">可验收的业务结果</td><td>企业需要解释投入产生了什么价值</td></tr>
+    <tr><td>Prompt 是否写得好</td><td class="green">上下文是否选得对</td><td>Agent 的信息来源已远超单条提示词</td></tr>
+    <tr><td>Token 单价</td><td class="green">每次验证通过结果的总成本</td><td>长链路包含规划、工具、重试和审查</td></tr>
+    <tr><td>个人生产力功能</td><td class="green">企业上下文与完整工作流</td><td>单点提效受制于上下游人员和系统</td></tr>
+    <tr><td>功能上线数量</td><td class="green">采用、留存、评测与持续运营</td><td>上线不等于进入组织日常运行</td></tr>
+  </tbody></table>
+  <div class="flow"><div class="step"><span class="n">01</span><b>业务目标</b></div><div class="step"><span class="n">02</span><b>企业上下文</b></div><div class="step"><span class="n">03</span><b>Skill / 工具</b></div><div class="step"><span class="n">04</span><b>Agent 执行</b></div><div class="step"><span class="n">05</span><b>独立验证</b></div><div class="step"><span class="n">06</span><b>资产沉淀</b></div></div>
+  <div class="footer"><span>MODEL SETS THE CEILING · GOVERNANCE REALIZES VALUE</span><span>04 / 14</span></div>
+  <div class="notes">模型决定上限，治理决定上限是否能兑现。这里建议把企业 AI 看成一条结果工程链，而不是一个模型入口。</div>
+</section>
+
+<section class="slide section-purple" data-title="三道闸门">
+  <div class="eyebrow purple">04 / THREE GATES</div><h2 class="title">三道闸门，治理三类复杂度</h2>
+  <div class="grid3 mt2">
+    <div class="card gate"><div class="gno">GATE 01</div><h3>组织准备度</h3><div class="question">公司是否装得下 AI？</div><div class="complex">目标、流程、责任、人员能力与数据基础。</div><div class="pass">通过标准 → 场景可量化、责任可追溯、结果可验收</div></div>
+    <div class="card gate"><div class="gno">GATE 02</div><h3>Agent 工程</h3><div class="question">系统能否稳定且经济地运行？</div><div class="complex">Skill、上下文、工具、重试与结果验证。</div><div class="pass">通过标准 → 能力按需加载，总成本由验证结果衡量</div></div>
+    <div class="card gate"><div class="gno">GATE 03</div><h3>工作流平台</h3><div class="question">Agent 能否进入真实业务？</div><div class="complex">系统连接、企业数据、身份、权限与成果交付。</div><div class="pass">通过标准 → 在既有权限内端到端交付并沉淀资产</div></div>
+  </div>
+  <p class="subtitle" style="margin-top:26px">三个闸门相互约束：没有验收标准，工程侧无法优化；结果不稳定，平台不应扩大权限；工作流不闭环，组织看不到真实价值。</p>
+  <div class="footer"><span>VALUE · COST · ADOPTION</span><span>05 / 14</span></div>
+  <div class="notes">三道闸门不是线性采购清单，而是一组相互约束的控制系统。组织闸门决定价值，工程闸门决定成本，工作流闸门决定采用。</div>
+</section>
+
+<section class="slide" data-title="多Skill问题">
+  <div class="eyebrow">05 / MULTI-SKILL PROBLEM</div><h2 class="title">多 Skill 系统为何必须分层加载</h2>
+  <div class="grid2 mt">
+    <div class="grid2">
+      <div class="card"><h3>上下文通胀</h3><p>尚未使用的能力持续占用注意力和 Token。</p></div>
+      <div class="card"><h3>路由误判</h3><p>描述边界模糊，错误 Skill 被激活。</p></div>
+      <div class="card"><h3>指令冲突</h3><p>多个 Skill 对流程、格式和确认时机提出不同要求。</p></div>
+      <div class="card"><h3>空加载</h3><p>Skill 被加载，却没有产生资源调用或结果贡献。</p></div>
+    </div>
+    <div class="card fact" style="min-height:350px;padding:30px"><span class="label">INTERNAL SAMPLE</span><div class="num" style="font-size:92px;margin-top:30px">37.9×</div><h3>全量 SKILL.md / 轻量元数据</h3><table class="matrix"><tbody><tr><td>L0 元数据</td><td>1,150 tokens</td></tr><tr><td>L1 SKILL.md</td><td>43,623 tokens</td></tr><tr><td>L2 references</td><td>452,697 tokens</td></tr></tbody></table><p>12 个用户级 Skill｜静态启发式估算，不等于实际账单节省率。</p></div>
+  </div>
+  <div class="footer"><span>LOAD LESS · DECIDE BETTER · VERIFY MORE</span><span>06 / 14</span></div>
+  <div class="notes">这组内部数字只说明体量差巨大，不直接证明效果。真正需要回答的是：分层加载是否提高成功率、降低总成本，并减少越权和冲突。</div>
+</section>
+
+<section class="slide" data-title="分层架构">
+  <div class="eyebrow">06 / PROGRESSIVE DISCLOSURE</div><h2 class="title">发现、选择、加载、执行、回收</h2>
+  <div class="stack">
+    <div class="layers">
+      <div class="layer"><b>L4 治理层</b><span>注册表、版本、审计、去重</span><small>后台贯穿</small></div>
+      <div class="layer"><b>L3 执行层</b><span>脚本、工具、MCP、外部权限</span><small>执行时激活</small></div>
+      <div class="layer"><b>L2 资源层</b><span>references、模板、专项说明</span><small>显式按需</small></div>
+      <div class="layer"><b>L1 契约层</b><span>流程骨架、边界、硬约束</span><small>命中后完整读取</small></div>
+      <div class="layer"><b>L0 索引层</b><span>名称、描述、触发场景、版本</span><small>轻量常驻</small></div>
+    </div>
+    <div class="aside"><span class="label infer">INFERENCE</span><h3 style="margin-top:20px">不只是 Token 优化</h3><p class="muted" style="line-height:1.7">渐进式披露把能力发现、知识获取和执行权限拆开，为路由治理、最小权限和上下文预算提供同一个控制面。</p><div class="rule"></div><p class="green">核心原则：只在任务真正需要时，加载足够完成任务的最小能力集合。</p></div>
+  </div>
+  <div class="footer"><span>L0 INDEX → L4 GOVERNANCE</span><span>07 / 14</span></div>
+  <div class="notes">L0 让系统知道有哪些能力；L1 规定如何使用；L2 提供知识；L3 执行确定性动作；L4 负责长期治理。权限也应像上下文一样按阶段激活。</div>
+</section>
+
+<section class="slide" data-title="六项机制">
+  <div class="eyebrow">07 / CONTROL MECHANISMS</div><h2 class="title">从“加载能力”升级为“治理能力”</h2>
+  <div class="mechanisms">
+    <div class="mechanism"><div class="id">01 / ROUTING</div><h3>最小集合路由</h3><p>优先用户点名和强制前置能力，同类能力默认只选一个。</p></div>
+    <div class="mechanism"><div class="id">02 / ARBITRATION</div><h3>冲突仲裁</h3><p>特化优先于泛化；无法安全仲裁时，改为串行执行。</p></div>
+    <div class="mechanism"><div class="id">03 / BUDGET</div><h3>加载预算</h3><p>分别约束 L0、L1、L2；具体阈值由真实任务评测确定。</p></div>
+    <div class="mechanism"><div class="id">04 / LDR</div><h3>加载决策记录</h3><p>记录触发、候选、选择理由、体量、实际调用和最终结果。</p></div>
+    <div class="mechanism"><div class="id">05 / CONTRACT</div><h3>Artifact Contract</h3><p>用 EvidencePack → InsightBrief → SlideOutline → QAReport 交接。</p></div>
+    <div class="mechanism"><div class="id">06 / LIFECYCLE</div><h3>生命周期治理</h3><p>维护版本、依赖、所有者、评测状态与下线规则。</p></div>
+  </div>
+  <div class="quote" style="margin-top:26px;font-size:25px">先建立任务基线和可审计记录，再讨论统一阈值。</div>
+  <div class="footer"><span>ROUTE · RECORD · REVIEW · RETIRE</span><span>08 / 14</span></div>
+  <div class="notes">空加载率和加载预算目前是治理提案，不是行业标准。要避免把内部阈值包装成普遍规律。</div>
+</section>
+
+<section class="slide section-purple" data-title="成本验证">
+  <div class="eyebrow purple">08 / VERIFIED OUTCOME COST</div><h2 class="title">成本真正花在哪里</h2>
+  <div class="formula"><div class="box"><b>Token 单价</b><small>模型报价</small></div><div class="op">×</div><div class="box"><b>单任务消耗</b><small>轮次、工具、重试</small></div><div class="op">÷</div><div class="box"><b>验证通过率</b><small>独立验收结果</small></div></div>
+  <div class="grid4 mt2">
+    <div class="card fact"><div class="num">10</div><p>个预筛真实代码 PR</p></div>
+    <div class="card fact"><div class="num">42</div><p>基线模型 turns｜约 0.6M 输入 Token</p></div>
+    <div class="card fact"><div class="num">156</div><p>最贵替代方案 turns｜约 5M 输入 Token</p></div>
+    <div class="card fact"><div class="num">2.8×</div><p>某低单价模型的实际审查成本相对基线</p></div>
+  </div>
+  <p class="subtitle" style="margin-top:24px">结论只能支持“单价排序可能被任务成本逆转”。实验样本小、来自厂商，不能外推为所有 Agent 任务的固定倍数。</p>
+  <div class="footer"><span>SOURCE · TESSL VENDOR EXPERIMENT</span><span>09 / 14</span></div>
+  <div class="notes">不要把 2.8 倍外推。真正值得保留的是度量方法：按验证通过的结果计算成本，而不是只看模型单价或总 Token。</div>
+</section>
+
+<section class="slide" data-title="Why Now">
+  <div class="eyebrow">09 / WHY NOW</div><h2 class="title">为什么现在必须治理上下文与 Skill</h2>
+  <div class="grid4 mt2">
+    <div class="card"><div class="num" style="font-size:42px">01</div><h3>能力数量增长</h3><p>Skill、MCP、连接器、专家和应用市场不断扩张，误路由的绝对成本随之上升。</p></div>
+    <div class="card"><div class="num" style="font-size:42px">02</div><h3>Agent Loop 变长</h3><p>任务包含规划、检索、执行、恢复、验证和交付，每一轮都可能继续累积上下文。</p></div>
+    <div class="card"><div class="num" style="font-size:42px">03</div><h3>企业权限扩大</h3><p>办公 Agent 开始读写文档、表格、会议和审批，加载同时影响安全与业务风险。</p></div>
+    <div class="card"><div class="num" style="font-size:42px">04</div><h3>用量进入治理</h3><p>组织空间、成员管理和用量控制开始进入产品后台，成本不再只是个人问题。</p></div>
+  </div>
+  <div class="quote" style="margin-top:36px">分层加载将从模型上下文技巧，演变为 Agent Runtime 的基础控制面。</div>
+  <div class="footer"><span>CONTEXT × PERMISSION × COST</span><span>10 / 14</span></div>
+  <div class="notes">Why Now 的关键不是上下文窗口不够长，而是企业需要同时控制注意力、权限、成本与责任。</div>
+</section>
+
+<section class="slide section-purple" data-title="深层洞察">
+  <div class="eyebrow purple">10 / DEEP INSIGHTS</div><h2 class="title">从事实进一步推导出的四个信号</h2>
+  <div class="grid2 mt">
+    <div class="card infer"><span class="label infer">01</span><h3 style="margin-top:14px">组织转型与 Skill 加载遵循相同规律</h3><p>都需要从最小可行场景开始，以反馈控制复杂度，再逐步扩展。</p></div>
+    <div class="card infer"><span class="label infer">02</span><h3 style="margin-top:14px">成本治理与质量治理正在合并</h3><p>更合理的指标同时约束总消耗、验证通过率与错误返工。</p></div>
+    <div class="card infer"><span class="label hyp">03</span><h3 style="margin-top:14px">企业上下文可能成为平台控制点</h3><p>业务规则、权限、工作流、记忆与评测资产，可能比模型本身形成更高迁移成本。</p></div>
+    <div class="card infer"><span class="label infer">04</span><h3 style="margin-top:14px">Skill 市场需要从数量市场升级为结果市场</h3><p>调用、评测、工作流渗透、人工节省和持续付费，比资产总数更重要。</p></div>
+  </div>
+  <div class="footer"><span>INFERENCE · HYPOTHESIS</span><span>11 / 14</span></div>
+  <div class="notes">第三项是待验证假设：标准协议和可迁移格式可能削弱平台锁定。其余三项是基于本周证据的推断。</div>
+</section>
+
+<section class="slide" data-title="战略建议">
+  <div class="eyebrow">11 / IMPLICATIONS</div><h2 class="title">从一个可验收流程开始</h2>
+  <div class="timeline">
+    <div class="phase"><span class="label">0–30 DAYS</span><h3 style="margin-top:16px">建立基线</h3><p>可优先选择一个高频、边界清晰的流程，逐步明确任务集、风险分级和验收方式。</p><p><b>可形成：</b>任务基线、最小 Skill 集合、依赖图、验收参考。</p><div class="observe">观察点 → 结果已有相对清晰的判断依据</div></div>
+    <div class="phase"><span class="label infer">31–60 DAYS</span><h3 style="margin-top:16px">对照观察</h3><p>可尝试引入 LDR，对比全量与分层加载，持续记录调用、重试、时延和结果。</p><p><b>可形成：</b>对照观察报告、加载日志、典型失败样本。</p><div class="observe">观察点 → 至少一项指标积极变化，且无明显副作用</div></div>
+    <div class="phase"><span class="label">61–90 DAYS</span><h3 style="margin-top:16px">逐步固化</h3><p>可结合前期结果评估是否精简高空加载 Skill，并完善版本、权限、回退和下线机制。</p><p><b>可形成：</b>Skill 注册清单、治理看板、运行指引。</p><div class="observe">观察点 → 关键指标相对稳定，具备继续推广基础</div></div>
+  </div>
+  <p class="muted" style="margin-top:20px">建议观察：输入 Token、首次成功率、工具调用次数、总时长、独立验证通过率、每次验证通过结果的总成本。</p>
+  <div class="footer"><span>RECOMMENDATION · FLEXIBLE PATH</span><span>12 / 14</span></div>
+  <div class="notes">这里使用建议式表达，不把 90 天当成强制计划。不同企业可根据风险、资源与实际效果调整节奏。</div>
+</section>
+
+<section class="slide section-purple" data-title="反方与风险">
+  <div class="eyebrow purple">12 / COUNTERCASE & RISK</div><h2 class="title">什么情况下，这个判断可能不成立</h2>
+  <div class="grid2 mt">
+    <div><h3 style="font:700 27px var(--serif)">反方假设</h3><div class="riskgrid" style="grid-template-columns:1fr"><div class="risk"><b>低回报不完全是组织问题</b><span>场景选择、数据不足和模型能力同样可能是主因。</span></div><div class="risk"><b>上下文更少不一定更好</b><span>过度压缩可能遗漏关键约束，降低首次成功率。</span></div><div class="risk"><b>企业上下文未必形成永久锁定</b><span>开放协议和可迁移格式可能降低切换成本。</span></div></div></div>
+    <div><h3 style="font:700 27px var(--serif)">主要风险</h3><div class="riskgrid" style="grid-template-columns:1fr 1fr"><div class="risk"><b>路由错误</b><span>错误流程与工具</span></div><div class="risk"><b>上下文不足</b><span>遗漏业务约束</span></div><div class="risk"><b>指令冲突</b><span>停顿与行为漂移</span></div><div class="risk"><b>权限扩散</b><span>越权与数据泄露</span></div><div class="risk"><b>过度验证</b><span>成本与时延失控</span></div><div class="risk"><b>数据不可比</b><span>错误市场排名</span></div></div></div>
+  </div>
+  <p class="subtitle" style="margin-top:24px">最终检验标准：分层加载是否改善真实任务的验证通过率与总成本。</p>
+  <div class="footer"><span>FALSIFIABLE BY DESIGN</span><span>13 / 14</span></div>
+  <div class="notes">一个好的洞察需要说明如何被证伪。如果路由错误和上下文不足带来的返工超过收益，分层加载就不应被机械推广。</div>
+</section>
+
+<section class="slide" data-title="Watchlist与来源">
+  <div class="eyebrow">13 / WATCHLIST & SOURCES</div><h2 class="title" style="font-size:49px">下周观察什么，以及证据来自哪里</h2>
+  <div style="display:grid;grid-template-columns:.92fr 1.08fr;gap:30px;margin-top:14px">
+    <div><h3>Watchlist</h3><div class="watchlist" style="grid-template-columns:1fr"><div class="watch"><b>01</b><span>三家平台是否披露活跃、企业席位、付费与留存。</span></div><div class="watch"><b>02</b><span>是否出现可量化的正式客户案例。</span></div><div class="watch"><b>03</b><span>厂商是否开始披露每次验证通过结果的成本。</span></div><div class="watch"><b>04</b><span>本地 Skill 瘦身是否改善质量和实际消耗。</span></div><div class="watch"><b>05</b><span>LDR 能否识别空加载、误加载与低贡献 Skill。</span></div><div class="watch"><b>06</b><span>企业上下文是否出现跨平台迁移标准。</span></div></div><div class="card" style="min-height:0"><span class="label">证据来源说明</span><p style="margin:12px 0 0"><b class="green">独立研究</b>｜第三方机构发布的研究或调查<br><b class="purple">官方披露</b>｜企业或产品方信息，需留意统计口径<br><b>内部测算</b>｜基于本地样本，仅用于辅助判断</p></div></div>
+    <div><h3>主要一手来源</h3><div class="sourcegrid">
+      <div class="source"><a href="https://www.mckinsey.com/cn/~/media/mckinsey/locations/asia/greater%20china/our%20insights/beyond%20the%20hype%20%20unlocking%20value%20from%20the%20ai%20revolution/mckinsey-beyond-the-hype-unlocking-value-ai-revolution.pdf">McKinsey · Beyond the Hype</a><span>独立研究</span></div>
+      <div class="source"><a href="https://www.deloitte.com/cn/zh/services/consulting/perspectives/hku-and-deloitte-china-ai-adoption-index-2026.html">Deloitte × HKU · AI Adoption Index</a><span>独立研究</span></div>
+      <div class="source"><a href="https://www.kearney.com/service/transformation/article/the-adoption-gap-why-most-transformations-fail-after-the-strategy-is-approved">Kearney · The Adoption Gap</a><span>独立研究</span></div>
+      <div class="source"><a href="https://www.gartner.com/en/newsroom/press-releases/2025-02-26-lack-of-ai-ready-data-puts-ai-projects-at-risk">Gartner · AI-ready Data</a><span>独立研究</span></div>
+      <div class="source"><a href="https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills">Anthropic · Agent Skills</a><span>官方披露</span></div>
+      <div class="source"><a href="https://tessl.io/blog/cheaper-tokens-bigger-bills-token-price-isnt-agent-cost">Tessl · Agent Cost</a><span>官方披露</span></div>
+      <div class="source"><a href="https://open.workbuddy.cn/">WorkBuddy 开放平台</a><span>官方披露</span></div>
+      <div class="source"><a href="https://help.aliyun.com/zh/qwenwork/qwenwork-intro">千问办公产品文档</a><span>官方披露</span></div>
+      <div class="source"><a href="https://future.feishu.cn/">飞书 × 豆包工作大会</a><span>官方披露</span></div>
+      <div class="source"><a href="https://developers.openai.com/api/reference/typescript/resources/skills/methods/list">OpenAI Skills API</a><span>官方披露</span></div>
+    </div></div>
+  </div>
+  <div class="footer"><span>AI INSIGHT · END</span><span>14 / 14</span></div>
+  <div class="notes">结论是：只有当 AI 能力被组织采用、以可控成本运行，并稳定交付可验收结果时，它才真正从演示进入生产。</div>
+</section>
+
+</main>
+<div class="controls"><span id="counter">01 / 14</span><button id="prev" aria-label="上一页">←</button><button id="next" aria-label="下一页">→</button><button id="overview" aria-label="总览">O</button><button id="fullscreen" aria-label="全屏">F</button></div>
+<div class="progress" id="progress"></div>
+<script>
+(()=>{const slides=[...document.querySelectorAll('.slide')],counter=document.getElementById('counter'),progress=document.getElementById('progress');let index=0,overview=false;
+function scale(){if(overview)return;document.documentElement.style.setProperty('--scale',Math.min(innerWidth/1600,innerHeight/900));}
+function show(i,push=true){index=Math.max(0,Math.min(slides.length-1,i));slides.forEach((s,n)=>s.classList.toggle('is-active',n===index));counter.textContent=String(index+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');progress.style.width=((index+1)/slides.length*100)+'%';if(push)history.replaceState(null,'','#/'+(index+1));}
+function toggleOverview(){overview=!overview;document.body.classList.toggle('overview',overview);if(!overview){scale();show(index,false)}}
+function go(n){if(overview){overview=false;document.body.classList.remove('overview')}show(n)}
+document.getElementById('prev').onclick=()=>go(index-1);document.getElementById('next').onclick=()=>go(index+1);document.getElementById('overview').onclick=toggleOverview;document.getElementById('fullscreen').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+slides.forEach((s,n)=>s.addEventListener('click',()=>{if(overview){overview=false;document.body.classList.remove('overview');show(n)}}));
+addEventListener('keydown',e=>{if(['ArrowRight',' ','PageDown'].includes(e.key)){e.preventDefault();go(index+1)}else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();go(index-1)}else if(e.key==='Home')go(0);else if(e.key==='End')go(slides.length-1);else if(e.key.toLowerCase()==='f')document.getElementById('fullscreen').click();else if(e.key.toLowerCase()==='o')toggleOverview()});
+addEventListener('resize',scale);const h=parseInt(location.hash.replace('#/',''),10);scale();show(Number.isFinite(h)?h-1:0,false);
+})();
+</script>
+</body>
+</html>
