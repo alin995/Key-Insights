@@ -34,7 +34,8 @@
 [AI办公生态趋势观察-Week 12 ](https://github.com/alin995/Key-Insights/blob/main/AI%E5%8A%9E%E5%85%AC%E7%94%9F%E6%80%81%E8%B6%8B%E5%8A%BF%E8%A7%82%E5%AF%9F-W38-AI%E6%B4%9E%E5%AF%9F-AI%20%E8%A7%84%E6%A8%A1%E5%8C%96%EF%BC%9A%E4%BB%8E%E6%A8%A1%E5%9E%8B%E7%AB%9E%E8%B5%9B%E5%88%B0%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%B2%BB%E7%90%86.html)
 
 
-[AI办公生态趋势观察-Week 13 ](https://github.com/alin995/Key-Insights/blob/main/AI%E5%8A%9E%E5%85%AC%E7%94%9F%E6%80%81%E8%B6%8B%E5%8A%BF%E8%A7%82%E5%AF%9F-Week%2013.html)
+[AI办公生态趋势观察-Week 13 ](https://github.com/alin995/Key-Insights/blob/main/feishu-charts/AI%E5%8A%9E%E5%85%AC%E7%94%9F%E6%80%81%E8%B6%8B%E5%8A%BF%E8%A7%82%E5%AF%9F-Week%2013.html)
+
 
 ***
 
