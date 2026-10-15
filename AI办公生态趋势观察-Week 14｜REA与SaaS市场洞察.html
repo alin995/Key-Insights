@@ -1,0 +1,1116 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>REA 与 SaaS 市场洞察 2026 W42</title><style>/* html-ppt :: base.css — reset + shared tokens + layout primitives */
+/* Default tokens. Themes in assets/themes/*.css override the :root block. */
+:root {
+  --bg: #ffffff;
+  --bg-soft: #f7f7f8;
+  --surface: #ffffff;
+  --surface-2: #f2f2f4;
+  --border: rgba(0,0,0,.08);
+  --border-strong: rgba(0,0,0,.16);
+  --text-1: #111216;
+  --text-2: #55596a;
+  --text-3: #8a8f9e;
+  --accent: #3b6cff;
+  --accent-2: #7a5cff;
+  --accent-3: #ff5c8a;
+  --good: #1aaf6c;
+  --warn: #f5a524;
+  --bad:  #e0445a;
+  --grad: linear-gradient(135deg,#3b6cff,#7a5cff 55%,#ff5c8a);
+  --grad-soft: linear-gradient(135deg,#eef2ff,#f5ecff 55%,#ffeef5);
+  --radius: 18px;
+  --radius-sm: 12px;
+  --radius-lg: 26px;
+  --shadow: 0 10px 30px rgba(18,24,40,.08), 0 2px 6px rgba(18,24,40,.04);
+  --shadow-lg: 0 24px 60px rgba(18,24,40,.14), 0 6px 16px rgba(18,24,40,.06);
+  --font-sans: 'Inter','Noto Sans SC',-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;
+  --font-serif: 'Playfair Display','Noto Serif SC',Georgia,serif;
+  --font-mono: 'JetBrains Mono','IBM Plex Mono',SFMono-Regular,Menlo,monospace;
+  --font-display: var(--font-sans);
+  --letter-tight: -.03em;
+  --letter-normal: -.01em;
+  --ease: cubic-bezier(.4,0,.2,1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text-1);
+  font-family:var(--font-sans);font-weight:400;line-height:1.6;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  letter-spacing:var(--letter-normal)}
+img,svg,video{max-width:100%;display:block}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+code,kbd,pre,samp{font-family:var(--font-mono)}
+
+/* ================= SLIDE SYSTEM ================= */
+.deck{position:relative;width:100vw;height:100vh;overflow:hidden;background:var(--bg)}
+.slide{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:72px 96px;
+  box-sizing:border-box;
+  opacity:0;pointer-events:none;
+  transition:opacity .5s var(--ease), transform .5s var(--ease);
+  transform:translateX(30px);
+  overflow:hidden;
+}
+.slide.is-active{opacity:1;pointer-events:auto;transform:translateX(0);z-index:2}
+.slide.is-prev{transform:translateX(-30px)}
+
+/* single-page standalone (used when a layout file is opened directly) */
+body.single .slide{position:relative;width:100vw;height:100vh;opacity:1;transform:none;pointer-events:auto}
+
+/* ================= TYPOGRAPHY ================= */
+.eyebrow{font-size:13px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3)}
+.kicker{font-size:14px;font-weight:600;color:var(--accent);letter-spacing:.08em;text-transform:uppercase}
+h1.title,.h1{font-family:var(--font-display);font-size:72px;line-height:1.05;font-weight:800;letter-spacing:var(--letter-tight);margin:0 0 18px;color:var(--text-1)}
+h2.title,.h2{font-family:var(--font-display);font-size:54px;line-height:1.1;font-weight:700;letter-spacing:var(--letter-tight);margin:0 0 14px}
+h3,.h3{font-size:32px;line-height:1.2;font-weight:600;letter-spacing:var(--letter-normal);margin:0 0 10px}
+h4,.h4{font-size:22px;line-height:1.3;font-weight:600;margin:0 0 8px}
+.lede{font-size:22px;line-height:1.55;color:var(--text-2);font-weight:300;max-width:62ch}
+.dim{color:var(--text-2)}
+.dim2{color:var(--text-3)}
+.mono{font-family:var(--font-mono)}
+.serif{font-family:var(--font-serif)}
+.gradient-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+
+/* ================= LAYOUT PRIMITIVES ================= */
+.stack>*+*{margin-top:14px}
+.row{display:flex;gap:24px;align-items:center}
+.row.wrap{flex-wrap:wrap}
+.grid{display:grid;gap:24px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.center{display:flex;align-items:center;justify-content:center;text-align:center}
+.fill{flex:1}
+.sp-t{padding-top:24px}.sp-b{padding-bottom:24px}
+.mt-s{margin-top:8px}.mt-m{margin-top:18px}.mt-l{margin-top:32px}
+.mb-s{margin-bottom:8px}.mb-m{margin-bottom:18px}.mb-l{margin-bottom:32px}
+
+/* ================= CARDS ================= */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:26px 28px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.card-soft{background:var(--surface-2);border:1px solid var(--border)}
+.card-outline{background:transparent;border:1.5px solid var(--border-strong);box-shadow:none}
+.card-accent{background:var(--surface);border-top:3px solid var(--accent)}
+.card-hover{transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.card-hover:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+
+.pill{display:inline-block;padding:4px 12px;border-radius:999px;font-size:12px;font-weight:500;
+  background:var(--surface-2);color:var(--text-2);border:1px solid var(--border)}
+.pill-accent{background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--accent);border-color:color-mix(in srgb,var(--accent) 28%,transparent)}
+
+/* ================= BARS / DIVIDERS ================= */
+.divider{height:1px;background:var(--border);width:100%}
+.divider-accent{height:3px;width:72px;background:var(--accent);border-radius:2px}
+
+/* ================= CHROME (header/footer/progress) ================= */
+.deck-header{position:absolute;top:24px;left:40px;right:40px;display:flex;align-items:center;justify-content:space-between;
+  font-size:12px;color:var(--text-3);letter-spacing:.12em;text-transform:uppercase;z-index:10;pointer-events:none}
+.deck-footer{position:absolute;bottom:24px;left:40px;right:40px;display:flex;align-items:center;justify-content:space-between;
+  font-size:12px;color:var(--text-3);z-index:10;pointer-events:none}
+.slide-number::before{content:attr(data-current)}
+.slide-number::after{content:" / " attr(data-total)}
+.progress-bar{position:fixed;left:0;right:0;bottom:0;height:3px;background:transparent;z-index:20}
+.progress-bar > span{display:block;height:100%;width:0;background:var(--accent);transition:width .3s var(--ease)}
+
+/* ================= PRESENTER / OVERVIEW ================= */
+.notes{display:none!important}
+.notes-overlay{position:fixed;inset:auto 0 0 0;max-height:42vh;background:rgba(20,22,30,.95);color:#e8ebf4;
+  padding:20px 32px;font-size:16px;line-height:1.6;border-top:1px solid rgba(255,255,255,.1);transform:translateY(100%);
+  transition:transform .3s var(--ease);z-index:40;overflow:auto;font-family:var(--font-sans)}
+.notes-overlay.open{transform:translateY(0)}
+.overview{position:fixed;inset:0;background:rgba(10,12,18,.92);backdrop-filter:blur(12px);z-index:50;
+  display:none;padding:40px;overflow:auto}
+.overview.open{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;align-content:start}
+.overview .thumb{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  aspect-ratio:16/9;overflow:hidden;cursor:pointer;position:relative;color:var(--text-1);padding:16px;
+  font-size:11px;transition:transform .2s var(--ease)}
+.overview .thumb:hover{transform:scale(1.04)}
+.overview .thumb .n{position:absolute;top:8px;left:10px;font-weight:700;font-size:14px;color:var(--text-3)}
+.overview .thumb .t{position:absolute;bottom:10px;left:14px;right:14px;font-weight:600;color:var(--text-1)}
+
+/* ================= PRESENTER VIEW ================= */
+/* Presenter view opens in a separate popup window (S key).
+ * All presenter styles are self-contained in the popup HTML generated by runtime.js.
+ * The audience window (this file) is NOT affected — it stays as normal deck view.
+ * Only the .notes class below is needed to hide speaker notes from audience. */
+
+/* ================= UTILITY ================= */
+.hidden{display:none!important}
+.nowrap{white-space:nowrap}
+.tr{text-align:right}.tc{text-align:center}.tl{text-align:left}
+.uppercase{text-transform:uppercase;letter-spacing:.12em}
+
+/* ================= PRINT ================= */
+@media print{
+  .slide{position:relative;opacity:1!important;transform:none!important;page-break-after:always;height:100vh}
+  .deck-header,.deck-footer,.progress-bar,.notes-overlay,.overview{display:none!important}
+}
+
+:root{--bg:#0D100E;--bg-soft:#101510;--surface:#151B16;--surface-2:#1B221D;--border:#354038;--border-strong:#4F6254;--text-1:#E8EADF;--text-2:#A8B0A0;--text-3:#8D9B8C;--accent:#B9FF59;--accent-2:#AA94FF;--accent-3:#8261FF;--good:var(--accent);--warn:var(--accent-2);--bad:var(--accent-2);--shadow:none;--shadow-lg:none;--radius:10px;--font-sans:"PingFang SC","Microsoft YaHei",Arial,sans-serif;--font-serif:"Songti SC","STSong",Georgia,serif;--font-mono:"SFMono-Regular",Consolas,monospace}
+html,body{height:100%;overflow:hidden} .deck{position:absolute;width:1920px;height:1080px;left:50%;top:50%;transform:translate(-50%,-50%) scale(var(--deck-scale,1));transform-origin:center}
+.slide{padding:88px 108px 90px;justify-content:flex-start;background:var(--bg);transition:opacity .15s;transform:none}.slide.is-active{transform:none}.slide:before{content:"";position:absolute;inset:0;background:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:80px 80px;opacity:.12;pointer-events:none}.slide>*{position:relative}.topline{display:flex;justify-content:space-between;font:16px var(--font-mono);letter-spacing:.12em;color:var(--text-3);margin-bottom:38px}.tag{border:1px solid currentColor;padding:6px 14px;border-radius:var(--radius);font-size:14px;color:var(--accent-2)}.tag.fact{color:var(--accent)}.tag.recommendation{color:var(--text-1)}.title{font-family:var(--font-serif);font-size:66px!important;line-height:1.18!important;max-width:1650px;margin-bottom:30px!important}.lede{font-size:30px;line-height:1.65;max-width:none}.body-content{width:100%;flex:1;min-height:0}.card{padding:36px 38px;border-top:3px solid var(--accent);min-height:260px}.card.inferred{border-top-color:var(--accent-2)}.card h3{font-size:35px;line-height:1.35;margin:18px 0}.card p{font-size:28px;line-height:1.8;color:var(--text-2);margin:0}.index{font:18px var(--font-mono);color:var(--accent)}.takeaway{font-size:30px;line-height:1.6;border-left:4px solid var(--accent-2);padding:15px 25px;margin-top:42px;max-width:1600px}.foot{display:flex;justify-content:space-between;position:absolute;bottom:38px;left:108px;right:108px;font:15px var(--font-mono);color:var(--text-3)}.small{font-size:22px;color:var(--text-2);line-height:1.7}.definition{font-size:72px;line-height:1.5;margin:32px 0;font-family:var(--font-serif)}.definition span{color:var(--accent)}.definition.compact{font-size:64px}.cover .title{font-size:92px!important}.cover-mark{font:100px var(--font-mono);letter-spacing:-.05em;margin:65px 0 40px}.cover-mark span{color:var(--accent-2);padding:0 52px}.cover-bottom{font-size:26px;line-height:1.7;color:var(--text-2)}.cover{background:radial-gradient(ellipse at 85% 30%,var(--surface-2),var(--bg) 65%)}
+table{width:100%;border-collapse:collapse;margin-top:25px;font-size:28px;line-height:1.5}th{text-align:left;font-size:23px;color:var(--text-3);font-weight:500;padding:18px 22px;border-bottom:2px solid var(--border-strong)}td{padding:24px 22px;border-bottom:1px solid var(--border);color:var(--text-2)}td:first-child{color:var(--text-1);font-weight:600;width:28%}tbody tr:nth-child(odd){background:var(--surface)}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px}.step{background:var(--surface);padding:36px 28px;border:1px solid var(--border);border-radius:var(--radius);min-height:330px}.step h3{font-size:34px;margin:24px 0}.step p{font-size:27px;color:var(--text-2);line-height:1.7}.badge{font-size:22px;border-top:1px solid var(--border);padding-top:20px;margin-top:25px}.flow{font-size:37px;line-height:1.8;padding:32px 0;margin-top:25px}.flow b{color:var(--accent-2);padding:0 18px}.sources{display:grid;grid-template-columns:1fr 1fr;gap:12px 32px}.sources a{display:flex;align-items:center;gap:24px;padding:15px 20px;border-bottom:1px solid var(--border);color:var(--text-1);font-size:24px}.sources b{font:18px var(--font-mono);color:var(--accent);min-width:46px}.sources em{margin-left:auto;color:var(--text-3);font-style:normal}.controls{position:fixed;left:50%;transform:translateX(-50%);right:auto;bottom:18px;z-index:30;display:flex;gap:8px}.controls button{background:var(--surface);color:var(--text-2);border:1px solid var(--border);padding:8px 12px;border-radius:var(--radius);cursor:pointer;font-size:12px}.controls button:hover{color:var(--accent)}html[data-preview] .controls{display:none}.overview.open{grid-template-columns:repeat(4,1fr)}@media(max-width:700px){.overview.open{grid-template-columns:repeat(2,1fr)}.controls{bottom:10px;max-width:96vw;flex-wrap:wrap;justify-content:center;gap:4px}.controls button{font-size:10px;padding:6px 8px}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;animation:none!important}}@media print{@page{size:16in 9in;margin:0}.deck{position:static;transform:none;width:1920px;height:auto;overflow:visible}.slide{position:relative;width:1920px;height:1080px;opacity:1;page-break-after:always}.controls{display:none}}
+</style></head><body><div class="deck"><section class="slide cover" data-title="软件更容易被理解之后&lt;br&gt;SaaS 靠什么持续创造价值？"><div class="topline"><span>AI INSIGHTS / 2026 W42</span><span class="tag inference">INFERENCE</span></div><h2 class="title">软件更容易被理解之后<br>SaaS 靠什么持续创造价值？</h2><div class="body-content"><p class="lede">REA、Agent 接口与 CPU 执行负载</p><div class="cover-mark">REA<span>→</span>SaaS</div><p class="cover-bottom">2026 W42 · 10 月 12–18 日<br>10 月 15 日补充接口与 CPU 专题 · 面向产品与战略团队</p></div><div class="foot"><span>RESEARCH BRIEF · FACTS / INFERENCES / ACTIONS</span><span>01 / 24</span></div><aside class="notes">今天先把 REA 讲清楚，再讨论它会影响哪些 SaaS。把理解、重建和长期运营分开看，才能判断商业影响。</aside></section><section class="slide " data-title="本周判断：功能更容易研究，价值需要持续交付"><div class="topline"><span>AI INSIGHTS / 2026 W42</span><span class="tag inference">INFERENCE</span></div><h2 class="title">本周判断：功能更容易研究，价值需要持续交付</h2><div class="body-content"><div class="grid g3 mt-l"><div class="card"><div class="index">01</div><h3>理解软件</h3><p>REA 为 AI 提供程序、脚本和运行记录中的实现线索。</p></div><div class="card"><div class="index">02</div><h3>连接上下文</h3><p>Notion 本周强化共享上下文、MCP 连接及权限管理。</p></div><div class="card"><div class="index">03</div><h3>控制执行</h3><p>Microsoft 公开生产网络 Agent 的分层控制经验。</p></div></div><div class="takeaway">能力变化已有证据；客户流失、议价和市场份额变化仍需验证。</div></div><div class="foot"><span>F01 / F04 / F05</span><span>02 / 24</span></div><aside class="notes">这三个方向相互补充。理解工具让候选方案更容易产生；上下文告诉系统该做什么；执行边界决定能否进入实际业务。</aside></section><section class="slide " data-title="REA 是什么？让 AI 研究一个功能是怎么做的"><div class="topline"><span>AI INSIGHTS / 2026 W42</span><span class="tag fact">FACT</span></div><h2 class="title">REA 是什么？让 AI 研究一个功能是怎么做的</h2><div class="body-content"><div class="definition">给 AI 一套工具，<br>从<span>已有软件</span>中寻找实现线索。</div><div class="grid g2 mt-l"><p class="lede">输入：程序、应用文件或可访问网页<br>问题：搜索、导出、剪贴板等功能如何工作</p><p class="lede">输出：代码线索、调用关系、运行记录<br>解释：看到了什么，以及还有什么不知道</p></div></div><div class="foot"><span>F01 / F06</span><span>03 / 24</span></div><aside class="notes">逆向工程是从成品反过来研究实现。REA 组织分析工具和证据，AI 根据结果继续追问或写代码。原生深度反编译依赖 Hopper、Ghidra 或 IDA。</aside></section><section class="slide " data-title="四个角色，分工看清楚"><div class="topline"><span>AI INSIGHTS / 2026 W42</span><span class="tag fact">FACT</span></div><h2 class="title">四个角色，分工看清楚</h2><div class="body-content"><table><thead><tr><th>角色</th><th>做什么</th><th>帮助你理解</th></tr></thead><tbody><tr><td>用户</td><td>提出问题、提供目标、确定范围</td><td>研究哪项功能</td></tr><tr><td>AI 编程助手</td><td>决定查什么、解释结果、编写候选实现</td><td>研究员兼开发者</td></tr><tr><td>REA</td><td>对接工具、组织结果、保留来源与限制</td><td>工具箱与记录系统</td></tr><tr><td>专业分析工具</td><td>解析文件、反编译或观察网页</td><td>实际检查软件的仪器</td></tr></tbody></table></div><div class="foot"><span>F01 / F06</span><span>04 / 24</span></div><aside class="notes">REA 本身也包含部分静态解析能力。这个角色划分帮助理解工作流，不是对所有模块的严格物理拆分。</aside></section><section class="slide " data-title="一个搜索功能，怎样被研究？"><div class="topline"><span>AI INSIGHTS / 2026 W42</span><span class="tag illustration">ILLUSTRATION</span></div><h2 class="title">一个搜索功能，怎样被研究？</h2><div class="body-content"><p class="lede">说明性假设：研究一款知识库 SaaS 的搜索；本次未实际测试。</p><div class="steps"><div class="step"><span class="index">01</span><h3>提出问题</h3><p>输入关键词后，如何发起请求和高亮结果？</p></div><div class="step"><span class="index">02</span><h3>查看脚本</h3><p>查找输入事件、相关模块和请求线索。</p></div><div class="step"><span class="index">03</span><h3>观察操作</h3><p>用户执行一次搜索，记录可见请求与响应。</p></div><div class="step"><span class="index">04</span><h3>解释并验证</h3><p>整理有证据的流程，开发候选实现后测试。</p></div></div></div><div class="foot"><span>说明性案例 · 能力依据 F07</span><span>05 / 24</span></div><aside class="notes">这不是一个成功案例，也不是一次实际测量。用它说明 REA 能如何帮助调查：AI 使用文件和运行观察补充证据，再开发自己的候选功能。</aside></section><section class="slide " data-title="从这次搜索里，究竟能知道什么？"><div class="topline"><span>AI INSIGHTS / 2026 W42</span><span class="tag illustration">ILLUSTRATION</span></div><h2 class="title">从这次搜索里，究竟能知道什么？</h2><div class="body-content"><table><thead><tr><th>证据层次</th><th>假设记录中出现的内容</th><th>该如何解释</th></tr></thead><tbody><tr><td>直接观察</td><td>客户端向 /search 发出请求</td><td>这个请求在观察窗口内发生过</td></tr><tr><td>推导结果</td><td>脚本中请求前有输入延迟逻辑</td><td>可能存在防抖机制，需要核对代码</td></tr><tr><td>仍然未知</td><td>服务端为何返回这个排序</td><td>不能仅凭响应还原索引与算法</td></tr></tbody></table><div class="takeaway">证据来自有限场景；解释要保留缺失、截断和不确定性。</div></div><div class="foot"><span>说明性案例 · F06 / F07</span><span>06 / 24</span></div><aside class="notes">这里的地址和行为都是示例。不要把一次请求当成对所有业务行为的证明，也不要将推断包装成观察事实。</aside></section><section class="slide " data-title="看见客户端流程，仍有服务端边界"><div class="topline"><span>AI INSIGHTS / 2026 W42</span><span class="tag inference">INFERENCE</span></div><h2 class="title">看见客户端流程，仍有服务端边界</h2><div class="body-content"><div class="grid g2 mt-l"><div class="card"><h3>客户端：用户收到的部分</h3><p>页面与脚本<br>选定场景的请求和响应<br>本地应用模块及调用线索</p><div class="badge">可分析拿到的内容</div></div><div class="card inferred"><h3>服务端：厂商运行的部分</h3><p>完整数据库与业务规则<br>搜索索引、排序和权限逻辑<br>多人同步、容量与可靠性</p><div class="badge">仍需获取、实现与验证</div></div></div><div class="takeaway">观察到“返回了什么”，不等于知道“内部怎样计算”。</div></div><div class="foot"><span>F07 / F08 / F09</span><span>07 / 24</span></div><aside class="notes">客户端在浏览器或用户电脑里运行。服务端在厂商的服务器运行。REA 不会因为识别了接口就自动取得服务端源码或未授权数据。</aside></section><section class="slide " data-title="REA 增强的是理解环节"><div class="topline"><span>AI INSIGHTS / 2026 W42</span><span class="tag inference">INFERENCE</span></div><h2 class="title">REA 增强的是理解环节</h2><div class="body-content"><table><thead><tr><th>工作方式</th><th>主要输入</th><th>仍需验证</th></tr></thead><tbody><tr><td>根据文字或截图开发</td><td>需求、视觉效果、通用经验</td><td>猜测的行为是否符合需求</td></tr><tr><td>研究后再开发</td><td>实际文件和运行记录中的线索</td><td>分析是否正确、实现是否满足目标</td></tr></tbody></table><div class="flow">理解已有功能 <b>→</b> 编写候选实现 <b>→</b> 独立测试 <b>→</b> 长期维护</div></div><div class="foot"><span>F01 / F06 / F10</span><span>08 / 24</span></div><aside class="notes">它减少的可能是调查和猜测成本。效率改善有多大，需要同目标对照。功能重建之后的集成、维护、故障和责任不会自动消失。</aside></section><section class="slide " data-title="本周 REA 动态：发行、源码与报告分开看"><div class="topline"><span>AI INSIGHTS / 2026 W42</span><span class="tag fact">FACT</span></div><h2 class="title">本周 REA 动态：发行、源码与报告分开看</h2><div class="body-content"><div class="grid g3 mt-l"><div class="card"><div class="index">01</div><h3>10/11 · 上周背景</h3><p>6.4.0 发布：摘要视图、JS 资源控制、RPC 识别等。</p></div><div class="card"><div class="index">02</div><h3>10/13 · 源码提交</h3><p>添加保存的 aioquic qlog JSON 捕获检查；未确认正式发行。</p></div><div class="card"><div class="index">03</div><h3>10/13 · 分发提示</h3><p>冒牌下载报告后，维护者合并官方来源说明。恶意判定未独立验证。</p></div></div><p class="small mt-l">截至研究检索，Release 列表仍将 6.4.0 标为 Latest。</p></div><div class="foot"><span>F02 / F03 / F12</span><span>09 / 24</span></div><aside class="notes">6.4 属于上周，不写成本周发布。源码提交不能等同 npm 正式包。社区报告要保留归因，不能解释为 REA 官方包存在恶意。</aside></section><section class="slide " data-title="市场回应：SaaS 向上下文与治理扩展"><div class="topline"><span>AI INSIGHTS / 2026 W42</span><span class="tag fact">FACT</span></div><h2 class="title">市场回应：SaaS 向上下文与治理扩展</h2><div class="body-content"><div class="grid g2 mt-l"><div class="card"><div class="index">NOTION / 10.13</div><h3>共享上下文与工具连接</h3><p>3.8 发布<br>MCP 连接与 150+ 工具连接<br>Skills API、列权限、变更归因</p></div><div class="card"><div class="index">MICROSOFT / 10.13</div><h3>生产执行的控制边界</h3><p>工程案例讨论四层边界<br>身份与工具访问<br>写入审批与重复流程固化</p></div></div><div class="takeaway">两项第一方信号支持方向判断，尚不证明普遍 ROI 或客户留存。</div></div><div class="foot"><span>F04 / F05</span><span>10 / 24</span></div><aside class="notes">Notion 提供的是产品发布说明。Microsoft 提供的是特定工程案例。把产品动作和真实客户收益分开，再推导市场方向。</aside></section><section class="slide " data-title="哪些 SaaS 更容易受到替代压力？"><div class="topline"><span>AI INSIGHTS / 2026 W42</span><span class="tag inference">INFERENCE</span></div><h2 class="title">哪些 SaaS 更容易受到替代压力？</h2><div class="body-content"><table><thead><tr><th>类型</th><th>相对暴露程度</th><th>替代仍需解决</th></tr></thead><tbody><tr><td>单点转换、报表、编辑器</td><td>较高</td><td>持续维护、批处理、支持</td></tr><tr><td>后端差异小的模型包装工具</td><td>较高</td><td>特定工作流、数据与分发</td></tr><tr><td>协作和项目管理</td><td>中等</td><td>同步、权限、历史与迁移</td></tr><tr><td>CRM / ERP / 行业 SaaS</td><td>取决于部署深度</td><td>集成、业务规则、交付</td></tr><tr><td>数据与基础设施 SaaS</td><td>客户端直接压力较低</td><td>数据供给、规模和运维</td></tr></tbody></table></div><div class="foot"><span>分析判断 · 无流失实测</span><span>11 / 24</span></div><aside class="notes">这是相对暴露程度判断，不是实测评级。功能可复制程度不能单独预测客户流失，还要看客户是否愿意维护和迁移。</aside></section><section class="slide " data-title="商业影响需要经过一条验证链"><div class="topline"><span>AI INSIGHTS / 2026 W42</span><span class="tag hypothesis">HYPOTHESIS</span></div><h2 class="title">商业影响需要经过一条验证链</h2><div class="body-content"><div class="flow vertical">理解门槛下降 <b>→</b> 小范围替代方案 <b>→</b> 买方多一个选择<br><b>→</b> 可能出现议价 <b>→</b> 持续交付价值更重要</div><div class="grid g2 mt-l"><div class="card"><h3>机制推断</h3><p>可见功能的研究成本可能下降，部分功能领先期可能缩短。</p></div><div class="card inferred"><h3>待验证假设</h3><p>自建比例、续费折扣和市场份额变化，需要采购与客户数据。</p></div></div></div><div class="foot"><span>市场机制推演 · 不作金融归因</span><span>12 / 24</span></div><aside class="notes">不能从原型便宜跳到企业停止续费。没有证据把 SaaS 股价变化归因于 REA，也不能认定按结果计费必然更好。</aside></section><section class="slide " data-title="自建是否更便宜，要算完整成本"><div class="topline"><span>AI INSIGHTS / 2026 W42</span><span class="tag inference">INFERENCE</span></div><h2 class="title">自建是否更便宜，要算完整成本</h2><div class="body-content"><div class="definition compact">调查与开发 <span>＋</span> 集成与迁移<br><span>＋</span> 验证与治理 <span>＋</span> 持续维护<br><span>＋</span> 故障与机会成本</div><div class="takeaway">REA 主要影响调查成本；其他成本不会必然同步下降。</div></div><div class="foot"><span>分析框架 · 非量化估计</span><span>13 / 24</span></div><aside class="notes">这个成本拆分不是数学测算。客户应该比较全周期成本，而不是把几天做出的演示当作生产服务。局部自建和保留核心 SaaS 也可以组合。</aside></section><section class="slide " data-title="从看懂功能，到可靠调用和实际执行"><div class="topline"><span>AI INSIGHTS / 2026 W42</span><span class="tag inference">INFERENCE</span></div><h2 class="title">从看懂功能，到可靠调用和实际执行</h2><div class="body-content"><div class="grid g3 mt-l"><div class="card"><div class="index">01</div><h3>REA 理解</h3><p>检查已有软件，返回实现线索、来源与限制。</p></div><div class="card"><div class="index">02</div><h3>接口交付</h3><p>发现工具、管理身份与权限、适配业务系统。</p></div><div class="card"><div class="index">03</div><h3>执行资源</h3><p>运行浏览器、代码、编译测试和文档处理。</p></div></div><div class="takeaway">三者可以组合；接口价值、执行收入与 CPU 消耗没有固定比例。</div></div><div class="foot"><span>10/15 专题补充 · F13–F20</span><span>14 / 24</span></div><aside class="notes">新增专题截至10月15日。它补充原有SaaS影响分析：理解更容易，不代表连接、执行和运维自动完成。高价值权限服务也可能计算很轻。</aside></section><section class="slide " data-title="Agent 接口产品，客户究竟买什么？"><div class="topline"><span>AI INSIGHTS / 2026 W42</span><span class="tag fact">FACT</span></div><h2 class="title">Agent 接口产品，客户究竟买什么？</h2><div class="body-content"><table><thead><tr><th>产品层与代表</th><th>公开能力</th><th>价值与边界</th></tr></thead><tbody><tr><td>Composio 工具连接</td><td>发现、认证、远程 Python 沙箱</td><td>减少适配维护；批处理可进入执行层</td></tr><tr><td>Workato 企业网关</td><td>用户/工具授权、身份传递、审计</td><td>治理访问；限流配额需主动配置</td></tr><tr><td>AWS AgentCore</td><td>Gateway 与 Runtime</td><td>统一入口与运行管理分别计量</td></tr><tr><td>E2B / Daytona / Cloudflare</td><td>沙箱、容器与浏览器环境</td><td>提供执行资源及生命周期管理</td></tr></tbody></table><p class="small mt-l">截至 10/15 的产品状态；不是本周全部新发布，也不代表市场排名。</p></div><div class="foot"><span>F13 / F14 / F15 / F16–F19</span><span>15 / 24</span></div><aside class="notes">产品说明证明供给存在。不能由工具数推导ROI，也不能认定所有平台默认实现幂等、补偿和审批。</aside></section><section class="slide " data-title="CPU 负载主要在哪里？沿实际任务找"><div class="topline"><span>AI INSIGHTS / 2026 W42</span><span class="tag inference">INFERENCE</span></div><h2 class="title">CPU 负载主要在哪里？沿实际任务找</h2><div class="body-content"><table><thead><tr><th>负载</th><th>CPU 工作</th><th>还要看什么</th></tr></thead><tbody><tr><td>API / 网关</td><td>解析、鉴权、路由、日志</td><td>网络等待、后端归属</td></tr><tr><td>浏览器</td><td>脚本、DOM、布局、截图</td><td>页面复杂度、内存、部分GPU</td></tr><tr><td>编码任务</td><td>构建、编译、测试、包管理</td><td>磁盘、缓存和子进程</td></tr><tr><td>文档 / 数据</td><td>解压、解析、表格与报表</td><td>内存带宽、数据拷贝、I/O</td></tr><tr><td>沙箱生命周期</td><td>创建、恢复、快照、清理</td><td>启动并发与环境驻留</td></tr></tbody></table></div><div class="foot"><span>负载机制分析 · 非实测</span><span>16 / 24</span></div><aside class="notes">这些是模型外负载的工程判断。调用远程CRM时本机可能主要在等，后端在计算。远程沙箱资源不等于本机资源。CPU不会因此替代GPU。</aside></section><section class="slide " data-title="四个指标分开算，才不会高估 CPU"><div class="topline"><span>AI INSIGHTS / 2026 W42</span><span class="tag illustration">ILLUSTRATION</span></div><h2 class="title">四个指标分开算，才不会高估 CPU</h2><div class="body-content"><table><thead><tr><th>指标</th><th>含义</th><th>不能混同</th></tr></thead><tbody><tr><td>任务总时长</td><td>从开始到结束，包含等待</td><td>实际CPU工作时间</td></tr><tr><td>预留 vCPU 秒</td><td>容量配置 × 环境运行时间</td><td>物理核忙碌量</td></tr><tr><td>实际 CPU 秒</td><td>全部相关进程累计工作时间</td><td>仅主进程或成功尝试</td></tr><tr><td>驻留与内存秒</td><td>保持环境状态及内存占用</td><td>忽略等待中的环境容量</td></tr></tbody></table><div class="takeaway">假设：1,000 × 2 vCPU × 60秒＝120,000 预留 vCPU秒；<br>若每环境仅工作6 CPU秒，实际合计6,000 CPU秒。示例非实测。</div></div><div class="foot"><span>假设示例 · 计量依据 F16–F19</span><span>17 / 24</span></div><aside class="notes">两种口径相差20倍不代表可以固定超售20倍。E2B和Daytona的配置计费、Cloudflare活跃CPU与浏览器时长必须分别解释。</aside></section><section class="slide " data-title="接口设计也可能降低单任务资源需求"><div class="topline"><span>AI INSIGHTS / 2026 W42</span><span class="tag inference">INFERENCE</span></div><h2 class="title">接口设计也可能降低单任务资源需求</h2><div class="body-content"><div class="grid g3 mt-l"><div class="card"><div class="index">01</div><h3>浏览器 → API</h3><p>可能减少脚本、布局与截图；后端业务计算仍存在。</p></div><div class="card"><div class="index">02</div><h3>逐次调用 → 批处理</h3><p>部分工具逻辑转为受控代码；净CPU变化需测量。</p></div><div class="card"><div class="index">03</div><h3>重复启动 → 复用回收</h3><p>缓存、快照和休眠可能降低重复计算与驻留。</p></div></div><div class="takeaway">少用 Token 不等于多用 CPU；总量还取决于任务增长与原有计算替代。</div></div><div class="foot"><span>F13 / F20 · 优化方向为推断</span><span>18 / 24</span></div><aside class="notes">Cloudflare Code Mode和Composio沙箱提供程序化执行的产品信号，但不能推断所有平台净算力变化。工具次数不能直接换算CPU需求。</aside></section><section class="slide " data-title="CPU 机会要按成功任务验证"><div class="topline"><span>AI INSIGHTS / 2026 W42</span><span class="tag recommendation">RECOMMENDATION</span></div><h2 class="title">CPU 机会要按成功任务验证</h2><div class="body-content"><div class="grid g3 mt-l"><div class="card"><div class="index">01</div><h3>执行池</h3><p>代码、文档、浏览器任务<br>比较完整流程的单位成本</p></div><div class="card"><div class="index">02</div><h3>私有执行底座</h3><p>验证私网访问与软件兼容<br>隔离、审计、恢复可验收</p></div><div class="card"><div class="index">03</div><h3>调度与可观测</h3><p>记录CPU秒、内存秒、I/O<br>以及成功率和P95时间</p></div></div><div class="flow">每日CPU工作量＝成功任务数 × 每成功任务CPU秒</div><p class="small">计入失败、重试和共享开销；同参考硬件比较。容量另加峰值、冗余和隔离约束。</p></div><div class="foot"><span>测量建议 · 不作采购规模预测</span><span>19 / 24</span></div><aside class="notes">没有足够数据估计净CPU采购增量，也不能给硬件架构或厂商排名。每成功任务是所有尝试消耗除以通过验收的成功数。</aside></section><section class="slide " data-title="90 天内，用真实样本验证影响"><div class="topline"><span>AI INSIGHTS / 2026 W42</span><span class="tag recommendation">RECOMMENDATION</span></div><h2 class="title">90 天内，用真实样本验证影响</h2><div class="body-content"><div class="grid g3 mt-l"><div class="card"><div class="index">01</div><h3>0–30 天</h3><p>选取获授权样本；对照人工、普通 AI、REA 加 AI 三种方式。</p></div><div class="card"><div class="index">02</div><h3>31–60 天</h3><p>验证客户是否愿意试点和迁移；把维护与责任纳入成本。</p></div><div class="card"><div class="index">03</div><h3>61–90 天</h3><p>持续记录故障、工时和使用；依据结果调整产品投入。</p></div></div><div class="takeaway">验收：独立测试通过、总成本改善、维护责任明确、持续使用有记录。</div></div><div class="foot"><span>验证计划 · F10</span><span>20 / 24</span></div><aside class="notes">同一个任务用相同验收标准。记录全部调用成本和人工工时，避免只看 UI 相似度。没有持续使用与采购变化，就不能下商业替代的结论。</aside></section><section class="slide " data-title="要追踪的，是客户行为而非项目热度"><div class="topline"><span>AI INSIGHTS / 2026 W42</span><span class="tag recommendation">RECOMMENDATION</span></div><h2 class="title">要追踪的，是客户行为而非项目热度</h2><div class="body-content"><div class="grid g3 mt-l"><div class="card"><div class="index">01</div><h3>部署证据</h3><p>正式发行和 main 的差距<br>同任务效率与长期维护成本</p></div><div class="card"><div class="index">02</div><h3>商业证据</h3><p>自建试点是否持续使用<br>实际迁移、采购和续费变化</p></div><div class="card"><div class="index">03</div><h3>产品证据</h3><p>Agent 接口的成功调用<br>数据、集成与可靠性成果</p></div></div><div class="takeaway">如果竞争者理解了客户端，客户为什么仍愿意持续付费？</div></div><div class="foot"><span>WATCHLIST / CLIENT OUTCOMES</span><span>21 / 24</span></div><aside class="notes">用这个问题审视产品路线图。不是所有集成都能形成壁垒，必须证明它改善客户的成果。星数和传播热度只是关注信号。</aside></section><section class="slide " data-title="来源与判断边界 1 / 3"><div class="topline"><span>AI INSIGHTS / 2026 W42</span><span class="tag fact">FACT</span></div><h2 class="title">来源与判断边界 1 / 3</h2><div class="body-content"><div class="sources"><a href="https://github.com/morluto/rea#readme" target="_blank" rel="noopener"><b>F01</b><span>REA 项目说明</span><em>↗</em></a><a href="https://github.com/morluto/rea/releases/tag/rea-agents-6.4.0" target="_blank" rel="noopener"><b>F02</b><span>6.4.0 发布 · 10/11</span><em>↗</em></a><a href="https://github.com/morluto/rea/pull/2429" target="_blank" rel="noopener"><b>F03</b><span>来源提示 · Issue 2424 / PR 2429</span><em>↗</em></a><a href="https://www.notion.com/releases/2026-10-13" target="_blank" rel="noopener"><b>F04</b><span>Notion 3.8 · 10/13</span><em>↗</em></a><a href="https://commandline.microsoft.com/ai-agent-copilot-autopilot-layered-model-production-network-incidents-on-call-engineers/" target="_blank" rel="noopener"><b>F05</b><span>Microsoft 工程案例 · 10/13</span><em>↗</em></a><a href="https://github.com/morluto/rea/blob/bb154d1067b0fc250452b7d468d0b0523031a16f/src/domain/evidence.ts" target="_blank" rel="noopener"><b>F06</b><span>REA 架构与证据</span><em>↗</em></a><a href="https://github.com/morluto/rea/blob/main/docs/browser-observation.md" target="_blank" rel="noopener"><b>F07</b><span>浏览器观察边界</span><em>↗</em></a></div><p class="small mt-l">原事件核查截至10/14；接口与CPU专题补充截至10/15。<br>产品文档不等于本周新发布；假设示例不是实测或采购预测。</p></div><div class="foot"><span>SOURCE LEDGER / RESEARCH LIMITS</span><span>22 / 24</span></div><aside class="notes">完整来源见配套文档。未实测CPU负载，未验证客户ROI或市场因果影响。旧事件未全量刷新到15日。</aside></section><section class="slide " data-title="来源与判断边界 2 / 3"><div class="topline"><span>AI INSIGHTS / 2026 W42</span><span class="tag fact">FACT</span></div><h2 class="title">来源与判断边界 2 / 3</h2><div class="body-content"><div class="sources"><a href="https://github.com/morluto/rea/blob/main/docs/javascript-recovery.md" target="_blank" rel="noopener"><b>F08</b><span>JavaScript 恢复限制</span><em>↗</em></a><a href="https://github.com/morluto/rea/blob/main/SECURITY.md" target="_blank" rel="noopener"><b>F09</b><span>安全边界与 FAQ</span><em>↗</em></a><a href="https://github.com/morluto/rea/blob/main/docs/testing.md" target="_blank" rel="noopener"><b>F10</b><span>测试与验证</span><em>↗</em></a><a href="https://www.salesforce.com/uk/events/london/" target="_blank" rel="noopener"><b>F11</b><span>Salesforce 计划活动与边界</span><em>↗</em></a><a href="https://github.com/morluto/rea/commit/bb154d1067b0fc250452b7d468d0b0523031a16f" target="_blank" rel="noopener"><b>F12</b><span>10/13 固定源码提交</span><em>↗</em></a><a href="https://docs.composio.dev/docs/sandbox/remote" target="_blank" rel="noopener"><b>F13</b><span>Composio 远程沙箱</span><em>↗</em></a><a href="https://docs.workato.com/en/mcp/mcp-gateway" target="_blank" rel="noopener"><b>F14</b><span>Workato MCP Gateway</span><em>↗</em></a></div><p class="small mt-l">原事件核查截至10/14；接口与CPU专题补充截至10/15。<br>产品文档不等于本周新发布；假设示例不是实测或采购预测。</p></div><div class="foot"><span>SOURCE LEDGER / RESEARCH LIMITS</span><span>23 / 24</span></div><aside class="notes">完整来源见配套文档。未实测CPU负载，未验证客户ROI或市场因果影响。旧事件未全量刷新到15日。</aside></section><section class="slide " data-title="来源与判断边界 3 / 3"><div class="topline"><span>AI INSIGHTS / 2026 W42</span><span class="tag fact">FACT</span></div><h2 class="title">来源与判断边界 3 / 3</h2><div class="body-content"><div class="sources"><a href="https://aws.amazon.com/bedrock/agentcore/pricing/" target="_blank" rel="noopener"><b>F15</b><span>AWS AgentCore 计量</span><em>↗</em></a><a href="https://e2b.dev/pricing" target="_blank" rel="noopener"><b>F16</b><span>E2B 沙箱配置计量</span><em>↗</em></a><a href="https://www.daytona.io/docs/billing" target="_blank" rel="noopener"><b>F17</b><span>Daytona 预留资源计费</span><em>↗</em></a><a href="https://developers.cloudflare.com/containers/platform/pricing/" target="_blank" rel="noopener"><b>F18</b><span>Cloudflare Containers</span><em>↗</em></a><a href="https://developers.cloudflare.com/browser-run/pricing/" target="_blank" rel="noopener"><b>F19</b><span>Cloudflare Browser Run</span><em>↗</em></a><a href="https://blog.cloudflare.com/code-mode-mcp/" target="_blank" rel="noopener"><b>F20</b><span>Cloudflare Code Mode</span><em>↗</em></a></div><p class="small mt-l">原事件核查截至10/14；接口与CPU专题补充截至10/15。<br>产品文档不等于本周新发布；假设示例不是实测或采购预测。</p></div><div class="foot"><span>SOURCE LEDGER / RESEARCH LIMITS</span><span>24 / 24</span></div><aside class="notes">完整来源见配套文档。未实测CPU负载，未验证客户ROI或市场因果影响。旧事件未全量刷新到15日。</aside></section></div><nav class="controls" aria-label="演示控制"><button data-key="ArrowLeft">← 上一页</button><button data-key="ArrowRight">下一页 →</button><button data-key="o">O 总览</button><button data-key="f">F 全屏</button><button data-key="n">N 备注</button><button data-key="s">S 演讲者</button></nav><script>/* html-ppt :: runtime.js
+ * Keyboard-driven deck runtime. Zero dependencies.
+ *
+ * Features:
+ *   ← → / space / PgUp PgDn / Home End  navigation
+ *   F  fullscreen
+ *   S  presenter mode (opens a NEW WINDOW with current/next slide preview + notes + timer)
+ *       The original window stays as audience view, synced via BroadcastChannel.
+ *       Slide previews use CSS transform:scale() at design resolution for pixel-perfect layout.
+ *   N  quick notes overlay (bottom drawer)
+ *   O  slide overview grid
+ *   T  cycle themes (reads data-themes on <html> or <body>)
+ *   A  cycle demo animation on current slide
+ *   URL hash #/N  deep-link to slide N (1-based)
+ *   Progress bar auto-managed
+ */
+(function () {
+  'use strict';
+
+  const ANIMS = ['fade-up','fade-down','fade-left','fade-right','rise-in','drop-in',
+    'zoom-pop','blur-in','glitch-in','typewriter','neon-glow','shimmer-sweep',
+    'gradient-flow','stagger-list','counter-up','path-draw','parallax-tilt',
+    'card-flip-3d','cube-rotate-3d','page-turn-3d','perspective-zoom',
+    'marquee-scroll','kenburns','confetti-burst','spotlight','morph-shape','ripple-reveal'];
+
+  function ready(fn){ if(document.readyState!='loading')fn(); else document.addEventListener('DOMContentLoaded',fn);}
+
+  /* ========== Parse URL for preview-only mode ==========
+   * When loaded as iframe.src = "index.html?preview=3", runtime enters a
+   * locked single-slide mode: only slide N is visible, no chrome, no keys,
+   * no hash updates. This is how the presenter window shows pixel-perfect
+   * previews — by loading the actual deck file in an iframe and telling it
+   * to display only a specific slide.
+   */
+  function getPreviewIdx() {
+    const m = /[?&]preview=(\d+)/.exec(location.search || '');
+    return m ? parseInt(m[1], 10) - 1 : -1;
+  }
+
+  ready(function () {
+    const deck = document.querySelector('.deck');
+    if (!deck) return;
+    const slides = Array.from(deck.querySelectorAll('.slide'));
+    if (!slides.length) return;
+
+    const previewOnlyIdx = getPreviewIdx();
+    const isPreviewMode = previewOnlyIdx >= 0 && previewOnlyIdx < slides.length;
+
+    /* ===== Preview-only mode: show one slide, hide everything else ===== */
+    if (isPreviewMode) {
+      function showSlide(i) {
+        slides.forEach((s, j) => {
+          const active = (j === i);
+          s.classList.toggle('is-active', active);
+          s.style.display = active ? '' : 'none';
+          if (active) {
+            s.style.opacity = '1';
+            s.style.transform = 'none';
+            s.style.pointerEvents = 'auto';
+          }
+        });
+      }
+      showSlide(previewOnlyIdx);
+      /* Hide chrome that the presenter shouldn't see in preview */
+      const hideSel = '.progress-bar, .notes-overlay, .overview, .notes, aside.notes, .speaker-notes';
+      document.querySelectorAll(hideSel).forEach(el => { el.style.display = 'none'; });
+      document.documentElement.setAttribute('data-preview', '1');
+      document.body.setAttribute('data-preview', '1');
+      /* Auto-detect theme base path for theme switching in preview mode */
+      function getPreviewThemeBase() {
+        const base = document.documentElement.getAttribute('data-theme-base');
+        if (base) return base;
+        const tl = document.getElementById('theme-link');
+        if (tl) {
+          const raw = tl.getAttribute('href') || '';
+          const ls = raw.lastIndexOf('/');
+          if (ls >= 0) return raw.substring(0, ls + 1);
+        }
+        return 'assets/themes/';
+      }
+      const previewThemeBase = getPreviewThemeBase();
+
+      /* Listen for postMessage from parent presenter window:
+       *  - preview-goto: switch visible slide WITHOUT reloading
+       *  - preview-theme: switch theme CSS link to match audience window */
+      window.addEventListener('message', function(e) {
+        if (!e.data) return;
+        if (e.data.type === 'preview-goto') {
+          const n = parseInt(e.data.idx, 10);
+          if (n >= 0 && n < slides.length) showSlide(n);
+        } else if (e.data.type === 'preview-theme' && e.data.name) {
+          let link = document.getElementById('theme-link');
+          if (!link) {
+            link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.id = 'theme-link';
+            document.head.appendChild(link);
+          }
+          link.href = previewThemeBase + e.data.name + '.css';
+          document.documentElement.setAttribute('data-theme', e.data.name);
+        }
+      });
+      /* Signal to parent that preview iframe is ready */
+      try { window.parent && window.parent.postMessage({ type: 'preview-ready' }, '*'); } catch(e) {}
+      return;
+    }
+
+    let idx = 0;
+    const total = slides.length;
+
+    /* ===== BroadcastChannel for presenter sync ===== */
+    const CHANNEL_NAME = 'html-ppt-presenter-' + location.pathname;
+    let bc;
+    try { bc = new BroadcastChannel(CHANNEL_NAME); } catch(e) { bc = null; }
+
+    // Are we running inside the presenter popup? (legacy flag, now unused)
+    const isPresenterWindow = false;
+
+    /* ===== progress bar ===== */
+    let bar = document.querySelector('.progress-bar');
+    if (!bar) {
+      bar = document.createElement('div');
+      bar.className = 'progress-bar';
+      bar.innerHTML = '<span></span>';
+      document.body.appendChild(bar);
+    }
+    const barFill = bar.querySelector('span');
+
+    /* ===== notes overlay (N key) ===== */
+    let notes = document.querySelector('.notes-overlay');
+    if (!notes) {
+      notes = document.createElement('div');
+      notes.className = 'notes-overlay';
+      document.body.appendChild(notes);
+    }
+
+    /* ===== overview grid (O key) ===== */
+    let overview = document.querySelector('.overview');
+    if (!overview) {
+      overview = document.createElement('div');
+      overview.className = 'overview';
+      slides.forEach((s, i) => {
+        const t = document.createElement('div');
+        t.className = 'thumb';
+        // Force 16:9 aspect ratio robustly
+        t.style.padding = '0 0 56.25% 0';
+        t.style.height = '0';
+        t.style.position = 'relative';
+        t.style.overflow = 'hidden';
+
+        const title = s.getAttribute('data-title') ||
+          (s.querySelector('h1,h2,h3')||{}).textContent || ('Slide '+(i+1));
+        
+        // Create a container for the mini-slide
+        const mini = document.createElement('div');
+        mini.className = 'mini-slide';
+        mini.style.position = 'absolute';
+        mini.style.top = '0';
+        mini.style.left = '0';
+        mini.style.width = '1920px';
+        mini.style.height = '1080px';
+        mini.style.transformOrigin = 'top left';
+        mini.style.pointerEvents = 'none';
+        mini.style.background = 'var(--bg)';
+        
+        // Clone the slide content
+        const clone = s.cloneNode(true);
+        clone.className = 'slide is-active'; // force active styles
+        clone.style.position = 'absolute';
+        clone.style.inset = '0';
+        clone.style.transform = 'none';
+        clone.style.opacity = '1';
+        clone.style.padding = '72px 96px'; // ensure padding is kept
+        
+        mini.appendChild(clone);
+        t.appendChild(mini);
+
+        // Add the number and title overlay
+        const overlay = document.createElement('div');
+        overlay.style.position = 'absolute';
+        overlay.style.inset = '0';
+        overlay.style.background = 'linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.8) 100%)';
+        overlay.style.color = '#fff';
+        overlay.style.zIndex = '10';
+        overlay.style.pointerEvents = 'none';
+        
+        const n = document.createElement('div');
+        n.className = 'n';
+        n.textContent = i + 1;
+        n.style.position = 'absolute';
+        n.style.top = '12px';
+        n.style.left = '16px';
+        n.style.fontWeight = '700';
+        n.style.fontSize = '16px';
+        n.style.color = '#fff';
+        n.style.textShadow = '0 1px 4px rgba(0,0,0,0.8)';
+        
+        const text = document.createElement('div');
+        text.className = 't';
+        text.textContent = title.trim().slice(0,80);
+        text.style.position = 'absolute';
+        text.style.bottom = '12px';
+        text.style.left = '16px';
+        text.style.right = '16px';
+        text.style.fontWeight = '600';
+        text.style.fontSize = '14px';
+        text.style.color = '#fff';
+        text.style.textShadow = '0 1px 4px rgba(0,0,0,0.8)';
+        
+        overlay.appendChild(n);
+        overlay.appendChild(text);
+        t.appendChild(overlay);
+
+        t.addEventListener('click', () => { go(i); toggleOverview(false); });
+        overview.appendChild(t);
+      });
+      document.body.appendChild(overview);
+    }
+
+    /* ===== navigation ===== */
+    function go(n, fromRemote){
+      n = Math.max(0, Math.min(total-1, n));
+      slides.forEach((s,i) => {
+        s.classList.toggle('is-active', i===n);
+        s.classList.toggle('is-prev', i<n);
+      });
+      idx = n;
+      barFill.style.width = ((n+1)/total*100)+'%';
+      const numEl = document.querySelector('.slide-number');
+      if (numEl) { numEl.setAttribute('data-current', n+1); numEl.setAttribute('data-total', total); }
+
+      // notes (bottom overlay)
+      const note = slides[n].querySelector('.notes, aside.notes, .speaker-notes');
+      notes.innerHTML = note ? note.innerHTML : '';
+
+      // hash
+      const hashTarget = '#/'+(n+1);
+      if (location.hash !== hashTarget && !isPresenterWindow) {
+        history.replaceState(null,'', hashTarget);
+      }
+
+      // re-trigger entry animations
+      slides[n].querySelectorAll('[data-anim]').forEach(el => {
+        const a = el.getAttribute('data-anim');
+        el.classList.remove('anim-'+a);
+        void el.offsetWidth;
+        el.classList.add('anim-'+a);
+      });
+
+      // counter-up
+      slides[n].querySelectorAll('.counter').forEach(el => {
+        const target = parseFloat(el.getAttribute('data-to')||el.textContent);
+        const dur = parseInt(el.getAttribute('data-dur')||'1200',10);
+        const start = performance.now();
+        const from = 0;
+        function tick(now){
+          const t = Math.min(1,(now-start)/dur);
+          const v = from + (target-from)*(1-Math.pow(1-t,3));
+          el.textContent = (target % 1 === 0) ? Math.round(v) : v.toFixed(1);
+          if (t<1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+
+      // Broadcast to other window (audience ↔ presenter)
+      if (!fromRemote && bc) {
+        bc.postMessage({ type: 'go', idx: n });
+      }
+    }
+
+    /* ===== listen for remote navigation / theme changes ===== */
+    if (bc) {
+      bc.onmessage = function(e) {
+        if (!e.data) return;
+        if (e.data.type === 'go' && typeof e.data.idx === 'number') {
+          go(e.data.idx, true);
+        } else if (e.data.type === 'theme' && e.data.name) {
+          /* Sync theme across windows */
+          const i = themes.indexOf(e.data.name);
+          if (i >= 0) themeIdx = i;
+          applyTheme(e.data.name);
+        }
+      };
+    }
+
+    function toggleNotes(force){ notes.classList.toggle('open', force!==undefined?force:!notes.classList.contains('open')); }
+    function toggleOverview(force){
+      const isOpen = force!==undefined ? force : !overview.classList.contains('open');
+      overview.classList.toggle('open', isOpen);
+      if (isOpen) {
+        requestAnimationFrame(() => {
+          const thumbs = overview.querySelectorAll('.thumb');
+          if (thumbs.length) {
+            const scale = thumbs[0].clientWidth / 1920;
+            overview.querySelectorAll('.mini-slide').forEach(m => {
+              m.style.transform = 'scale(' + scale + ')';
+            });
+          }
+        });
+      }
+    }
+
+    /* ========== PRESENTER MODE — Magnetic-card popup window ========== */
+    /* Opens a new window with 4 draggable, resizable cards:
+     *   CURRENT  — iframe(?preview=N)   pixel-perfect preview of current slide
+     *   NEXT     — iframe(?preview=N+1) pixel-perfect preview of next slide
+     *   SCRIPT   — large speaker notes (逐字稿)
+     *   TIMER    — elapsed timer + page counter + controls
+     * Cards remember position/size in localStorage.
+     * Two windows sync via BroadcastChannel.
+     */
+    let presenterWin = null;
+
+    function openPresenterWindow() {
+      if (presenterWin && !presenterWin.closed) {
+        presenterWin.focus();
+        return;
+      }
+
+      // Build absolute URL of THIS deck file (without hash/query)
+      const deckUrl = location.protocol + '//' + location.host + location.pathname;
+
+      // Collect slide titles + notes (HTML strings)
+      const slideMeta = slides.map((s, i) => {
+        const note = s.querySelector('.notes, aside.notes, .speaker-notes');
+        return {
+          title: s.getAttribute('data-title') ||
+            (s.querySelector('h1,h2,h3')||{}).textContent || ('Slide '+(i+1)),
+          notes: note ? note.innerHTML : ''
+        };
+      });
+
+      /* Capture current theme so presenter previews match the audience */
+      const currentTheme = root.getAttribute('data-theme') || (themes[themeIdx] || '');
+      const presenterHTML = buildPresenterHTML(deckUrl, slideMeta, total, idx, CHANNEL_NAME, currentTheme);
+
+      presenterWin = window.open('', 'html-ppt-presenter', 'width=1280,height=820,menubar=no,toolbar=no');
+      if (!presenterWin) {
+        alert('请允许弹出窗口以使用演讲者视图');
+        return;
+      }
+      presenterWin.document.open();
+      presenterWin.document.write(presenterHTML);
+      presenterWin.document.close();
+    }
+
+    function buildPresenterHTML(deckUrl, slideMeta, total, startIdx, channelName, currentTheme) {
+      const metaJSON = JSON.stringify(slideMeta);
+      const deckUrlJSON = JSON.stringify(deckUrl);
+      const channelJSON = JSON.stringify(channelName);
+      const themeJSON = JSON.stringify(currentTheme || '');
+      const storageKey = 'html-ppt-presenter:' + location.pathname;
+
+      // Build the document as a single template string for clarity
+      return `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>Presenter View</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 100%; height: 100%; overflow: hidden;
+    background: #1a1d24;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(88,166,255,.04), transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(188,140,255,.04), transparent 50%);
+    color: #e6edf3;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+  }
+  /* Stage: positioned area where cards live */
+  #stage { position: absolute; inset: 0; overflow: hidden; }
+
+  /* Magnetic card */
+  .pcard {
+    position: absolute;
+    background: #0d1117;
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.02);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    min-width: 180px; min-height: 100px;
+    transition: box-shadow .2s, border-color .2s;
+  }
+  .pcard.dragging { box-shadow: 0 16px 48px rgba(0,0,0,.6), 0 0 0 2px rgba(88,166,255,.5); border-color: #58a6ff; transition: none; z-index: 9999; }
+  .pcard.resizing { box-shadow: 0 16px 48px rgba(0,0,0,.6), 0 0 0 2px rgba(63,185,80,.5); border-color: #3fb950; transition: none; z-index: 9999; }
+  .pcard:hover { border-color: rgba(88,166,255,.3); }
+
+  /* Card header (drag handle) */
+  .pcard-head {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 12px;
+    background: rgba(255,255,255,.04);
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    cursor: move;
+    user-select: none;
+    flex-shrink: 0;
+  }
+  .pcard-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--dot-color, #58a6ff); flex-shrink: 0; }
+  .pcard-title {
+    font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
+    font-weight: 700; color: #8b949e; flex: 1;
+  }
+  .pcard-meta { font-size: 11px; color: #6e7681; }
+
+  /* Card body */
+  .pcard-body { flex: 1; position: relative; overflow: hidden; min-height: 0; }
+
+  /* Preview cards (CURRENT/NEXT) — iframe-based pixel-perfect render */
+  .pcard-preview .pcard-body { background: #000; }
+  .pcard-preview iframe {
+    position: absolute; top: 0; left: 0;
+    width: 1920px; height: 1080px;
+    border: none;
+    transform-origin: top left;
+    pointer-events: none;
+    background: transparent;
+  }
+  .pcard-preview .preview-end {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: #484f58; font-size: 14px; letter-spacing: .12em;
+  }
+
+  /* Notes card */
+  .pcard-notes .pcard-body {
+    padding: 14px 18px;
+    overflow-y: auto;
+    font-size: 18px; line-height: 1.75;
+    color: #d0d7de;
+    font-family: "Noto Sans SC", -apple-system, sans-serif;
+  }
+  .pcard-notes .pcard-body p { margin: 0 0 .7em 0; }
+  .pcard-notes .pcard-body strong { color: #f0883e; }
+  .pcard-notes .pcard-body em { color: #58a6ff; font-style: normal; }
+  .pcard-notes .pcard-body code {
+    font-family: "SF Mono", monospace; font-size: .9em;
+    background: rgba(255,255,255,.08); padding: 1px 6px; border-radius: 4px;
+  }
+  .pcard-notes .empty { color: #484f58; font-style: italic; }
+
+  /* Timer card */
+  .pcard-timer .pcard-body {
+    display: flex; flex-direction: column; gap: 14px;
+    padding: 18px 20px; justify-content: center;
+  }
+  .timer-display {
+    font-family: "SF Mono", "JetBrains Mono", monospace;
+    font-size: 42px; font-weight: 700;
+    color: #3fb950;
+    letter-spacing: .04em;
+    line-height: 1;
+  }
+  .timer-row {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 14px; color: #8b949e;
+  }
+  .timer-row .label { font-size: 10px; letter-spacing: .15em; text-transform: uppercase; color: #6e7681; }
+  .timer-row .val { color: #e6edf3; font-weight: 600; font-family: "SF Mono", monospace; }
+  .timer-controls { display: flex; gap: 8px; flex-wrap: wrap; }
+  .timer-btn {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.1);
+    color: #e6edf3;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .timer-btn:hover { background: rgba(88,166,255,.15); border-color: #58a6ff; }
+  .timer-btn:active { transform: translateY(1px); }
+
+  /* Resize handle */
+  .pcard-resize {
+    position: absolute; right: 0; bottom: 0;
+    width: 18px; height: 18px;
+    cursor: nwse-resize;
+    background: linear-gradient(135deg, transparent 50%, rgba(255,255,255,.25) 50%, rgba(255,255,255,.25) 60%, transparent 60%, transparent 70%, rgba(255,255,255,.25) 70%, rgba(255,255,255,.25) 80%, transparent 80%);
+    z-index: 5;
+  }
+  .pcard-resize:hover { background: linear-gradient(135deg, transparent 50%, #58a6ff 50%, #58a6ff 60%, transparent 60%, transparent 70%, #58a6ff 70%, #58a6ff 80%, transparent 80%); }
+
+  /* Bottom hint bar */
+  .hint-bar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: rgba(0,0,0,.6);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255,255,255,.08);
+    padding: 6px 16px;
+    font-size: 11px; color: #8b949e;
+    display: flex; gap: 18px; align-items: center;
+    z-index: 1000;
+  }
+  .hint-bar kbd {
+    background: rgba(255,255,255,.08);
+    padding: 1px 6px; border-radius: 3px;
+    font-family: "SF Mono", monospace;
+    font-size: 10px;
+    border: 1px solid rgba(255,255,255,.1);
+    color: #e6edf3;
+  }
+  .hint-bar .reset-layout {
+    margin-left: auto;
+    background: transparent; border: 1px solid rgba(255,255,255,.15);
+    color: #8b949e; padding: 3px 10px; border-radius: 4px;
+    font-size: 11px; cursor: pointer; font-family: inherit;
+  }
+  .hint-bar .reset-layout:hover { background: rgba(248,81,73,.15); border-color: #f85149; color: #f85149; }
+
+  body.is-dragging-card * { user-select: none !important; }
+  body.is-dragging-card iframe { pointer-events: none !important; }
+</style>
+</head>
+<body>
+
+<div id="stage">
+  <div class="pcard pcard-preview" id="card-cur" style="--dot-color:#58a6ff">
+    <div class="pcard-head" data-drag>
+      <span class="pcard-dot"></span>
+      <span class="pcard-title">CURRENT</span>
+      <span class="pcard-meta" id="cur-meta">—</span>
+    </div>
+    <div class="pcard-body"><iframe id="iframe-cur"></iframe></div>
+    <div class="pcard-resize" data-resize></div>
+  </div>
+
+  <div class="pcard pcard-preview" id="card-nxt" style="--dot-color:#bc8cff">
+    <div class="pcard-head" data-drag>
+      <span class="pcard-dot"></span>
+      <span class="pcard-title">NEXT</span>
+      <span class="pcard-meta" id="nxt-meta">—</span>
+    </div>
+    <div class="pcard-body"><iframe id="iframe-nxt"></iframe></div>
+    <div class="pcard-resize" data-resize></div>
+  </div>
+
+  <div class="pcard pcard-notes" id="card-notes" style="--dot-color:#f0883e">
+    <div class="pcard-head" data-drag>
+      <span class="pcard-dot"></span>
+      <span class="pcard-title">SPEAKER SCRIPT · 逐字稿</span>
+    </div>
+    <div class="pcard-body" id="notes-body"></div>
+    <div class="pcard-resize" data-resize></div>
+  </div>
+
+  <div class="pcard pcard-timer" id="card-timer" style="--dot-color:#3fb950">
+    <div class="pcard-head" data-drag>
+      <span class="pcard-dot"></span>
+      <span class="pcard-title">TIMER</span>
+    </div>
+    <div class="pcard-body">
+      <div class="timer-display" id="timer-display">00:00</div>
+      <div class="timer-row">
+        <span class="label">Slide</span>
+        <span class="val" id="timer-count">1 / ${total}</span>
+      </div>
+      <div class="timer-controls">
+        <button class="timer-btn" id="btn-prev">← Prev</button>
+        <button class="timer-btn" id="btn-next">Next →</button>
+        <button class="timer-btn" id="btn-reset">⏱ Reset</button>
+      </div>
+    </div>
+    <div class="pcard-resize" data-resize></div>
+  </div>
+</div>
+
+<div class="hint-bar">
+  <span><kbd>← →</kbd> 翻页</span>
+  <span><kbd>R</kbd> 重置计时</span>
+  <span><kbd>Esc</kbd> 关闭</span>
+  <span style="color:#6e7681">拖动卡片头部移动 · 拖动右下角调整大小</span>
+  <button class="reset-layout" id="reset-layout">重置布局</button>
+</div>
+
+<script>
+(function(){
+  var slideMeta = ${metaJSON};
+  var total = ${total};
+  var idx = ${startIdx};
+  var deckUrl = ${deckUrlJSON};
+  var STORAGE_KEY = ${JSON.stringify(storageKey)};
+  var bc;
+  try { bc = new BroadcastChannel(${channelJSON}); } catch(e) {}
+
+  var iframeCur = document.getElementById('iframe-cur');
+  var iframeNxt = document.getElementById('iframe-nxt');
+  var notesBody = document.getElementById('notes-body');
+  var curMeta = document.getElementById('cur-meta');
+  var nxtMeta = document.getElementById('nxt-meta');
+  var timerDisplay = document.getElementById('timer-display');
+  var timerCount = document.getElementById('timer-count');
+
+  /* ===== Default card layout ===== */
+  function defaultLayout() {
+    var w = window.innerWidth;
+    var h = window.innerHeight - 36; /* leave room for hint bar */
+    return {
+      'card-cur':   { x: 16,        y: 16,            w: Math.round(w*0.55) - 24, h: Math.round(h*0.62) - 16 },
+      'card-nxt':   { x: Math.round(w*0.55) + 8, y: 16, w: w - Math.round(w*0.55) - 24, h: Math.round(h*0.42) - 16 },
+      'card-notes': { x: Math.round(w*0.55) + 8, y: Math.round(h*0.42) + 8, w: w - Math.round(w*0.55) - 24, h: h - Math.round(h*0.42) - 16 },
+      'card-timer': { x: 16,        y: Math.round(h*0.62) + 8, w: Math.round(w*0.55) - 24, h: h - Math.round(h*0.62) - 16 }
+    };
+  }
+
+  /* ===== Apply / save / restore layout ===== */
+  function applyLayout(layout) {
+    Object.keys(layout).forEach(function(id){
+      var el = document.getElementById(id);
+      var l = layout[id];
+      if (el && l) {
+        el.style.left = l.x + 'px';
+        el.style.top = l.y + 'px';
+        el.style.width = l.w + 'px';
+        el.style.height = l.h + 'px';
+      }
+    });
+    rescaleAll();
+  }
+  function readLayout() {
+    try {
+      var saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) return JSON.parse(saved);
+    } catch(e) {}
+    return defaultLayout();
+  }
+  function saveLayout() {
+    var layout = {};
+    ['card-cur','card-nxt','card-notes','card-timer'].forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) {
+        layout[id] = {
+          x: parseInt(el.style.left,10) || 0,
+          y: parseInt(el.style.top,10) || 0,
+          w: parseInt(el.style.width,10) || 300,
+          h: parseInt(el.style.height,10) || 200
+        };
+      }
+    });
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(layout)); } catch(e) {}
+  }
+
+  /* ===== iframe rescale to fit card body ===== */
+  function rescaleIframe(iframe) {
+    if (!iframe || iframe.style.display === 'none') return;
+    var body = iframe.parentElement;
+    var cw = body.clientWidth, ch = body.clientHeight;
+    if (!cw || !ch) return;
+    var s = Math.min(cw / 1920, ch / 1080);
+    iframe.style.transform = 'scale(' + s + ')';
+    /* Center the scaled iframe in the body */
+    var sw = 1920 * s, sh = 1080 * s;
+    iframe.style.left = Math.max(0, (cw - sw) / 2) + 'px';
+    iframe.style.top = Math.max(0, (ch - sh) / 2) + 'px';
+  }
+  function rescaleAll() {
+    rescaleIframe(iframeCur);
+    rescaleIframe(iframeNxt);
+  }
+  window.addEventListener('resize', rescaleAll);
+
+  /* ===== Drag (move card by header) ===== */
+  document.querySelectorAll('[data-drag]').forEach(function(handle){
+    handle.addEventListener('mousedown', function(e){
+      if (e.button !== 0) return;
+      var card = handle.closest('.pcard');
+      if (!card) return;
+      e.preventDefault();
+      card.classList.add('dragging');
+      document.body.classList.add('is-dragging-card');
+      var startX = e.clientX, startY = e.clientY;
+      var startL = parseInt(card.style.left,10) || 0;
+      var startT = parseInt(card.style.top,10)  || 0;
+      function onMove(ev){
+        var nx = Math.max(0, Math.min(window.innerWidth - 100, startL + ev.clientX - startX));
+        var ny = Math.max(0, Math.min(window.innerHeight - 50, startT + ev.clientY - startY));
+        card.style.left = nx + 'px';
+        card.style.top = ny + 'px';
+      }
+      function onUp(){
+        card.classList.remove('dragging');
+        document.body.classList.remove('is-dragging-card');
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', onUp);
+        saveLayout();
+      }
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+    });
+  });
+
+  /* ===== Resize (drag bottom-right corner) ===== */
+  document.querySelectorAll('[data-resize]').forEach(function(handle){
+    handle.addEventListener('mousedown', function(e){
+      if (e.button !== 0) return;
+      var card = handle.closest('.pcard');
+      if (!card) return;
+      e.preventDefault(); e.stopPropagation();
+      card.classList.add('resizing');
+      document.body.classList.add('is-dragging-card');
+      var startX = e.clientX, startY = e.clientY;
+      var startW = parseInt(card.style.width,10)  || card.offsetWidth;
+      var startH = parseInt(card.style.height,10) || card.offsetHeight;
+      function onMove(ev){
+        var nw = Math.max(180, startW + ev.clientX - startX);
+        var nh = Math.max(100, startH + ev.clientY - startY);
+        card.style.width = nw + 'px';
+        card.style.height = nh + 'px';
+        if (card.querySelector('iframe')) rescaleIframe(card.querySelector('iframe'));
+      }
+      function onUp(){
+        card.classList.remove('resizing');
+        document.body.classList.remove('is-dragging-card');
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', onUp);
+        rescaleAll();
+        saveLayout();
+      }
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+    });
+  });
+
+  /* ===== Preview iframe ready tracking =====
+   * Each iframe loads the deck ONCE with ?preview=1 on init. Subsequent
+   * slide changes are sent via postMessage('preview-goto') so the iframe
+   * just toggles visibility of a different .slide — no reload, no flicker.
+   */
+  var iframeReady = { cur: false, nxt: false };
+  var currentTheme = ${themeJSON};
+  window.addEventListener('message', function(e) {
+    if (!e.data || e.data.type !== 'preview-ready') return;
+    var iframe = null;
+    if (e.source === iframeCur.contentWindow) {
+      iframeReady.cur = true;
+      iframe = iframeCur;
+      postPreviewGoto(iframeCur, idx);
+    } else if (e.source === iframeNxt.contentWindow) {
+      iframeReady.nxt = true;
+      iframe = iframeNxt;
+      postPreviewGoto(iframeNxt, idx + 1 < total ? idx + 1 : idx);
+    }
+    /* Sync current theme to the iframe */
+    if (iframe && currentTheme) {
+      try { iframe.contentWindow.postMessage({ type: 'preview-theme', name: currentTheme }, '*'); } catch(err) {}
+    }
+    if (iframe) rescaleIframe(iframe);
+  });
+
+  function postPreviewGoto(iframe, n) {
+    try {
+      iframe.contentWindow.postMessage({ type: 'preview-goto', idx: n }, '*');
+    } catch(e) {}
+  }
+
+  /* ===== Update content =====
+   * Smooth (no-reload) navigation: send postMessage to iframes instead of
+   * resetting src. Iframes stay loaded, just switch visible .slide.
+   */
+  function update(n) {
+    n = Math.max(0, Math.min(total - 1, n));
+    idx = n;
+
+    /* Current preview — postMessage (smooth) */
+    if (iframeReady.cur) postPreviewGoto(iframeCur, n);
+    curMeta.textContent = (n + 1) + '/' + total;
+
+    /* Next preview */
+    if (n + 1 < total) {
+      iframeNxt.style.display = '';
+      var endEl = document.querySelector('#card-nxt .preview-end');
+      if (endEl) endEl.remove();
+      if (iframeReady.nxt) postPreviewGoto(iframeNxt, n + 1);
+      nxtMeta.textContent = (n + 2) + '/' + total;
+    } else {
+      iframeNxt.style.display = 'none';
+      var body = document.querySelector('#card-nxt .pcard-body');
+      if (body && !body.querySelector('.preview-end')) {
+        var end = document.createElement('div');
+        end.className = 'preview-end';
+        end.textContent = '— END OF DECK —';
+        body.appendChild(end);
+      }
+      nxtMeta.textContent = 'END';
+    }
+
+    /* Notes */
+    var note = slideMeta[n].notes;
+    notesBody.innerHTML = note || '<span class="empty">（这一页还没有逐字稿）</span>';
+
+    /* Timer count */
+    timerCount.textContent = (n + 1) + ' / ' + total;
+  }
+
+  /* ===== Timer ===== */
+  var tStart = Date.now();
+  setInterval(function(){
+    var s = Math.floor((Date.now() - tStart) / 1000);
+    var mm = String(Math.floor(s/60)).padStart(2,'0');
+    var ss = String(s%60).padStart(2,'0');
+    timerDisplay.textContent = mm + ':' + ss;
+  }, 1000);
+  function resetTimer(){ tStart = Date.now(); timerDisplay.textContent = '00:00'; }
+
+  /* ===== BroadcastChannel sync ===== */
+  if (bc) {
+    bc.onmessage = function(e){
+      if (!e.data) return;
+      if (e.data.type === 'go') update(e.data.idx);
+      else if (e.data.type === 'theme' && e.data.name) {
+        currentTheme = e.data.name;
+        /* Forward theme change to preview iframes */
+        [iframeCur, iframeNxt].forEach(function(iframe){
+          try {
+            iframe.contentWindow.postMessage({ type: 'preview-theme', name: e.data.name }, '*');
+          } catch(err) {}
+        });
+      }
+    };
+  }
+  function go(n) {
+    update(n);
+    if (bc) bc.postMessage({ type: 'go', idx: idx });
+  }
+
+  /* ===== Buttons ===== */
+  document.getElementById('btn-prev').addEventListener('click', function(){ go(idx - 1); });
+  document.getElementById('btn-next').addEventListener('click', function(){ go(idx + 1); });
+  document.getElementById('btn-reset').addEventListener('click', resetTimer);
+  document.getElementById('reset-layout').addEventListener('click', function(){
+    if (confirm('恢复默认卡片布局？')) {
+      try { localStorage.removeItem(STORAGE_KEY); } catch(e){}
+      applyLayout(defaultLayout());
+    }
+  });
+
+  /* ===== Keyboard ===== */
+  document.addEventListener('keydown', function(e){
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    switch(e.key) {
+      case 'ArrowRight': case ' ': case 'PageDown': go(idx + 1); e.preventDefault(); break;
+      case 'ArrowLeft':  case 'PageUp':   go(idx - 1); e.preventDefault(); break;
+      case 'Home': go(0); break;
+      case 'End':  go(total - 1); break;
+      case 'r': case 'R': resetTimer(); break;
+      case 'Escape': window.close(); break;
+    }
+  });
+
+  /* ===== Iframe load → rescale (catches initial size) ===== */
+  iframeCur.addEventListener('load', function(){ rescaleIframe(iframeCur); });
+  iframeNxt.addEventListener('load', function(){ rescaleIframe(iframeNxt); });
+
+  /* ===== Init =====
+   * Load each iframe ONCE with the deck file. After they post
+   * 'preview-ready', all subsequent navigation is via postMessage
+   * (smooth, no reload, no flicker).
+   */
+  applyLayout(readLayout());
+  iframeCur.src = deckUrl + '?preview=' + (idx + 1);
+  if (idx + 1 < total) iframeNxt.src = deckUrl + '?preview=' + (idx + 2);
+  /* Initialize notes/timer/count without touching iframes */
+  notesBody.innerHTML = slideMeta[idx].notes || '<span class="empty">（这一页还没有逐字稿）</span>';
+  curMeta.textContent = (idx + 1) + '/' + total;
+  nxtMeta.textContent = (idx + 2) + '/' + total;
+  timerCount.textContent = (idx + 1) + ' / ' + total;
+})();
+</` + `script>
+</body></html>`;
+    }
+
+    function fullscreen(){ const el=document.documentElement;
+      if (!document.fullscreenElement) el.requestFullscreen&&el.requestFullscreen();
+      else document.exitFullscreen&&document.exitFullscreen();
+    }
+
+    // theme cycling
+    const root = document.documentElement;
+    const themesAttr = root.getAttribute('data-themes') || document.body.getAttribute('data-themes');
+    const themes = themesAttr ? themesAttr.split(',').map(s=>s.trim()).filter(Boolean) : [];
+    let themeIdx = 0;
+
+    // Auto-detect theme base path from existing <link id="theme-link">
+    let themeBase = root.getAttribute('data-theme-base');
+    if (!themeBase) {
+      const existingLink = document.getElementById('theme-link');
+      if (existingLink) {
+        // el.getAttribute('href') gives the raw relative path written in HTML
+        const rawHref = existingLink.getAttribute('href') || '';
+        const lastSlash = rawHref.lastIndexOf('/');
+        themeBase = lastSlash >= 0 ? rawHref.substring(0, lastSlash + 1) : 'assets/themes/';
+      } else {
+        themeBase = 'assets/themes/';
+      }
+    }
+
+    function applyTheme(name) {
+      let link = document.getElementById('theme-link');
+      if (!link) {
+        link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.id = 'theme-link';
+        document.head.appendChild(link);
+      }
+      link.href = themeBase + name + '.css';
+      root.setAttribute('data-theme', name);
+      const ind = document.querySelector('.theme-indicator');
+      if (ind) ind.textContent = name;
+    }
+    function cycleTheme(fromRemote){
+      if (!themes.length) return;
+      themeIdx = (themeIdx+1) % themes.length;
+      const name = themes[themeIdx];
+      applyTheme(name);
+      /* Broadcast to other window (audience ↔ presenter) */
+      if (!fromRemote && bc) bc.postMessage({ type: 'theme', name: name });
+    }
+
+    // animation cycling on current slide
+    let animIdx = 0;
+    function cycleAnim(){
+      animIdx = (animIdx+1) % ANIMS.length;
+      const a = ANIMS[animIdx];
+      const target = slides[idx].querySelector('[data-anim-target]') || slides[idx];
+      ANIMS.forEach(x => target.classList.remove('anim-'+x));
+      void target.offsetWidth;
+      target.classList.add('anim-'+a);
+      target.setAttribute('data-anim', a);
+      const ind = document.querySelector('.anim-indicator');
+      if (ind) ind.textContent = a;
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (e.metaKey||e.ctrlKey||e.altKey) return;
+      switch (e.key) {
+        case 'ArrowRight': case ' ': case 'PageDown': case 'Enter': go(idx+1); e.preventDefault(); break;
+        case 'ArrowLeft': case 'PageUp': case 'Backspace': go(idx-1); e.preventDefault(); break;
+        case 'Home': go(0); break;
+        case 'End': go(total-1); break;
+        case 'f': case 'F': fullscreen(); break;
+        case 's': case 'S': openPresenterWindow(); break;
+        case 'n': case 'N': toggleNotes(); break;
+        case 'o': case 'O': toggleOverview(); break;
+        case 't': case 'T': cycleTheme(); break;
+        case 'a': case 'A': cycleAnim(); break;
+        case 'Escape': toggleOverview(false); toggleNotes(false); break;
+      }
+    });
+
+    // hash deep-link
+    function fromHash(){
+      const m = /^#\/(\d+)/.exec(location.hash||'');
+      if (m) go(Math.max(0, parseInt(m[1],10)-1));
+    }
+    window.addEventListener('hashchange', fromHash);
+    fromHash();
+    go(idx);
+  });
+})();
+</script><script>function fit(){document.documentElement.style.setProperty('--deck-scale',Math.min(innerWidth/1920,innerHeight/1080));}addEventListener('resize',fit);fit();document.querySelectorAll('.controls button').forEach(b=>b.onclick=()=>document.dispatchEvent(new KeyboardEvent('keydown',{key:b.dataset.key,bubbles:true})));</script></body></html>
