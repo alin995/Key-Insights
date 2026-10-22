@@ -37,6 +37,10 @@
 [AI办公生态趋势观察-Week 13 ](https://github.com/alin995/Key-Insights/blob/main/feishu-charts/AI%E5%8A%9E%E5%85%AC%E7%94%9F%E6%80%81%E8%B6%8B%E5%8A%BF%E8%A7%82%E5%AF%9F-Week%2013.html)
 
 [AI办公生态趋势观察-Week 14 ](https://github.com/alin995/Key-Insights/blob/main/AI%E5%8A%9E%E5%85%AC%E7%94%9F%E6%80%81%E8%B6%8B%E5%8A%BF%E8%A7%82%E5%AF%9F-Week%2014%EF%BD%9CREA%E4%B8%8ESaaS%E5%B8%82%E5%9C%BA%E6%B4%9E%E5%AF%9F.html)
+
+
+[AI办公生态趋势观察-Week 15 ](https://github.com/alin995/Key-Insights/blob/main/AI%E5%8A%9E%E5%85%AC%E7%94%9F%E6%80%81%E8%B6%8B%E5%8A%BF%E8%A7%82%E5%AF%9F-Week%2015%EF%BD%9CPersonalAI%E4%B8%8EAgent%E6%89%A7%E8%A1%8C%E5%B9%B3%E5%8F%B0.html)
+
 ***
 
 #### 参与贡献
