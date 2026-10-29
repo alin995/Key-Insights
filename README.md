@@ -41,6 +41,9 @@
 
 [AI办公生态趋势观察-Week 15 ](https://github.com/alin995/Key-Insights/blob/main/AI%E5%8A%9E%E5%85%AC%E7%94%9F%E6%80%81%E8%B6%8B%E5%8A%BF%E8%A7%82%E5%AF%9F-Week%2015%EF%BD%9CPersonalAI%E4%B8%8EAgent%E6%89%A7%E8%A1%8C%E5%B9%B3%E5%8F%B0.html)
 
+[AI办公生态趋势观察-Week 15 ](https://github.com/alin995/Key-Insights/blob/main/AI%E5%8A%9E%E5%85%AC%E7%94%9F%E6%80%81%E8%B6%8B%E5%8A%BF%E8%A7%82%E5%AF%9F-Week%2016%EF%BD%9C%E6%A8%A1%E5%9E%8B%E4%B8%8EAgent%E6%89%A7%E8%A1%8C%E8%B4%9F%E8%BD%BD-MUJI.html)
+
+
 ***
 
 #### 参与贡献
