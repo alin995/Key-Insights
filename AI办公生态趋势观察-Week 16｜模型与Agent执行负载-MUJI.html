@@ -1,0 +1,1410 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>从模型能力到任务交付 · W44 洞察</title><style>/* html-ppt :: base.css — reset + shared tokens + layout primitives */
+/* Default tokens. Themes in assets/themes/*.css override the :root block. */
+:root {
+  --bg: #ffffff;
+  --bg-soft: #f7f7f8;
+  --surface: #ffffff;
+  --surface-2: #f2f2f4;
+  --border: rgba(0,0,0,.08);
+  --border-strong: rgba(0,0,0,.16);
+  --text-1: #111216;
+  --text-2: #55596a;
+  --text-3: #8a8f9e;
+  --accent: #3b6cff;
+  --accent-2: #7a5cff;
+  --accent-3: #ff5c8a;
+  --good: #1aaf6c;
+  --warn: #f5a524;
+  --bad:  #e0445a;
+  --grad: linear-gradient(135deg,#3b6cff,#7a5cff 55%,#ff5c8a);
+  --grad-soft: linear-gradient(135deg,#eef2ff,#f5ecff 55%,#ffeef5);
+  --radius: 18px;
+  --radius-sm: 12px;
+  --radius-lg: 26px;
+  --shadow: 0 10px 30px rgba(18,24,40,.08), 0 2px 6px rgba(18,24,40,.04);
+  --shadow-lg: 0 24px 60px rgba(18,24,40,.14), 0 6px 16px rgba(18,24,40,.06);
+  --font-sans: 'Inter','Noto Sans SC',-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;
+  --font-serif: 'Playfair Display','Noto Serif SC',Georgia,serif;
+  --font-mono: 'JetBrains Mono','IBM Plex Mono',SFMono-Regular,Menlo,monospace;
+  --font-display: var(--font-sans);
+  --letter-tight: -.03em;
+  --letter-normal: -.01em;
+  --ease: cubic-bezier(.4,0,.2,1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text-1);
+  font-family:var(--font-sans);font-weight:400;line-height:1.6;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  letter-spacing:var(--letter-normal)}
+img,svg,video{max-width:100%;display:block}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+code,kbd,pre,samp{font-family:var(--font-mono)}
+
+/* ================= SLIDE SYSTEM ================= */
+.deck{position:relative;width:100vw;height:100vh;overflow:hidden;background:var(--bg)}
+.slide{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:72px 96px;
+  box-sizing:border-box;
+  opacity:0;pointer-events:none;
+  transition:opacity .5s var(--ease), transform .5s var(--ease);
+  transform:translateX(30px);
+  overflow:hidden;
+}
+.slide.is-active{opacity:1;pointer-events:auto;transform:translateX(0);z-index:2}
+.slide.is-prev{transform:translateX(-30px)}
+
+/* single-page standalone (used when a layout file is opened directly) */
+body.single .slide{position:relative;width:100vw;height:100vh;opacity:1;transform:none;pointer-events:auto}
+
+/* ================= TYPOGRAPHY ================= */
+.eyebrow{font-size:13px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3)}
+.kicker{font-size:14px;font-weight:600;color:var(--accent);letter-spacing:.08em;text-transform:uppercase}
+h1.title,.h1{font-family:var(--font-display);font-size:72px;line-height:1.05;font-weight:800;letter-spacing:var(--letter-tight);margin:0 0 18px;color:var(--text-1)}
+h2.title,.h2{font-family:var(--font-display);font-size:54px;line-height:1.1;font-weight:700;letter-spacing:var(--letter-tight);margin:0 0 14px}
+h3,.h3{font-size:32px;line-height:1.2;font-weight:600;letter-spacing:var(--letter-normal);margin:0 0 10px}
+h4,.h4{font-size:22px;line-height:1.3;font-weight:600;margin:0 0 8px}
+.lede{font-size:22px;line-height:1.55;color:var(--text-2);font-weight:300;max-width:62ch}
+.dim{color:var(--text-2)}
+.dim2{color:var(--text-3)}
+.mono{font-family:var(--font-mono)}
+.serif{font-family:var(--font-serif)}
+.gradient-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+
+/* ================= LAYOUT PRIMITIVES ================= */
+.stack>*+*{margin-top:14px}
+.row{display:flex;gap:24px;align-items:center}
+.row.wrap{flex-wrap:wrap}
+.grid{display:grid;gap:24px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.center{display:flex;align-items:center;justify-content:center;text-align:center}
+.fill{flex:1}
+.sp-t{padding-top:24px}.sp-b{padding-bottom:24px}
+.mt-s{margin-top:8px}.mt-m{margin-top:18px}.mt-l{margin-top:32px}
+.mb-s{margin-bottom:8px}.mb-m{margin-bottom:18px}.mb-l{margin-bottom:32px}
+
+/* ================= CARDS ================= */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:26px 28px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.card-soft{background:var(--surface-2);border:1px solid var(--border)}
+.card-outline{background:transparent;border:1.5px solid var(--border-strong);box-shadow:none}
+.card-accent{background:var(--surface);border-top:3px solid var(--accent)}
+.card-hover{transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.card-hover:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+
+.pill{display:inline-block;padding:4px 12px;border-radius:999px;font-size:12px;font-weight:500;
+  background:var(--surface-2);color:var(--text-2);border:1px solid var(--border)}
+.pill-accent{background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--accent);border-color:color-mix(in srgb,var(--accent) 28%,transparent)}
+
+/* ================= BARS / DIVIDERS ================= */
+.divider{height:1px;background:var(--border);width:100%}
+.divider-accent{height:3px;width:72px;background:var(--accent);border-radius:2px}
+
+/* ================= CHROME (header/footer/progress) ================= */
+.deck-header{position:absolute;top:24px;left:40px;right:40px;display:flex;align-items:center;justify-content:space-between;
+  font-size:12px;color:var(--text-3);letter-spacing:.12em;text-transform:uppercase;z-index:10;pointer-events:none}
+.deck-footer{position:absolute;bottom:24px;left:40px;right:40px;display:flex;align-items:center;justify-content:space-between;
+  font-size:12px;color:var(--text-3);z-index:10;pointer-events:none}
+.slide-number::before{content:attr(data-current)}
+.slide-number::after{content:" / " attr(data-total)}
+.progress-bar{position:fixed;left:0;right:0;bottom:0;height:3px;background:transparent;z-index:20}
+.progress-bar > span{display:block;height:100%;width:0;background:var(--accent);transition:width .3s var(--ease)}
+
+/* ================= PRESENTER / OVERVIEW ================= */
+.notes{display:none!important}
+.notes-overlay{position:fixed;inset:auto 0 0 0;max-height:42vh;background:rgba(20,22,30,.95);color:#e8ebf4;
+  padding:20px 32px;font-size:16px;line-height:1.6;border-top:1px solid rgba(255,255,255,.1);transform:translateY(100%);
+  transition:transform .3s var(--ease);z-index:40;overflow:auto;font-family:var(--font-sans)}
+.notes-overlay.open{transform:translateY(0)}
+.overview{position:fixed;inset:0;background:rgba(10,12,18,.92);backdrop-filter:blur(12px);z-index:50;
+  display:none;padding:40px;overflow:auto}
+.overview.open{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;align-content:start}
+.overview .thumb{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  aspect-ratio:16/9;overflow:hidden;cursor:pointer;position:relative;color:var(--text-1);padding:16px;
+  font-size:11px;transition:transform .2s var(--ease)}
+.overview .thumb:hover{transform:scale(1.04)}
+.overview .thumb .n{position:absolute;top:8px;left:10px;font-weight:700;font-size:14px;color:var(--text-3)}
+.overview .thumb .t{position:absolute;bottom:10px;left:14px;right:14px;font-weight:600;color:var(--text-1)}
+
+/* ================= PRESENTER VIEW ================= */
+/* Presenter view opens in a separate popup window (S key).
+ * All presenter styles are self-contained in the popup HTML generated by runtime.js.
+ * The audience window (this file) is NOT affected — it stays as normal deck view.
+ * Only the .notes class below is needed to hide speaker notes from audience. */
+
+/* ================= UTILITY ================= */
+.hidden{display:none!important}
+.nowrap{white-space:nowrap}
+.tr{text-align:right}.tc{text-align:center}.tl{text-align:left}
+.uppercase{text-transform:uppercase;letter-spacing:.12em}
+
+/* ================= PRINT ================= */
+@media(max-width:600px){.controls{left:8px;right:8px;justify-content:center;gap:3px}.controls button{font-size:10px;padding:7px}.controls button[data-key="s"],.controls button[data-key="n"]{display:none}}
+@media print{
+  .slide{position:relative;opacity:1!important;transform:none!important;page-break-after:always;height:100vh}
+  .deck-header,.deck-footer,.progress-bar,.notes-overlay,.overview{display:none!important}
+}
+/* theme: japanese-minimal — 和风极简 */
+:root{
+  --bg:#fafaf5;--bg-soft:#f2f0e6;--surface:#ffffff;--surface-2:#f5f3ea;
+  --border:rgba(40,30,20,.1);--border-strong:rgba(40,30,20,.3);
+  --text-1:#1a1a18;--text-2:#5c564c;--text-3:#9c958a;
+  --accent:#d93a2a;--accent-2:#1a1a18;--accent-3:#c9a961;
+  --good:#4a6b3e;--warn:#c9a961;--bad:#d93a2a;
+  --grad:linear-gradient(135deg,#d93a2a,#1a1a18);
+  --grad-soft:linear-gradient(135deg,#faeae6,#f5f3ea);
+  --radius:0px;--radius-sm:0px;--radius-lg:2px;
+  --shadow:none;
+  --shadow-lg:0 1px 0 rgba(40,30,20,.12);
+  --font-sans:'Inter','Noto Sans SC',sans-serif;
+  --font-serif:'Noto Serif SC','Playfair Display',serif;
+  --font-display:'Noto Serif SC','Playfair Display',serif;
+}
+h1.title,h2.title,.h1,.h2{font-weight:500;letter-spacing:.04em}
+.card{border:1px solid var(--border);box-shadow:none;padding:36px 40px}
+.divider-accent{background:var(--accent);height:2px;width:48px}
+.kicker{color:var(--accent);letter-spacing:.2em}
+.slide{padding:96px 128px}
+
+:root{--bg:#f4f1e9;--bg-soft:#ebe6db;--surface:#f8f6f0;--surface-2:#e8e2d6;--border:#d6d0c5;--border-strong:#b1a89a;--text-1:#35322c;--text-2:#6e685e;--text-3:#8a8174;--accent:#7f3030;--good:#65715b;--warn:#96764f;--bad:#7f3030;--font-sans:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;--font-display:'Songti SC','Noto Serif CJK SC',serif;--radius:0;--radius-sm:0;--radius-lg:0;--shadow:none;--shadow-lg:none;--grad:none;--grad-soft:none;--stage-bg:#e9e4da}
+html,body{height:100%;overflow:hidden;background:var(--stage-bg)}.deck{width:1600px;height:900px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(var(--scale,1));transform-origin:center;box-shadow:0 0 0 1px var(--border)}
+.slide{padding:86px 104px 92px;justify-content:flex-start;gap:0;transition:opacity .25s ease;transform:none}.slide.is-prev{transform:none}.slide:before{content:'';position:absolute;left:104px;right:104px;top:52px;height:1px;background:var(--border)}
+.kicker{font-size:15px;letter-spacing:.15em;margin:0 0 20px;font-weight:400}.h2{font-size:50px;line-height:1.35;font-weight:500;letter-spacing:.025em;margin:0 0 30px;max-width:1300px}.h1{font-size:88px;line-height:1.35;letter-spacing:.04em;font-weight:500}.slide-content{min-height:0;flex:1;display:flex;flex-direction:column;justify-content:center;gap:26px}.slide-content .grid{gap:32px}.card{background:transparent;padding:26px 0;border:none;border-top:1px solid var(--border);overflow:visible}.smallnum{font-size:16px;font-family:Georgia,serif;color:var(--accent);display:block;margin-bottom:18px}h3{font-size:27px;font-weight:500;line-height:1.5;margin:0 0 16px}.card p{font-size:22px;color:var(--text-2);line-height:1.8;margin:0}.t{width:100%;border-collapse:collapse;font-size:21px;line-height:1.65}.t td,.t th{padding:19px 16px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}.t th{color:var(--text-3);font-size:16px;letter-spacing:.06em;font-weight:400;border-top:1px solid var(--border)}.t td:first-child{font-weight:500;min-width:150px}.t td{max-width:510px}.deck-footer{left:104px;right:104px;bottom:31px;font-size:13px;color:var(--text-3);gap:20px;align-items:flex-end}.foot-src{max-width:1170px}.deck-footer .num{font-family:Georgia,serif;white-space:nowrap;font-size:16px}.cover .h2{font-size:94px;line-height:1.35;max-width:1000px;margin-top:60px}.cover .slide-content{justify-content:flex-start}.cover-sub{font-size:27px;line-height:1.6;color:var(--text-2);margin-top:35px}.cover-bottom{margin-top:90px;display:flex;gap:42px;font-size:17px;letter-spacing:.08em;color:var(--text-3)}.seal{position:absolute;right:150px;top:260px;color:var(--accent);border:1px solid var(--accent);padding:27px 20px;font-size:30px;line-height:1.4;letter-spacing:.14em}.stats{display:flex;gap:85px;padding:20px 0 24px;border-bottom:1px solid var(--border)}.stats strong{display:block;font-size:58px;font-family:Georgia,serif;font-weight:400;line-height:1.3;color:var(--accent)}.stats span{font-size:18px;display:block;margin-top:15px;color:var(--text-2)}.statement{font-size:38px;line-height:1.7}.statement em{font-style:normal;color:var(--accent)}.callout{padding:22px 26px;border-left:2px solid var(--accent);background:var(--bg-soft);font-size:21px;line-height:1.7;color:var(--text-2)}.flow{display:flex;gap:14px;align-items:stretch}.node{flex:1;padding:34px 20px;border:1px solid var(--border);text-align:center}.node b{font-size:25px;font-weight:500;line-height:1.6;display:block}.node p{font-size:18px;color:var(--text-2);margin:18px 0 0;line-height:1.7}.arr{align-self:center;font-size:25px;color:var(--text-3)}.formula{font-family:var(--font-display);font-size:35px;border-top:1px solid var(--border);padding:32px 0}.bar-chart{display:flex;flex-direction:column;gap:24px}.bar-row{display:grid;grid-template-columns:390px 1fr 80px;align-items:center;gap:25px;font-size:21px}.track{height:33px;background:var(--bg-soft)}.track i{display:block;height:100%;background:var(--accent);opacity:.8}.bar-row:first-child .track i{background:var(--text-3)}.bar-row b{font:30px Georgia,serif;color:var(--accent)}.closing{font-size:35px;line-height:1.85;color:var(--text-2)}.rule{height:1px;background:var(--border);margin:20px 0}.lede{font-size:23px;line-height:1.9}.source-list{display:grid;grid-template-columns:1fr 1fr;column-gap:65px}.source-list a{display:block;font-size:21px;border-bottom:1px solid var(--border);padding:19px 0;color:var(--text-2)}.source-list a span{color:var(--accent);font:18px Georgia,serif;margin-right:20px}.small{font-size:17px;color:var(--text-3);line-height:1.7}.controls{position:fixed;right:20px;top:12px;bottom:auto;display:flex;gap:6px;z-index:25;opacity:.85}.controls button{font:13px var(--font-sans);padding:8px 12px;border:1px solid var(--border);background:var(--bg);color:var(--text-2);cursor:pointer}.controls button:hover{color:var(--accent);border-color:var(--accent)}.progress-bar{height:2px}.overview.open{background:var(--bg);grid-template-columns:repeat(4,1fr)}.overview .thumb{border-radius:0;background:var(--surface);color:var(--text-1)}#reader{display:none;position:fixed;inset:0;z-index:60;overflow:auto;background:var(--bg);padding:65px max(30px,calc((100vw - 1000px)/2));color:var(--text-1);line-height:1.95;font-size:18px}#reader.open{display:block}#reader h1{font:42px var(--font-display);line-height:1.5}#reader h2{font-size:28px;margin-top:48px}#reader h3{font-size:22px;margin-top:30px}#reader table{border-collapse:collapse;width:100%;font-size:15px}#reader td,#reader th{border:1px solid var(--border);padding:10px}#reader pre{white-space:pre-wrap;background:var(--bg-soft);padding:20px}#reader a{overflow-wrap:anywhere}.reader-close{position:fixed;right:25px;top:20px;z-index:61;border:1px solid var(--border);background:var(--bg);padding:10px;cursor:pointer}body.reading .controls{display:none}html[data-preview] .controls{display:none}.notes-overlay{background:var(--text-1);color:var(--bg)}
+@media(max-width:600px){.controls{left:8px;right:8px;justify-content:center;gap:3px}.controls button{font-size:10px;padding:7px}.controls button[data-key="s"],.controls button[data-key="n"]{display:none}}
+@media print{@page{size:1600px 900px;margin:0}html,body{height:auto;overflow:visible;background:var(--bg)}.deck{position:static;transform:none;width:1600px;height:auto;box-shadow:none}.slide{position:relative;height:900px;width:1600px;opacity:1!important;transform:none!important;page-break-after:always;pointer-events:auto}.controls,.progress-bar,.notes-overlay,.overview,#reader{display:none!important}.slide.is-active{z-index:auto}}
+</style></head><body><div class="deck"><section class="slide cover" data-title="从模型能力到任务交付"><p class="kicker">MARKET OBSERVATORY / 2026.10.29</p><h2 class="h2">从模型能力<br>到任务交付</h2><div class="slide-content"><div class="cover-sub">新模型 × Agent 接口 × 执行平台 × CPU 负载</div><div class="cover-bottom"><span>连续市场观察 · W44</span><span>模型选型与基础设施观察</span></div><div class="seal">任务<br>交付</div></div><div class="deck-footer"><span class="foot-src">AI INSIGHTS · 截至 2026.10.29</span><span class="num">01 / 21</span></div><aside class="notes">这次承接前两周的接口和执行平台观察。重点是把新模型、真实工作流与资源需求连起来看。我们区分官方事实、分析判断和待验证的需求，不把模型热度直接换算成服务器采购。</aside></section><section class="slide " data-title="模型把任务带进来，平台把结果交出去。"><p class="kicker">01 / 核心判断</p><h2 class="h2">模型把任务带进来，<br>平台把结果交出去。</h2><div class="slide-content"><div class="grid g3"><div class="card"><span class="smallnum">01</span><h3>模型端</h3><p>代码、视觉、工具调用与低价推理，扩大可以尝试的工作范围。</p></div><div class="card"><span class="smallnum">02</span><h3>平台端</h3><p>授权、状态、执行、恢复和验收，把尝试变成可交付的流程。</p></div><div class="card"><span class="smallnum">03</span><h3>资源端</h3><p>总需求取决于成功任务量、单位消耗，以及被替代的原有负载。</p></div></div></div><div class="deck-footer"><span class="foot-src">分析判断｜承接 10/21、10/26 连续研究</span><span class="num">02 / 21</span></div><aside class="notes">模型把任务带进来，<br>平台把结果交出去。。本页为资料分析，实际结论需要通过一致任务和验收规则验证。</aside></section><section class="slide " data-title="上周判断仍成立，本周执行链更具体。"><p class="kicker">02 / 连续观察</p><h2 class="h2">上周判断仍成立，<br>本周执行链更具体。</h2><div class="slide-content"><table class="t"><thead><tr><th>观察层</th><th>上周重点</th><th>本周增量</th><th>下一步证据</th></tr></thead><tbody><tr><td>接口</td><td>身份、集成、治理</td><td>多模型参与同一业务流程</td><td>重复生产任务与付费</td></tr><tr><td>执行</td><td>代码、浏览器、文档</td><td>内部预览、流式输入、重试提示</td><td>验收通过量与资源账单</td></tr><tr><td>CPU</td><td>沿实际执行位置测量</td><td>模型扩量与执行优化并存</td><td>CPU 秒、内存秒与原流程基线</td></tr></tbody></table></div><div class="deck-footer"><span class="foot-src">平台官方更新与模型公告；不代表采购量已增长</span><span class="num">03 / 21</span></div><aside class="notes">上周判断仍成立，<br>本周执行链更具体。。本页为资料分析，实际结论需要通过一致任务和验收规则验证。</aside></section><section class="slide " data-title="近期上新，围绕三类工作。"><p class="kicker">03 / 模型地图</p><h2 class="h2">近期上新，围绕三类工作。</h2><div class="slide-content"><div class="grid g3"><div class="card"><span class="smallnum">01</span><h3>代码与终端</h3><p>IQuest-Q1、DeepSeek Flash 更新：工具执行、代码修改、构建与验证。</p></div><div class="card"><span class="smallnum">02</span><h3>视觉与电脑操作</h3><p>M3.1 Flash、Terra：截图、页面理解、动作选择与结果检查。</p></div><div class="card"><span class="smallnum">03</span><h3>分工与持续任务</h3><p>Haiku / Sonnet、Muse Wonder：明确子任务、日常交付、记忆与持续执行。</p></div></div></div><div class="deck-footer"><span class="foot-src">官方定位汇总｜非跨模型能力排名</span><span class="num">04 / 21</span></div><aside class="notes">近期上新，围绕三类工作。。本页为资料分析，实际结论需要通过一致任务和验收规则验证。</aside></section><section class="slide " data-title="近一个月的重要节点"><p class="kicker">04 / 发布脉络</p><h2 class="h2">近一个月的重要节点</h2><div class="slide-content"><table class="t"><thead><tr><th>日期</th><th>模型／事件</th><th>这次值得看什么</th></tr></thead><tbody><tr><td>10/26</td><td>GPT-6.1 Terra</td><td>视觉推理、电脑操作和自然写作</td></tr><tr><td>10/22–23</td><td>IQuest-Q1 技术报告</td><td>完整训练流程与 30 项基准披露</td></tr><tr><td>10/19</td><td>MiniMax M3.1 Flash</td><td>Space Bunny 身份揭晓；正式服务与权重</td></tr><tr><td>10/17</td><td>DeepSeek V4.1 Flash-1017</td><td>代码和 Agent 效率版本更新</td></tr><tr><td>10/12 · 10/7 · 10/6</td><td>Muse Wonder · Haiku 5.5 · Mistral Large 4</td><td>持续执行、子任务、公开预览路线</td></tr></tbody></table></div><div class="deck-footer"><span class="foot-src">各模型官方公告；IQuest-Q1 报告公开不等于权重升级</span><span class="num">05 / 21</span></div><aside class="notes">近一个月的重要节点。本页为资料分析，实际结论需要通过一致任务和验收规则验证。</aside></section><section class="slide " data-title="面向终端工作的Agent 训练路线"><p class="kicker">05 / IQUEST-Q1</p><h2 class="h2">面向终端工作的<br>Agent 训练路线</h2><div class="slide-content"><div class="stats"><div><strong>320B</strong><span>总参数</span></div><div><strong>15B</strong><span>每 token 激活</span></div><div><strong>512K</strong><span>上下文 · 纯文本</span></div></div><div class="grid g3"><div class="card"><span class="smallnum">01</span><h3>训练方式</h3><p>多框架强化学习、多教师在线策略蒸馏与模型融合。</p></div><div class="card"><span class="smallnum">02</span><h3>适合测试</h3><p>仓库维护、命令行排障、代码修复及回归验证。</p></div><div class="card"><span class="smallnum">03</span><h3>关键边界</h3><p>仍可能遗漏约束和重复失败；激活量不等于部署权重大小。</p></div></div></div><div class="deck-footer"><span class="foot-src">IQuest 官方模型卡与技术报告；未发现本轮新权重公告</span><span class="num">06 / 21</span></div><aside class="notes">面向终端工作的<br>Agent 训练路线。本页为资料分析，实际结论需要通过一致任务和验收规则验证。</aside></section><section class="slide " data-title="Space Bunny 已有正式身份。"><p class="kicker">06 / MINIMAX</p><h2 class="h2">Space Bunny 已有正式身份。</h2><div class="slide-content"><div class="statement">Space Bunny → <em>MiniMax M3.1 Flash</em></div><div class="stats"><div><strong>$0.15 / $0.60</strong><span>百万 token 标准输入／输出</span></div><div><strong>1M</strong><span>上下文</span></div></div><div class="grid g2"><div class="card"><span class="smallnum">01</span><h3>正式使用</h3><p>优先评估正式版与实际服务入口，匿名期口碑只作测试线索。</p></div><div class="card"><span class="smallnum">02</span><h3>能力组合</h3><p>文本、图片、视频输入；文本输出。官方权重已提供。</p></div></div></div><div class="deck-footer"><span class="foot-src">MiniMax 10/19 公告与官方模型卡｜价格非完整任务费用</span><span class="num">07 / 21</span></div><aside class="notes">Space Bunny 已有正式身份。。本页为资料分析，实际结论需要通过一致任务和验收规则验证。</aside></section><section class="slide " data-title="同一任务，比成功交付。"><p class="kicker">07 / 对照选择</p><h2 class="h2">同一任务，比成功交付。</h2><div class="slide-content"><table class="t"><thead><tr><th>维度</th><th>IQuest-Q1</th><th>M3.1 Flash</th></tr></thead><tbody><tr><td>核心方向</td><td>文本 CLI 与代码工具任务</td><td>代码、多模态与电脑操作</td></tr><tr><td>上下文</td><td>512K</td><td>1M</td></tr><tr><td>规格口径</td><td>320B／15B 激活</td><td>官方正文 428B／23B 激活</td></tr><tr><td>优先验证</td><td>长任务稳定性、环境兼容</td><td>视觉动作、正式版任务成本</td></tr><tr><td>共同要求</td><td>独立验收、完整重试记录</td><td>固定版本、供应商与预算</td></tr></tbody></table></div><div class="deck-footer"><span class="foot-src">MiniMax 平台自动统计与正文参数有差异，暂不据此估算显存</span><span class="num">08 / 21</span></div><aside class="notes">同一任务，比成功交付。。本页为资料分析，实际结论需要通过一致任务和验收规则验证。</aside></section><section class="slide " data-title="一次业务任务，跨过四层。"><p class="kicker">08 / 业务链</p><h2 class="h2">一次业务任务，跨过四层。</h2><div class="slide-content"><div class="flow"><div class="node"><b>模型</b><p>理解与计划</p></div><span class="arr">→</span><div class="node"><b>接口</b><p>授权与调用</p></div><span class="arr">→</span><div class="node"><b>执行</b><p>代码／浏览器／数据</p></div><span class="arr">→</span><div class="node"><b>业务验收</b><p>状态核验与提交</p></div></div><div class="callout">同一供应商可以覆盖多层；每层的收入、账单和 CPU 消耗并不等比例。</div><div class="grid g2"><div class="card"><span class="smallnum">01</span><h3>靠近数据</h3><p>执行可位于企业内网，模型可在公有云。</p></div><div class="card"><span class="smallnum">02</span><h3>先看结果</h3><p>HTTP 成功、模型声称完成，都不能替代业务验收。</p></div></div></div><div class="deck-footer"><span class="foot-src">分析框架｜无固定 CPU/GPU 配比</span><span class="num">09 / 21</span></div><aside class="notes">一次业务任务，跨过四层。。本页为资料分析，实际结论需要通过一致任务和验收规则验证。</aside></section><section class="slide " data-title="从“生成”接到“运行和检查”。"><p class="kicker">09 / 平台新进展</p><h2 class="h2">从“生成”接到“运行和检查”。</h2><div class="slide-content"><table class="t"><thead><tr><th>日期</th><th>官方进展</th><th>与负载的关系</th></tr></thead><tbody><tr><td>10/28</td><td>Cloudflare 内部浏览器预览容器</td><td>开发服务器＋浏览器＋截图反馈＋修改循环</td></tr><tr><td>10/28</td><td>MCP 统计支持状态筛选</td><td>默认只计成功；环比必须固定统计口径</td></tr><tr><td>10/26 周更</td><td>E2B 流式输入与 Should-Retry</td><td>连接复用与重试控制，资源收益需实测</td></tr></tbody></table></div><div class="deck-footer"><span class="foot-src">Cloudflare Changelog；E2B 周更日期不等于每项上线日期</span><span class="num">10 / 21</span></div><aside class="notes">从“生成”接到“运行和检查”。。本页为资料分析，实际结论需要通过一致任务和验收规则验证。</aside></section><section class="slide " data-title="把模型动作接进已有业务规则。"><p class="kicker">10 / 企业流程</p><h2 class="h2">把模型动作接进已有业务规则。</h2><div class="slide-content"><div class="flow"><div class="node"><b>邮件／PDF</b><p>识别订单意图</p></div><span class="arr">→</span><div class="node"><b>模型与接口</b><p>补查库存和历史</p></div><span class="arr">→</span><div class="node"><b>流程引擎</b><p>生成订单草稿</p></div><span class="arr">→</span><div class="node"><b>人工确认</b><p>获批提交与回执</p></div></div><div class="callout">Workato 于 10/22 披露 DMSi 订单 Agent 案例。案例支持早期采用；未披露任务量、CPU 用量或规模化付费数据。</div></div><div class="deck-footer"><span class="foot-src">Workato 客户访谈；AWS Step Functions 连接器为相邻供给信号</span><span class="num">11 / 21</span></div><aside class="notes">把模型动作接进已有业务规则。。本页为资料分析，实际结论需要通过一致任务和验收规则验证。</aside></section><section class="slide " data-title="CPU 工作在工具后面。"><p class="kicker">11 / 负载地图</p><h2 class="h2">CPU 工作在工具后面。</h2><div class="slide-content"><table class="t"><thead><tr><th>执行路径</th><th>实际工作</th><th>可能先遇到的瓶颈</th></tr></thead><tbody><tr><td>API 与网关</td><td>鉴权、转换、路由、远端查询</td><td>网络、限流和远端后端</td></tr><tr><td>代码沙箱</td><td>依赖、编译、测试、静态分析</td><td>CPU、缓存、文件系统</td></tr><tr><td>浏览器</td><td>JS、DOM、布局、截图</td><td>CPU 峰值、内存、等待</td></tr><tr><td>文档与数据</td><td>解析、压缩、表格计算、渲染</td><td>CPU、内存、I/O</td></tr><tr><td>训练与评测</td><td>运行工具、验证结果、重置环境</td><td>并发、生命周期、重复尝试</td></tr></tbody></table></div><div class="deck-footer"><span class="foot-src">工程分析｜OCR、视觉推理、嵌入和重排可能使用加速器</span><span class="num">12 / 21</span></div><aside class="notes">CPU 工作在工具后面。。本页为资料分析，实际结论需要通过一致任务和验收规则验证。</aside></section><section class="slide " data-title="任务会增多，每任务也可能更轻。"><p class="kicker">12 / 两股力量</p><h2 class="h2">任务会增多，<br>每任务也可能更轻。</h2><div class="slide-content"><div class="grid g2"><div class="card"><span class="smallnum">01</span><h3>扩大使用</h3><p>更低调用费用；更多小任务值得做；视觉与代码覆盖更多入口。</p></div><div class="card"><span class="smallnum">02</span><h3>降低消耗</h3><p>更少错误与重试；API 替代浏览器；缓存、快照和休眠减少重复工作。</p></div></div><div class="formula">总 CPU 工作量 = 成功任务量 × 每成功任务 CPU 秒</div></div><div class="deck-footer"><span class="foot-src">机制推断｜两股力量的净结果需要任务级计量</span><span class="num">13 / 21</span></div><aside class="notes">任务会增多，<br>每任务也可能更轻。。本页为资料分析，实际结论需要通过一致任务和验收规则验证。</aside></section><section class="slide " data-title="任务翻倍，也可能减少 CPU。"><p class="kicker">13 / 情景分析</p><h2 class="h2">任务翻倍，也可能减少 CPU。</h2><div class="slide-content"><div class="bar-chart"><div class="bar-row"><span>基线</span><div class="track"><i style="width:66.66666666666666%"></i></div><b>100</b></div><div class="bar-row"><span>任务 +50%，单位不变</span><div class="track"><i style="width:100.0%"></i></div><b>150</b></div><div class="bar-row"><span>任务 +50%，单位 −40%</span><div class="track"><i style="width:60.0%"></i></div><b>90</b></div><div class="bar-row"><span>任务 +100%，单位 −40%</span><div class="track"><i style="width:80.0%"></i></div><b>120</b></div><div class="bar-row"><span>任务 +100%，单位 −60%</span><div class="track"><i style="width:53.333333333333336%"></i></div><b>80</b></div></div><div class="callout">指数以原总工作量 = 100。所有参数均是假设，仅展示敏感性，不是行业预测。</div></div><div class="deck-footer"><span class="foot-src">计算：任务倍率 × 单任务倍率；不包含硬件容量估算</span><span class="num">14 / 21</span></div><aside class="notes">任务翻倍，也可能减少 CPU。。本页为资料分析，实际结论需要通过一致任务和验收规则验证。</aside></section><section class="slide " data-title="四种指标，分开记录。"><p class="kicker">14 / 计量口径</p><h2 class="h2">四种指标，分开记录。</h2><div class="slide-content"><table class="t"><thead><tr><th>指标</th><th>它回答什么</th><th>不能等同什么</th></tr></thead><tbody><tr><td>任务墙钟时长</td><td>用户等了多久</td><td>CPU 忙碌时间</td></tr><tr><td>预留 vCPU 秒</td><td>配置资源保留多久</td><td>实际计算消耗</td></tr><tr><td>实际 CPU 秒</td><td>进程累计做了多少工作</td><td>跨 CPU 架构的等性能单位</td></tr><tr><td>内存秒与峰值</td><td>状态驻留和容量需求</td><td>任务一直满载</td></tr></tbody></table></div><div class="deck-footer"><span class="foot-src">Daytona：预留资源；Cloudflare／AgentCore：CPU 与内存分项口径</span><span class="num">15 / 21</span></div><aside class="notes">四种指标，分开记录。。本页为资料分析，实际结论需要通过一致任务和验收规则验证。</aside></section><section class="slide " data-title="先交付经过验证的执行池。"><p class="kicker">15 / CPU 机会</p><h2 class="h2">先交付经过验证的执行池。</h2><div class="slide-content"><div class="grid g3"><div class="card"><span class="smallnum">01</span><h3>代码执行池</h3><p>比较构建、测试吞吐，记录依赖兼容、缓存收益和整机功耗。</p></div><div class="card"><span class="smallnum">02</span><h3>浏览器／文档池</h3><p>比较会话密度、内存驻留、P95 操作时延和文件合格率。</p></div><div class="card"><span class="smallnum">03</span><h3>企业内网节点</h3><p>验证容器、运行时、数据库接入、授权链和故障恢复。</p></div></div><div class="callout">国产 CPU 先做真实工作流兼容与吞吐验证；海外平台案例不直接映射为国内订单。</div></div><div class="deck-footer"><span class="foot-src">分析建议｜未进行硬件品牌排名</span><span class="num">16 / 21</span></div><aside class="notes">先交付经过验证的执行池。。本页为资料分析，实际结论需要通过一致任务和验收规则验证。</aside></section><section class="slide " data-title="用 20–50 个真实任务，测完整流程。"><p class="kicker">21 / 最小验证</p><h2 class="h2">用 20–50 个真实任务，测完整流程。</h2><div class="slide-content"><table class="t"><thead><tr><th>任务组</th><th>对照候选</th><th>核心验收</th></tr></thead><tbody><tr><td>代码修复</td><td>IQuest-Q1 / DeepSeek / M3.1 Flash</td><td>测试通过、越界修改、全部 CPU 秒</td></tr><tr><td>截图与填报</td><td>M3.1 Flash / Terra</td><td>操作成功、状态正确、内存驻留</td></tr><tr><td>文档与数据</td><td>按文本／视觉需求选型</td><td>字段准确、产物合格、总费用</td></tr><tr><td>API 业务动作</td><td>固定权限与执行引擎</td><td>不重复提交、回执正确、异常可恢复</td></tr></tbody></table></div><div class="deck-footer"><span class="foot-src">候选依据任务能力安排；不是推荐排名或已完成测试</span><span class="num">17 / 21</span></div><aside class="notes">用 20–50 个真实任务，测完整流程。。本页为资料分析，实际结论需要通过一致任务和验收规则验证。</aside></section><section class="slide " data-title="三组证据，决定判断能否升级。"><p class="kicker">22 / 下一周</p><h2 class="h2">三组证据，决定判断能否升级。</h2><div class="slide-content"><div class="grid g3"><div class="card"><span class="smallnum">01</span><h3>业务证据</h3><p>重复生产任务、付费扩容、通过验收的动作与人工接管。</p></div><div class="card"><span class="smallnum">02</span><h3>执行证据</h3><p>全部尝试的 CPU／内存、峰值、等待、缓存与休眠收益。</p></div><div class="card"><span class="smallnum">03</span><h3>增量证据</h3><p>扣除原 CI、脚本和既有业务计算的迁移负载，再看净扩容。</p></div></div><div class="callout">当前可以增强“平台能力完善”；尚不足以增强“CPU 采购爆发”。</div></div><div class="deck-footer"><span class="foot-src">连续观察结论｜截至 2026/10/29</span><span class="num">18 / 21</span></div><aside class="notes">三组证据，决定判断能否升级。。本页为资料分析，实际结论需要通过一致任务和验收规则验证。</aside></section><section class="slide closing-slide" data-title="把模型、平台和负载，放进同一个任务里看。"><p class="kicker">23 / 结论</p><h2 class="h2">把模型、平台和负载，<br>放进同一个任务里看。</h2><div class="slide-content"><div class="closing">先验证交付，再看单位成本。<br>沿执行链测量，才知道算力增长在哪里。</div><div class="rule"></div><p class="lede">本报告保留官方来源、分析边界与假设口径。<br>在线文档适合持续更新，演示稿用于交流与复盘。</p></div><div class="deck-footer"><span class="foot-src">未做同题模型或硬件实测</span><span class="num">19 / 21</span></div><aside class="notes">把模型、平台和负载，<br>放进同一个任务里看。。本页为资料分析，实际结论需要通过一致任务和验收规则验证。</aside></section><section class="slide " data-title="来源与核验边界"><p class="kicker">APPENDIX / 1</p><h2 class="h2">来源与核验边界</h2><div class="slide-content"><div class="source-list"><a target="_blank" rel="noopener" href="https://huggingface.co/IQuestLab/IQuest-Q1"><span>01</span>IQuest-Q1 模型卡 ↗</a><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.30949"><span>02</span>IQuest-Q1 技术报告 ↗</a><a target="_blank" rel="noopener" href="https://www.minimax.io/blog/minimax-m31f"><span>03</span>MiniMax M3.1 Flash ↗</a><a target="_blank" rel="noopener" href="https://huggingface.co/MiniMaxAI/MiniMax-M3.1-Flash"><span>04</span>MiniMax 官方权重 ↗</a><a target="_blank" rel="noopener" href="https://developers.openai.com/api/docs/models/gpt-6.1-terra"><span>05</span>GPT-6.1 Terra ↗</a><a target="_blank" rel="noopener" href="https://api-docs.deepseek.com/updates/"><span>06</span>DeepSeek 更新 ↗</a><a target="_blank" rel="noopener" href="https://www.anthropic.com/claude-haiku-5-5"><span>07</span>Haiku 5.5 ↗</a><a target="_blank" rel="noopener" href="https://about.fb.com/news/2026/10/introducing-muse-wonder-models/"><span>08</span>Muse Wonder ↗</a><a target="_blank" rel="noopener" href="https://mistral.ai/news/mistral-large-4/"><span>09</span>Mistral Large 4 ↗</a><a target="_blank" rel="noopener" href="https://developers.cloudflare.com/changelog/post/2026-10-28-browser-internal-hostnames/"><span>10</span>Cloudflare 内部预览 ↗</a></div><p class="small">动态页面可能变化；模型成绩为厂商披露，平台更新不等于客户用量。假设图表不是预测。</p></div><div class="deck-footer"><span class="foot-src">AI INSIGHTS · 截至 2026.10.29</span><span class="num">20 / 21</span></div><aside class="notes">来源与核验边界。本页为资料分析，实际结论需要通过一致任务和验收规则验证。</aside></section><section class="slide " data-title="来源与核验边界"><p class="kicker">APPENDIX / 2</p><h2 class="h2">来源与核验边界</h2><div class="slide-content"><div class="source-list"><a target="_blank" rel="noopener" href="https://developers.cloudflare.com/changelog/post/2026-10-28-mcp-analytics-response-status/"><span>11</span>Cloudflare MCP 统计 ↗</a><a target="_blank" rel="noopener" href="https://changelog.e2b.dev/product-updates"><span>12</span>E2B 周更 ↗</a><a target="_blank" rel="noopener" href="https://www.workato.com/the-connector/agentic-ai-pricing-guardrails/"><span>13</span>Workato DMSi 案例 ↗</a><a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-target-connector-step-functions.html"><span>14</span>AgentCore 工作流 ↗</a><a target="_blank" rel="noopener" href="https://www.daytona.io/docs/billing"><span>15</span>Daytona 计费 ↗</a><a target="_blank" rel="noopener" href="https://developers.cloudflare.com/containers/platform/pricing/"><span>16</span>Cloudflare 计费 ↗</a><a target="_blank" rel="noopener" href="https://aws.amazon.com/bedrock/agentcore/pricing/"><span>17</span>AgentCore 计费 ↗</a></div><p class="small">动态页面可能变化；模型成绩为厂商披露，平台更新不等于客户用量。假设图表不是预测。</p></div><div class="deck-footer"><span class="foot-src">AI INSIGHTS · 截至 2026.10.29</span><span class="num">21 / 21</span></div><aside class="notes">来源与核验边界。本页为资料分析，实际结论需要通过一致任务和验收规则验证。</aside></section></div><nav class="controls" aria-label="演示控制"><button data-key="ArrowLeft" aria-label="上一页">←</button><button data-key="ArrowRight" aria-label="下一页">→</button><button data-key="o">目录</button><button data-key="n">备注</button><button data-key="s">演讲者</button><button data-key="f">全屏</button><button id="read">阅读全文</button></nav><article id="reader"><button class="reader-close">返回演示 ×</button><h1>2026-W44｜新模型与 Agent 执行负载：连续市场洞察</h1>
+<p><strong>资料截至：2026 年 10 月 29 日｜承接 10 月 21 日场景研究与 10 月 26 日进展更新</strong></p>
+<blockquote>
+<p>观察窗口以近一个月模型动态为背景，重点讨论与上周市场判断的连接。官方产品能力、供应商案例与分析推断分别描述；本文未做模型同题实测或 CPU 基准测试，不估算行业出货量。旧案例保留披露日期，不作为本周新增落地。</p>
+</blockquote>
+<h2>一、本轮主判断</h2>
+<p><strong>新模型把更多代码、视觉操作与多步骤任务带入可测试范围，Agent 接口与执行平台因此更需要承担授权、流程约束、运行与结果核验；CPU 需求仍要由任务结构、执行次数和资源计量单独验证。</strong></p>
+<p>承接上周，“接口承接授权调用、平台承接实际任务”的方向得到新的模型供给支持。IQuest-Q1 披露多框架 Agent 训练，MiniMax M3.1 Flash 组合低价、多模态与长上下文，Terra 强调视觉和电脑操作，DeepSeek 更新聚焦代码与 Agent 效率。它们改变的是任务能否被尝试、以何种方式执行以及失败后需要重做多少次，尚不能直接证明生产任务量或服务器采购增长。[M1–M5]</p>
+<p><strong>本轮应把观察重点从“模型能力增加”推进到“哪些工作流开始重复交付，以及交付负载落在哪里”。</strong> 模型推理、接口治理和工具执行是相关但可分离的市场：收入、用量与硬件容量并无固定比例。</p>
+<h2>二、上周判断与本轮增量</h2>
+<table>
+<thead>
+<tr>
+<th>上周已经建立的判断</th>
+<th>本轮模型变化</th>
+<th>可以增强的判断</th>
+<th>仍需取得的证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>授权和集成是接口平台的购买理由</td>
+<td>多家模型能参与多步工具任务</td>
+<td>企业需要在模型切换后保持身份、权限和流程一致</td>
+<td>付费生产客户、重复任务、维护成本</td>
+</tr>
+<tr>
+<td>执行平台承担代码、浏览器和文件任务</td>
+<td>IQuest-Q1 面向 CLI；M3.1 Flash、Terra 覆盖视觉操作</td>
+<td>同一平台可能承接更多种执行路径</td>
+<td>完成任务数、执行时长、资源账单</td>
+</tr>
+<tr>
+<td>长任务需要状态保存和错误恢复</td>
+<td>模型强调持续执行；平台支持休眠、回调和恢复</td>
+<td>持续性能力是交付的一部分</td>
+<td>中断恢复率、重复写入率、状态正确性</td>
+</tr>
+<tr>
+<td>CPU 需求必须沿执行链测量</td>
+<td>更便宜模型可能扩大任务；更强模型可能减少重试</td>
+<td>总量与单任务优化需同时观察</td>
+<td>实际 CPU 秒、内存秒、迁移基线</td>
+</tr>
+</tbody></table>
+<p>上周具名案例仍提供场景参照：Workato 10 月 22 日披露 DMSi 订单 Agent 将邮件、照片、PDF 转成经人工审核的订单草稿；Cloudflare 同日更新 PiHarness 的等待重试休眠和恢复机制。前者说明业务闭环需求，后者说明运行治理需求；均未提供足以推算 CPU 采购增量的数据。[P1][P2]</p>
+<h3>10 月 26 日后，平台侧新增了什么</h3>
+<table>
+<thead>
+<tr>
+<th>披露日期</th>
+<th>已核验进展</th>
+<th>与新模型及负载的连接</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>10 月 28 日</td>
+<td>Cloudflare Agents 持久浏览器支持内部主机名，可预览容器开发服务器或工作区内容，无须公开服务</td>
+<td>代码生成后的启动、浏览器检查、截图反馈和修改更容易进入同一流程。负载包括开发服务器、浏览器与重复验证，而非只有代码生成推理 [P9]</td>
+</tr>
+<tr>
+<td>10 月 28 日</td>
+<td>Cloudflare MCP 调用统计增加状态筛选；默认只计成功，旧口径含失败和缓存</td>
+<td>调用量下降可能来自统计变化。比较模型与平台时，要分别保存成功、错误、缓存及实际执行数；成功调用仍不等于业务任务成功 [P10]</td>
+</tr>
+<tr>
+<td>10 月 26 日周更</td>
+<td>E2B 汇总流式输入、DNS 白名单及沙箱创建失败时的 <code>Should-Retry</code> 提示</td>
+<td>更适合交互终端与重试管理；连接复用可能减少请求数，重试提示可能减少无效创建，但需实测资源收益。周更日期不等于每项功能精确上线日 [P11]</td>
+</tr>
+</tbody></table>
+<p>三项进展共同支持“执行链与可观测能力继续完善”，尚不提供生产任务量、客户 CPU 利用率或采购数据。AWS 本轮仍只有月份级条目；Daytona 本轮查阅的更新索引未确认 10 月 22—29 日新增，均不据此断言全网无更新。详见平台补充核验。</p>
+<h2>三、把新模型放入完整任务链</h2>
+<pre><code class="language-text">业务事件／用户请求
+  → 身份、授权、工具发现与任务编排
+  → 模型理解、计划和生成动作（主要推理资源单列）
+  → 执行路径：API／浏览器／代码沙箱／文件与数据处理
+  → ERP、CRM、数据库等远端业务系统
+  → 结果验证、人工审批、提交、审计和状态保存
+  → 完成，或在失败后恢复／重试
+</code></pre>
+<p><strong>分析判断：模型决定“如何尝试”，接口决定“获准访问什么”，执行平台决定“如何运行和恢复”，业务系统及验收规则决定“是否真的完成”。</strong> 这些环节可以由同一供应商提供，也可以分布在云端和企业内网。CPU 不必部署在模型 GPU 所在的服务器上，不能套用固定 CPU/GPU 配比。</p>
+<h3>模型变化如何传导到平台和资源</h3>
+<table>
+<thead>
+<tr>
+<th>模型／变化</th>
+<th>接口与执行平台需提供什么</th>
+<th>潜在模型外负载</th>
+<th>负载方向及验证重点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>IQuest-Q1</strong>：文本 CLI、代码、多步工具任务</td>
+<td>仓库权限、隔离终端、依赖环境、任务恢复与验收</td>
+<td>安装依赖、编译、回归测试、日志解析</td>
+<td>CPU、磁盘与缓存关联直接；成功率提高也可能减少重复构建</td>
+</tr>
+<tr>
+<td><strong>M3.1 Flash／Space Bunny</strong>：低价 API、图片／视频输入、长上下文</td>
+<td>正式版模型路由、视觉输入管线、浏览器与工具会话</td>
+<td>浏览器脚本、截图、文件生成；视频与视觉推理另分加速器账</td>
+<td>任务门槛可能下降；总量增长与每任务成本下降需分别验证</td>
+</tr>
+<tr>
+<td><strong>GPT-6.1 Terra</strong>：视觉推理、电脑操作</td>
+<td>登录态、远程桌面或浏览器、动作回执与结果核验</td>
+<td>DOM、页面布局、截图编码、浏览器进程</td>
+<td>关注 CPU 峰值及内存驻留；模型看截图不代表本地 CPU 执行视觉推理</td>
+</tr>
+<tr>
+<td><strong>DeepSeek V4.1 Flash-1017</strong>：代码与 Agent 效率更新</td>
+<td>保留版本、执行框架和预算可比的回归测试</td>
+<td>同一代码／工具任务的全部尝试</td>
+<td>输出缩短可能降低模型账单，是否减少 CPU 取决于实际工具次数</td>
+</tr>
+<tr>
+<td><strong>Haiku 5.5／Sonnet 5.5</strong>：子任务与日常工作定位</td>
+<td>任务分工、升级路由、共享上下文和验收</td>
+<td>抽取、批处理、文档加工与接口调用</td>
+<td>分工可增加调度次数，也可减少重任务误用；测整个流程</td>
+</tr>
+<tr>
+<td><strong>Muse Wonder 系列</strong>：记忆和持续执行定位</td>
+<td>身份绑定、状态存储、调度、撤权与保留策略</td>
+<td>检索、索引更新、定时任务与状态保存</td>
+<td>常驻不代表 CPU 常忙；记忆检索、嵌入、数据库资源需拆开</td>
+</tr>
+</tbody></table>
+<p>以上为机制分析，不是实测增量。模型事实来源见 [M1–M7]。Mistral Large 4 可继续观察其公开预览、权重交付与自主部署路线；仅有发布计划尚不能纳入已落地执行容量。[M8]</p>
+<p>IQuest-Q1 为纯文本模型，部分评测将多模态内容替换为占位符，其成绩不能等同原生视觉电脑操作。M3.1 Flash 与 IQuest-Q1 均提供权重，但激活参数量不能当作加载权重所需资源；模型推理部署与工具执行池应分别规划。[M1][M2]</p>
+<h2>四、接口市场的价值将怎样变化</h2>
+<p><strong>分析判断：新模型增加了可替换的“理解与决策端”，企业更需要保留稳定的身份、业务语义和执行记录。</strong> 平台价值可能从“连接多少工具”延伸到“替换模型后能否继续正确执行”。这要用接入维护成本和结果质量证明，不能据此断言接口厂商必然获益。</p>
+<p>上周 AWS 文档已列出将 Step Functions 工作流暴露为 MCP 工具、支持长任务与人工审批回调，以及模型协议转换与回退能力。它们体现了模型与既有流程结合的供给方向，月份级发布日期不应冒充本周新发布。[P3][P4]</p>
+<p>模型更擅长工具调用后，企业订单流程可以采用“模型识别需求和填参数—已有工作流执行规则—人工或系统验收”的组合。订单写入需要幂等、提交状态和异常处理；这些是应验收的要求，并非所有平台默认具备。</p>
+<p><strong>商业观察口径：</strong>跟踪获授权的活跃账户、重复运行的生产工作流、通过验收的业务动作、人工接管与付费续用。连接器数、工具调用数和模型榜单成绩不能替代这些指标。上周 Composio 样本中读取占比较高的发现，仅代表该平台的特定窗口；本轮不据此宣称全市场已转向自主写入。[P5]</p>
+<h2>五、执行平台的机会取决于任务类别</h2>
+<h3>1. 编码、构建与测试：优先验证 CPU 吞吐</h3>
+<p>IQuest-Q1、DeepSeek 和 M3.1 Flash 的代码方向，提供了测试代码执行池的模型候选。负载来自包管理、构建、测试和静态分析，涉及单核性能、多核并行、依赖缓存与文件系统。模型生成更快可能使任务更密集地到达执行池；模型修复更准也可能减少无效测试。两者均需计量。</p>
+<p>观察每个验收通过修复的总 CPU 秒、测试次数、缓存命中、P95 完成时间，并区分“新增代码任务”和“从已有 CI 平台迁移来的任务”。</p>
+<h3>2. 浏览器和电脑操作：可能先受内存与会话密度约束</h3>
+<p>M3.1 Flash 和 Terra 使截图与动作流程成为更明确的测试方向。CPU 负责页面脚本、布局及截图等工作，但长时间可能在等待模型、网页和人工确认。保持登录态和页面状态会占用内存；部分渲染也可能涉及 GPU。</p>
+<p>观察实际 CPU 秒、进程树内存、标签页数、会话驻留、截图频次和恢复成本。API 能完成的同一业务动作，应与浏览器路线做对照；更完整接口可能减少浏览器资源，而不是增加它。</p>
+<h3>3. 文档与数据处理：按步骤拆分资源</h3>
+<p>订单、表格和经营分析可能同时包含文件解析、图像识别、计算、渲染和业务查询。解析、压缩、表格运算常涉及 CPU／内存；OCR、嵌入、重排及视觉推理可能运行在加速器或远端服务。大上下文不能免去授权、来源追踪或输出验收。</p>
+<p>观察文件规模、页数、表格行数、计算 CPU 秒、内存峰值、网络流量和产物合格率，避免按 token 数推算执行需求。</p>
+<h3>4. Agent 训练与评测：环境需求具体，但百万任务不等于百万并发</h3>
+<p>IQuest-Q1 公开超过百万个可执行容器任务实例的训练路线，为模型外训练环境提供了具体信号。平台可能承担任务模板、工具执行、测试、重置和结果核验；任务集规模不等于同时运行量，更不等于物理服务器量。训练与评判模型的加速器资源还需单列。[M3]</p>
+<p>观察环境执行次数、任务平均 CPU 秒、复用率、重置耗时、并发峰值与失败重跑，而非仅数环境模板或累计创建量。</p>
+<h2>六、需求模型：任务增长和单位资源下降同时存在</h2>
+<p>在相同参考硬件、任务质量与统计边界下，建议使用：</p>
+<pre><code class="language-text">每成功任务 CPU 秒
+  = 全部相关尝试的实际 CPU 秒（含失败、重试和分摊开销）÷ 验收成功任务数
+
+总 CPU 工作量
+  = 成功任务量 × 每成功任务 CPU 秒
+
+增量工作量
+  = 新流程实际 CPU 工作量 − 无 Agent 情形下被替代的原流程工作量
+</code></pre>
+<p>最后一项应是可比较的反事实基线，不能把迁移到新平台的旧负载全部算成净新增。不同 CPU 型号上的 CPU 秒也不能直接当等性能单位。</p>
+<p><strong>敏感性示例：所有数值均是假设，不是市场预测。</strong> 初始每天 10 万个成功任务，每任务 120 CPU 秒，共约 3,333 CPU 小时／日：</p>
+<table>
+<thead>
+<tr>
+<th>假设变化</th>
+<th align="right">成功任务量变化</th>
+<th align="right">每成功任务 CPU 变化</th>
+<th align="right">总工作量相对原水平</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>使用扩大，单任务不变</td>
+<td align="right">+50%</td>
+<td align="right">0%</td>
+<td align="right">+50%</td>
+</tr>
+<tr>
+<td>更准模型减少重试</td>
+<td align="right">+50%</td>
+<td align="right">−40%</td>
+<td align="right">−10%</td>
+</tr>
+<tr>
+<td>使用进一步扩大</td>
+<td align="right">+100%</td>
+<td align="right">−40%</td>
+<td align="right">+20%</td>
+</tr>
+<tr>
+<td>API 替代浏览器等优化</td>
+<td align="right">+100%</td>
+<td align="right">−60%</td>
+<td align="right">−20%</td>
+</tr>
+</tbody></table>
+<p>这个示例说明：<strong>即便任务翻倍，也可能因单位负载下降而减少 CPU 总工作量。</strong> 反之，新增批量处理与并行测试也可能扩大工作量。物理容量还取决于峰值、利用率、内存、隔离和冗余，不能只按日均工作量采购。</p>
+<p>并发环境需要另算。在稳定系统中，平均在途任务约等于到达率乘平均驻留时间；更快模型若缩短等待，可能降低会话与内存占用。按常驻环境收费的平台，其账单变化又可能不同于按实际 CPU 计费的平台。Daytona 明确采用预留资源计费；Cloudflare Containers 和 AgentCore 对 CPU 与内存有不同计量说明。因此账单、分配量与实际工作量应分别记录。[P6–P8]</p>
+<h2>七、对 CPU、服务器和私有云供应商的含义</h2>
+<p><strong>分析判断：近期更可操作的机会，是提供经业务任务验证的执行资源池。</strong> 建议按三类交付方案与目标客户验证：</p>
+<table>
+<thead>
+<tr>
+<th>方案方向</th>
+<th>对应买方与任务</th>
+<th>应交付的证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>代码与评测执行池</td>
+<td>研发平台、模型训练评测团队</td>
+<td>同成功率下的构建测试吞吐、CPU 秒、缓存收益、功耗和整机成本</td>
+</tr>
+<tr>
+<td>浏览器与文档工作池</td>
+<td>办公 Agent、业务自动化团队</td>
+<td>有效会话密度、内存驻留、P95 操作时延、文件产物合格率</td>
+</tr>
+<tr>
+<td>企业内网执行节点</td>
+<td>企业 IT、接口平台、私有云</td>
+<td>授权后访问私有系统的任务闭环、兼容性、隔离与恢复成本</td>
+</tr>
+</tbody></table>
+<p>对国产 CPU，先验证浏览器、容器镜像、虚拟化、Python／Node 和原生依赖的兼容，再测业务吞吐。高核数、单核性能、内存带宽各有适用负载；没有同任务测试，不对 x86、Arm 或具体国产品牌排名。海外案例也不能直接映射为国内采购订单。</p>
+<p>推理权重是否公开，只影响部分部署选择。即使模型在公有云，工具执行也可能在企业内网；反过来，私有模型也可能调用外部浏览器或文件服务。需要逐段确认计算位置、数据流向和账单归属。</p>
+<h2>八、下周继续观察的最小清单</h2>
+<ol>
+<li><strong>业务是否扩大：</strong>同一客户队列的重复生产任务、验收成功量和付费扩容；保留原流程基线。</li>
+<li><strong>模型是否改善单位经济：</strong>对相同任务比较 M3.1 Flash 正式版、DeepSeek 更新及 IQuest-Q1；视觉任务另加入 Terra，记录推理与全部工具尝试。</li>
+<li><strong>执行资源是否增加：</strong>实际 CPU 秒、内存秒、并发峰值、工具执行与等待分段，以及休眠、缓存和 API 替代节省。</li>
+<li><strong>市场判断能否升级：</strong>取得客户实际资源账单或可比利用率之前，继续将“平台能力增强”“生产采用增加”和“净硬件扩容”分别表述。</li>
+</ol>
+<p>推荐用四类真实任务建立小样本：订单草稿与获批提交、代码修复及回归测试、浏览器下载／填报、文档表格生成。固定输入、权限、环境、预算与验收，记录版本、日期和供应商。评价完整流程，不能只给模型单独计分。</p>
+<h2>九、可用于本周汇报的表述</h2>
+<p>近期 IQuest-Q1、MiniMax M3.1 Flash、Terra 和 DeepSeek 更新，继续把模型能力推向代码、视觉操作与多步骤交付。承接上周，Agent 接口市场的价值仍在授权、集成与流程治理，执行平台则需要提供可恢复、可核验的代码、浏览器和文档环境。模型降价可能扩大任务量，更准模型、API 直连及休眠缓存也可能降低每任务消耗。下一阶段应按成功任务追踪实际 CPU、内存、峰值和被替代的原有负载，再判断基础设施增量；现有证据尚不足以宣称 CPU 采购爆发。</p>
+<p>本周 Cloudflare 内部浏览器预览与 E2B 终端、重试能力的进展，让“生成代码—运行—检查—修改”链条更具体；同时 MCP 调用统计口径变更提示，市场跟踪必须先区分成功、错误、缓存与实际执行，再比较需求变化。</p>
+<h2>来源与前期材料</h2>
+<h3>模型资料</h3>
+<ul>
+<li>M1：<a href="https://huggingface.co/IQuestLab/IQuest-Q1">IQuest-Q1 官方模型卡与限制</a></li>
+<li>M2：<a href="https://www.minimax.io/blog/minimax-m31f">MiniMax M3.1 Flash 公告</a>、<a href="https://huggingface.co/MiniMaxAI/MiniMax-M3.1-Flash">官方模型卡</a></li>
+<li>M3：<a href="https://arxiv.org/abs/2610.30949">IQuest-Q1 技术报告</a>、<a href="https://www.prnewswire.com/news-releases/iquest-research-releases-iquest-q1-technical-report-detailing-training-from-scratch-and-results-across-30-benchmarks-302917967.html">10 月 23 日官方公告</a></li>
+<li>M4：<a href="https://developers.openai.com/api/docs/models/gpt-6.1-terra">GPT-6.1 Terra 官方模型页</a></li>
+<li>M5：<a href="https://api-docs.deepseek.com/updates/">DeepSeek 更新日志</a></li>
+<li>M6：<a href="https://www.anthropic.com/claude-haiku-5-5">Haiku 5.5</a>、<a href="https://www.anthropic.com/claude-sonnet-5-5">Sonnet 5.5</a></li>
+<li>M7：<a href="https://about.fb.com/news/2026/10/introducing-muse-wonder-models/">Meta Muse Wonder 公告</a></li>
+<li>M8：<a href="https://mistral.ai/news/mistral-large-4/">Mistral Large 4 公告</a></li>
+</ul>
+<h3>平台、案例与计量</h3>
+<ul>
+<li>P1：<a href="https://www.workato.com/the-connector/agentic-ai-pricing-guardrails/">Workato／DMSi，10 月 22 日案例</a></li>
+<li>P2：<a href="https://developers.cloudflare.com/changelog/post/2026-10-22-pi-harness-pi-1-4/">Cloudflare PiHarness／Pi 1.4，10 月 22 日更新</a></li>
+<li>P3：<a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/release-notes.html">AgentCore 发布说明</a>、<a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-target-connector-step-functions.html">Step Functions 连接器</a></li>
+<li>P4：<a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway-rules-fallback.html">AgentCore 模型路由与回退</a></li>
+<li>P5：<a href="https://composio.dev/agents-at-work">Composio Agents @ Work</a>；沿用上周特定样本，不标作本周新数据。</li>
+<li>P6：<a href="https://www.daytona.io/docs/billing">Daytona 计费文档</a></li>
+<li>P7：<a href="https://developers.cloudflare.com/containers/platform/pricing/">Cloudflare Containers 计费</a></li>
+<li>P8：<a href="https://aws.amazon.com/bedrock/agentcore/pricing/">AWS AgentCore 计费</a></li>
+<li>P9：<a href="https://developers.cloudflare.com/changelog/post/2026-10-28-browser-internal-hostnames/">Cloudflare 内部浏览器预览，10 月 28 日</a></li>
+<li>P10：<a href="https://developers.cloudflare.com/changelog/post/2026-10-28-mcp-analytics-response-status/">Cloudflare MCP 调用统计口径，10 月 28 日</a></li>
+<li>P11：<a href="https://docs.e2b.dev/changelog">E2B 更新文档</a>、<a href="https://changelog.e2b.dev/product-updates">带日期周更索引</a></li>
+</ul>
+<h3>连续研究</h3>
+<ul>
+<li>10 月 21 日：接口与执行平台场景需求</li>
+<li>10 月 26 日：进展更新</li>
+<li>截至 10 月 29 日：模型竞争洞察</li>
+<li>10 月 15 日：接口市场与 CPU 负载分析</li>
+</ul>
+<p>本文中的测试方向、传导机制和需求情景是分析框架；公开模型／平台材料尚未提供可用于合并估算全市场 CPU 增量的同口径生产数据。</p>
+</article><script>/* html-ppt :: runtime.js
+ * Keyboard-driven deck runtime. Zero dependencies.
+ *
+ * Features:
+ *   ← → / space / PgUp PgDn / Home End  navigation
+ *   F  fullscreen
+ *   S  presenter mode (opens a NEW WINDOW with current/next slide preview + notes + timer)
+ *       The original window stays as audience view, synced via BroadcastChannel.
+ *       Slide previews use CSS transform:scale() at design resolution for pixel-perfect layout.
+ *   N  quick notes overlay (bottom drawer)
+ *   O  slide overview grid
+ *   T  cycle themes (reads data-themes on <html> or <body>)
+ *   A  cycle demo animation on current slide
+ *   URL hash #/N  deep-link to slide N (1-based)
+ *   Progress bar auto-managed
+ */
+(function () {
+  'use strict';
+
+  const ANIMS = ['fade-up','fade-down','fade-left','fade-right','rise-in','drop-in',
+    'zoom-pop','blur-in','glitch-in','typewriter','neon-glow','shimmer-sweep',
+    'gradient-flow','stagger-list','counter-up','path-draw','parallax-tilt',
+    'card-flip-3d','cube-rotate-3d','page-turn-3d','perspective-zoom',
+    'marquee-scroll','kenburns','confetti-burst','spotlight','morph-shape','ripple-reveal'];
+
+  function ready(fn){ if(document.readyState!='loading')fn(); else document.addEventListener('DOMContentLoaded',fn);}
+
+  /* ========== Parse URL for preview-only mode ==========
+   * When loaded as iframe.src = "index.html?preview=3", runtime enters a
+   * locked single-slide mode: only slide N is visible, no chrome, no keys,
+   * no hash updates. This is how the presenter window shows pixel-perfect
+   * previews — by loading the actual deck file in an iframe and telling it
+   * to display only a specific slide.
+   */
+  function getPreviewIdx() {
+    const m = /[?&]preview=(\d+)/.exec(location.search || '');
+    return m ? parseInt(m[1], 10) - 1 : -1;
+  }
+
+  ready(function () {
+    const deck = document.querySelector('.deck');
+    if (!deck) return;
+    const slides = Array.from(deck.querySelectorAll('.slide'));
+    if (!slides.length) return;
+
+    const previewOnlyIdx = getPreviewIdx();
+    const isPreviewMode = previewOnlyIdx >= 0 && previewOnlyIdx < slides.length;
+
+    /* ===== Preview-only mode: show one slide, hide everything else ===== */
+    if (isPreviewMode) {
+      function showSlide(i) {
+        slides.forEach((s, j) => {
+          const active = (j === i);
+          s.classList.toggle('is-active', active);
+          s.style.display = active ? '' : 'none';
+          if (active) {
+            s.style.opacity = '1';
+            s.style.transform = 'none';
+            s.style.pointerEvents = 'auto';
+          }
+        });
+      }
+      showSlide(previewOnlyIdx);
+      /* Hide chrome that the presenter shouldn't see in preview */
+      const hideSel = '.progress-bar, .notes-overlay, .overview, .notes, aside.notes, .speaker-notes';
+      document.querySelectorAll(hideSel).forEach(el => { el.style.display = 'none'; });
+      document.documentElement.setAttribute('data-preview', '1');
+      document.body.setAttribute('data-preview', '1');
+      /* Auto-detect theme base path for theme switching in preview mode */
+      function getPreviewThemeBase() {
+        const base = document.documentElement.getAttribute('data-theme-base');
+        if (base) return base;
+        const tl = document.getElementById('theme-link');
+        if (tl) {
+          const raw = tl.getAttribute('href') || '';
+          const ls = raw.lastIndexOf('/');
+          if (ls >= 0) return raw.substring(0, ls + 1);
+        }
+        return 'assets/themes/';
+      }
+      const previewThemeBase = getPreviewThemeBase();
+
+      /* Listen for postMessage from parent presenter window:
+       *  - preview-goto: switch visible slide WITHOUT reloading
+       *  - preview-theme: switch theme CSS link to match audience window */
+      window.addEventListener('message', function(e) {
+        if (!e.data) return;
+        if (e.data.type === 'preview-goto') {
+          const n = parseInt(e.data.idx, 10);
+          if (n >= 0 && n < slides.length) showSlide(n);
+        } else if (e.data.type === 'preview-theme' && e.data.name) {
+          let link = document.getElementById('theme-link');
+          if (!link) {
+            link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.id = 'theme-link';
+            document.head.appendChild(link);
+          }
+          link.href = previewThemeBase + e.data.name + '.css';
+          document.documentElement.setAttribute('data-theme', e.data.name);
+        }
+      });
+      /* Signal to parent that preview iframe is ready */
+      try { window.parent && window.parent.postMessage({ type: 'preview-ready' }, '*'); } catch(e) {}
+      return;
+    }
+
+    let idx = 0;
+    const total = slides.length;
+
+    /* ===== BroadcastChannel for presenter sync ===== */
+    const CHANNEL_NAME = 'html-ppt-presenter-' + location.pathname;
+    let bc;
+    try { bc = new BroadcastChannel(CHANNEL_NAME); } catch(e) { bc = null; }
+
+    // Are we running inside the presenter popup? (legacy flag, now unused)
+    const isPresenterWindow = false;
+
+    /* ===== progress bar ===== */
+    let bar = document.querySelector('.progress-bar');
+    if (!bar) {
+      bar = document.createElement('div');
+      bar.className = 'progress-bar';
+      bar.innerHTML = '<span></span>';
+      document.body.appendChild(bar);
+    }
+    const barFill = bar.querySelector('span');
+
+    /* ===== notes overlay (N key) ===== */
+    let notes = document.querySelector('.notes-overlay');
+    if (!notes) {
+      notes = document.createElement('div');
+      notes.className = 'notes-overlay';
+      document.body.appendChild(notes);
+    }
+
+    /* ===== overview grid (O key) ===== */
+    let overview = document.querySelector('.overview');
+    if (!overview) {
+      overview = document.createElement('div');
+      overview.className = 'overview';
+      slides.forEach((s, i) => {
+        const t = document.createElement('div');
+        t.className = 'thumb';
+        // Force 16:9 aspect ratio robustly
+        t.style.padding = '0 0 56.25% 0';
+        t.style.height = '0';
+        t.style.position = 'relative';
+        t.style.overflow = 'hidden';
+
+        const title = s.getAttribute('data-title') ||
+          (s.querySelector('h1,h2,h3')||{}).textContent || ('Slide '+(i+1));
+        
+        // Create a container for the mini-slide
+        const mini = document.createElement('div');
+        mini.className = 'mini-slide';
+        mini.style.position = 'absolute';
+        mini.style.top = '0';
+        mini.style.left = '0';
+        mini.style.width = '1920px';
+        mini.style.height = '1080px';
+        mini.style.transformOrigin = 'top left';
+        mini.style.pointerEvents = 'none';
+        mini.style.background = 'var(--bg)';
+        
+        // Clone the slide content
+        const clone = s.cloneNode(true);
+        clone.className = 'slide is-active'; // force active styles
+        clone.style.position = 'absolute';
+        clone.style.inset = '0';
+        clone.style.transform = 'none';
+        clone.style.opacity = '1';
+        clone.style.padding = '72px 96px'; // ensure padding is kept
+        
+        mini.appendChild(clone);
+        t.appendChild(mini);
+
+        // Add the number and title overlay
+        const overlay = document.createElement('div');
+        overlay.style.position = 'absolute';
+        overlay.style.inset = '0';
+        overlay.style.background = 'linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.8) 100%)';
+        overlay.style.color = '#fff';
+        overlay.style.zIndex = '10';
+        overlay.style.pointerEvents = 'none';
+        
+        const n = document.createElement('div');
+        n.className = 'n';
+        n.textContent = i + 1;
+        n.style.position = 'absolute';
+        n.style.top = '12px';
+        n.style.left = '16px';
+        n.style.fontWeight = '700';
+        n.style.fontSize = '16px';
+        n.style.color = '#fff';
+        n.style.textShadow = '0 1px 4px rgba(0,0,0,0.8)';
+        
+        const text = document.createElement('div');
+        text.className = 't';
+        text.textContent = title.trim().slice(0,80);
+        text.style.position = 'absolute';
+        text.style.bottom = '12px';
+        text.style.left = '16px';
+        text.style.right = '16px';
+        text.style.fontWeight = '600';
+        text.style.fontSize = '14px';
+        text.style.color = '#fff';
+        text.style.textShadow = '0 1px 4px rgba(0,0,0,0.8)';
+        
+        overlay.appendChild(n);
+        overlay.appendChild(text);
+        t.appendChild(overlay);
+
+        t.addEventListener('click', () => { go(i); toggleOverview(false); });
+        overview.appendChild(t);
+      });
+      document.body.appendChild(overview);
+    }
+
+    /* ===== navigation ===== */
+    function go(n, fromRemote){
+      n = Math.max(0, Math.min(total-1, n));
+      slides.forEach((s,i) => {
+        s.classList.toggle('is-active', i===n);
+        s.classList.toggle('is-prev', i<n);
+      });
+      idx = n;
+      barFill.style.width = ((n+1)/total*100)+'%';
+      const numEl = document.querySelector('.slide-number');
+      if (numEl) { numEl.setAttribute('data-current', n+1); numEl.setAttribute('data-total', total); }
+
+      // notes (bottom overlay)
+      const note = slides[n].querySelector('.notes, aside.notes, .speaker-notes');
+      notes.innerHTML = note ? note.innerHTML : '';
+
+      // hash
+      const hashTarget = '#/'+(n+1);
+      if (location.hash !== hashTarget && !isPresenterWindow) {
+        history.replaceState(null,'', hashTarget);
+      }
+
+      // re-trigger entry animations
+      slides[n].querySelectorAll('[data-anim]').forEach(el => {
+        const a = el.getAttribute('data-anim');
+        el.classList.remove('anim-'+a);
+        void el.offsetWidth;
+        el.classList.add('anim-'+a);
+      });
+
+      // counter-up
+      slides[n].querySelectorAll('.counter').forEach(el => {
+        const target = parseFloat(el.getAttribute('data-to')||el.textContent);
+        const dur = parseInt(el.getAttribute('data-dur')||'1200',10);
+        const start = performance.now();
+        const from = 0;
+        function tick(now){
+          const t = Math.min(1,(now-start)/dur);
+          const v = from + (target-from)*(1-Math.pow(1-t,3));
+          el.textContent = (target % 1 === 0) ? Math.round(v) : v.toFixed(1);
+          if (t<1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+
+      // Broadcast to other window (audience ↔ presenter)
+      if (!fromRemote && bc) {
+        bc.postMessage({ type: 'go', idx: n });
+      }
+    }
+
+    /* ===== listen for remote navigation / theme changes ===== */
+    if (bc) {
+      bc.onmessage = function(e) {
+        if (!e.data) return;
+        if (e.data.type === 'go' && typeof e.data.idx === 'number') {
+          go(e.data.idx, true);
+        } else if (e.data.type === 'theme' && e.data.name) {
+          /* Sync theme across windows */
+          const i = themes.indexOf(e.data.name);
+          if (i >= 0) themeIdx = i;
+          applyTheme(e.data.name);
+        }
+      };
+    }
+
+    function toggleNotes(force){ notes.classList.toggle('open', force!==undefined?force:!notes.classList.contains('open')); }
+    function toggleOverview(force){
+      const isOpen = force!==undefined ? force : !overview.classList.contains('open');
+      overview.classList.toggle('open', isOpen);
+      if (isOpen) {
+        requestAnimationFrame(() => {
+          const thumbs = overview.querySelectorAll('.thumb');
+          if (thumbs.length) {
+            const scale = thumbs[0].clientWidth / 1920;
+            overview.querySelectorAll('.mini-slide').forEach(m => {
+              m.style.transform = 'scale(' + scale + ')';
+            });
+          }
+        });
+      }
+    }
+
+    /* ========== PRESENTER MODE — Magnetic-card popup window ========== */
+    /* Opens a new window with 4 draggable, resizable cards:
+     *   CURRENT  — iframe(?preview=N)   pixel-perfect preview of current slide
+     *   NEXT     — iframe(?preview=N+1) pixel-perfect preview of next slide
+     *   SCRIPT   — large speaker notes (逐字稿)
+     *   TIMER    — elapsed timer + page counter + controls
+     * Cards remember position/size in localStorage.
+     * Two windows sync via BroadcastChannel.
+     */
+    let presenterWin = null;
+
+    function openPresenterWindow() {
+      if (presenterWin && !presenterWin.closed) {
+        presenterWin.focus();
+        return;
+      }
+
+      // Build absolute URL of THIS deck file (without hash/query)
+      const deckUrl = location.protocol + '//' + location.host + location.pathname;
+
+      // Collect slide titles + notes (HTML strings)
+      const slideMeta = slides.map((s, i) => {
+        const note = s.querySelector('.notes, aside.notes, .speaker-notes');
+        return {
+          title: s.getAttribute('data-title') ||
+            (s.querySelector('h1,h2,h3')||{}).textContent || ('Slide '+(i+1)),
+          notes: note ? note.innerHTML : ''
+        };
+      });
+
+      /* Capture current theme so presenter previews match the audience */
+      const currentTheme = root.getAttribute('data-theme') || (themes[themeIdx] || '');
+      const presenterHTML = buildPresenterHTML(deckUrl, slideMeta, total, idx, CHANNEL_NAME, currentTheme);
+
+      presenterWin = window.open('', 'html-ppt-presenter', 'width=1280,height=820,menubar=no,toolbar=no');
+      if (!presenterWin) {
+        alert('请允许弹出窗口以使用演讲者视图');
+        return;
+      }
+      presenterWin.document.open();
+      presenterWin.document.write(presenterHTML);
+      presenterWin.document.close();
+    }
+
+    function buildPresenterHTML(deckUrl, slideMeta, total, startIdx, channelName, currentTheme) {
+      const metaJSON = JSON.stringify(slideMeta);
+      const deckUrlJSON = JSON.stringify(deckUrl);
+      const channelJSON = JSON.stringify(channelName);
+      const themeJSON = JSON.stringify(currentTheme || '');
+      const storageKey = 'html-ppt-presenter:' + location.pathname;
+
+      // Build the document as a single template string for clarity
+      return `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>Presenter View</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 100%; height: 100%; overflow: hidden;
+    background: #1a1d24;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(88,166,255,.04), transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(188,140,255,.04), transparent 50%);
+    color: #e6edf3;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+  }
+  /* Stage: positioned area where cards live */
+  #stage { position: absolute; inset: 0; overflow: hidden; }
+
+  /* Magnetic card */
+  .pcard {
+    position: absolute;
+    background: #0d1117;
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.02);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    min-width: 180px; min-height: 100px;
+    transition: box-shadow .2s, border-color .2s;
+  }
+  .pcard.dragging { box-shadow: 0 16px 48px rgba(0,0,0,.6), 0 0 0 2px rgba(88,166,255,.5); border-color: #58a6ff; transition: none; z-index: 9999; }
+  .pcard.resizing { box-shadow: 0 16px 48px rgba(0,0,0,.6), 0 0 0 2px rgba(63,185,80,.5); border-color: #3fb950; transition: none; z-index: 9999; }
+  .pcard:hover { border-color: rgba(88,166,255,.3); }
+
+  /* Card header (drag handle) */
+  .pcard-head {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 12px;
+    background: rgba(255,255,255,.04);
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    cursor: move;
+    user-select: none;
+    flex-shrink: 0;
+  }
+  .pcard-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--dot-color, #58a6ff); flex-shrink: 0; }
+  .pcard-title {
+    font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
+    font-weight: 700; color: #8b949e; flex: 1;
+  }
+  .pcard-meta { font-size: 11px; color: #6e7681; }
+
+  /* Card body */
+  .pcard-body { flex: 1; position: relative; overflow: hidden; min-height: 0; }
+
+  /* Preview cards (CURRENT/NEXT) — iframe-based pixel-perfect render */
+  .pcard-preview .pcard-body { background: #000; }
+  .pcard-preview iframe {
+    position: absolute; top: 0; left: 0;
+    width: 1920px; height: 1080px;
+    border: none;
+    transform-origin: top left;
+    pointer-events: none;
+    background: transparent;
+  }
+  .pcard-preview .preview-end {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: #484f58; font-size: 14px; letter-spacing: .12em;
+  }
+
+  /* Notes card */
+  .pcard-notes .pcard-body {
+    padding: 14px 18px;
+    overflow-y: auto;
+    font-size: 18px; line-height: 1.75;
+    color: #d0d7de;
+    font-family: "Noto Sans SC", -apple-system, sans-serif;
+  }
+  .pcard-notes .pcard-body p { margin: 0 0 .7em 0; }
+  .pcard-notes .pcard-body strong { color: #f0883e; }
+  .pcard-notes .pcard-body em { color: #58a6ff; font-style: normal; }
+  .pcard-notes .pcard-body code {
+    font-family: "SF Mono", monospace; font-size: .9em;
+    background: rgba(255,255,255,.08); padding: 1px 6px; border-radius: 4px;
+  }
+  .pcard-notes .empty { color: #484f58; font-style: italic; }
+
+  /* Timer card */
+  .pcard-timer .pcard-body {
+    display: flex; flex-direction: column; gap: 14px;
+    padding: 18px 20px; justify-content: center;
+  }
+  .timer-display {
+    font-family: "SF Mono", "JetBrains Mono", monospace;
+    font-size: 42px; font-weight: 700;
+    color: #3fb950;
+    letter-spacing: .04em;
+    line-height: 1;
+  }
+  .timer-row {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 14px; color: #8b949e;
+  }
+  .timer-row .label { font-size: 10px; letter-spacing: .15em; text-transform: uppercase; color: #6e7681; }
+  .timer-row .val { color: #e6edf3; font-weight: 600; font-family: "SF Mono", monospace; }
+  .timer-controls { display: flex; gap: 8px; flex-wrap: wrap; }
+  .timer-btn {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.1);
+    color: #e6edf3;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .timer-btn:hover { background: rgba(88,166,255,.15); border-color: #58a6ff; }
+  .timer-btn:active { transform: translateY(1px); }
+
+  /* Resize handle */
+  .pcard-resize {
+    position: absolute; right: 0; bottom: 0;
+    width: 18px; height: 18px;
+    cursor: nwse-resize;
+    background: linear-gradient(135deg, transparent 50%, rgba(255,255,255,.25) 50%, rgba(255,255,255,.25) 60%, transparent 60%, transparent 70%, rgba(255,255,255,.25) 70%, rgba(255,255,255,.25) 80%, transparent 80%);
+    z-index: 5;
+  }
+  .pcard-resize:hover { background: linear-gradient(135deg, transparent 50%, #58a6ff 50%, #58a6ff 60%, transparent 60%, transparent 70%, #58a6ff 70%, #58a6ff 80%, transparent 80%); }
+
+  /* Bottom hint bar */
+  .hint-bar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: rgba(0,0,0,.6);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255,255,255,.08);
+    padding: 6px 16px;
+    font-size: 11px; color: #8b949e;
+    display: flex; gap: 18px; align-items: center;
+    z-index: 1000;
+  }
+  .hint-bar kbd {
+    background: rgba(255,255,255,.08);
+    padding: 1px 6px; border-radius: 3px;
+    font-family: "SF Mono", monospace;
+    font-size: 10px;
+    border: 1px solid rgba(255,255,255,.1);
+    color: #e6edf3;
+  }
+  .hint-bar .reset-layout {
+    margin-left: auto;
+    background: transparent; border: 1px solid rgba(255,255,255,.15);
+    color: #8b949e; padding: 3px 10px; border-radius: 4px;
+    font-size: 11px; cursor: pointer; font-family: inherit;
+  }
+  .hint-bar .reset-layout:hover { background: rgba(248,81,73,.15); border-color: #f85149; color: #f85149; }
+
+  body.is-dragging-card * { user-select: none !important; }
+  body.is-dragging-card iframe { pointer-events: none !important; }
+</style>
+</head>
+<body>
+
+<div id="stage">
+  <div class="pcard pcard-preview" id="card-cur" style="--dot-color:#58a6ff">
+    <div class="pcard-head" data-drag>
+      <span class="pcard-dot"></span>
+      <span class="pcard-title">CURRENT</span>
+      <span class="pcard-meta" id="cur-meta">—</span>
+    </div>
+    <div class="pcard-body"><iframe id="iframe-cur"></iframe></div>
+    <div class="pcard-resize" data-resize></div>
+  </div>
+
+  <div class="pcard pcard-preview" id="card-nxt" style="--dot-color:#bc8cff">
+    <div class="pcard-head" data-drag>
+      <span class="pcard-dot"></span>
+      <span class="pcard-title">NEXT</span>
+      <span class="pcard-meta" id="nxt-meta">—</span>
+    </div>
+    <div class="pcard-body"><iframe id="iframe-nxt"></iframe></div>
+    <div class="pcard-resize" data-resize></div>
+  </div>
+
+  <div class="pcard pcard-notes" id="card-notes" style="--dot-color:#f0883e">
+    <div class="pcard-head" data-drag>
+      <span class="pcard-dot"></span>
+      <span class="pcard-title">SPEAKER SCRIPT · 逐字稿</span>
+    </div>
+    <div class="pcard-body" id="notes-body"></div>
+    <div class="pcard-resize" data-resize></div>
+  </div>
+
+  <div class="pcard pcard-timer" id="card-timer" style="--dot-color:#3fb950">
+    <div class="pcard-head" data-drag>
+      <span class="pcard-dot"></span>
+      <span class="pcard-title">TIMER</span>
+    </div>
+    <div class="pcard-body">
+      <div class="timer-display" id="timer-display">00:00</div>
+      <div class="timer-row">
+        <span class="label">Slide</span>
+        <span class="val" id="timer-count">1 / ${total}</span>
+      </div>
+      <div class="timer-controls">
+        <button class="timer-btn" id="btn-prev">← Prev</button>
+        <button class="timer-btn" id="btn-next">Next →</button>
+        <button class="timer-btn" id="btn-reset">⏱ Reset</button>
+      </div>
+    </div>
+    <div class="pcard-resize" data-resize></div>
+  </div>
+</div>
+
+<div class="hint-bar">
+  <span><kbd>← →</kbd> 翻页</span>
+  <span><kbd>R</kbd> 重置计时</span>
+  <span><kbd>Esc</kbd> 关闭</span>
+  <span style="color:#6e7681">拖动卡片头部移动 · 拖动右下角调整大小</span>
+  <button class="reset-layout" id="reset-layout">重置布局</button>
+</div>
+
+<script>
+(function(){
+  var slideMeta = ${metaJSON};
+  var total = ${total};
+  var idx = ${startIdx};
+  var deckUrl = ${deckUrlJSON};
+  var STORAGE_KEY = ${JSON.stringify(storageKey)};
+  var bc;
+  try { bc = new BroadcastChannel(${channelJSON}); } catch(e) {}
+
+  var iframeCur = document.getElementById('iframe-cur');
+  var iframeNxt = document.getElementById('iframe-nxt');
+  var notesBody = document.getElementById('notes-body');
+  var curMeta = document.getElementById('cur-meta');
+  var nxtMeta = document.getElementById('nxt-meta');
+  var timerDisplay = document.getElementById('timer-display');
+  var timerCount = document.getElementById('timer-count');
+
+  /* ===== Default card layout ===== */
+  function defaultLayout() {
+    var w = window.innerWidth;
+    var h = window.innerHeight - 36; /* leave room for hint bar */
+    return {
+      'card-cur':   { x: 16,        y: 16,            w: Math.round(w*0.55) - 24, h: Math.round(h*0.62) - 16 },
+      'card-nxt':   { x: Math.round(w*0.55) + 8, y: 16, w: w - Math.round(w*0.55) - 24, h: Math.round(h*0.42) - 16 },
+      'card-notes': { x: Math.round(w*0.55) + 8, y: Math.round(h*0.42) + 8, w: w - Math.round(w*0.55) - 24, h: h - Math.round(h*0.42) - 16 },
+      'card-timer': { x: 16,        y: Math.round(h*0.62) + 8, w: Math.round(w*0.55) - 24, h: h - Math.round(h*0.62) - 16 }
+    };
+  }
+
+  /* ===== Apply / save / restore layout ===== */
+  function applyLayout(layout) {
+    Object.keys(layout).forEach(function(id){
+      var el = document.getElementById(id);
+      var l = layout[id];
+      if (el && l) {
+        el.style.left = l.x + 'px';
+        el.style.top = l.y + 'px';
+        el.style.width = l.w + 'px';
+        el.style.height = l.h + 'px';
+      }
+    });
+    rescaleAll();
+  }
+  function readLayout() {
+    try {
+      var saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) return JSON.parse(saved);
+    } catch(e) {}
+    return defaultLayout();
+  }
+  function saveLayout() {
+    var layout = {};
+    ['card-cur','card-nxt','card-notes','card-timer'].forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) {
+        layout[id] = {
+          x: parseInt(el.style.left,10) || 0,
+          y: parseInt(el.style.top,10) || 0,
+          w: parseInt(el.style.width,10) || 300,
+          h: parseInt(el.style.height,10) || 200
+        };
+      }
+    });
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(layout)); } catch(e) {}
+  }
+
+  /* ===== iframe rescale to fit card body ===== */
+  function rescaleIframe(iframe) {
+    if (!iframe || iframe.style.display === 'none') return;
+    var body = iframe.parentElement;
+    var cw = body.clientWidth, ch = body.clientHeight;
+    if (!cw || !ch) return;
+    var s = Math.min(cw / 1920, ch / 1080);
+    iframe.style.transform = 'scale(' + s + ')';
+    /* Center the scaled iframe in the body */
+    var sw = 1920 * s, sh = 1080 * s;
+    iframe.style.left = Math.max(0, (cw - sw) / 2) + 'px';
+    iframe.style.top = Math.max(0, (ch - sh) / 2) + 'px';
+  }
+  function rescaleAll() {
+    rescaleIframe(iframeCur);
+    rescaleIframe(iframeNxt);
+  }
+  window.addEventListener('resize', rescaleAll);
+
+  /* ===== Drag (move card by header) ===== */
+  document.querySelectorAll('[data-drag]').forEach(function(handle){
+    handle.addEventListener('mousedown', function(e){
+      if (e.button !== 0) return;
+      var card = handle.closest('.pcard');
+      if (!card) return;
+      e.preventDefault();
+      card.classList.add('dragging');
+      document.body.classList.add('is-dragging-card');
+      var startX = e.clientX, startY = e.clientY;
+      var startL = parseInt(card.style.left,10) || 0;
+      var startT = parseInt(card.style.top,10)  || 0;
+      function onMove(ev){
+        var nx = Math.max(0, Math.min(window.innerWidth - 100, startL + ev.clientX - startX));
+        var ny = Math.max(0, Math.min(window.innerHeight - 50, startT + ev.clientY - startY));
+        card.style.left = nx + 'px';
+        card.style.top = ny + 'px';
+      }
+      function onUp(){
+        card.classList.remove('dragging');
+        document.body.classList.remove('is-dragging-card');
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', onUp);
+        saveLayout();
+      }
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+    });
+  });
+
+  /* ===== Resize (drag bottom-right corner) ===== */
+  document.querySelectorAll('[data-resize]').forEach(function(handle){
+    handle.addEventListener('mousedown', function(e){
+      if (e.button !== 0) return;
+      var card = handle.closest('.pcard');
+      if (!card) return;
+      e.preventDefault(); e.stopPropagation();
+      card.classList.add('resizing');
+      document.body.classList.add('is-dragging-card');
+      var startX = e.clientX, startY = e.clientY;
+      var startW = parseInt(card.style.width,10)  || card.offsetWidth;
+      var startH = parseInt(card.style.height,10) || card.offsetHeight;
+      function onMove(ev){
+        var nw = Math.max(180, startW + ev.clientX - startX);
+        var nh = Math.max(100, startH + ev.clientY - startY);
+        card.style.width = nw + 'px';
+        card.style.height = nh + 'px';
+        if (card.querySelector('iframe')) rescaleIframe(card.querySelector('iframe'));
+      }
+      function onUp(){
+        card.classList.remove('resizing');
+        document.body.classList.remove('is-dragging-card');
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', onUp);
+        rescaleAll();
+        saveLayout();
+      }
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+    });
+  });
+
+  /* ===== Preview iframe ready tracking =====
+   * Each iframe loads the deck ONCE with ?preview=1 on init. Subsequent
+   * slide changes are sent via postMessage('preview-goto') so the iframe
+   * just toggles visibility of a different .slide — no reload, no flicker.
+   */
+  var iframeReady = { cur: false, nxt: false };
+  var currentTheme = ${themeJSON};
+  window.addEventListener('message', function(e) {
+    if (!e.data || e.data.type !== 'preview-ready') return;
+    var iframe = null;
+    if (e.source === iframeCur.contentWindow) {
+      iframeReady.cur = true;
+      iframe = iframeCur;
+      postPreviewGoto(iframeCur, idx);
+    } else if (e.source === iframeNxt.contentWindow) {
+      iframeReady.nxt = true;
+      iframe = iframeNxt;
+      postPreviewGoto(iframeNxt, idx + 1 < total ? idx + 1 : idx);
+    }
+    /* Sync current theme to the iframe */
+    if (iframe && currentTheme) {
+      try { iframe.contentWindow.postMessage({ type: 'preview-theme', name: currentTheme }, '*'); } catch(err) {}
+    }
+    if (iframe) rescaleIframe(iframe);
+  });
+
+  function postPreviewGoto(iframe, n) {
+    try {
+      iframe.contentWindow.postMessage({ type: 'preview-goto', idx: n }, '*');
+    } catch(e) {}
+  }
+
+  /* ===== Update content =====
+   * Smooth (no-reload) navigation: send postMessage to iframes instead of
+   * resetting src. Iframes stay loaded, just switch visible .slide.
+   */
+  function update(n) {
+    n = Math.max(0, Math.min(total - 1, n));
+    idx = n;
+
+    /* Current preview — postMessage (smooth) */
+    if (iframeReady.cur) postPreviewGoto(iframeCur, n);
+    curMeta.textContent = (n + 1) + '/' + total;
+
+    /* Next preview */
+    if (n + 1 < total) {
+      iframeNxt.style.display = '';
+      var endEl = document.querySelector('#card-nxt .preview-end');
+      if (endEl) endEl.remove();
+      if (iframeReady.nxt) postPreviewGoto(iframeNxt, n + 1);
+      nxtMeta.textContent = (n + 2) + '/' + total;
+    } else {
+      iframeNxt.style.display = 'none';
+      var body = document.querySelector('#card-nxt .pcard-body');
+      if (body && !body.querySelector('.preview-end')) {
+        var end = document.createElement('div');
+        end.className = 'preview-end';
+        end.textContent = '— END OF DECK —';
+        body.appendChild(end);
+      }
+      nxtMeta.textContent = 'END';
+    }
+
+    /* Notes */
+    var note = slideMeta[n].notes;
+    notesBody.innerHTML = note || '<span class="empty">（这一页还没有逐字稿）</span>';
+
+    /* Timer count */
+    timerCount.textContent = (n + 1) + ' / ' + total;
+  }
+
+  /* ===== Timer ===== */
+  var tStart = Date.now();
+  setInterval(function(){
+    var s = Math.floor((Date.now() - tStart) / 1000);
+    var mm = String(Math.floor(s/60)).padStart(2,'0');
+    var ss = String(s%60).padStart(2,'0');
+    timerDisplay.textContent = mm + ':' + ss;
+  }, 1000);
+  function resetTimer(){ tStart = Date.now(); timerDisplay.textContent = '00:00'; }
+
+  /* ===== BroadcastChannel sync ===== */
+  if (bc) {
+    bc.onmessage = function(e){
+      if (!e.data) return;
+      if (e.data.type === 'go') update(e.data.idx);
+      else if (e.data.type === 'theme' && e.data.name) {
+        currentTheme = e.data.name;
+        /* Forward theme change to preview iframes */
+        [iframeCur, iframeNxt].forEach(function(iframe){
+          try {
+            iframe.contentWindow.postMessage({ type: 'preview-theme', name: e.data.name }, '*');
+          } catch(err) {}
+        });
+      }
+    };
+  }
+  function go(n) {
+    update(n);
+    if (bc) bc.postMessage({ type: 'go', idx: idx });
+  }
+
+  /* ===== Buttons ===== */
+  document.getElementById('btn-prev').addEventListener('click', function(){ go(idx - 1); });
+  document.getElementById('btn-next').addEventListener('click', function(){ go(idx + 1); });
+  document.getElementById('btn-reset').addEventListener('click', resetTimer);
+  document.getElementById('reset-layout').addEventListener('click', function(){
+    if (confirm('恢复默认卡片布局？')) {
+      try { localStorage.removeItem(STORAGE_KEY); } catch(e){}
+      applyLayout(defaultLayout());
+    }
+  });
+
+  /* ===== Keyboard ===== */
+  document.addEventListener('keydown', function(e){
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    switch(e.key) {
+      case 'ArrowRight': case ' ': case 'PageDown': go(idx + 1); e.preventDefault(); break;
+      case 'ArrowLeft':  case 'PageUp':   go(idx - 1); e.preventDefault(); break;
+      case 'Home': go(0); break;
+      case 'End':  go(total - 1); break;
+      case 'r': case 'R': resetTimer(); break;
+      case 'Escape': window.close(); break;
+    }
+  });
+
+  /* ===== Iframe load → rescale (catches initial size) ===== */
+  iframeCur.addEventListener('load', function(){ rescaleIframe(iframeCur); });
+  iframeNxt.addEventListener('load', function(){ rescaleIframe(iframeNxt); });
+
+  /* ===== Init =====
+   * Load each iframe ONCE with the deck file. After they post
+   * 'preview-ready', all subsequent navigation is via postMessage
+   * (smooth, no reload, no flicker).
+   */
+  applyLayout(readLayout());
+  iframeCur.src = deckUrl + '?preview=' + (idx + 1);
+  if (idx + 1 < total) iframeNxt.src = deckUrl + '?preview=' + (idx + 2);
+  /* Initialize notes/timer/count without touching iframes */
+  notesBody.innerHTML = slideMeta[idx].notes || '<span class="empty">（这一页还没有逐字稿）</span>';
+  curMeta.textContent = (idx + 1) + '/' + total;
+  nxtMeta.textContent = (idx + 2) + '/' + total;
+  timerCount.textContent = (idx + 1) + ' / ' + total;
+})();
+</` + `script>
+</body></html>`;
+    }
+
+    function fullscreen(){ const el=document.documentElement;
+      if (!document.fullscreenElement) el.requestFullscreen&&el.requestFullscreen();
+      else document.exitFullscreen&&document.exitFullscreen();
+    }
+
+    // theme cycling
+    const root = document.documentElement;
+    const themesAttr = root.getAttribute('data-themes') || document.body.getAttribute('data-themes');
+    const themes = themesAttr ? themesAttr.split(',').map(s=>s.trim()).filter(Boolean) : [];
+    let themeIdx = 0;
+
+    // Auto-detect theme base path from existing <link id="theme-link">
+    let themeBase = root.getAttribute('data-theme-base');
+    if (!themeBase) {
+      const existingLink = document.getElementById('theme-link');
+      if (existingLink) {
+        // el.getAttribute('href') gives the raw relative path written in HTML
+        const rawHref = existingLink.getAttribute('href') || '';
+        const lastSlash = rawHref.lastIndexOf('/');
+        themeBase = lastSlash >= 0 ? rawHref.substring(0, lastSlash + 1) : 'assets/themes/';
+      } else {
+        themeBase = 'assets/themes/';
+      }
+    }
+
+    function applyTheme(name) {
+      let link = document.getElementById('theme-link');
+      if (!link) {
+        link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.id = 'theme-link';
+        document.head.appendChild(link);
+      }
+      link.href = themeBase + name + '.css';
+      root.setAttribute('data-theme', name);
+      const ind = document.querySelector('.theme-indicator');
+      if (ind) ind.textContent = name;
+    }
+    function cycleTheme(fromRemote){
+      if (!themes.length) return;
+      themeIdx = (themeIdx+1) % themes.length;
+      const name = themes[themeIdx];
+      applyTheme(name);
+      /* Broadcast to other window (audience ↔ presenter) */
+      if (!fromRemote && bc) bc.postMessage({ type: 'theme', name: name });
+    }
+
+    // animation cycling on current slide
+    let animIdx = 0;
+    function cycleAnim(){
+      animIdx = (animIdx+1) % ANIMS.length;
+      const a = ANIMS[animIdx];
+      const target = slides[idx].querySelector('[data-anim-target]') || slides[idx];
+      ANIMS.forEach(x => target.classList.remove('anim-'+x));
+      void target.offsetWidth;
+      target.classList.add('anim-'+a);
+      target.setAttribute('data-anim', a);
+      const ind = document.querySelector('.anim-indicator');
+      if (ind) ind.textContent = a;
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (e.metaKey||e.ctrlKey||e.altKey) return;
+      switch (e.key) {
+        case 'ArrowRight': case ' ': case 'PageDown': case 'Enter': go(idx+1); e.preventDefault(); break;
+        case 'ArrowLeft': case 'PageUp': case 'Backspace': go(idx-1); e.preventDefault(); break;
+        case 'Home': go(0); break;
+        case 'End': go(total-1); break;
+        case 'f': case 'F': fullscreen(); break;
+        case 's': case 'S': openPresenterWindow(); break;
+        case 'n': case 'N': toggleNotes(); break;
+        case 'o': case 'O': toggleOverview(); break;
+        case 't': case 'T': cycleTheme(); break;
+        case 'a': case 'A': cycleAnim(); break;
+        case 'Escape': toggleOverview(false); toggleNotes(false); break;
+      }
+    });
+
+    // hash deep-link
+    function fromHash(){
+      const m = /^#\/(\d+)/.exec(location.hash||'');
+      if (m) go(Math.max(0, parseInt(m[1],10)-1));
+    }
+    window.addEventListener('hashchange', fromHash);
+    fromHash();
+    go(idx);
+  });
+})();
+</script><script>(function(){const fit=()=>document.documentElement.style.setProperty('--scale',Math.min(innerWidth/1600,innerHeight/900));fit();addEventListener('resize',fit);document.querySelectorAll('[data-key]').forEach(b=>b.onclick=()=>document.dispatchEvent(new KeyboardEvent('keydown',{key:b.dataset.key,bubbles:true})));const reader=document.getElementById('reader');const toggle=()=>{reader.classList.toggle('open');document.body.classList.toggle('reading',reader.classList.contains('open'))};document.getElementById('read').onclick=toggle;document.querySelector('.reader-close').onclick=toggle;document.addEventListener('keydown',e=>{if(e.key==='Escape'&&reader.classList.contains('open'))toggle()});let x;document.querySelector('.deck').addEventListener('touchstart',e=>x=e.touches[0].clientX,{passive:true});document.querySelector('.deck').addEventListener('touchend',e=>{let d=e.changedTouches[0].clientX-x;if(Math.abs(d)>60)document.dispatchEvent(new KeyboardEvent('keydown',{key:d<0?'ArrowRight':'ArrowLeft',bubbles:true}))},{passive:true})})();</script></body></html>
