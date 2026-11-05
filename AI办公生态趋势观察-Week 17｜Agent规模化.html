@@ -1,0 +1,1139 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>2026-W45｜Agent规模化：企业治理、腾讯布局与沙箱基础设施｜汇报演示</title><style>/* html-ppt :: base.css — reset + shared tokens + layout primitives */
+/* Default tokens. Themes in assets/themes/*.css override the :root block. */
+:root {
+  --bg: #ffffff;
+  --bg-soft: #f7f7f8;
+  --surface: #ffffff;
+  --surface-2: #f2f2f4;
+  --border: rgba(0,0,0,.08);
+  --border-strong: rgba(0,0,0,.16);
+  --text-1: #111216;
+  --text-2: #55596a;
+  --text-3: #8a8f9e;
+  --accent: #3b6cff;
+  --accent-2: #7a5cff;
+  --accent-3: #ff5c8a;
+  --good: #1aaf6c;
+  --warn: #f5a524;
+  --bad:  #e0445a;
+  --grad: linear-gradient(135deg,#3b6cff,#7a5cff 55%,#ff5c8a);
+  --grad-soft: linear-gradient(135deg,#eef2ff,#f5ecff 55%,#ffeef5);
+  --radius: 18px;
+  --radius-sm: 12px;
+  --radius-lg: 26px;
+  --shadow: 0 10px 30px rgba(18,24,40,.08), 0 2px 6px rgba(18,24,40,.04);
+  --shadow-lg: 0 24px 60px rgba(18,24,40,.14), 0 6px 16px rgba(18,24,40,.06);
+  --font-sans: 'Inter','Noto Sans SC',-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;
+  --font-serif: 'Playfair Display','Noto Serif SC',Georgia,serif;
+  --font-mono: 'JetBrains Mono','IBM Plex Mono',SFMono-Regular,Menlo,monospace;
+  --font-display: var(--font-sans);
+  --letter-tight: -.03em;
+  --letter-normal: -.01em;
+  --ease: cubic-bezier(.4,0,.2,1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text-1);
+  font-family:var(--font-sans);font-weight:400;line-height:1.6;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  letter-spacing:var(--letter-normal)}
+img,svg,video{max-width:100%;display:block}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+code,kbd,pre,samp{font-family:var(--font-mono)}
+
+/* ================= SLIDE SYSTEM ================= */
+.deck{position:relative;width:100vw;height:100vh;overflow:hidden;background:var(--bg)}
+.slide{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:72px 96px;
+  box-sizing:border-box;
+  opacity:0;pointer-events:none;
+  transition:opacity .5s var(--ease), transform .5s var(--ease);
+  transform:translateX(30px);
+  overflow:hidden;
+}
+.slide.is-active{opacity:1;pointer-events:auto;transform:translateX(0);z-index:2}
+.slide.is-prev{transform:translateX(-30px)}
+
+/* single-page standalone (used when a layout file is opened directly) */
+body.single .slide{position:relative;width:100vw;height:100vh;opacity:1;transform:none;pointer-events:auto}
+
+/* ================= TYPOGRAPHY ================= */
+.eyebrow{font-size:13px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3)}
+.kicker{font-size:14px;font-weight:600;color:var(--accent);letter-spacing:.08em;text-transform:uppercase}
+h1.title,.h1{font-family:var(--font-display);font-size:72px;line-height:1.05;font-weight:800;letter-spacing:var(--letter-tight);margin:0 0 18px;color:var(--text-1)}
+h2.title,.h2{font-family:var(--font-display);font-size:54px;line-height:1.1;font-weight:700;letter-spacing:var(--letter-tight);margin:0 0 14px}
+h3,.h3{font-size:32px;line-height:1.2;font-weight:600;letter-spacing:var(--letter-normal);margin:0 0 10px}
+h4,.h4{font-size:22px;line-height:1.3;font-weight:600;margin:0 0 8px}
+.lede{font-size:22px;line-height:1.55;color:var(--text-2);font-weight:300;max-width:62ch}
+.dim{color:var(--text-2)}
+.dim2{color:var(--text-3)}
+.mono{font-family:var(--font-mono)}
+.serif{font-family:var(--font-serif)}
+.gradient-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+
+/* ================= LAYOUT PRIMITIVES ================= */
+.stack>*+*{margin-top:14px}
+.row{display:flex;gap:24px;align-items:center}
+.row.wrap{flex-wrap:wrap}
+.grid{display:grid;gap:24px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.center{display:flex;align-items:center;justify-content:center;text-align:center}
+.fill{flex:1}
+.sp-t{padding-top:24px}.sp-b{padding-bottom:24px}
+.mt-s{margin-top:8px}.mt-m{margin-top:18px}.mt-l{margin-top:32px}
+.mb-s{margin-bottom:8px}.mb-m{margin-bottom:18px}.mb-l{margin-bottom:32px}
+
+/* ================= CARDS ================= */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:26px 28px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.card-soft{background:var(--surface-2);border:1px solid var(--border)}
+.card-outline{background:transparent;border:1.5px solid var(--border-strong);box-shadow:none}
+.card-accent{background:var(--surface);border-top:3px solid var(--accent)}
+.card-hover{transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.card-hover:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+
+.pill{display:inline-block;padding:4px 12px;border-radius:999px;font-size:12px;font-weight:500;
+  background:var(--surface-2);color:var(--text-2);border:1px solid var(--border)}
+.pill-accent{background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--accent);border-color:color-mix(in srgb,var(--accent) 28%,transparent)}
+
+/* ================= BARS / DIVIDERS ================= */
+.divider{height:1px;background:var(--border);width:100%}
+.divider-accent{height:3px;width:72px;background:var(--accent);border-radius:2px}
+
+/* ================= CHROME (header/footer/progress) ================= */
+.deck-header{position:absolute;top:24px;left:40px;right:40px;display:flex;align-items:center;justify-content:space-between;
+  font-size:12px;color:var(--text-3);letter-spacing:.12em;text-transform:uppercase;z-index:10;pointer-events:none}
+.deck-footer{position:absolute;bottom:24px;left:40px;right:40px;display:flex;align-items:center;justify-content:space-between;
+  font-size:12px;color:var(--text-3);z-index:10;pointer-events:none}
+.slide-number::before{content:attr(data-current)}
+.slide-number::after{content:" / " attr(data-total)}
+.progress-bar{position:fixed;left:0;right:0;bottom:0;height:3px;background:transparent;z-index:20}
+.progress-bar > span{display:block;height:100%;width:0;background:var(--accent);transition:width .3s var(--ease)}
+
+/* ================= PRESENTER / OVERVIEW ================= */
+.notes{display:none!important}
+.notes-overlay{position:fixed;inset:auto 0 0 0;max-height:42vh;background:rgba(20,22,30,.95);color:#e8ebf4;
+  padding:20px 32px;font-size:16px;line-height:1.6;border-top:1px solid rgba(255,255,255,.1);transform:translateY(100%);
+  transition:transform .3s var(--ease);z-index:40;overflow:auto;font-family:var(--font-sans)}
+.notes-overlay.open{transform:translateY(0)}
+.overview{position:fixed;inset:0;background:rgba(10,12,18,.92);backdrop-filter:blur(12px);z-index:50;
+  display:none;padding:40px;overflow:auto}
+.overview.open{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;align-content:start}
+.overview .thumb{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  aspect-ratio:16/9;overflow:hidden;cursor:pointer;position:relative;color:var(--text-1);padding:16px;
+  font-size:11px;transition:transform .2s var(--ease)}
+.overview .thumb:hover{transform:scale(1.04)}
+.overview .thumb .n{position:absolute;top:8px;left:10px;font-weight:700;font-size:14px;color:var(--text-3)}
+.overview .thumb .t{position:absolute;bottom:10px;left:14px;right:14px;font-weight:600;color:var(--text-1)}
+
+/* ================= PRESENTER VIEW ================= */
+/* Presenter view opens in a separate popup window (S key).
+ * All presenter styles are self-contained in the popup HTML generated by runtime.js.
+ * The audience window (this file) is NOT affected — it stays as normal deck view.
+ * Only the .notes class below is needed to hide speaker notes from audience. */
+
+/* ================= UTILITY ================= */
+.hidden{display:none!important}
+.nowrap{white-space:nowrap}
+.tr{text-align:right}.tc{text-align:center}.tl{text-align:left}
+.uppercase{text-transform:uppercase;letter-spacing:.12em}
+
+/* ================= PRINT ================= */
+@media print{
+  .slide{position:relative;opacity:1!important;transform:none!important;page-break-after:always;height:100vh}
+  .deck-header,.deck-footer,.progress-bar,.notes-overlay,.overview{display:none!important}
+}
+
+/* theme: corporate-clean — 企业商务 */
+:root{
+  --bg:#ffffff;--bg-soft:#f5f7fa;--surface:#ffffff;--surface-2:#f0f3f7;
+  --border:rgba(10,37,64,.12);--border-strong:rgba(10,37,64,.28);
+  --text-1:#0a2540;--text-2:#425466;--text-3:#8898aa;
+  --accent:#0a2540;--accent-2:#1d4ed8;--accent-3:#64748b;
+  --good:#0e9f6e;--warn:#d97706;--bad:#dc2626;
+  --grad:linear-gradient(135deg,#0a2540,#1d4ed8);
+  --grad-soft:linear-gradient(135deg,#f0f4fb,#e4ecf7);
+  --radius:6px;--radius-sm:4px;--radius-lg:10px;
+  --shadow:0 1px 3px rgba(10,37,64,.08),0 4px 12px rgba(10,37,64,.05);
+  --shadow-lg:0 4px 12px rgba(10,37,64,.1),0 16px 40px rgba(10,37,64,.08);
+  --font-sans:'Inter','Noto Sans SC',sans-serif;
+  --font-display:'Inter','Noto Sans SC',sans-serif;
+}
+.card{border:1px solid var(--border)}
+.divider-accent{background:var(--accent);height:3px;width:56px}
+.kicker{color:var(--accent-2)}
+h1.title,h2.title,.h1,.h2{font-weight:700;color:var(--accent)}
+
+
+:root{--font-sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;--font-display:var(--font-sans);--font-mono:"SFMono-Regular",Consolas,monospace;--fact-bg:#eaf6f1;--warn-bg:#fff4de;--paper:#fff;--navy:#0a2540;--blue-soft:#edf3fb;--blue-line:#c8d9ed;--stage-w:1600px;--stage-h:900px}
+body{overflow:hidden;background:var(--bg-soft)}.deck{width:1600px;height:900px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(var(--deck-scale,1));transform-origin:center center;border:1px solid var(--border)}
+.slide{padding:80px 92px 72px;justify-content:flex-start;transition:opacity .18s ease,transform .18s ease;background:var(--bg)}.kicker{font:600 15px/1.4 var(--font-mono);letter-spacing:.09em;margin:0 0 22px}.h2{font-size:45px;line-height:1.25;margin:0 0 30px}.content{display:flex;flex-direction:column;gap:22px;flex:1;min-height:0}.card{box-shadow:none;border-radius:6px;padding:30px}.card h3{font-size:29px;margin:14px 0 16px}.card p,.card li{font-size:23px;line-height:1.7;color:var(--text-2)}.cards{margin-top:15px}.cards .card{min-height:290px;border-top:4px solid var(--accent-2)}.idx{font:500 22px var(--font-mono);color:var(--accent-2)}.takeaway{margin-top:auto;padding:20px 25px;background:var(--blue-soft);border-left:4px solid var(--accent-2);font-size:24px;line-height:1.55;font-weight:600;color:var(--accent)}
+table{border-collapse:collapse;width:100%;font-size:21px;line-height:1.6;table-layout:fixed}th{background:var(--accent);color:var(--paper);font-size:20px;text-align:left;font-weight:600}td,th{padding:17px 21px;border-bottom:1px solid var(--border);vertical-align:top;overflow-wrap:anywhere}tbody tr:nth-child(even){background:var(--bg-soft)}td:first-child{font-weight:600;color:var(--accent)}.deck-footer{bottom:24px;left:92px;right:92px;font-size:13px;border-top:1px solid var(--border);padding-top:12px;letter-spacing:.01em}.deck-footer span:first-child{max-width:1260px}.cover-head{display:flex;justify-content:space-between;align-items:center}.logo{font:600 18px var(--font-mono);letter-spacing:.16em}.week-chip{background:var(--blue-soft);border:1px solid var(--blue-line);padding:8px 16px;border-radius:4px;font-size:16px}.cover-title{font-size:82px;line-height:1.27;margin:105px 0 28px;letter-spacing:-.04em}.cover-title span{color:var(--accent-2)}.cover-bottom{margin-top:60px;display:flex;gap:30px;align-items:center;font-size:21px;color:var(--text-2)}.cover-bottom b{padding-right:30px;border-right:1px solid var(--border-strong)}.lede{font-size:28px;max-width:none}.layer-list{display:grid;gap:9px}.layer-list>div{display:grid;grid-template-columns:180px 350px 1fr;gap:25px;padding:16px 22px;background:var(--bg-soft);align-items:center;font-size:21px;border-left:3px solid var(--blue-line)}.layer-list b{font-size:23px}.layer-list em{font-style:normal;color:var(--text-2)}.layer-list span{color:var(--accent-2)}.mode-grid{gap:22px}.mode-grid .card{min-height:230px;padding:25px 30px}.mode-grid h3{margin:12px 0 6px}.mode-grid p{margin:0;font-size:22px}.mode-case{border-top:1px solid var(--border);padding-top:10px;margin-top:16px;font-size:19px;color:var(--text-2)}.pill{font-size:15px;border-radius:3px}.fact{background:var(--fact-bg);color:var(--good)}.warn{background:var(--warn-bg);color:var(--warn)}ul{padding-left:26px;margin:18px 0}.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}.flow>div{border:1px solid var(--blue-line);padding:20px;display:flex;flex-direction:column;gap:8px;background:var(--blue-soft)}.flow small{font:500 17px var(--font-mono);color:var(--accent-2)}.flow b{font-size:25px}.flow span{font-size:19px;color:var(--text-2)}.flow+.cards{margin:0}.flow+.cards .card{min-height:230px}.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}.timeline article{border-top:5px solid var(--accent-2);padding:25px 22px;background:var(--bg-soft)}.timeline article>span{font:600 19px var(--font-mono);color:var(--accent-2)}.timeline h3{font-size:27px;line-height:1.5;margin:25px 0}.timeline p{font-size:20px;color:var(--text-2);min-height:75px}.timeline article>div{border-top:1px solid var(--border);font-size:21px;line-height:1.6;padding-top:22px}.formula{padding:24px 35px;background:var(--blue-soft);display:grid;grid-template-columns:420px 1fr;align-items:center;gap:12px 35px}.formula small{grid-column:1/-1;color:var(--accent-2);font-size:17px}.formula>b{font-size:32px}.formula>div{text-align:center;font-size:24px;line-height:1.7}.formula>div>span{border-top:2px solid var(--blue-line);display:block;margin-top:8px;padding-top:6px}.formula+.cards{margin-top:0}.formula+.cards .card{min-height:230px}.source-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px 28px}.source-grid a{border-bottom:1px solid var(--border);padding:6px 0 9px;display:flex;flex-direction:column;gap:5px;color:var(--accent);min-height:58px}.source-grid b{font-size:18px}.source-grid span{font-size:15px;color:var(--text-2)}.nav-controls{position:fixed;right:18px;bottom:13px;z-index:30;display:flex;gap:8px}.nav-controls button{border:1px solid var(--border-strong);background:var(--surface);color:var(--accent);padding:7px 13px;border-radius:4px;font-size:16px;cursor:pointer}.help{position:fixed;left:18px;bottom:12px;font-size:11px;color:var(--text-3);z-index:25}.progress-bar>span{background:var(--accent-2)}
+@media print{@page{size:1600px 900px;margin:0}body{overflow:visible;background:white}.deck{width:1600px;height:auto;position:static;transform:none;border:0}.slide{height:900px;position:relative;break-after:page;display:flex;opacity:1;transform:none;pointer-events:auto}.nav-controls,.help{display:none}.deck-footer{display:flex}}
+@media(prefers-reduced-motion:reduce){.slide,.progress-bar>span{transition:none}}
+</style></head><body class="tpl-weekly-report"><div class="deck"><section class="slide" data-title="从 Agent 扩张到企业可控执行"><div class="cover-head"><span class="logo">AI INSIGHTS</span><span class="week-chip">11.02—11.08 · 截至 11.05</span></div><h1 class="h1 cover-title">Agent 越来越多，<br>企业如何<span>管得住</span>？</h1><p class="lede">企业治理 · 腾讯产品布局 · 沙箱基础设施</p><div class="cover-bottom"><b>本周行业洞察</b><span>项目经理汇报版 / V1.0</span></div><div class="deck-footer"><span>AI INSIGHTS · 2026-W45 · 资料截至 2026-11-05</span><span class="slide-number" data-current="1" data-total="18"></span></div><aside class="notes">本周关注一个问题：当多个部门都在创建和引入 Agent，企业如何把它们变成可管理、可验收的执行资产。这份汇报先看管理问题，再看腾讯产品布局，最后看沙箱市场与试点计划。范围截至十一月五日，不把历史功能写成当周新闻。</aside></section><section class="slide" data-title="本周结论：先补控制闭环，再扩张数量"><p class="kicker">01 / EXECUTIVE TAKEAWAYS</p><h2 class="h2">本周结论：先补控制闭环，再扩张数量</h2><div class="content"><div class="grid g3 cards"><article class="card"><div class="idx">01</div><h3>统一管理</h3><p>登记负责人、身份和版本；把退出机制纳入上线条件。</p></article><article class="card"><div class="idx">02</div><h3>分层建设</h3><p>构建、门户、执行与模型各有职责，产品组合需要验证衔接。</p></article><article class="card"><div class="idx">03</div><h3>按任务验收</h3><p>用完成率、控制效果和成功任务总成本，衡量项目价值。</p></article></div><div class="takeaway">决策建议：批准一个低风险场景试点，暂不以 Agent 数量作为扩张目标。</div></div><div class="deck-footer"><span>S24 · S25 · S07 · S12</span><span class="slide-number" data-current="2" data-total="18"></span></div><aside class="notes">这三点是本次研究的分析判断。已有官方产品支持目录、身份、执行和观测等分工，但是否适用于企业现状需要试点。建议先选业务任务，再选平台；评价依据是结果与控制能力。</aside></section><section class="slide" data-title="新增信号与存量背景分开看"><p class="kicker">02 / SIGNALS THIS WEEK</p><h2 class="h2">新增信号与存量背景分开看</h2><div class="content"><table><thead><tr><th>时间</th><th>信号</th><th>项目含义</th></tr></thead><tbody><tr><td>11.03 / 本周</td><td>ADP 4.2.2：第三方 Agent 经 A2A / AG-UI 接入 Portal</td><td>评估复用现有 Agent；Sites Beta 单独看待</td></tr><tr><td>10.30 / 近期</td><td>WorkBuddy 管理文档列明版本差异</td><td>采购、权限和评测按具体版本验收</td></tr><tr><td>10.14 / 背景</td><td>元器迁移 ADP 指引</td><td>安排配置重建与效果回归</td></tr><tr><td>截至 11.05 / 观察</td><td>运行底座与多类沙箱并存</td><td>按管理范围比较，避免只按名字选型</td></tr></tbody></table><div class="takeaway">周中口径：2026-W45；产品资料核查 ≠ 性能与 ROI 实测。</div></div><div class="deck-footer"><span>S01 · S09 · S10 · S11</span><span class="slide-number" data-current="3" data-total="18"></span></div><aside class="notes">真正发生在本周的重点是十一月三日 ADP 更新。十月的版本差异和迁移指引是背景，帮助解释产品方向。我们没有进行性能测试，也没有足够证据判断市场份额。</aside></section><section class="slide" data-title="七层底座，把“怎么管”变成清单"><p class="kicker">03 / ENTERPRISE CONTROL STACK</p><h2 class="h2">七层底座，把“怎么管”变成清单</h2><div class="content"><div class="layer-list"><div><b>注册目录</b><span>有哪些 Agent，谁负责？</span><em>ID、负责人、用途、风险、版本、运行地址</em></div><div><b>身份与权限</b><span>代表谁，能访问什么？</span><em>工作负载身份、委托、最小权限、撤权</em></div><div><b>工具网关</b><span>能做哪些操作？</span><em>工具准入、鉴权、参数、限流、敏感操作授权</em></div><div><b>运行环境</b><span>在哪里跑，如何停止？</span><em>隔离、调度、超时、取消、故障恢复</em></div><div><b>状态与记忆</b><span>中断怎么续，信息留多久？</span><em>检查点、隔离、保留期限、删除</em></div><div><b>观测与评测</b><span>为什么出错，任务完成了吗？</span><em>链路、版本、评测、业务结果</em></div><div><b>预算与生命周期</b><span>花多少，何时升级或停用？</span><em>预算、发布门槛、回退、退役及凭证回收</em></div></div><div class="takeaway">统一控制要求；保留业务团队选择不同框架的空间。</div></div><div class="deck-footer"><span>S24 · S25 · S26—S28</span><span class="slide-number" data-current="4" data-total="18"></span></div><aside class="notes">七层是项目管理用的分析框架，不是采购清单。盘点、身份、工具出口和执行环境需要衔接；观测与评测提供运行证据；预算和退役负责约束持续成本与权限。</aside></section><section class="slide" data-title="三个平面，避免把门户当成全部治理"><p class="kicker">04 / RESPONSIBILITY BOUNDARIES</p><h2 class="h2">三个平面，避免把门户当成全部治理</h2><div class="content"><div class="grid g3 cards"><article class="card"><div class="idx">01</div><h3>构建与管理</h3><p>谁能创建、修改、发布？<br><b>ADP / AgentOps</b></p></article><article class="card"><div class="idx">02</div><h3>使用与分发</h3><p>员工能找到、能用哪些？<br><b>AgentPortal / 业务入口</b></p></article><article class="card"><div class="idx">03</div><h3>运行与控制</h3><p>任务在哪里跑，能访问什么？<br><b>Runtime / 身份 / 网关</b></p></article></div><div class="takeaway">关键链路：用户 → Agent → 工具 → 数据与业务动作。每一跳都要明确授权。</div></div><div class="deck-footer"><span>S02 · S05 · S07 · S35</span><span class="slide-number" data-current="5" data-total="18"></span></div><aside class="notes">这是逻辑职责划分。门户使用权限并不自动成为业务系统的数据授权。接入平台时，应该把用户身份、Agent 身份、工具凭证和业务数据权限画成一条可验证的链路。</aside></section><section class="slide" data-title="腾讯：从开发平台到企业执行组合"><p class="kicker">05 / TENCENT LANDSCAPE</p><h2 class="h2">腾讯：从开发平台到企业执行组合</h2><div class="content"><table><thead><tr><th>产品</th><th>主要职责</th><th>对标层次</th></tr></thead><tbody><tr><td>ADP</td><td>构建与管理</td><td>企业 Agent 开发 / AgentOps</td></tr><tr><td>AgentPortal</td><td>统一使用与分发</td><td>企业 Agent 门户与目录部分能力</td></tr><tr><td>Agent Runtime</td><td>执行基础设施</td><td>AgentCore 运行工具层 / 沙箱平台</td></tr><tr><td>TI-ONE</td><td>模型及算力</td><td>模型训推平台</td></tr><tr><td>WorkBuddy / CodeBuddy / ima</td><td>应用入口</td><td>岗位和任务类智能体</td></tr></tbody></table><div class="takeaway">重点研究 ADP + AgentPortal + Agent Runtime；对标是功能方向，不是等价替代。</div></div><div class="deck-footer"><span>S02—S07 · S29—S32</span><span class="slide-number" data-current="6" data-total="18"></span></div><aside class="notes">腾讯需要按产品组合看。TI-ONE 处理模型和算力，岗位应用直接服务员工；ADP、Portal 和 Runtime 则分别承担构建、使用和执行。它们之间是否统一身份、计费和策略，需要具体确认。</aside></section><section class="slide" data-title="ADP：按业务确定性选择执行范式"><p class="kicker">06 / DEVELOPMENT & ORCHESTRATION</p><h2 class="h2">ADP：按业务确定性选择执行范式</h2><div class="content"><div class="grid g2 mode-grid"><article class="card"><span class="pill">知识服务</span><h3>标准</h3><p>知识与工具结合，稳定应答</p><div class="mode-case">制度 / 产品咨询</div></article><article class="card"><span class="pill">流程确定</span><h3>工作流</h3><p>步骤和规则明确，可重复执行</p><div class="mode-case">工单 / 售后处理</div></article><article class="card"><span class="pill">灵活协作</span><h3>Multi-Agent</h3><p>多角色分工与工具协同</p><div class="mode-case">综合调研 / 复杂分析</div></article><article class="card"><span class="pill">自主执行</span><h3>Claw</h3><p>独立工作空间，代码与 Skills</p><div class="mode-case">文件 / 报告 / 长任务</div></article></div></div><div class="deck-footer"><span>S03</span><span class="slide-number" data-current="7" data-total="18"></span></div><aside class="notes">不要从多智能体倒推业务需求。流程固定时优先工作流；需要多个角色再使用多智能体；涉及持续文件操作和代码时，评估独立工作空间。Claw 与其他模式不能直接互切，试点要预留迁移设计。</aside></section><section class="slide" data-title="腾讯治理：看清已支持与待验证"><p class="kicker">07 / GOVERNANCE CHECKPOINTS</p><h2 class="h2">腾讯治理：看清已支持与待验证</h2><div class="content"><div class="grid g2"><article class="card"><span class="pill fact">官方已说明</span><h3>组织、发布与使用</h3><ul><li>企业—空间—应用管理分层</li><li>应用和 Skill 发布审批</li><li>Portal 按用户 / 部门分配使用范围</li><li>第三方 Agent 协议接入</li></ul></article><article class="card"><span class="pill warn">仍需项目验证</span><h3>跨产品与业务控制</h3><ul><li>账号和权限跨产品如何映射</li><li>高风险动作是否逐次授权</li><li>外部 Agent 能否强制受控</li><li>取消、撤权与预算是否阻断后续动作</li></ul></article></div><div class="takeaway">官方文档明确：AgentPortal 与 ADP 账号、权限和企业管理体系独立。</div></div><div class="deck-footer"><span>S01 · S02 · S05 · S06</span><span class="slide-number" data-current="8" data-total="18"></span></div><aside class="notes">已支持的管理功能值得研究，但不能过度推断。审批中心覆盖的是发布；门户管理的是使用范围。独立账号体系意味着身份映射、组织变更与撤权传播要单独验收。</aside></section><section class="slide" data-title="Runtime：推理之外，还有一整套执行负载"><p class="kicker">08 / EXECUTION INFRASTRUCTURE</p><h2 class="h2">Runtime：推理之外，还有一整套执行负载</h2><div class="content"><div class="flow"><div><small>01</small><b>模型规划</b><span>理解与决策</span></div><div><small>02</small><b>代码 / 浏览器</b><span>计算与操作</span></div><div><small>03</small><b>文件与状态</b><span>中间结果和产物</span></div><div><small>04</small><b>控制与追踪</b><span>权限、超时、日志</span></div></div><div class="grid g3 cards"><article class="card"><div class="idx">01</div><h3>隔离环境</h3><p>任务之间的资源与文件边界。</p></article><article class="card"><div class="idx">02</div><h3>持续执行</h3><p>长任务状态、暂停与恢复。</p></article><article class="card"><div class="idx">03</div><h3>成本归属</h3><p>模型 + 执行 + 存储 + 人工复核。</p></article></div></div><div class="deck-footer"><span>S07 · S08 · S19</span><span class="slide-number" data-current="9" data-total="18"></span></div><aside class="notes">Runtime 不等于模型，也不只是一个容器。Agent 操作浏览器、运行代码和保存产物，都产生独立资源需求。恢复环境不保证业务不会重复执行，需要测试外部状态、幂等和补偿。</aside></section><section class="slide" data-title="沙箱市场：先按产品层次分类"><p class="kicker">09 / SANDBOX MARKET MAP</p><h2 class="h2">沙箱市场：先按产品层次分类</h2><div class="content"><table><thead><tr><th>类型</th><th>主要样本</th><th>比较焦点</th></tr></thead><tbody><tr><td>安全运行时</td><td>NVIDIA OpenShell</td><td>策略在 Agent 外部执行、网络和凭证控制</td></tr><tr><td>Agent 执行平台</td><td>E2B / Daytona</td><td>可编程环境、隔离、状态与生命周期</td></tr><tr><td>云开发平台沙箱</td><td>Modal / Vercel / Cloudflare</td><td>开发体系集成、构建与执行</td></tr><tr><td>云厂商托管底座</td><td>腾讯 / 阿里 AgentRun / AWS AgentCore</td><td>运行工具、身份、日志与运维组合</td></tr><tr><td>开源运行项目</td><td>OpenSandbox</td><td>自建、扩展与维护成本</td></tr><tr><td>浏览器基础设施</td><td>Browserbase</td><td>网页会话、登录状态与操作追踪</td></tr></tbody></table></div><div class="deck-footer"><span>S11—S20</span><span class="slide-number" data-current="10" data-total="18"></span></div><aside class="notes">这个分类不是市场排名。先决定需要整台执行环境、仅浏览器还是策略治理，再形成候选池。平台提供的便捷性与自建控制权之间，需要结合现有运维能力评估。</aside></section><section class="slide" data-title="隔离技术与成品平台，分两层比较"><p class="kicker">10 / TECHNOLOGY VS. PRODUCT</p><h2 class="h2">隔离技术与成品平台，分两层比较</h2><div class="content"><div class="grid g2"><article class="card"><span class="pill">底层组件</span><h3>如何形成执行边界</h3><ul><li>Firecracker：microVM</li><li>gVisor：应用与宿主内核间隔离层</li><li>Kata：容器 / Pod 在轻量 VM 中执行</li></ul></article><article class="card"><span class="pill">平台能力</span><h3>如何让企业持续使用</h3><ul><li>环境创建、暂停、恢复和资源配额</li><li>镜像、网络、凭证、身份与日志</li><li>SDK、控制台、计费和运维支持</li></ul></article></div><div class="takeaway">E2B 与 Firecracker 并非同层竞品；普通容器也不能自动等同于完整 Agent 沙箱平台。</div></div><div class="deck-footer"><span>S12 · S21—S23</span><span class="slide-number" data-current="11" data-total="18"></span></div><aside class="notes">底层技术说明隔离机制，平台能力说明是否好接、好管和可运营。企业通常需要两张表：一张评估技术边界，一张评估产品与运维。不要拿组件直接对照平台的全部功能。</aside></section><section class="slide" data-title="业务价值：从任务到可验收结果"><p class="kicker">11 / USE CASE TO VALUE</p><h2 class="h2">业务价值：从任务到可验收结果</h2><div class="content"><table><thead><tr><th>任务</th><th>依赖能力</th><th>可验收结果</th></tr></thead><tbody><tr><td>企业知识服务</td><td>解析、权限检索、答案证据</td><td>回答有来源，越权查询受阻</td></tr><tr><td>经营分析报告</td><td>代码、文件、状态、产物</td><td>计算可复算，报告可追踪</td></tr><tr><td>研发任务</td><td>仓库授权、命令隔离、测试</td><td>变更经过检查并有责任人</td></tr><tr><td>询价与报价</td><td>实时数据、规则、人工确认</td><td>异常转人工，不重复处理</td></tr><tr><td>传媒内容</td><td>多模型、工作流、素材审核</td><td>产物可定位，审核记录完整</td></tr></tbody></table><div class="takeaway">案例帮助理解路径；本企业收益仍需真实样本验证。</div></div><div class="deck-footer"><span>S04 · S30 · S33 · S34</span><span class="slide-number" data-current="12" data-total="18"></span></div><aside class="notes">找钢和传媒等行业方案说明了智能体如何进入流程。项目验收要回到业务结果：计算是否正确、是否经过必要审批、是否重复执行、产物是否可定位。厂商案例不能直接成为企业收益承诺。</aside></section><section class="slide" data-title="五个误判，转成五组验收测试"><p class="kicker">12 / RISKS & ACCEPTANCE</p><h2 class="h2">五个误判，转成五组验收测试</h2><div class="content"><table><thead><tr><th>不要混淆</th><th>重点验证</th></tr></thead><tbody><tr><td>统一入口 ≠ 统一授权</td><td>逐层验证用户→Agent→工具→业务数据</td></tr><tr><td>发布审批 ≠ 动作审批</td><td>将业务动作控制单独设计并测试</td></tr><tr><td>环境恢复 ≠ 业务回滚</td><td>验证幂等、去重、补偿和外部状态</td></tr><tr><td>MCP / A2A ≠ 企业治理</td><td>补充身份、策略执行和目录机制</td></tr><tr><td>产品组合 ≠ 全域纳管</td><td>确认发现范围、强制接入和撤权效果</td></tr></tbody></table><div class="takeaway">优先测试失败路径：撤权、取消、超时、重试、重复操作与预算耗尽。</div></div><div class="deck-footer"><span>分析建议 / 参考 S02 · S06 · S26 · S27</span><span class="slide-number" data-current="13" data-total="18"></span></div><aside class="notes">测试不只看成功演示。尤其要让任务在执行到一半时被取消，或者工具返回失败后触发重试，观察外部动作有没有重复发生。这里列的是建议测试场景，不代表产品已经存在这些问题。</aside></section><section class="slide" data-title="30 天试点：每周都有可评审交付物"><p class="kicker">13 / PROPOSED DELIVERY PLAN</p><h2 class="h2">30 天试点：每周都有可评审交付物</h2><div class="content"><div class="timeline"><article><span>D0—D7</span><h3>P0 · 盘点 Agent、数据和工具</h3><p>平台负责人 + 业务负责人</p><div>有负责人、权限表和真实任务样本</div></article><article><span>D8—D14</span><h3>P0 · 比较 2 类执行方案</h3><p>研发负责人 + 安全负责人</p><div>异常与停止用例通过，结果可追踪</div></article><article><span>D15—D21</span><h3>P1 · 跑任务评测，核算成功任务总成本</h3><p>质量负责人 + 财务接口人</p><div>质量、延迟、接管和成本口径可复算</div></article><article><span>D22—D30</span><h3>P1 · 复盘、明确边界，决定扩展或停止</h3><p>项目经理 + 决策人</p><div>形成试点验收报告与下一阶段决策</div></article></div><div class="takeaway">建议排期：D0 为立项日。先低风险任务，业务写入另设授权与回退方案。</div></div><div class="deck-footer"><span>RECOMMENDATION / 拟议计划</span><span class="slide-number" data-current="14" data-total="18"></span></div><aside class="notes">这是一份建议计划，责任角色不是已指派人员。第一周定范围，第二周测控制，第三周测质量和成本，第四周做是否扩展的决策。每一步都需要一个可评审的交付物。</aside></section><section class="slide" data-title="核心指标：成功任务，而非调用数量"><p class="kicker">14 / PROJECT SCORECARD</p><h2 class="h2">核心指标：成功任务，而非调用数量</h2><div class="content"><div class="formula"><small>建议成本指标</small><b>单次成功任务总成本</b><div>模型 + 沙箱 + 存储 + 网络 + 观测 + 人工复核<br><span>÷ 通过业务验收的任务数</span></div></div><div class="grid g3 cards"><article class="card"><div class="idx">01</div><h3>质量</h3><p>任务完成率、答案 / 产物正确性。</p></article><article class="card"><div class="idx">02</div><h3>控制</h3><p>撤权、取消、越权阻断和重复动作。</p></article><article class="card"><div class="idx">03</div><h3>效率</h3><p>延迟分布、人工接管率、总成本。</p></article></div></div><div class="deck-footer"><span>RECOMMENDATION / 指标口径</span><span class="slide-number" data-current="15" data-total="18"></span></div><aside class="notes">先固定任务集和验收标准再比较成本，否则便宜方案可能只是失败得更多。总成本需要包含人工复核和执行资源。这里不设通用行业阈值，由业务容错和预算决定。</aside></section><section class="slide" data-title="下周关注与决策请求"><p class="kicker">15 / WATCHLIST & DECISIONS</p><h2 class="h2">下周关注与决策请求</h2><div class="content"><div class="grid g2"><article class="card"><span class="pill">下周观察</span><ul><li>Portal 第三方接入与权限衔接</li><li>Runtime 各模块、区域和版本可用性</li><li>沙箱时限、恢复、网络与计费</li><li>不同版本管理能力是否一致</li></ul></article><article class="card"><span class="pill">建议本次决策</span><ul><li>确定一个低风险试点场景</li><li>指定业务与技术责任角色</li><li>批准两类候选方案对照验证</li><li>明确业务验收、预算与停止条件</li></ul></article></div><div class="takeaway">输出目标：形成可追溯的试点结论，而不是扩大未经验证的 Agent 数量。</div></div><div class="deck-footer"><span>RECOMMENDATION / 具体阈值待立项确认</span><span class="slide-number" data-current="16" data-total="18"></span></div><aside class="notes">决策请求聚焦范围、责任、候选方案和停止条件。只有确认这些，试点结果才可比较和复用。后续跟踪不需要追每一个产品发布，要看是否改变项目边界和成本。</aside></section><section class="slide" data-title="主要来源：企业管理与腾讯产品"><p class="kicker">16 / PRIMARY SOURCES</p><h2 class="h2">主要来源：企业管理与腾讯产品</h2><div class="content"><div class="source-grid"><a href="https://adp.tencent.com/zh/blog/tencent-cloud-adp-4-2-2-release-notes"><b>S01 / 腾讯 ADP 4.2.2 发布说明</b><span>2026-11-03 · 本周新增：A2A / AG-UI 接入；Sites Beta</span></a><a href="https://adp.tencent.com/zh/document/223543063859007488"><b>S02 / AgentPortal 产品简介</b><span>核查 11-05 · 门户、使用权限；与 ADP 独立账号权限体系</span></a><a href="https://adp.tencent.com/zh/document/216860754909745152"><b>S03 / ADP 四种应用模式</b><span>核查 11-05 · 标准、工作流、Multi-Agent、Claw</span></a><a href="https://cloud.tencent.cn/document/product/1759/104193"><b>S04 / ADP 产品概述</b><span>2026-06-15 · RAG、评测、日志及多模型等背景能力</span></a><a href="https://adp.tencent.com/zh/document/216860868958113792"><b>S06 / ADP 审批中心</b><span>核查 11-05 · 应用发布、Skill 企业共享发布审批</span></a><a href="https://cloud.tencent.com/product/ags"><b>S07 / 腾讯 Agent Runtime</b><span>核查 11-05 · 运行、隔离及治理能力定位</span></a><a href="https://cloud.tencent.com/document/product/1831/139460"><b>S09 / WorkBuddy 企业控制台</b><span>2026-10-30 · 标准版与企微联合版的企业管理差异</span></a><a href="https://yuanqi.tencent.com/cl/adp-guide"><b>S10 / 元器迁移 ADP 指引</b><span>2026-10-14 · 迁移范围与重配边界</span></a><a href="https://learn.microsoft.com/en-us/entra/agent-id/agent-registry-convergence"><b>S24 / Microsoft Agent 365 / Entra</b><span>核查 11-05 · 智能体目录控制面与身份基础分工</span></a><a href="https://docs.cloud.google.com/agent-registry/overview"><b>S25 / Google Agent Registry</b><span>2026-10-29 · 目录、身份、IAM、网关衔接</span></a><a href="https://cloud.tencent.com/product/tione"><b>S29 / 腾讯 TI-ONE</b><span>核查 11-05 · 模型训练、精调、推理与算力管理</span></a><a href="https://cloud.tencent.com.cn/document/product/1759/133868"><b>S35 / ADP API 接入</b><span>2026-07-13 · Plugin / Tool 绑定和管理 / 使用鉴权分离</span></a></div></div><div class="deck-footer"><span>AI INSIGHTS · 2026-W45 · 资料截至 2026-11-05</span><span class="slide-number" data-current="17" data-total="18"></span></div><aside class="notes">本页汇总企业管理和腾讯部分的一手材料，完整台账在配套洞察文档。官方能力披露不等于独立效果验证。</aside></section><section class="slide" data-title="主要来源：沙箱与隔离技术"><p class="kicker">17 / PRIMARY SOURCES</p><h2 class="h2">主要来源：沙箱与隔离技术</h2><div class="content"><div class="source-grid"><a href="https://www.nvidia.com/en-us/ai/openshell/"><b>S11 / NVIDIA OpenShell</b><span>独立于 Agent 进程的执行策略与治理</span></a><a href="https://github.com/e2b-dev/runtime"><b>S12 / E2B Runtime</b><span>Firecracker microVM 与沙箱平台组件</span></a><a href="https://www.daytona.io/docs/en/"><b>S13 / Daytona 文档</b><span>可编程执行环境与资源配置</span></a><a href="https://modal.com/docs/guide/sandboxes"><b>S14 / Modal Sandboxes</b><span>托管隔离代码执行</span></a><a href="https://vercel.com/docs/sandbox"><b>S15 / Vercel Sandbox</b><span>开发、构建与代码执行环境</span></a><a href="https://developers.cloudflare.com/sandbox/"><b>S16 / Cloudflare Sandboxes</b><span>Workers 体系的沙箱环境</span></a><a href="https://github.com/opensandbox-group/OpenSandbox"><b>S17 / OpenSandbox</b><span>开源沙箱运行项目；原阿里地址已重定向</span></a><a href="https://www.alibabacloud.com/help/en/agentrun/what-is-agentrun"><b>S18 / 阿里云 AgentRun</b><span>沙箱、运行、模型治理及观测平台</span></a><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/what-is-bedrock-agentcore.html"><b>S19 / AWS AgentCore</b><span>模块化运行、工具、身份与观测</span></a><a href="https://www.browserbase.com/browsers"><b>S20 / Browserbase</b><span>浏览器会话和状态保持</span></a><a href="https://firecracker-microvm.github.io/"><b>S21 / Firecracker</b><span>microVM 虚拟化底座</span></a><a href="https://gvisor.dev/docs/"><b>S22 / gVisor</b><span>应用与宿主内核间的隔离层</span></a><a href="https://kata-containers.github.io/kata-containers/"><b>S23 / Kata Containers</b><span>容器 / Pod 的轻量 VM 隔离</span></a></div></div><div class="deck-footer"><span>AI INSIGHTS · 2026-W45 · 资料截至 2026-11-05</span><span class="slide-number" data-current="18" data-total="18"></span></div><aside class="notes">本页保留产品与底层技术原始入口，便于评审时追溯。未做运行时性能、价格和区域可用性对比，因此不输出综合排名。</aside></section></div><div class="help">← → 翻页 · O 总览 · N 备注 · S 演讲者 · F 全屏</div><div class="nav-controls"><button data-nav="ArrowLeft" aria-label="上一页">←</button><button data-nav="o" aria-label="总览">总览</button><button data-nav="ArrowRight" aria-label="下一页">→</button></div><script>/* html-ppt :: runtime.js
+ * Keyboard-driven deck runtime. Zero dependencies.
+ *
+ * Features:
+ *   ← → / space / PgUp PgDn / Home End  navigation
+ *   F  fullscreen
+ *   S  presenter mode (opens a NEW WINDOW with current/next slide preview + notes + timer)
+ *       The original window stays as audience view, synced via BroadcastChannel.
+ *       Slide previews use CSS transform:scale() at design resolution for pixel-perfect layout.
+ *   N  quick notes overlay (bottom drawer)
+ *   O  slide overview grid
+ *   T  cycle themes (reads data-themes on <html> or <body>)
+ *   A  cycle demo animation on current slide
+ *   URL hash #/N  deep-link to slide N (1-based)
+ *   Progress bar auto-managed
+ */
+(function () {
+  'use strict';
+
+  const ANIMS = ['fade-up','fade-down','fade-left','fade-right','rise-in','drop-in',
+    'zoom-pop','blur-in','glitch-in','typewriter','neon-glow','shimmer-sweep',
+    'gradient-flow','stagger-list','counter-up','path-draw','parallax-tilt',
+    'card-flip-3d','cube-rotate-3d','page-turn-3d','perspective-zoom',
+    'marquee-scroll','kenburns','confetti-burst','spotlight','morph-shape','ripple-reveal'];
+
+  function ready(fn){ if(document.readyState!='loading')fn(); else document.addEventListener('DOMContentLoaded',fn);}
+
+  /* ========== Parse URL for preview-only mode ==========
+   * When loaded as iframe.src = "index.html?preview=3", runtime enters a
+   * locked single-slide mode: only slide N is visible, no chrome, no keys,
+   * no hash updates. This is how the presenter window shows pixel-perfect
+   * previews — by loading the actual deck file in an iframe and telling it
+   * to display only a specific slide.
+   */
+  function getPreviewIdx() {
+    const m = /[?&]preview=(\d+)/.exec(location.search || '');
+    return m ? parseInt(m[1], 10) - 1 : -1;
+  }
+
+  ready(function () {
+    const deck = document.querySelector('.deck');
+    if (!deck) return;
+    const slides = Array.from(deck.querySelectorAll('.slide'));
+    if (!slides.length) return;
+
+    const previewOnlyIdx = getPreviewIdx();
+    const isPreviewMode = previewOnlyIdx >= 0 && previewOnlyIdx < slides.length;
+
+    /* ===== Preview-only mode: show one slide, hide everything else ===== */
+    if (isPreviewMode) {
+      function showSlide(i) {
+        slides.forEach((s, j) => {
+          const active = (j === i);
+          s.classList.toggle('is-active', active);
+          s.style.display = active ? '' : 'none';
+          if (active) {
+            s.style.opacity = '1';
+            s.style.transform = 'none';
+            s.style.pointerEvents = 'auto';
+          }
+        });
+      }
+      showSlide(previewOnlyIdx);
+      /* Hide chrome that the presenter shouldn't see in preview */
+      const hideSel = '.progress-bar, .notes-overlay, .overview, .notes, aside.notes, .speaker-notes';
+      document.querySelectorAll(hideSel).forEach(el => { el.style.display = 'none'; });
+      document.documentElement.setAttribute('data-preview', '1');
+      document.body.setAttribute('data-preview', '1');
+      /* Auto-detect theme base path for theme switching in preview mode */
+      function getPreviewThemeBase() {
+        const base = document.documentElement.getAttribute('data-theme-base');
+        if (base) return base;
+        const tl = document.getElementById('theme-link');
+        if (tl) {
+          const raw = tl.getAttribute('href') || '';
+          const ls = raw.lastIndexOf('/');
+          if (ls >= 0) return raw.substring(0, ls + 1);
+        }
+        return 'assets/themes/';
+      }
+      const previewThemeBase = getPreviewThemeBase();
+
+      /* Listen for postMessage from parent presenter window:
+       *  - preview-goto: switch visible slide WITHOUT reloading
+       *  - preview-theme: switch theme CSS link to match audience window */
+      window.addEventListener('message', function(e) {
+        if (!e.data) return;
+        if (e.data.type === 'preview-goto') {
+          const n = parseInt(e.data.idx, 10);
+          if (n >= 0 && n < slides.length) showSlide(n);
+        } else if (e.data.type === 'preview-theme' && e.data.name) {
+          let link = document.getElementById('theme-link');
+          if (!link) {
+            link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.id = 'theme-link';
+            document.head.appendChild(link);
+          }
+          link.href = previewThemeBase + e.data.name + '.css';
+          document.documentElement.setAttribute('data-theme', e.data.name);
+        }
+      });
+      /* Signal to parent that preview iframe is ready */
+      try { window.parent && window.parent.postMessage({ type: 'preview-ready' }, '*'); } catch(e) {}
+      return;
+    }
+
+    let idx = 0;
+    const total = slides.length;
+
+    /* ===== BroadcastChannel for presenter sync ===== */
+    const CHANNEL_NAME = 'html-ppt-presenter-' + location.pathname;
+    let bc;
+    try { bc = new BroadcastChannel(CHANNEL_NAME); } catch(e) { bc = null; }
+
+    // Are we running inside the presenter popup? (legacy flag, now unused)
+    const isPresenterWindow = false;
+
+    /* ===== progress bar ===== */
+    let bar = document.querySelector('.progress-bar');
+    if (!bar) {
+      bar = document.createElement('div');
+      bar.className = 'progress-bar';
+      bar.innerHTML = '<span></span>';
+      document.body.appendChild(bar);
+    }
+    const barFill = bar.querySelector('span');
+
+    /* ===== notes overlay (N key) ===== */
+    let notes = document.querySelector('.notes-overlay');
+    if (!notes) {
+      notes = document.createElement('div');
+      notes.className = 'notes-overlay';
+      document.body.appendChild(notes);
+    }
+
+    /* ===== overview grid (O key) ===== */
+    let overview = document.querySelector('.overview');
+    if (!overview) {
+      overview = document.createElement('div');
+      overview.className = 'overview';
+      slides.forEach((s, i) => {
+        const t = document.createElement('div');
+        t.className = 'thumb';
+        // Force 16:9 aspect ratio robustly
+        t.style.padding = '0 0 56.25% 0';
+        t.style.height = '0';
+        t.style.position = 'relative';
+        t.style.overflow = 'hidden';
+
+        const title = s.getAttribute('data-title') ||
+          (s.querySelector('h1,h2,h3')||{}).textContent || ('Slide '+(i+1));
+        
+        // Create a container for the mini-slide
+        const mini = document.createElement('div');
+        mini.className = 'mini-slide';
+        mini.style.position = 'absolute';
+        mini.style.top = '0';
+        mini.style.left = '0';
+        mini.style.width = '1920px';
+        mini.style.height = '1080px';
+        mini.style.transformOrigin = 'top left';
+        mini.style.pointerEvents = 'none';
+        mini.style.background = 'var(--bg)';
+        
+        // Clone the slide content
+        const clone = s.cloneNode(true);
+        clone.className = 'slide is-active'; // force active styles
+        clone.style.position = 'absolute';
+        clone.style.inset = '0';
+        clone.style.transform = 'none';
+        clone.style.opacity = '1';
+        clone.style.padding = '72px 96px'; // ensure padding is kept
+        
+        mini.appendChild(clone);
+        t.appendChild(mini);
+
+        // Add the number and title overlay
+        const overlay = document.createElement('div');
+        overlay.style.position = 'absolute';
+        overlay.style.inset = '0';
+        overlay.style.background = 'linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.8) 100%)';
+        overlay.style.color = '#fff';
+        overlay.style.zIndex = '10';
+        overlay.style.pointerEvents = 'none';
+        
+        const n = document.createElement('div');
+        n.className = 'n';
+        n.textContent = i + 1;
+        n.style.position = 'absolute';
+        n.style.top = '12px';
+        n.style.left = '16px';
+        n.style.fontWeight = '700';
+        n.style.fontSize = '16px';
+        n.style.color = '#fff';
+        n.style.textShadow = '0 1px 4px rgba(0,0,0,0.8)';
+        
+        const text = document.createElement('div');
+        text.className = 't';
+        text.textContent = title.trim().slice(0,80);
+        text.style.position = 'absolute';
+        text.style.bottom = '12px';
+        text.style.left = '16px';
+        text.style.right = '16px';
+        text.style.fontWeight = '600';
+        text.style.fontSize = '14px';
+        text.style.color = '#fff';
+        text.style.textShadow = '0 1px 4px rgba(0,0,0,0.8)';
+        
+        overlay.appendChild(n);
+        overlay.appendChild(text);
+        t.appendChild(overlay);
+
+        t.addEventListener('click', () => { go(i); toggleOverview(false); });
+        overview.appendChild(t);
+      });
+      document.body.appendChild(overview);
+    }
+
+    /* ===== navigation ===== */
+    function go(n, fromRemote){
+      n = Math.max(0, Math.min(total-1, n));
+      slides.forEach((s,i) => {
+        s.classList.toggle('is-active', i===n);
+        s.classList.toggle('is-prev', i<n);
+      });
+      idx = n;
+      barFill.style.width = ((n+1)/total*100)+'%';
+      const numEl = document.querySelector('.slide-number');
+      if (numEl) { numEl.setAttribute('data-current', n+1); numEl.setAttribute('data-total', total); }
+
+      // notes (bottom overlay)
+      const note = slides[n].querySelector('.notes, aside.notes, .speaker-notes');
+      notes.innerHTML = note ? note.innerHTML : '';
+
+      // hash
+      const hashTarget = '#/'+(n+1);
+      if (location.hash !== hashTarget && !isPresenterWindow) {
+        history.replaceState(null,'', hashTarget);
+      }
+
+      // re-trigger entry animations
+      slides[n].querySelectorAll('[data-anim]').forEach(el => {
+        const a = el.getAttribute('data-anim');
+        el.classList.remove('anim-'+a);
+        void el.offsetWidth;
+        el.classList.add('anim-'+a);
+      });
+
+      // counter-up
+      slides[n].querySelectorAll('.counter').forEach(el => {
+        const target = parseFloat(el.getAttribute('data-to')||el.textContent);
+        const dur = parseInt(el.getAttribute('data-dur')||'1200',10);
+        const start = performance.now();
+        const from = 0;
+        function tick(now){
+          const t = Math.min(1,(now-start)/dur);
+          const v = from + (target-from)*(1-Math.pow(1-t,3));
+          el.textContent = (target % 1 === 0) ? Math.round(v) : v.toFixed(1);
+          if (t<1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+
+      // Broadcast to other window (audience ↔ presenter)
+      if (!fromRemote && bc) {
+        bc.postMessage({ type: 'go', idx: n });
+      }
+    }
+
+    /* ===== listen for remote navigation / theme changes ===== */
+    if (bc) {
+      bc.onmessage = function(e) {
+        if (!e.data) return;
+        if (e.data.type === 'go' && typeof e.data.idx === 'number') {
+          go(e.data.idx, true);
+        } else if (e.data.type === 'theme' && e.data.name) {
+          /* Sync theme across windows */
+          const i = themes.indexOf(e.data.name);
+          if (i >= 0) themeIdx = i;
+          applyTheme(e.data.name);
+        }
+      };
+    }
+
+    function toggleNotes(force){ notes.classList.toggle('open', force!==undefined?force:!notes.classList.contains('open')); }
+    function toggleOverview(force){
+      const isOpen = force!==undefined ? force : !overview.classList.contains('open');
+      overview.classList.toggle('open', isOpen);
+      if (isOpen) {
+        requestAnimationFrame(() => {
+          const thumbs = overview.querySelectorAll('.thumb');
+          if (thumbs.length) {
+            const scale = thumbs[0].clientWidth / 1920;
+            overview.querySelectorAll('.mini-slide').forEach(m => {
+              m.style.transform = 'scale(' + scale + ')';
+            });
+          }
+        });
+      }
+    }
+
+    /* ========== PRESENTER MODE — Magnetic-card popup window ========== */
+    /* Opens a new window with 4 draggable, resizable cards:
+     *   CURRENT  — iframe(?preview=N)   pixel-perfect preview of current slide
+     *   NEXT     — iframe(?preview=N+1) pixel-perfect preview of next slide
+     *   SCRIPT   — large speaker notes (逐字稿)
+     *   TIMER    — elapsed timer + page counter + controls
+     * Cards remember position/size in localStorage.
+     * Two windows sync via BroadcastChannel.
+     */
+    let presenterWin = null;
+
+    function openPresenterWindow() {
+      if (presenterWin && !presenterWin.closed) {
+        presenterWin.focus();
+        return;
+      }
+
+      // Build absolute URL of THIS deck file (without hash/query)
+      const deckUrl = location.protocol + '//' + location.host + location.pathname;
+
+      // Collect slide titles + notes (HTML strings)
+      const slideMeta = slides.map((s, i) => {
+        const note = s.querySelector('.notes, aside.notes, .speaker-notes');
+        return {
+          title: s.getAttribute('data-title') ||
+            (s.querySelector('h1,h2,h3')||{}).textContent || ('Slide '+(i+1)),
+          notes: note ? note.innerHTML : ''
+        };
+      });
+
+      /* Capture current theme so presenter previews match the audience */
+      const currentTheme = root.getAttribute('data-theme') || (themes[themeIdx] || '');
+      const presenterHTML = buildPresenterHTML(deckUrl, slideMeta, total, idx, CHANNEL_NAME, currentTheme);
+
+      presenterWin = window.open('', 'html-ppt-presenter', 'width=1280,height=820,menubar=no,toolbar=no');
+      if (!presenterWin) {
+        alert('请允许弹出窗口以使用演讲者视图');
+        return;
+      }
+      presenterWin.document.open();
+      presenterWin.document.write(presenterHTML);
+      presenterWin.document.close();
+    }
+
+    function buildPresenterHTML(deckUrl, slideMeta, total, startIdx, channelName, currentTheme) {
+      const metaJSON = JSON.stringify(slideMeta);
+      const deckUrlJSON = JSON.stringify(deckUrl);
+      const channelJSON = JSON.stringify(channelName);
+      const themeJSON = JSON.stringify(currentTheme || '');
+      const storageKey = 'html-ppt-presenter:' + location.pathname;
+
+      // Build the document as a single template string for clarity
+      return `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>Presenter View</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 100%; height: 100%; overflow: hidden;
+    background: #1a1d24;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(88,166,255,.04), transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(188,140,255,.04), transparent 50%);
+    color: #e6edf3;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+  }
+  /* Stage: positioned area where cards live */
+  #stage { position: absolute; inset: 0; overflow: hidden; }
+
+  /* Magnetic card */
+  .pcard {
+    position: absolute;
+    background: #0d1117;
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.02);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    min-width: 180px; min-height: 100px;
+    transition: box-shadow .2s, border-color .2s;
+  }
+  .pcard.dragging { box-shadow: 0 16px 48px rgba(0,0,0,.6), 0 0 0 2px rgba(88,166,255,.5); border-color: #58a6ff; transition: none; z-index: 9999; }
+  .pcard.resizing { box-shadow: 0 16px 48px rgba(0,0,0,.6), 0 0 0 2px rgba(63,185,80,.5); border-color: #3fb950; transition: none; z-index: 9999; }
+  .pcard:hover { border-color: rgba(88,166,255,.3); }
+
+  /* Card header (drag handle) */
+  .pcard-head {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 12px;
+    background: rgba(255,255,255,.04);
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    cursor: move;
+    user-select: none;
+    flex-shrink: 0;
+  }
+  .pcard-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--dot-color, #58a6ff); flex-shrink: 0; }
+  .pcard-title {
+    font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
+    font-weight: 700; color: #8b949e; flex: 1;
+  }
+  .pcard-meta { font-size: 11px; color: #6e7681; }
+
+  /* Card body */
+  .pcard-body { flex: 1; position: relative; overflow: hidden; min-height: 0; }
+
+  /* Preview cards (CURRENT/NEXT) — iframe-based pixel-perfect render */
+  .pcard-preview .pcard-body { background: #000; }
+  .pcard-preview iframe {
+    position: absolute; top: 0; left: 0;
+    width: 1920px; height: 1080px;
+    border: none;
+    transform-origin: top left;
+    pointer-events: none;
+    background: transparent;
+  }
+  .pcard-preview .preview-end {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: #484f58; font-size: 14px; letter-spacing: .12em;
+  }
+
+  /* Notes card */
+  .pcard-notes .pcard-body {
+    padding: 14px 18px;
+    overflow-y: auto;
+    font-size: 18px; line-height: 1.75;
+    color: #d0d7de;
+    font-family: "Noto Sans SC", -apple-system, sans-serif;
+  }
+  .pcard-notes .pcard-body p { margin: 0 0 .7em 0; }
+  .pcard-notes .pcard-body strong { color: #f0883e; }
+  .pcard-notes .pcard-body em { color: #58a6ff; font-style: normal; }
+  .pcard-notes .pcard-body code {
+    font-family: "SF Mono", monospace; font-size: .9em;
+    background: rgba(255,255,255,.08); padding: 1px 6px; border-radius: 4px;
+  }
+  .pcard-notes .empty { color: #484f58; font-style: italic; }
+
+  /* Timer card */
+  .pcard-timer .pcard-body {
+    display: flex; flex-direction: column; gap: 14px;
+    padding: 18px 20px; justify-content: center;
+  }
+  .timer-display {
+    font-family: "SF Mono", "JetBrains Mono", monospace;
+    font-size: 42px; font-weight: 700;
+    color: #3fb950;
+    letter-spacing: .04em;
+    line-height: 1;
+  }
+  .timer-row {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 14px; color: #8b949e;
+  }
+  .timer-row .label { font-size: 10px; letter-spacing: .15em; text-transform: uppercase; color: #6e7681; }
+  .timer-row .val { color: #e6edf3; font-weight: 600; font-family: "SF Mono", monospace; }
+  .timer-controls { display: flex; gap: 8px; flex-wrap: wrap; }
+  .timer-btn {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.1);
+    color: #e6edf3;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .timer-btn:hover { background: rgba(88,166,255,.15); border-color: #58a6ff; }
+  .timer-btn:active { transform: translateY(1px); }
+
+  /* Resize handle */
+  .pcard-resize {
+    position: absolute; right: 0; bottom: 0;
+    width: 18px; height: 18px;
+    cursor: nwse-resize;
+    background: linear-gradient(135deg, transparent 50%, rgba(255,255,255,.25) 50%, rgba(255,255,255,.25) 60%, transparent 60%, transparent 70%, rgba(255,255,255,.25) 70%, rgba(255,255,255,.25) 80%, transparent 80%);
+    z-index: 5;
+  }
+  .pcard-resize:hover { background: linear-gradient(135deg, transparent 50%, #58a6ff 50%, #58a6ff 60%, transparent 60%, transparent 70%, #58a6ff 70%, #58a6ff 80%, transparent 80%); }
+
+  /* Bottom hint bar */
+  .hint-bar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: rgba(0,0,0,.6);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255,255,255,.08);
+    padding: 6px 16px;
+    font-size: 11px; color: #8b949e;
+    display: flex; gap: 18px; align-items: center;
+    z-index: 1000;
+  }
+  .hint-bar kbd {
+    background: rgba(255,255,255,.08);
+    padding: 1px 6px; border-radius: 3px;
+    font-family: "SF Mono", monospace;
+    font-size: 10px;
+    border: 1px solid rgba(255,255,255,.1);
+    color: #e6edf3;
+  }
+  .hint-bar .reset-layout {
+    margin-left: auto;
+    background: transparent; border: 1px solid rgba(255,255,255,.15);
+    color: #8b949e; padding: 3px 10px; border-radius: 4px;
+    font-size: 11px; cursor: pointer; font-family: inherit;
+  }
+  .hint-bar .reset-layout:hover { background: rgba(248,81,73,.15); border-color: #f85149; color: #f85149; }
+
+  body.is-dragging-card * { user-select: none !important; }
+  body.is-dragging-card iframe { pointer-events: none !important; }
+</style>
+</head>
+<body>
+
+<div id="stage">
+  <div class="pcard pcard-preview" id="card-cur" style="--dot-color:#58a6ff">
+    <div class="pcard-head" data-drag>
+      <span class="pcard-dot"></span>
+      <span class="pcard-title">CURRENT</span>
+      <span class="pcard-meta" id="cur-meta">—</span>
+    </div>
+    <div class="pcard-body"><iframe id="iframe-cur"></iframe></div>
+    <div class="pcard-resize" data-resize></div>
+  </div>
+
+  <div class="pcard pcard-preview" id="card-nxt" style="--dot-color:#bc8cff">
+    <div class="pcard-head" data-drag>
+      <span class="pcard-dot"></span>
+      <span class="pcard-title">NEXT</span>
+      <span class="pcard-meta" id="nxt-meta">—</span>
+    </div>
+    <div class="pcard-body"><iframe id="iframe-nxt"></iframe></div>
+    <div class="pcard-resize" data-resize></div>
+  </div>
+
+  <div class="pcard pcard-notes" id="card-notes" style="--dot-color:#f0883e">
+    <div class="pcard-head" data-drag>
+      <span class="pcard-dot"></span>
+      <span class="pcard-title">SPEAKER SCRIPT · 逐字稿</span>
+    </div>
+    <div class="pcard-body" id="notes-body"></div>
+    <div class="pcard-resize" data-resize></div>
+  </div>
+
+  <div class="pcard pcard-timer" id="card-timer" style="--dot-color:#3fb950">
+    <div class="pcard-head" data-drag>
+      <span class="pcard-dot"></span>
+      <span class="pcard-title">TIMER</span>
+    </div>
+    <div class="pcard-body">
+      <div class="timer-display" id="timer-display">00:00</div>
+      <div class="timer-row">
+        <span class="label">Slide</span>
+        <span class="val" id="timer-count">1 / ${total}</span>
+      </div>
+      <div class="timer-controls">
+        <button class="timer-btn" id="btn-prev">← Prev</button>
+        <button class="timer-btn" id="btn-next">Next →</button>
+        <button class="timer-btn" id="btn-reset">⏱ Reset</button>
+      </div>
+    </div>
+    <div class="pcard-resize" data-resize></div>
+  </div>
+</div>
+
+<div class="hint-bar">
+  <span><kbd>← →</kbd> 翻页</span>
+  <span><kbd>R</kbd> 重置计时</span>
+  <span><kbd>Esc</kbd> 关闭</span>
+  <span style="color:#6e7681">拖动卡片头部移动 · 拖动右下角调整大小</span>
+  <button class="reset-layout" id="reset-layout">重置布局</button>
+</div>
+
+<script>
+(function(){
+  var slideMeta = ${metaJSON};
+  var total = ${total};
+  var idx = ${startIdx};
+  var deckUrl = ${deckUrlJSON};
+  var STORAGE_KEY = ${JSON.stringify(storageKey)};
+  var bc;
+  try { bc = new BroadcastChannel(${channelJSON}); } catch(e) {}
+
+  var iframeCur = document.getElementById('iframe-cur');
+  var iframeNxt = document.getElementById('iframe-nxt');
+  var notesBody = document.getElementById('notes-body');
+  var curMeta = document.getElementById('cur-meta');
+  var nxtMeta = document.getElementById('nxt-meta');
+  var timerDisplay = document.getElementById('timer-display');
+  var timerCount = document.getElementById('timer-count');
+
+  /* ===== Default card layout ===== */
+  function defaultLayout() {
+    var w = window.innerWidth;
+    var h = window.innerHeight - 36; /* leave room for hint bar */
+    return {
+      'card-cur':   { x: 16,        y: 16,            w: Math.round(w*0.55) - 24, h: Math.round(h*0.62) - 16 },
+      'card-nxt':   { x: Math.round(w*0.55) + 8, y: 16, w: w - Math.round(w*0.55) - 24, h: Math.round(h*0.42) - 16 },
+      'card-notes': { x: Math.round(w*0.55) + 8, y: Math.round(h*0.42) + 8, w: w - Math.round(w*0.55) - 24, h: h - Math.round(h*0.42) - 16 },
+      'card-timer': { x: 16,        y: Math.round(h*0.62) + 8, w: Math.round(w*0.55) - 24, h: h - Math.round(h*0.62) - 16 }
+    };
+  }
+
+  /* ===== Apply / save / restore layout ===== */
+  function applyLayout(layout) {
+    Object.keys(layout).forEach(function(id){
+      var el = document.getElementById(id);
+      var l = layout[id];
+      if (el && l) {
+        el.style.left = l.x + 'px';
+        el.style.top = l.y + 'px';
+        el.style.width = l.w + 'px';
+        el.style.height = l.h + 'px';
+      }
+    });
+    rescaleAll();
+  }
+  function readLayout() {
+    try {
+      var saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) return JSON.parse(saved);
+    } catch(e) {}
+    return defaultLayout();
+  }
+  function saveLayout() {
+    var layout = {};
+    ['card-cur','card-nxt','card-notes','card-timer'].forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) {
+        layout[id] = {
+          x: parseInt(el.style.left,10) || 0,
+          y: parseInt(el.style.top,10) || 0,
+          w: parseInt(el.style.width,10) || 300,
+          h: parseInt(el.style.height,10) || 200
+        };
+      }
+    });
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(layout)); } catch(e) {}
+  }
+
+  /* ===== iframe rescale to fit card body ===== */
+  function rescaleIframe(iframe) {
+    if (!iframe || iframe.style.display === 'none') return;
+    var body = iframe.parentElement;
+    var cw = body.clientWidth, ch = body.clientHeight;
+    if (!cw || !ch) return;
+    var s = Math.min(cw / 1920, ch / 1080);
+    iframe.style.transform = 'scale(' + s + ')';
+    /* Center the scaled iframe in the body */
+    var sw = 1920 * s, sh = 1080 * s;
+    iframe.style.left = Math.max(0, (cw - sw) / 2) + 'px';
+    iframe.style.top = Math.max(0, (ch - sh) / 2) + 'px';
+  }
+  function rescaleAll() {
+    rescaleIframe(iframeCur);
+    rescaleIframe(iframeNxt);
+  }
+  window.addEventListener('resize', rescaleAll);
+
+  /* ===== Drag (move card by header) ===== */
+  document.querySelectorAll('[data-drag]').forEach(function(handle){
+    handle.addEventListener('mousedown', function(e){
+      if (e.button !== 0) return;
+      var card = handle.closest('.pcard');
+      if (!card) return;
+      e.preventDefault();
+      card.classList.add('dragging');
+      document.body.classList.add('is-dragging-card');
+      var startX = e.clientX, startY = e.clientY;
+      var startL = parseInt(card.style.left,10) || 0;
+      var startT = parseInt(card.style.top,10)  || 0;
+      function onMove(ev){
+        var nx = Math.max(0, Math.min(window.innerWidth - 100, startL + ev.clientX - startX));
+        var ny = Math.max(0, Math.min(window.innerHeight - 50, startT + ev.clientY - startY));
+        card.style.left = nx + 'px';
+        card.style.top = ny + 'px';
+      }
+      function onUp(){
+        card.classList.remove('dragging');
+        document.body.classList.remove('is-dragging-card');
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', onUp);
+        saveLayout();
+      }
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+    });
+  });
+
+  /* ===== Resize (drag bottom-right corner) ===== */
+  document.querySelectorAll('[data-resize]').forEach(function(handle){
+    handle.addEventListener('mousedown', function(e){
+      if (e.button !== 0) return;
+      var card = handle.closest('.pcard');
+      if (!card) return;
+      e.preventDefault(); e.stopPropagation();
+      card.classList.add('resizing');
+      document.body.classList.add('is-dragging-card');
+      var startX = e.clientX, startY = e.clientY;
+      var startW = parseInt(card.style.width,10)  || card.offsetWidth;
+      var startH = parseInt(card.style.height,10) || card.offsetHeight;
+      function onMove(ev){
+        var nw = Math.max(180, startW + ev.clientX - startX);
+        var nh = Math.max(100, startH + ev.clientY - startY);
+        card.style.width = nw + 'px';
+        card.style.height = nh + 'px';
+        if (card.querySelector('iframe')) rescaleIframe(card.querySelector('iframe'));
+      }
+      function onUp(){
+        card.classList.remove('resizing');
+        document.body.classList.remove('is-dragging-card');
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', onUp);
+        rescaleAll();
+        saveLayout();
+      }
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+    });
+  });
+
+  /* ===== Preview iframe ready tracking =====
+   * Each iframe loads the deck ONCE with ?preview=1 on init. Subsequent
+   * slide changes are sent via postMessage('preview-goto') so the iframe
+   * just toggles visibility of a different .slide — no reload, no flicker.
+   */
+  var iframeReady = { cur: false, nxt: false };
+  var currentTheme = ${themeJSON};
+  window.addEventListener('message', function(e) {
+    if (!e.data || e.data.type !== 'preview-ready') return;
+    var iframe = null;
+    if (e.source === iframeCur.contentWindow) {
+      iframeReady.cur = true;
+      iframe = iframeCur;
+      postPreviewGoto(iframeCur, idx);
+    } else if (e.source === iframeNxt.contentWindow) {
+      iframeReady.nxt = true;
+      iframe = iframeNxt;
+      postPreviewGoto(iframeNxt, idx + 1 < total ? idx + 1 : idx);
+    }
+    /* Sync current theme to the iframe */
+    if (iframe && currentTheme) {
+      try { iframe.contentWindow.postMessage({ type: 'preview-theme', name: currentTheme }, '*'); } catch(err) {}
+    }
+    if (iframe) rescaleIframe(iframe);
+  });
+
+  function postPreviewGoto(iframe, n) {
+    try {
+      iframe.contentWindow.postMessage({ type: 'preview-goto', idx: n }, '*');
+    } catch(e) {}
+  }
+
+  /* ===== Update content =====
+   * Smooth (no-reload) navigation: send postMessage to iframes instead of
+   * resetting src. Iframes stay loaded, just switch visible .slide.
+   */
+  function update(n) {
+    n = Math.max(0, Math.min(total - 1, n));
+    idx = n;
+
+    /* Current preview — postMessage (smooth) */
+    if (iframeReady.cur) postPreviewGoto(iframeCur, n);
+    curMeta.textContent = (n + 1) + '/' + total;
+
+    /* Next preview */
+    if (n + 1 < total) {
+      iframeNxt.style.display = '';
+      var endEl = document.querySelector('#card-nxt .preview-end');
+      if (endEl) endEl.remove();
+      if (iframeReady.nxt) postPreviewGoto(iframeNxt, n + 1);
+      nxtMeta.textContent = (n + 2) + '/' + total;
+    } else {
+      iframeNxt.style.display = 'none';
+      var body = document.querySelector('#card-nxt .pcard-body');
+      if (body && !body.querySelector('.preview-end')) {
+        var end = document.createElement('div');
+        end.className = 'preview-end';
+        end.textContent = '— END OF DECK —';
+        body.appendChild(end);
+      }
+      nxtMeta.textContent = 'END';
+    }
+
+    /* Notes */
+    var note = slideMeta[n].notes;
+    notesBody.innerHTML = note || '<span class="empty">（这一页还没有逐字稿）</span>';
+
+    /* Timer count */
+    timerCount.textContent = (n + 1) + ' / ' + total;
+  }
+
+  /* ===== Timer ===== */
+  var tStart = Date.now();
+  setInterval(function(){
+    var s = Math.floor((Date.now() - tStart) / 1000);
+    var mm = String(Math.floor(s/60)).padStart(2,'0');
+    var ss = String(s%60).padStart(2,'0');
+    timerDisplay.textContent = mm + ':' + ss;
+  }, 1000);
+  function resetTimer(){ tStart = Date.now(); timerDisplay.textContent = '00:00'; }
+
+  /* ===== BroadcastChannel sync ===== */
+  if (bc) {
+    bc.onmessage = function(e){
+      if (!e.data) return;
+      if (e.data.type === 'go') update(e.data.idx);
+      else if (e.data.type === 'theme' && e.data.name) {
+        currentTheme = e.data.name;
+        /* Forward theme change to preview iframes */
+        [iframeCur, iframeNxt].forEach(function(iframe){
+          try {
+            iframe.contentWindow.postMessage({ type: 'preview-theme', name: e.data.name }, '*');
+          } catch(err) {}
+        });
+      }
+    };
+  }
+  function go(n) {
+    update(n);
+    if (bc) bc.postMessage({ type: 'go', idx: idx });
+  }
+
+  /* ===== Buttons ===== */
+  document.getElementById('btn-prev').addEventListener('click', function(){ go(idx - 1); });
+  document.getElementById('btn-next').addEventListener('click', function(){ go(idx + 1); });
+  document.getElementById('btn-reset').addEventListener('click', resetTimer);
+  document.getElementById('reset-layout').addEventListener('click', function(){
+    if (confirm('恢复默认卡片布局？')) {
+      try { localStorage.removeItem(STORAGE_KEY); } catch(e){}
+      applyLayout(defaultLayout());
+    }
+  });
+
+  /* ===== Keyboard ===== */
+  document.addEventListener('keydown', function(e){
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    switch(e.key) {
+      case 'ArrowRight': case ' ': case 'PageDown': go(idx + 1); e.preventDefault(); break;
+      case 'ArrowLeft':  case 'PageUp':   go(idx - 1); e.preventDefault(); break;
+      case 'Home': go(0); break;
+      case 'End':  go(total - 1); break;
+      case 'r': case 'R': resetTimer(); break;
+      case 'Escape': window.close(); break;
+    }
+  });
+
+  /* ===== Iframe load → rescale (catches initial size) ===== */
+  iframeCur.addEventListener('load', function(){ rescaleIframe(iframeCur); });
+  iframeNxt.addEventListener('load', function(){ rescaleIframe(iframeNxt); });
+
+  /* ===== Init =====
+   * Load each iframe ONCE with the deck file. After they post
+   * 'preview-ready', all subsequent navigation is via postMessage
+   * (smooth, no reload, no flicker).
+   */
+  applyLayout(readLayout());
+  iframeCur.src = deckUrl + '?preview=' + (idx + 1);
+  if (idx + 1 < total) iframeNxt.src = deckUrl + '?preview=' + (idx + 2);
+  /* Initialize notes/timer/count without touching iframes */
+  notesBody.innerHTML = slideMeta[idx].notes || '<span class="empty">（这一页还没有逐字稿）</span>';
+  curMeta.textContent = (idx + 1) + '/' + total;
+  nxtMeta.textContent = (idx + 2) + '/' + total;
+  timerCount.textContent = (idx + 1) + ' / ' + total;
+})();
+</` + `script>
+</body></html>`;
+    }
+
+    function fullscreen(){ const el=document.documentElement;
+      if (!document.fullscreenElement) el.requestFullscreen&&el.requestFullscreen();
+      else document.exitFullscreen&&document.exitFullscreen();
+    }
+
+    // theme cycling
+    const root = document.documentElement;
+    const themesAttr = root.getAttribute('data-themes') || document.body.getAttribute('data-themes');
+    const themes = themesAttr ? themesAttr.split(',').map(s=>s.trim()).filter(Boolean) : [];
+    let themeIdx = 0;
+
+    // Auto-detect theme base path from existing <link id="theme-link">
+    let themeBase = root.getAttribute('data-theme-base');
+    if (!themeBase) {
+      const existingLink = document.getElementById('theme-link');
+      if (existingLink) {
+        // el.getAttribute('href') gives the raw relative path written in HTML
+        const rawHref = existingLink.getAttribute('href') || '';
+        const lastSlash = rawHref.lastIndexOf('/');
+        themeBase = lastSlash >= 0 ? rawHref.substring(0, lastSlash + 1) : 'assets/themes/';
+      } else {
+        themeBase = 'assets/themes/';
+      }
+    }
+
+    function applyTheme(name) {
+      let link = document.getElementById('theme-link');
+      if (!link) {
+        link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.id = 'theme-link';
+        document.head.appendChild(link);
+      }
+      link.href = themeBase + name + '.css';
+      root.setAttribute('data-theme', name);
+      const ind = document.querySelector('.theme-indicator');
+      if (ind) ind.textContent = name;
+    }
+    function cycleTheme(fromRemote){
+      if (!themes.length) return;
+      themeIdx = (themeIdx+1) % themes.length;
+      const name = themes[themeIdx];
+      applyTheme(name);
+      /* Broadcast to other window (audience ↔ presenter) */
+      if (!fromRemote && bc) bc.postMessage({ type: 'theme', name: name });
+    }
+
+    // animation cycling on current slide
+    let animIdx = 0;
+    function cycleAnim(){
+      animIdx = (animIdx+1) % ANIMS.length;
+      const a = ANIMS[animIdx];
+      const target = slides[idx].querySelector('[data-anim-target]') || slides[idx];
+      ANIMS.forEach(x => target.classList.remove('anim-'+x));
+      void target.offsetWidth;
+      target.classList.add('anim-'+a);
+      target.setAttribute('data-anim', a);
+      const ind = document.querySelector('.anim-indicator');
+      if (ind) ind.textContent = a;
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (e.metaKey||e.ctrlKey||e.altKey) return;
+      switch (e.key) {
+        case 'ArrowRight': case ' ': case 'PageDown': case 'Enter': go(idx+1); e.preventDefault(); break;
+        case 'ArrowLeft': case 'PageUp': case 'Backspace': go(idx-1); e.preventDefault(); break;
+        case 'Home': go(0); break;
+        case 'End': go(total-1); break;
+        case 'f': case 'F': fullscreen(); break;
+        case 's': case 'S': openPresenterWindow(); break;
+        case 'n': case 'N': toggleNotes(); break;
+        case 'o': case 'O': toggleOverview(); break;
+        case 't': case 'T': cycleTheme(); break;
+        case 'a': case 'A': cycleAnim(); break;
+        case 'Escape': toggleOverview(false); toggleNotes(false); break;
+      }
+    });
+
+    // hash deep-link
+    function fromHash(){
+      const m = /^#\/(\d+)/.exec(location.hash||'');
+      if (m) go(Math.max(0, parseInt(m[1],10)-1));
+    }
+    window.addEventListener('hashchange', fromHash);
+    fromHash();
+    go(idx);
+  });
+})();
+</script><script>function fitDeck(){document.documentElement.style.setProperty('--deck-scale',Math.min(innerWidth/1600,innerHeight/900))}addEventListener('resize',fitDeck);fitDeck();document.querySelectorAll('[data-nav]').forEach(b=>b.addEventListener('click',()=>document.dispatchEvent(new KeyboardEvent('keydown',{key:b.dataset.nav,bubbles:true}))));</script></body></html>
