@@ -46,7 +46,7 @@
 
 [AI办公生态趋势观察-Week 17 ](https://github.com/alin995/Key-Insights/blob/main/AI%E5%8A%9E%E5%85%AC%E7%94%9F%E6%80%81%E8%B6%8B%E5%8A%BF%E8%A7%82%E5%AF%9F-Week%2017%EF%BD%9CAgent%E8%A7%84%E6%A8%A1%E5%8C%96.html)
 
-[AI办公生态趋势观察-Week 18 ](https://github.com/alin995/Key-Insights/blob/main/AI%E5%8A%9E%E5%85%AC%E7%94%9F%E6%80%81%E8%B6%8B%E5%8A%BF%E8%A7%82%E5%AF%9F-Week%2017%EF%BD%9CAgent%E8%A7%84%E6%A8%A1%E5%8C%96.html)
+[AI办公生态趋势观察-Week 18 ](https://github.com/alin995/Key-Insights/blob/main/AI%E5%8A%9E%E5%85%AC%E7%94%9F%E6%80%81%E8%B6%8B%E5%8A%BF%E8%A7%82%E5%AF%9F-Week%2018%20%7C%20%E5%9B%BD%E4%BA%A7%E5%8A%9E%E5%85%ACAI.html)
 
 [AI办公生态趋势观察-Week 19 ](https://github.com/alin995/Key-Insights/blob/main/AI%E5%8A%9E%E5%85%AC%E7%94%9F%E6%80%81%E8%B6%8B%E5%8A%BF%E8%A7%82%E5%AF%9F-Week%2019.html)
 ***
